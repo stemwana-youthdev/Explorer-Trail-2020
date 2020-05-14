@@ -15,4 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
+      env:
+        # Set the prefix up once you have an docker hub account
+        IMAGE_NAME: stemwana/stemwana-youthdev
       run: docker build . --file Dockerfile --tag $IMAGE_NAME:$(date +%s)
