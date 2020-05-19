@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StemExplorerAPI", "StemExplorerAPI\StemExplorerAPI.csproj", "{22463736-9B16-4E8F-9503-60D4C0D946CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22463736-9B16-4E8F-9503-60D4C0D946CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22463736-9B16-4E8F-9503-60D4C0D946CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22463736-9B16-4E8F-9503-60D4C0D946CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22463736-9B16-4E8F-9503-60D4C0D946CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A1607DB-10BB-457E-A778-737137A2E513}
+	EndGlobalSection
+EndGlobal
