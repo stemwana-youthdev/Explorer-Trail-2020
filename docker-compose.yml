@@ -25,7 +25,6 @@ services:
     build:
       context: ./stem-explorer-ng
     environment:
-      - PORT=80
       - API_ENDPOINT=http://localhost:5000/api
     ports:
       - '4200:80'

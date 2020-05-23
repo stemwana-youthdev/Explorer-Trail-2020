@@ -12,6 +12,6 @@
   }
 })(this, function() {
   return {
-    API_ENDPOINT: 'http://localhost:5000',
+    API_ENDPOINT: 'http://localhost:5000/api',
   };
 });
