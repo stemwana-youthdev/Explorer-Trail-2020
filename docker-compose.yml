@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  explorer_trial_ui:
+    build:
+      context: ./stem-explorer-ng
+    environment:
+      - PORT=80
+      # Switch once the api service is added
+      # - API_ENDPOINT=http://explorer_trial_api:5000
+      - API_ENDPOINT=http://localhost:5000
+    ports:
+      - '4200:80'
