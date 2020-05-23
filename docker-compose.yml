@@ -9,24 +9,24 @@ services:
       - mongodb-data:/data/db
     ports:
       - "27017:27017"
-  
-  # Once the API dockerfile in place
-  # explorer_trial_api:
-  #   build:
-  #     context: ./StemExplorerApi
-  #   environment:
-  #     - ...
-  #   ports:
-  #     - "5000:5000"
+
+  explorer_trial_api:
+    build:
+      context: ./StemExplorerApi
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ASPNETCORE_ENVIRONMENT=Development
+      - SiteHost=http://localhost:4200
+      - MongoConnection=mongodb://explorer_trial_mongo:27017
+    ports:
+      - "5000:5000"
 
   explorer_trial_ui:
     build:
       context: ./stem-explorer-ng
     environment:
       - PORT=80
-      # Switch once the api service is added
-      # - API_ENDPOINT=http://explorer_trial_api:5000
-      - API_ENDPOINT=http://localhost:5000
+      - API_ENDPOINT=http://localhost:5000/api
     ports:
       - '4200:80'
 
