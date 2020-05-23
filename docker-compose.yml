@@ -1,6 +1,24 @@
 version: '3.1'
 
 services:
+  # I remember you mentioning that you were going
+  # to use MongoDB, so here it is
+  explorer_trial_mongo:
+    image: mongo
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+      - "27017:27017"
+  
+  # Once the API dockerfile in place
+  # explorer_trial_api:
+  #   build:
+  #     context: ./StemExplorerApi
+  #   environment:
+  #     - ...
+  #   ports:
+  #     - "5000:5000"
+
   explorer_trial_ui:
     build:
       context: ./stem-explorer-ng
@@ -11,3 +29,7 @@ services:
       - API_ENDPOINT=http://localhost:5000
     ports:
       - '4200:80'
+
+volumes:
+  mongodb-data:
+    external: false
