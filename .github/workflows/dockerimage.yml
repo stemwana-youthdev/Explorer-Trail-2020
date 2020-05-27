@@ -7,15 +7,29 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      env:
-        # Set the prefix up once you have an docker hub account
-        IMAGE_NAME: stemwana/stemwana-youthdev
-      run: docker build . --file Dockerfile --tag $IMAGE_NAME:$(date +%s)
+
+    -
+      name: Login to Docker hub
+      uses: azure/docker-login@v1
+      with:
+        login-server: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    # -
+    #   name: Build and push the UI Docker image
+    #   run: |
+    #     cd ./stem-explorer-ng
+    #     docker build . -t stemwana/stemwana-youthdev-ui:${{ github.sha }} -t stemwana/stemwana-youthdev-ui:latest
+    #     docker push stemwana/stemwana-youthdev-ui:${{ github.sha }}
+    #     docker push stemwana/stemwana-youthdev-ui:latest
+    -
+      name: Build and push the API Docker image
+      run: |
+        cd ./StemExplorerAPI
+        docker build . -t stemwana/exporter-trial-api:latest
+        docker push stemwana/exporter-trial-api:latest
