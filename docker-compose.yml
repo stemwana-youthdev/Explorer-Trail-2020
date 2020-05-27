@@ -12,7 +12,7 @@ services:
 
   explorer_trial_api:
     build:
-      context: ./StemExplorerApi
+      context: ./StemExplorerAPI
     environment:
       - ASPNETCORE_URLS=http://+:5000
       - ASPNETCORE_ENVIRONMENT=Development
