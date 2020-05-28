@@ -7,3 +7,5 @@ vscode test (via git bash)
 save test  (failed :( )
 
 testing git pull
+
+is the only way to copy and paste??
