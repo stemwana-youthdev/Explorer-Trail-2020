@@ -1,3 +1,5 @@
 Hello Gamers
 
-vscode test
+vscode test (via vscode)
+
+vscode test (via git bash)
