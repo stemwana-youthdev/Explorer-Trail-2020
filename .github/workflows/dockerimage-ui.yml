@@ -7,6 +7,8 @@ on:
     paths:
     - 'stem-explorer-ng/**'
     - '!*.md'
+    tags:
+    - '*'
   pull_request:
     branches:
     - master

@@ -7,6 +7,8 @@ on:
     paths:
     - 'StemExplorerAPI/**'
     - '!*.md'
+    tags:
+    - '*'
   pull_request:
     branches:
     - master
