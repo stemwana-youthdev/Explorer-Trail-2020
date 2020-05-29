@@ -25,9 +25,10 @@ services:
     build:
       context: ./stem-explorer-ng
     environment:
+      - PORT=4200
       - API_ENDPOINT=http://localhost:5000/api
     ports:
-      - '4200:80'
+      - '4200:4200'
 
 volumes:
   mongodb-data:
