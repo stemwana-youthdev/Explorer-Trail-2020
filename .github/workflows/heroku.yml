@@ -1,0 +1,46 @@
+name: Heroku deploy CI
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login to Heroku Container registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+
+    - name: Build and push API
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        cd ./StemExplorerAPI
+        heroku container:push web -a ${{ secrets.HEROKU_APP_NAME }}-api
+
+    - name: Build and push UI
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        cd ./stem-explorer-ng
+        heroku container:push web -a ${{ secrets.HEROKU_APP_NAME }}-ui
+
+    - name: Release API
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        cd ./StemExplorerAPI
+        heroku container:release web -a ${{ secrets.HEROKU_APP_NAME }}-api
+
+    - name: Release UI
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        cd ./stem-explorer-ng
+        heroku container:release web -a ${{ secrets.HEROKU_APP_NAME }}-ui
