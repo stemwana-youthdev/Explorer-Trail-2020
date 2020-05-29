@@ -19,7 +19,7 @@ export class AppComponent {
   // For local development, set env vars in src/env.js file.
   // For production or running in docker, set is as env variable
   // for docker container.
-  get testEnv(): string {
+  get apiEndpoint(): string {
     return this.configService.get<string>('API_ENDPOINT');
   }
 }
