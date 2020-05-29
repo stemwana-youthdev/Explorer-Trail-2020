@@ -3,8 +3,12 @@ name: Docker Image CI
 on:
   push:
     branches: [ master ]
+    paths:
+    - ./StemExplorerAPI/**
   pull_request:
     branches: [ master ]
+    paths:
+    - ./StemExplorerAPI/**
 
 jobs:
   build:
@@ -12,23 +16,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    -
-      name: Build and push API Docker image
+
+    - name: Build and push API Docker image
       uses: docker/build-push-action@v1
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: stemwana/exporter-trial-api
-        tags: latest
         path: ./StemExplorerAPI
-
-    # Needs to be discussed
-    # -
-    #   name: Build and push UI Docker image
-    #   uses: docker/build-push-action@v1
-    #   with:
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-    #     repository: stemwana/exporter-trial-ui
-    #     tags: latest
-    #     path: ./stem-explorer-ng
+        tag_with_ref: true
