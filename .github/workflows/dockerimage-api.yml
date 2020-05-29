@@ -1,14 +1,18 @@
-name: Docker Image CI
+name: API Docker Image CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+    - master
     paths:
-    - ./StemExplorerAPI/**
+    - 'StemExplorerAPI/**'
+    - '!*.md'
   pull_request:
-    branches: [ master ]
+    branches:
+    - master
     paths:
-    - ./StemExplorerAPI/**
+    - 'StemExplorerAPI/**'
+    - '!*.md'
 
 jobs:
   build:
