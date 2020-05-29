@@ -21,4 +21,4 @@ WORKDIR /app
 
 COPY --from=build-stage /app/StemExplorerAPI/out ./
 
-ENTRYPOINT ["dotnet", "StemExplorerAPI.dll"]
+CMD ASPNETCORE_URLS=http://+:$PORT dotnet StemExplorerAPI.dll
