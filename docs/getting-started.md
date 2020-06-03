@@ -2,7 +2,7 @@
 
 ### What do you need
 
-Please makde sure you have the following installed:
+Please make sure you have the following installed:
 
 * [Git](https://git-scm.com/downloads)
 * [Node.JS](https://nodejs.org/en/)
@@ -18,7 +18,7 @@ Please makde sure you have the following installed:
 ### Set up
 
 1. Open up VS Code and it's terminal (keyboard shortcut on windows: ctrl + `)
-2. Make sure the terminal is set to base, in the right hand side drop down
+2. Make sure the terminal is set to bash, in the right hand side drop down
 3. Navigate to the folder you want to put the files in (`cd ` + 'folder name' to navigate, `mkdir ` + 'folder name' to create a new folder)
 4. Clone the repo by putting the following command in the repo: `git clone https://github.com/stemwana-youthdev/Explorer-Trail-App.git`
 
