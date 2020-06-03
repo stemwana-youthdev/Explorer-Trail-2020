@@ -1,0 +1,6 @@
+# The following people have contributed to this project.
+#
+# To become a contributor: clone the code base and check out your own branch, add your name to this file and submit a pull request.
+#
+# By adding your name to this list you acknowledge that your contributions to this project are volunteered and that this is property of STEM Wana Trust.
+#

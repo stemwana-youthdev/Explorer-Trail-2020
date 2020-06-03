@@ -23,3 +23,5 @@ Please makde sure you have the following installed:
 4. Clone the repo by putting the following command in the repo: `git clone https://github.com/stemwana-youthdev/Explorer-Trail-App.git`
 
 Open the repo in VS Code by going: File > Open Folder... > selecting Explorer-Trial-App and clicking open. You should now see all the folders in the app in the left hand column.
+
+For more on Git, please go to the working-with-git file.
