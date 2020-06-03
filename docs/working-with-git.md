@@ -104,7 +104,7 @@ If you have been working on this one branch for a long time, you might want to u
 
 When you have finished the work on your branch and you want to merge your changes into the `develop` branch, you need to create a pull request for a mentor to review and approve. This is a safety step to ensure there is more code accountability and that the changes added are in line with the existing code base. This is where you can get direction on a better way to write something, introduced to a new design pattern, or an opportunity to explain what you've tried and why you've chosen to do it the way you have. All contributors, including mentors, need to create a pull request to have their code reviewed and approved before it can be merged.
 
-When you have done a push, there will be a link to 'Create a pull request for [branch-suffix/branch-name] on GitHub by visiting: [url]'. You can `ctrl` + click on this link and it will take you to the pull request for this.
+When you have done a push, there will be a link to 'Create a pull request for [branch-suffix/branch-name] on GitHub by visiting: [url]'. You can `ctrl` + click on this link and it will take you to the pull request for this. Or there will just be a link to the GitHub repo and by clicking through to this you will see a button to create a pull request for this branch.
 
 The pull request should show that you are wanting to merge your branch to `base: develop` and let you know if this is able to be merged.
 
