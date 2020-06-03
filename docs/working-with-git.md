@@ -106,9 +106,16 @@ When you have finished the work on your branch and you want to merge your change
 
 When you have done a push, there will be a link to 'Create a pull request for [branch-suffix/branch-name] on GitHub by visiting: [url]'. You can `ctrl` + click on this link and it will take you to the pull request for this.
 
-A pull request will let you see what changes you have made to the file, with additions and deletions, as well as if there are any conflicts. You might get a conflict if someone else has changed something on the same line as you but has merged theirs into `develop` before you. To help prevent this, it's good practice to update your local version of the `develop` branch and merge it with your working branch before you do a push and create the pull request. If you still have conflicts on a pull request, it is ok and they are fixable.
+The pull request should show that you are wanting to merge your branch to `base: develop` and let you know if this is able to be merged.
 
-Once you have created a pull request, it will show up in the GitHub repo under 'Pull requests' and mentors will be notified that it's there waiting to be approved.
+In the text fields, it will have your latest commit message in the title but you can change this so it's a better summary of the Trello card or the work you have done, or you can just put in the branch name. In the comment field, you can put a more indepth comment of what you've done. For example, if I was created a pull request for changes to this file I could put:
+
+Title: `Updating GIT documentation`
+Comment: `Added new section for making a PR, fixed spelling mistakes.`
+
+A pull request will also let you see what changes you have made to the file, with additions and deletions, as well as if there are any conflicts. You might get a conflict if someone else has changed something on the same line as you but has merged theirs into `develop` before you. To help prevent this, it's good practice to update your local version of the `develop` branch and merge it with your working branch before you do a push and create the pull request. If you still have conflicts on a pull request, it is ok and they are fixable.
+
+When you are happy with what code you are submitting for a pull request, then click on `Create pull request`. It will now show up in the GitHub repo under 'Pull requests' and mentors will be notified that it's there waiting to be approved.
 
 
 @TODO: merging. merge conflicts. delete branch
