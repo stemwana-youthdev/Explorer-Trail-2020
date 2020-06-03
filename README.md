@@ -9,3 +9,5 @@ The YouthDev programme is aimed to connect students and young adults who are int
 While we have a set group of participants that are paired with mentors, this is an open source project and you are welcome to contribute at any level. To start:
 
 1. Read the documentation in our /docs/ folder :)
+
+@TODO: add all our team members/contributors here!
