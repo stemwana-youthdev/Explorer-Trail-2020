@@ -33,6 +33,8 @@ namespace StemExplorerAPI
                 opt.UseNpgsql(connection));
             
             services.AddControllers();
+
+            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

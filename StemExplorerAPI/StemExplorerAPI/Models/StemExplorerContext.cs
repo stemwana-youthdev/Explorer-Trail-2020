@@ -24,6 +24,10 @@ namespace StemExplorerAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Challenge>()
+                .Property(c => c.Category)
+                .HasConversion<int>();
+            
             base.OnModelCreating(modelBuilder);
         }
     }
