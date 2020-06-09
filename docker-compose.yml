@@ -24,11 +24,12 @@ services:
   explorer_trial_ui:
     build:
       context: ./stem-explorer-ng
+      dockerfile: Dockerfile.dev
     environment:
       - PORT=4200
       - API_ENDPOINT=http://localhost:5000/api
     ports:
-      - '4200:4200'
+      - "4200:4200"
 
 volumes:
   mongodb-data:
