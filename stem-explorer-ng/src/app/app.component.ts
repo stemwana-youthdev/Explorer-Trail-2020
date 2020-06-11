@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfigService } from './config/config.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,11 @@ export class AppComponent {
 
   constructor(
     private configService: ConfigService,
+    private router: Router,
   ) { }
+
+  navigateToLogin() {
+    this.router.navigateByUrl('login');
+  }
 
 }
