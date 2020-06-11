@@ -13,5 +13,6 @@ namespace StemExplorerAPI.Models.ViewModels
         public string Description { get; set; }
         public Enums.ChallengeCategories Category { get; set; }
         public Location Location { get; set; }
+        public List<ChallengeLevel> ChallengeLevels { get; set; }
     }
 }

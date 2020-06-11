@@ -24,7 +24,8 @@ namespace StemExplorerAPI.Services
                 Title = c.Title,
                 Description = c.Description,
                 Category = c.Category,
-                Location = c.Location
+                Location = c.Location,
+                ChallengeLevels = _context.ChallengeLevels.Where(x => x.ChallengeId == c.Id).ToList()
             }).ToList();
         }
     }
