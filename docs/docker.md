@@ -9,8 +9,12 @@ Docker Compose is a tool that is bundled with Docker Desktop for creating groups
 
 # Running the app with Docker
 
-To get started with Docker you will need to download [Docker Desktop](https://www.docker.com/products/docker-desktop).
-
-Once that is downloaded, open up a terminal and go to the Explorer Trail folder (you need to have cloned it earlier). Run `docker-compose up` to start the containers. The first time that you do this it will take some time to download the dependencies, but once the output calms down you can check that it is working by going to [localhost:4200](http://localhost:4200/) in your browser.
+* Download [Docker Desktop](https://www.docker.com/products/docker-desktop).
+* Open a terminal and go to the Explorer Trail folder (you need to have cloned it).
+* Run `docker-compose up` to start the containers. The first time that you do this it will take some time to download the dependencies.
+* Wait until the containers have started. You should see some lines with coloured text starting with `explorer_trail`. These are logs from the containers with those names.
+* Once the output stops moving you can check that it is working by going to [localhost:4200](http://localhost:4200/) in your browser.
+* You can also check that the .NET back-end is working by going to [http://localhost:5000/api/Home/HealthCheck](http://localhost:5000/api/Home/HealthCheck).
+* To stop the containers, press `ctrl-c`. The shortcut is also `control-c` on macOS.
 
 When you make some changes, you may need to run `docker-compose build` to tell Docker Compose that it needs to rebuild the container images.
