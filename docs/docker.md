@@ -1,6 +1,6 @@
 # What is Docker?
 
-Docker is a popular tool to create containers. It allows code to be run in an environment that is consistent, so that all of the same software is installed no matter who runs the container.
+Docker is a popular tool to create containers. It allows code to be run in an environment that is consistent, so that all of the same software is installed no matter who runs the container. It also isolates programs so that they can not interfere with each other.
 For more information check out the explanation on [the Docker website](https://www.docker.com/resources/what-container).
 
 Docker Desktop is an application that allows Docker to be run on macOS and Windows computers.
