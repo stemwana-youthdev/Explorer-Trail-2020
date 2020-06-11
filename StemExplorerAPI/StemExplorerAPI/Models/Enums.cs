@@ -14,5 +14,20 @@ namespace StemExplorerAPI.Models
             Engineering,
             Mathematics
         }
+
+        public enum ChallengeLevel
+        {
+            Easy,
+            Medium,
+            Hard,
+            Expert
+        }
+
+        public enum AnswerType
+        {
+            Multichoice,
+            Number,
+            Text
+        }
     }
 }
