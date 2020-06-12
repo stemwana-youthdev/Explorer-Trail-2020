@@ -9,13 +9,15 @@ import { LoginPageComponent } from './containers/login-page/login-page.component
 import { HomePageComponent } from './containers/home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabsViewComponent } from './shared/components/tabs-view/tabs-view.component';
+import { ListViewComponent } from './containers/list-view/list-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     HomePageComponent,
-    TabsViewComponent
+    TabsViewComponent,
+    ListViewComponent
   ],
   imports: [
     BrowserModule,
