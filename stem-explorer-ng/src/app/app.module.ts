@@ -7,12 +7,14 @@ import { ConfigModule } from './config/config.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
+import { RegisterPageComponent } from './containers/register-page/register-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
