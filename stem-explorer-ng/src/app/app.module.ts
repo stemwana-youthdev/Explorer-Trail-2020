@@ -7,6 +7,7 @@ import { ConfigModule } from './config/config.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HomePageComponent } from './containers/home-page/home-page.component';
     BrowserModule,
     AppRoutingModule,
     ConfigModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
