@@ -20,6 +20,10 @@ services:
       - MongoConnection=mongodb://explorer_trial_mongo:27017
     ports:
       - "5000:5000"
+    depends_on:
+      - explorer_trial_mongo
+    links:
+      - explorer_trial_mongo
 
   explorer_trial_ui:
     build:
