@@ -10,6 +10,7 @@ import { HomePageComponent } from './containers/home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabsViewComponent } from './shared/components/tabs-view/tabs-view.component';
 import { ListViewComponent } from './containers/list-view/list-view.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ListViewComponent } from './containers/list-view/list-view.component';
     AppRoutingModule,
     ConfigModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

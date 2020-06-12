@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsViewComponent implements OnInit {
 
+  navLinks = [
+    { path: '', label: 'Map' },
+    { path: 'list-view', label: 'List View' },
+  ];
+
   constructor() { }
 
   ngOnInit() {
