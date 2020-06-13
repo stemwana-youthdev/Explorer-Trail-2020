@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth.service';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
   }
