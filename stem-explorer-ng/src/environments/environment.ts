@@ -3,7 +3,20 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  //firebase connection
+  firebaseConfig: {
+    //tell ts to ignore that this "shouldnt" exist...
+    apiKey: (window as any).env.AUTH_API as string,
+    authDomain: "explorer-challenge-test.firebaseapp.com",
+    databaseURL: "https://explorer-challenge-test.firebaseio.com",
+    projectId: "explorer-challenge-test",
+    storageBucket: "explorer-challenge-test.appspot.com",
+    messagingSenderId: "360924006501",
+    appId: "1:360924006501:web:7692764af96ad5ebd5de8c"
+  }
+
+
 };
 
 /*
