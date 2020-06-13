@@ -26,4 +26,8 @@ export class LoginPageComponent {
     this.router.navigateByUrl('');
   }
 
+  navigateToLogin() {
+    this.router.navigateByUrl('register-page.component.html');
+  }
+
 }
