@@ -19,7 +19,7 @@ export class LoginPageComponent {
 
   navigateToRegister() {
     // TODO: Navigate to register page
-    console.warn('Not implemented');
+    this.router.navigateByUrl('register');
   }
 
   navigateToHomepage() {
@@ -27,7 +27,7 @@ export class LoginPageComponent {
   }
 
   navigateToLogin() {
-    this.router.navigateByUrl('register-page.component.html');
+    this.router.navigateByUrl('');
   }
 
 }
