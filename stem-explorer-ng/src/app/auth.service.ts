@@ -24,7 +24,7 @@ export class AuthService {
       const res = await this.afAuth.signInWithPopup(provider);
       console.log('You have been succesfully logged in! woohoo', res);
     } catch (error) {
-      console.log(error);
+      console.warn(error);
     }
   }
 }
