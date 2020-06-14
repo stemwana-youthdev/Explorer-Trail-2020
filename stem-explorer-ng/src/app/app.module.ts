@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
@@ -8,6 +10,8 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
+import { AuthService } from './auth.service';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,9 +24,13 @@ import { RegisterPageComponent } from './containers/register-page/register-page.
     BrowserModule,
     AppRoutingModule,
     ConfigModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AngularFireAuth
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
