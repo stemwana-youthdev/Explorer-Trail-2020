@@ -19,11 +19,12 @@ export class AuthService {
     return this.AuthLogin(new auth.GoogleAuthProvider());
   }
 
-  AuthLogin(provider) {
-    return this.afAuth.signInWithPopup(provider).then((result) => {
-      console.log('You have been succesfully logged in! woohoo')
-    }).catch((error) => {
-      console.log(error)
-    })
+  async AuthLogin(provider: auth.AuthProvider) {
+    try {
+      const res = await this.afAuth.signInWithPopup(provider);
+      console.log('You have been succesfully logged in! woohoo', res);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
