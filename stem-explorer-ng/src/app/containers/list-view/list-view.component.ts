@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { Categories } from '../../shared/enums/categories.enum';
 
 @Component({
   selector: 'app-list-view',
@@ -9,6 +10,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
 export class ListViewComponent implements OnInit {
 
   challenges: any = [];
+  Categories : typeof Categories = Categories;
 
   constructor(public service: ApiService) {
     this.service.getChallenges().subscribe((res)=>{
