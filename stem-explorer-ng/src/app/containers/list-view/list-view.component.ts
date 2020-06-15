@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
   selector: 'app-list-view',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListViewComponent implements OnInit {
 
-  constructor() { }
+  challenges: any = [];
+
+  constructor(public service: ApiService) {
+    this.service.getChallenges().subscribe((res)=>{
+      this.challenges = res
+      });
+   }
 
   ngOnInit() {
   }

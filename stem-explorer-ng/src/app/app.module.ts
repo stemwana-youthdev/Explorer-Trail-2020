@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabsViewComponent } from './shared/components/tabs-view/tabs-view.component';
 import { ListViewComponent } from './containers/list-view/list-view.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+import { ApiService } from './shared/services/api.service';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     ConfigModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCardModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
