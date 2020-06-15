@@ -15,6 +15,7 @@ export class ListViewComponent implements OnInit {
   constructor(public service: ApiService) {
     this.service.getChallenges().subscribe((res)=>{
       this.challenges = res
+      this.challenges.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)
       });
    }
 
