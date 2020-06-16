@@ -1,19 +1,23 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { ConfigService } from 'src/app/config/config.service';
+
+const config = new ConfigService();
 
 export const environment = {
   production: false,
   //firebase connection
   firebaseConfig: {
     //tell ts to ignore that this "shouldnt" exist...
-    apiKey: (window as any).env.AUTH_API as string,
-    authDomain: "explorer-challenge-test.firebaseapp.com",
-    databaseURL: "https://explorer-challenge-test.firebaseio.com",
-    projectId: "explorer-challenge-test",
-    storageBucket: "explorer-challenge-test.appspot.com",
-    messagingSenderId: "360924006501",
-    appId: "1:360924006501:web:7692764af96ad5ebd5de8c"
+    apiKey: config.get('AUTH_API'),
+    authDomain: "explorer-trial.firebaseapp.com",
+    databaseURL: "https://explorer-trial.firebaseio.com",
+    projectId: "explorer-trial",
+    storageBucket: "explorer-trial.appspot.com",
+    messagingSenderId: "165828341451",
+    appId: "1:165828341451:web:b51d81781c8f524461354e",
+    measurementId: "G-BDMF4PPT9T"
   }
 
 
@@ -27,5 +31,3 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
-
-//git push attempt
