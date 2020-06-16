@@ -10,16 +10,20 @@ import { Categories } from '../../shared/enums/categories.enum';
 export class ListViewComponent implements OnInit {
 
   challenges: any = [];
-  Categories : typeof Categories = Categories;
+  Categories : any = Categories;
 
-  constructor(public service: ApiService) {
+  constructor(private service: ApiService) {
+   }
+
+  getChallenges() {
     this.service.getChallenges().subscribe((res)=>{
       this.challenges = res
       this.challenges.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)
       });
-   }
+  }
 
   ngOnInit() {
+    this.getChallenges();
   }
 
 }
