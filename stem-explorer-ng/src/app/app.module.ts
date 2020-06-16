@@ -7,18 +7,26 @@ import { ConfigModule } from './config/config.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ListViewComponent } from './containers/list-view/list-view.component';
+import { MaterialModule } from './shared/material.module';
+import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    ListViewComponent,
+    NavTabsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ConfigModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent],
