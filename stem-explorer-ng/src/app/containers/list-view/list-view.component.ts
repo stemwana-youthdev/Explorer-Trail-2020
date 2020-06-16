@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Categories } from '../../shared/enums/categories.enum';
+import { Challenge } from '../../shared/models/challenge';
 
 @Component({
   selector: 'app-list-view',
@@ -9,7 +10,7 @@ import { Categories } from '../../shared/enums/categories.enum';
 })
 export class ListViewComponent implements OnInit {
 
-  challenges: any = [];
+  challenges: Challenge[] = [];
   Categories : any = Categories;
 
   constructor(private service: ApiService) {
@@ -17,8 +18,8 @@ export class ListViewComponent implements OnInit {
 
   getChallenges() {
     this.service.getChallenges().subscribe((res)=>{
-      this.challenges = res
-      this.challenges.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)
+      this.challenges = res["challenges"]
+      this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)
       });
   }
 
