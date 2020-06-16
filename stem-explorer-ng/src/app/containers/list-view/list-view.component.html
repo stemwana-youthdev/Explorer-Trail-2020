@@ -1,5 +1,6 @@
-<mat-card *ngFor = "let x of challenges.challenges">
-    <mat-card-title>{{x.title}}</mat-card-title>
-    <mat-card-subtitle>{{Categories[x.category]}}</mat-card-subtitle>
-    <mat-card-content>{{x.description | slice:0:50}}...</mat-card-content>
-</mat-card>
+<mat-list *ngFor = "let x of challenges.challenges">
+    <h3>{{x.title}}</h3>
+    <h4>{{Categories[x.category]}}</h4>
+    <p>{{x.description | slice:0:50}}...</p>
+    <mat-divider></mat-divider>
+</mat-list>
