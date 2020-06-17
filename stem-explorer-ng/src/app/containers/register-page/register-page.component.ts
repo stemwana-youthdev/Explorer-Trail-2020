@@ -7,11 +7,12 @@ import { AuthService } from 'src/app/auth.service';
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss']
 })
-export class RegisterPageComponent implements OnInit {
+export class RegisterPageComponent {
 
-  constructor(public authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {
+  registerWithGoogle() {
+    this.authService.googleAuthLogin();
   }
 
 }

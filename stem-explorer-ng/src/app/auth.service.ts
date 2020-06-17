@@ -11,15 +11,15 @@ import 'firebase/auth';
 export class AuthService {
 
   constructor(
-    public afAuth: AngularFireAuth, //this injects firebase authentication
+    private afAuth: AngularFireAuth, //this injects firebase authentication
   ) { }
 
   // google signin
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider());
+  googleAuthLogin() {
+    return this.authLogin(new auth.GoogleAuthProvider());
   }
 
-  async AuthLogin(provider: auth.AuthProvider) {
+  async authLogin(provider: auth.AuthProvider) {
     try {
       const res = await this.afAuth.signInWithPopup(provider);
       console.log('You have been succesfully logged in! woohoo', res);
