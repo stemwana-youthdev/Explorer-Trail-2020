@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  explorer_trial_ui:
+    build:
+      context: ./stem-explorer-ng
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./stem-explorer-ng/src:/var/www/app/src
+    ports:
+      - "4200:4200"
+
