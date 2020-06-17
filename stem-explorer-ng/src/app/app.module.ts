@@ -12,24 +12,34 @@ import { HomePageComponent } from './containers/home-page/home-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
 import { AuthService } from './auth.service';
 import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ListViewComponent } from './containers/list-view/list-view.component';
+import { ApiService } from './shared/services/api.service';
+import { MaterialModule } from './shared/material.module';
+import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     HomePageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    ListViewComponent,
+    NavTabsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ConfigModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [
     AuthService,
-    AngularFireAuth
+    AngularFireAuth,
+    ApiService
   ],
   bootstrap: [AppComponent],
 })
