@@ -13,6 +13,6 @@
 })(this, function() {
   return {
     API_ENDPOINT: 'http://localhost:5000/api',
-    AUTH_API: '${AUTH_API}',
+    AUTH_API: 'NotTheRealAPIKey-RunWithDockerComposeToUseAuth',
   };
 });
