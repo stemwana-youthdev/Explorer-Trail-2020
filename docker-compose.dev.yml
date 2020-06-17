@@ -1,3 +1,18 @@
+# This config can be used as an alternative to the explorer_trial_ui config in
+# docker-compose.yml.
+#
+# The default config (in docker-compose.yml) builds the application when the
+# image is built, and then only runs an http server in the final image, which
+# means that changes to the code require a restart. This config gets around
+# that by using `ng serve`, which is a command in the angular cli that rebuilds
+# and reloads the page when the source code is changed.
+#
+# To use this config run:
+# docker-compose -f docker-compose.dev.yml up --build
+#
+# Or to run the api server at the same time:
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+
 version: '3.1'
 
 services:
