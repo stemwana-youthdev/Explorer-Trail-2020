@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
-import { AuthService } from './auth.service';
+import { AuthService } from './shared/services/auth.service';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListViewComponent } from './containers/list-view/list-view.component';
