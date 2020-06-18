@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
 import { MapComponent } from './containers/map/map.component';
+import { ApiService } from './shared/services/api.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { MapComponent } from './containers/map/map.component';
     ConfigModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
