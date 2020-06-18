@@ -4,6 +4,7 @@ import { Categories } from '../../shared/enums/categories.enum';
 import { Challenge } from '../../shared/models/challenge';
 import { MatDialog } from '@angular/material/dialog';
 import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
+import { Location } from '../../shared/models/location';
 
 @Component({
   selector: 'app-list-view',
@@ -13,7 +14,7 @@ import { ListViewDialogComponent } from '../../components/list-view-dialog/list-
 export class ListViewComponent implements OnInit {
 
   challenges: Challenge[] = [];
-  locations: any = [];
+  locations: Location[] = [];
   Categories : any = Categories;
 
   constructor(private service: ApiService, public dialog: MatDialog) {
