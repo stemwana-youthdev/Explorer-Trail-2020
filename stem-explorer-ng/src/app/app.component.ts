@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'stem-explorer-ng';
+  title = 'STEMFest Explorer Trail';
 
   constructor(
     private configService: ConfigService,
