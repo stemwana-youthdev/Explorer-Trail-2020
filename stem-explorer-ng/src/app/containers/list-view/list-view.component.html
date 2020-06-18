@@ -1,6 +1,7 @@
-<mat-list *ngFor = "let challenge of challenges" (click) = "openDialog(challenge)">
+<mat-list *ngFor = "let challenge of challenges">
     <h3>{{challenge.title}}</h3>
     <h4>{{Categories[challenge.category]}}</h4>
     <p>{{challenge.description | slice:0:50}}...</p>
+    <button (click) = "openDialog(challenge)">Challenge Details</button>
     <mat-divider></mat-divider>
 </mat-list>
