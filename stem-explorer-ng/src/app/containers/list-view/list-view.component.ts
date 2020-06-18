@@ -13,6 +13,7 @@ import { ListViewDialogComponent } from '../../components/list-view-dialog/list-
 export class ListViewComponent implements OnInit {
 
   challenges: Challenge[] = [];
+  locations: any = [];
   Categories : any = Categories;
 
   constructor(private service: ApiService, public dialog: MatDialog) {
@@ -25,18 +26,27 @@ export class ListViewComponent implements OnInit {
       });
   }
 
+  getLocations() {
+    this.service.getLocations().subscribe((res)=>{
+      this.locations = res["location"]
+      });
+  }
+
   openDialog(challenge) {
     this.dialog.open(ListViewDialogComponent, {
       data: {
         title: challenge.title,
         category: Categories[challenge.category],
-        description: challenge.description
+        description: challenge.description,
+        name: this.locations[challenge.uid - 1].name,
+        link: this.locations[challenge.uid - 1].link
       }
     });
   }
 
   ngOnInit() {
     this.getChallenges();
+    this.getLocations();
   }
 
 }
