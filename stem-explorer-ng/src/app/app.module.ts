@@ -1,3 +1,4 @@
+import { ApiService } from './shared/services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +25,9 @@ import { MapComponent } from './containers/map/map.component';
     ConfigModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ApiService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
