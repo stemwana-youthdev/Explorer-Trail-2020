@@ -20,8 +20,6 @@ services:
     build:
       context: ./stem-explorer-ng
       dockerfile: Dockerfile.dev
-    environment:
-      - AUTH_API
     volumes:
       - ./stem-explorer-ng/src:/var/www/app/src
     ports:
