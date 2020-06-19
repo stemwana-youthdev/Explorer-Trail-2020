@@ -14,6 +14,7 @@ import { ListViewComponent } from './containers/list-view/list-view.component';
 import { ApiService } from './shared/services/api.service';
 import { MaterialModule } from './shared/material.module';
 import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
+import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.componen
     HomePageComponent,
     RegisterPageComponent,
     ListViewComponent,
-    NavTabsComponent
+    NavTabsComponent,
+    ListViewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +35,8 @@ import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.componen
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [
-    ApiService
-  ],
+  entryComponents: [ListViewDialogComponent],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
