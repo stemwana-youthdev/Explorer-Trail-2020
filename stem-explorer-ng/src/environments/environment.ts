@@ -1,26 +1,9 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-import { ConfigService } from 'src/app/config/config.service';
-
-const config = new ConfigService();
 
 export const environment = {
-  production: false,
-  //firebase connection
-  firebaseConfig: {
-    //tell ts to ignore that this "shouldnt" exist...
-    apiKey: config.get('AUTH_API'),
-    authDomain: "explorer-trial.firebaseapp.com",
-    databaseURL: "https://explorer-trial.firebaseio.com",
-    projectId: "explorer-trial",
-    storageBucket: "explorer-trial.appspot.com",
-    messagingSenderId: "165828341451",
-    appId: "1:165828341451:web:b51d81781c8f524461354e",
-    measurementId: "G-BDMF4PPT9T"
-  }
-
-
+  production: false
 };
 
 /*
