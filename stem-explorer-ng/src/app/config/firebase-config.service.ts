@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { AngularFireModule, FirebaseOptions } from '@angular/fire';
+import { Injectable, ModuleWithProviders, Provider } from '@angular/core';
+import { AngularFireModule, FirebaseOptions, FIREBASE_OPTIONS } from '@angular/fire';
 
 import { ConfigService } from './config.service';
 
@@ -23,7 +23,20 @@ export class FirebaseConfigService {
   }
 }
 
-const firebaseConfig = new FirebaseConfigService(new ConfigService());
+export function getFirebaseConfig(firebaseConfig: FirebaseConfigService) {
+  return firebaseConfig.get();
+}
 
-export const ConfiguredAngularFireModule
-  = AngularFireModule.initializeApp(firebaseConfig.get());
+export const firebaseOptions: Provider = {
+  provide: FIREBASE_OPTIONS,
+  useFactory: getFirebaseConfig,
+  deps: [
+    FirebaseConfigService,
+    ConfigService
+  ]
+};
+
+export const ConfiguredAngularFireModule: ModuleWithProviders = {
+  ngModule: AngularFireModule,
+  providers: [ firebaseOptions ]
+};
