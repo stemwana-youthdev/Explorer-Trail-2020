@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { ConfigService } from './config.service';
-import { FirebaseConfigService, ConfiguredAngularFireModule } from './firebase-config.service';
+import { ConfiguredAngularFireModule } from './configured-angular-fire.module';
 
 @NgModule({
   declarations: [],
@@ -9,8 +9,7 @@ import { FirebaseConfigService, ConfiguredAngularFireModule } from './firebase-c
     ConfiguredAngularFireModule
   ],
   providers: [
-    ConfigService,
-    FirebaseConfigService
+    ConfigService
   ],
 })
 export class ConfigModule { }
