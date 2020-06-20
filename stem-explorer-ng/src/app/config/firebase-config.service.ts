@@ -1,5 +1,5 @@
-import { Injectable, ModuleWithProviders, Provider } from '@angular/core';
-import { AngularFireModule, FirebaseOptions, FIREBASE_OPTIONS } from '@angular/fire';
+import { Injectable } from '@angular/core';
+import { FirebaseOptions } from '@angular/fire';
 
 import { ConfigService } from './config.service';
 
@@ -22,21 +22,3 @@ export class FirebaseConfigService {
     };
   }
 }
-
-export function getFirebaseConfig(firebaseConfig: FirebaseConfigService) {
-  return firebaseConfig.get();
-}
-
-export const firebaseOptions: Provider = {
-  provide: FIREBASE_OPTIONS,
-  useFactory: getFirebaseConfig,
-  deps: [
-    FirebaseConfigService,
-    ConfigService
-  ]
-};
-
-export const ConfiguredAngularFireModule: ModuleWithProviders = {
-  ngModule: AngularFireModule,
-  providers: [ firebaseOptions ]
-};
