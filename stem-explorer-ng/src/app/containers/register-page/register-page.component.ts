@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,10 +10,14 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 })
 export class RegisterPageComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+  ) { }
 
-  registerWithGoogle() {
-    this.authService.googleAuthLogin();
+  async registerWithGoogle() {
+    await this.auth.googleAuthLogin();
+    this.router.navigateByUrl('');
   }
 
 }
