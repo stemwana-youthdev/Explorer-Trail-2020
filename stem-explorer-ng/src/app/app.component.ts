@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfigService } from './config/config.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,15 @@ import { ConfigService } from './config/config.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'stem-explorer-ng';
+  title = 'STEMFest Explorer Trail';
 
   constructor(
     private configService: ConfigService,
+    private router: Router,
   ) { }
+
+  navigateToLogin() {
+    this.router.navigateByUrl('login');
+  }
 
 }
