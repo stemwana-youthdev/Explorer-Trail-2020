@@ -20,4 +20,12 @@ export class RegisterPageComponent {
     this.router.navigateByUrl('');
   }
 
+  navigateToLogin() {
+    this.router.navigateByUrl('login');
+  }
+
+  navigateToHomepage() {
+    this.router.navigateByUrl('');
+  }
+
 }
