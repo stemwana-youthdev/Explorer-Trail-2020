@@ -1,5 +1,10 @@
 <nav>
-  <button (click)="navigateToLogin()">Log In</button>
+  <ng-template>
+  </ng-template>
+  <button *ngIf="!(isLoggedIn | async); else elseBlock" (click)="navigateToLogin()">Log In</button>
+  <ng-template #elseBlock>
+    <button (click)="logout()">Log Out</button>
+  </ng-template>
 </nav>
 
 <div style="text-align:center">
