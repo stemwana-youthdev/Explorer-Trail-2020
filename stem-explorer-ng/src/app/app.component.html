@@ -1,11 +1,18 @@
-<nav>
-  <ng-template>
+<mat-toolbar>
+  <span class="fill-remaining-space"></span>
+
+  <button mat-button *ngIf="!(isLoggedIn | async); else loggedInBlock" (click)="navigateToLogin()">Log In</button>
+
+  <ng-template #loggedInBlock>
+    <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+      <mat-icon>account_box</mat-icon>
+    </button>
+
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="logout()">Log Out</button>
+    </mat-menu>
   </ng-template>
-  <button *ngIf="!(isLoggedIn | async); else elseBlock" (click)="navigateToLogin()">Log In</button>
-  <ng-template #elseBlock>
-    <button (click)="logout()">Log Out</button>
-  </ng-template>
-</nav>
+</mat-toolbar>
 
 <div style="text-align:center">
   <h1>
