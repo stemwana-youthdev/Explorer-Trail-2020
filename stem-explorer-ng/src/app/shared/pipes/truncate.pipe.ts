@@ -20,7 +20,6 @@ export class TruncatePipe implements PipeTransform {
       characters -= 1;
 
       while (regexp.test(slice.charAt(characters))) {
-        console.log('entered loop');
         slice = slice.slice(0, characters);
         characters -= 1;
       }
