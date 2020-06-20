@@ -15,21 +15,21 @@ export class ListViewComponent implements OnInit {
 
   challenges: Challenge[] = [];
   locations: Location[] = [];
-  Categories : any = Categories;
+  Categories: any = Categories;
 
   constructor(private service: ApiService, public dialog: MatDialog) {
    }
 
   getChallenges() {
-    this.service.getChallenges().subscribe((res)=>{
-      this.challenges = res["challenges"]
-      this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)
+    this.service.getChallenges().subscribe((res) => {
+      this.challenges = res['challenges'];
+      this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
       });
   }
 
   getLocations() {
-    this.service.getLocations().subscribe((res)=>{
-      this.locations = res["location"]
+    this.service.getLocations().subscribe((res) => {
+      this.locations = res['location'];
       });
   }
 
