@@ -2,7 +2,6 @@ import { ModuleWithProviders, Provider } from '@angular/core';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire';
 
 import { FirebaseConfigService } from './firebase-config.service';
-import { ConfigService } from './config.service';
 
 export function getFirebaseConfig(firebaseConfig: FirebaseConfigService) {
   return firebaseConfig.get();
@@ -11,10 +10,7 @@ export function getFirebaseConfig(firebaseConfig: FirebaseConfigService) {
 export const firebaseOptions: Provider = {
   provide: FIREBASE_OPTIONS,
   useFactory: getFirebaseConfig,
-  deps: [
-    FirebaseConfigService,
-    ConfigService
-  ]
+  deps: [ FirebaseConfigService ]
 };
 
 export const ConfiguredAngularFireModule: ModuleWithProviders = {
