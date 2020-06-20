@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireModule, FirebaseOptions } from '@angular/fire';
+import { FirebaseOptions } from '@angular/fire';
 
 import { ConfigService } from './config.service';
 
@@ -22,8 +22,3 @@ export class FirebaseConfigService {
     };
   }
 }
-
-const firebaseConfig = new FirebaseConfigService(new ConfigService());
-
-export const ConfiguredAngularFireModule
-  = AngularFireModule.initializeApp(firebaseConfig.get());
