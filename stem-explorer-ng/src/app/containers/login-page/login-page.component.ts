@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -9,12 +10,13 @@ import { Router } from '@angular/router';
 export class LoginPageComponent {
 
   constructor(
+    private auth: AuthService,
     private router: Router,
   ) { }
 
-  loginWithGoogle() {
-    // TODO: Show login dialog
-    console.warn('Not implemented');
+  async loginWithGoogle() {
+    await this.auth.googleAuthLogin();
+    this.router.navigateByUrl('');
   }
 
   navigateToRegister() {
