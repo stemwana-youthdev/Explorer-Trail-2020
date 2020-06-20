@@ -18,15 +18,10 @@ export class LoginPageComponent {
   }
 
   navigateToRegister() {
-    // TODO: Navigate to register page
     this.router.navigateByUrl('register');
   }
 
   navigateToHomepage() {
-    this.router.navigateByUrl('');
-  }
-
-  navigateToLogin() {
     this.router.navigateByUrl('');
   }
 
