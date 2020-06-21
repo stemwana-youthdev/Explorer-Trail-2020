@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { auth } from 'firebase/app';
 import 'firebase/auth';
@@ -9,10 +11,20 @@ import 'firebase/auth';
 })
 
 export class AuthService {
+  public readonly isLoggedIn: Observable<boolean>;
 
   constructor(
     private afAuth: AngularFireAuth, //this injects firebase authentication
-  ) { }
+  ) {
+    this.isLoggedIn = this.afAuth.authState.pipe(
+      map(state => {
+        if (state)
+          return true;
+        else
+          return false;
+      })
+    );
+  }
 
   // google signin
   googleAuthLogin() {
@@ -26,5 +38,9 @@ export class AuthService {
     } catch (error) {
       console.warn(error);
     }
+  }
+
+  async logout() {
+    await this.afAuth.signOut();
   }
 }
