@@ -6,6 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
 import { Location } from '../../shared/models/location';
 
+/*
+* Component to show the challenges in a list view
+*/
 @Component({
   selector: 'app-list-view',
   templateUrl: './list-view.component.html',
@@ -20,6 +23,9 @@ export class ListViewComponent implements OnInit {
   constructor(private service: ApiService, public dialog: MatDialog) {
    }
 
+  /*
+  * Gets an array of challenges in alphabetical order from the API service
+  */
   getChallenges() {
     this.service.getChallenges().subscribe((res) => {
       // tslint:disable-next-line: no-string-literal
@@ -28,6 +34,9 @@ export class ListViewComponent implements OnInit {
       });
   }
 
+  /*
+  * Gets an array of locations from the API service
+  */
   getLocations() {
     this.service.getLocations().subscribe((res) => {
       // tslint:disable-next-line: no-string-literal
@@ -35,6 +44,9 @@ export class ListViewComponent implements OnInit {
       });
   }
 
+  /*
+  * Opens the dialog for the given challenge
+  */
   openDialog(challenge) {
     this.dialog.open(ListViewDialogComponent, {
       data: {
