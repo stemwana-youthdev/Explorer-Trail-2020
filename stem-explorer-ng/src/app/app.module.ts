@@ -15,6 +15,7 @@ import { ApiService } from './shared/services/api.service';
 import { MaterialModule } from './shared/material.module';
 import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
 import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
+import { TruncatePipe } from './shared/pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ListViewDialogComponent } from './components/list-view-dialog/list-view
     RegisterPageComponent,
     ListViewComponent,
     NavTabsComponent,
-    ListViewDialogComponent
+    ListViewDialogComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
