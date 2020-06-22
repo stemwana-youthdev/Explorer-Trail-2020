@@ -3,8 +3,11 @@
 </h1>
 
 <mat-drawer-container class="main-container">
-  <mat-drawer mode="side" opened></mat-drawer>
+  <mat-drawer mode="side" opened>
+    <app-admin-navbar></app-admin-navbar>
+  </mat-drawer>
   <mat-drawer-content>
+    main content
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

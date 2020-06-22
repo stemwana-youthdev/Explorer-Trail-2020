@@ -15,6 +15,8 @@ import { ApiService } from './shared/services/api.service';
 import { MaterialModule } from './shared/material.module';
 import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
 import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
+import { AdminAppSharedModule } from 'projects/admin/src/app/app.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { ListViewDialogComponent } from './components/list-view-dialog/list-view
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AdminAppSharedModule.forRoot(),
     AuthModule,
     ConfigModule,
     HttpClientModule,

@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class AdminNavbarComponent {
+  navLink = [
+    { label: 'Dashboard', path: 'dashboard' }
+  ];
 
+  constructor() {}
+
+  goToPage(path: string) {
+    console.warn(path);
+  }
 }

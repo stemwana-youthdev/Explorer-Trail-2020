@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "admin": "ng serve --project admin --port 4201 --open"
+    "admin": "ng serve --project admin --open"
   },
   "private": true,
   "dependencies": {
