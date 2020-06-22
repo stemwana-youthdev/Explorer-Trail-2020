@@ -27,6 +27,7 @@ services:
     environment:
       - PORT=4200
       - API_ENDPOINT=http://localhost:5000/api
+      - AUTH_API
     ports:
       - '4200:4200'
 

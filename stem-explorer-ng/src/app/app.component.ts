@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { ConfigService } from './config/config.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { AuthService } from './shared/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +10,23 @@ import { ConfigService } from './config/config.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'stem-explorer-ng';
+  title = 'STEMFest Explorer Trail';
 
   constructor(
-    private configService: ConfigService,
+    private router: Router,
+    private auth: AuthService,
   ) { }
+
+  get isLoggedIn(): Observable<boolean> {
+    return this.auth.isLoggedIn;
+  }
+
+  navigateToLogin() {
+    this.router.navigateByUrl('login');
+  }
+
+  logout() {
+    this.auth.logout();
+  }
 
 }
