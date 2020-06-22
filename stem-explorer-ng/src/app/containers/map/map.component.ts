@@ -10,7 +10,49 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class MapComponent implements OnInit {
+  center: google.maps.LatLngLiteral;
+  location: any[] = [];
+  constructor(private service: ApiService) {}
 
+
+  ngOnInit() {
+    // navigator.geolocation.getCurrentPosition(position => {
+      this.center = {
+        lat: -37.6934845,
+        lng: 176.1649924,
+      }
+      this.loadLocation();
+      //this.addMarker(this.location[0]['name'],this.location[0]['lat'],this.location[0]['lng']);
+    // })
+  }
+  loadLocation() {
+    this.service.getLocations().subscribe(l => {
+      console.log(l);
+      this.location = l['location'];
+      for(let i = 0; i < this.location.length; i++){
+        console.log(this.location[i]); //displays the first element in location[] on browser console
+      }
+      
+    });
+  }
+
+  
+  /*
+  addMarker(name: any, lati: any, long: any){ 
+    this.marker.position = {
+      lat: lati as number,
+      lng: long as number
+    }
+    
+    this.marker.label = { 
+      color: 'red', 
+      text: 'Marker label '
+    }
+
+    this.marker.title = name as string;
+    this.marker.options = {animation: google.maps.Animation.BOUNCE}
+  }
+/*
   name: string;
   lat: number;
   lng: number;
@@ -58,10 +100,10 @@ export class MapComponent implements OnInit {
         console.log(this.markers[i]);
       }
       
-    });*/
+    });
    }
 
-
+/*
    addMarker(){
     this.markers.push({
       position:{
@@ -93,6 +135,7 @@ export class MapComponent implements OnInit {
   
   
   
+  */
 
 }
 

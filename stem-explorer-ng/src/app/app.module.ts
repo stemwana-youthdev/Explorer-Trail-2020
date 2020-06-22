@@ -2,7 +2,7 @@ import { ApiService } from './shared/services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
@@ -26,7 +26,8 @@ import { MapComponent } from './containers/map/map.component';
     HttpClientModule
   ],
   providers: [
-    ApiService
+    ApiService,
+    MapMarker
   ],
   bootstrap: [AppComponent],
 })

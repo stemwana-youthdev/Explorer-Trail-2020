@@ -2,11 +2,9 @@
 [center]="center"
 >
     <map-marker
-    *ngFor="let marker of markers"
+    *ngFor="let marker of location"
     [position]="marker.position"
-    [label]="marker.label"
     [title]="marker.title"
-    [options]="marker.options"
     >
 
     </map-marker>
