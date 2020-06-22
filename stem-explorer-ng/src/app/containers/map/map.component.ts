@@ -15,7 +15,7 @@ export class MapComponent implements OnInit {
     // navigator.geolocation.getCurrentPosition(position => {
       this.center = {
         lat: -37.6934845,
-        lng: 176.1649924, //set maps to the center of Tauranga
+        lng: 176.1649924, //set maps to the center of Tauranga CBD
       }
       this.loadLocation();
     // })
