@@ -3,26 +3,34 @@
     {
       "uid": 1,
       "name": "Basestation",
-      "lat": -37.6865807,
-      "lng": 176.1649332
+      "position": {
+        "lat": -37.6865807,
+        "lng": 176.1649332
+      }
     },
     {
       "uid": 2,
       "name": "Trustpower",
-      "lat": -37.6857656,
-      "lng": 176.1679695
+      "position": {
+        "lat": -37.6857656,
+        "lng": 176.1679695
+      }
     },
     {
       "uid": 3,
       "name": "i-SITE",
-      "lat": -37.6855958,
-      "lng": 176.1690853
+      "position":{
+        "lat": -37.6855958,
+        "lng": 176.1690853
+      }
     },
     {
       "uid": 4,
       "name": "Tauranga City Library",
-      "lat": -37.6845175,
-      "lng": 176.1678085
+      "position": {
+        "lat": -37.6845175,
+        "lng": 176.1678085
+      }
     }
   ]
 }

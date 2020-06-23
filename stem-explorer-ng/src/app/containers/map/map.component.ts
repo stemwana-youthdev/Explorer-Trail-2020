@@ -10,133 +10,35 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class MapComponent implements OnInit {
+  zoom = 15;
   center: google.maps.LatLngLiteral;
-  location: any[] = [];
-  constructor(private service: ApiService) {}
-
-
-  ngOnInit() {
-    // navigator.geolocation.getCurrentPosition(position => {
-      this.center = {
-        lat: -37.6934845,
-        lng: 176.1649924,
-      }
-      this.loadLocation();
-      //this.addMarker(this.location[0]['name'],this.location[0]['lat'],this.location[0]['lng']);
-    // })
-  }
-  loadLocation() {
-    this.service.getLocations().subscribe(l => {
-      console.log(l);
-      this.location = l['location'];
-      for(let i = 0; i < this.location.length; i++){
-        console.log(this.location[i]); //displays the first element in location[] on browser console
-      }
-      
-    });
-  }
-
-  
-  /*
-  addMarker(name: any, lati: any, long: any){ 
-    this.marker.position = {
-      lat: lati as number,
-      lng: long as number
-    }
-    
-    this.marker.label = { 
-      color: 'red', 
-      text: 'Marker label '
-    }
-
-    this.marker.title = name as string;
-    this.marker.options = {animation: google.maps.Animation.BOUNCE}
-  }
-/*
-  name: string;
-  lat: number;
-  lng: number;
-
-  zoom = 12;
-  markers = [];
-  center: google.maps.LatLngLiteral
-  options: google.maps.MapOptions={
-    mapTypeId: 'hybrid',
-    zoomControl: false,
+  location: any[] = []; //local property to store the json data from getLocations
+  options: google.maps.MapOptions={ //controls what function is shown on the map
+    zoomControl: true,
     scrollwheel: false,
     disableDoubleClickZoom: true,
-    maxZoom: 15,
-    minZoom: 8
+    maxZoom: 18,
+    minZoom: 8,
+    gestureHandling: "cooperative" //for gesture controls
   }
 
-  location: Object;
+  constructor(private service: ApiService) {} 
+  //added a dependency injection in order to use the getLocations method without creating an instance of the object
 
-
-  constructor(service: ApiService) {
-     
-    this.location = service.getLocations().subscribe(data => { //display data in console
-      console.log(data);
-    });
-
-    /*
-    service.getLocations().subscribe(data => {
-      console.log(data);
-      let array = [];
-      for(let key in data){
-        if(data.hasOwnProperty(key)){
-          array.push(data[key]);
-        }
-      }
-      console.log(array);
-      
-      this.markers = Object.keys(data).map(function (key) {
-        this.markers.push({[key]:data[key]})
-        return this.markers;
-      })
-      */
-
-      /*this.markers.push(data);
-      for(let i = 0; i < this.markers.length; i++){
-        console.log(this.markers[i]);
-      }
-      
-    });
-   }
-
-/*
-   addMarker(){
-    this.markers.push({
-      position:{
-        lat: this.center.lat + ((Math.random() - 0.5) * 2) / 10,
-        lng: this.center.lng + ((Math.random() - 0.5) * 2) / 10,
-      }, label: {color: 'red',
-      text: 'Marker label ' + (this.markers.length + 1),},
-      title: 'Marker title ' + (this.markers.length + 1),
-      options: { animation: google.maps.Animation.BOUNCE },
-    })
-  }
-  
   ngOnInit() {
-    navigator.geolocation.getCurrentPosition(position => {
       this.center = {
-        lat: -37.683334,
-        lng: 176.166672
+        lat: -37.6934845,
+        lng: 176.1649924, //set maps to the center of Tauranga
       }
-    })
+      this.loadLocation();
   }
 
-  zoomIn(){
-    if(this.zoom < this.options.maxZoom) this.zoom++
+  loadLocation() {
+    this.service.getLocations().subscribe(l => { //uses the ApiService to call on the getLocations method to open a listerning stream to get the data from the json file
+      //console.log(l);
+      this.location = l['location']; //sotre the data in a local property
+    });
   }
-
-  zoomOut(){
-    if(this.zoom > this.options.minZoom) this.zoom--
-  }
-  
-  
-  
-  */
-
 }
 
 
