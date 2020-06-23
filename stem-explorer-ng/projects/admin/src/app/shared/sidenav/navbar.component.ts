@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -7,12 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AdminNavbarComponent {
   navLink = [
-    { label: 'Dashboard', path: 'dashboard' }
+    { label: 'Dashboard', path: 'dashboard' },
+    { label: 'Locations', path: 'locations' }
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   goToPage(path: string) {
     console.warn(path);
+    this.router.navigate([path]);
   }
 }

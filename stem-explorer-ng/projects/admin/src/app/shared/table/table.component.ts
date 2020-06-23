@@ -6,12 +6,21 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./table.component.scss']
 })
 export class AdminTableComponent implements OnInit {
+  displayColumns: any[] = [];
+
   @Input() dataSource: any[];
   @Input() columns: any[];
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.setColumns();
+  }
+
+  setColumns() {
+    this.displayColumns = this.columns.map((x => x.columnDef));
+    console.warn('setColumns displayc', this.displayColumns)
+    console.warn('setColumns columns', this.columns)
+    console.warn('setColumns data', this.dataSource)
+  }
 }

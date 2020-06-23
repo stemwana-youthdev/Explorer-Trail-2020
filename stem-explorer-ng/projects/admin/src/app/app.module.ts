@@ -7,6 +7,8 @@ import { AdminNavbarComponent } from './shared/sidenav/navbar.component';
 import { AdminMaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
+import { AdminTableComponent } from './shared/table/table.component';
+import { LocationsComponent } from './containers/locations/locations.component';
 
 const providers = [];
 
@@ -14,7 +16,9 @@ const providers = [];
   declarations: [
     AppComponent,
     AdminNavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    AdminTableComponent,
+    LocationsComponent
   ],
   imports: [
     BrowserModule,
