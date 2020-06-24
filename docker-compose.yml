@@ -10,6 +10,18 @@ services:
     ports:
       - "27017:27017"
 
+  explorer_trail_db:
+    image: postgres:12.3
+    environment:
+      - POSTGRES_DB=StemExplorer
+      - POSTGRES_USER=stem
+      - POSTGRES_PASSWORD=stem2020
+      - POSTGRES_ROOT_PASSWORD=root_password
+    volums:
+      - stem-data:/var/lib/postgresql/data/
+    ports:
+      - "54330:5432"
+
   explorer_trial_api:
     build:
       context: ./StemExplorerAPI
@@ -37,4 +49,6 @@ services:
 
 volumes:
   mongodb-data:
+    external: false
+  stem-data:
     external: false
