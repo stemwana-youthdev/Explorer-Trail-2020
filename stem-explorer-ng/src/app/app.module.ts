@@ -1,7 +1,8 @@
+import { ApiService } from './shared/services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
@@ -13,7 +14,6 @@ import { RegisterPageComponent } from './containers/register-page/register-page.
 import { AuthModule } from './shared/auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListViewComponent } from './containers/list-view/list-view.component';
-import { ApiService } from './shared/services/api.service';
 import { MaterialModule } from './shared/material.module';
 import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
 import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';

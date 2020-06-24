@@ -3,29 +3,37 @@
     {
       "uid": 1,
       "name": "Basestation",
-      "lat": -37.6865807,
-      "lng": 176.1649332,
+      "position": {
+        "lat": -37.6865807,
+        "lng": 176.1649332
+      },
       "link": "https://www.basestation.nz/en"
     },
     {
       "uid": 2,
       "name": "Trustpower",
-      "lat": -37.6857656,
-      "lng": 176.1679695,
+      "position": {
+        "lat": -37.6857656,
+        "lng": 176.1679695
+      },
       "link": "https://www.trustpower.co.nz/"
     },
     {
       "uid": 3,
       "name": "i-SITE",
-      "lat": -37.6855958,
-      "lng": 176.1690853,
+      "position":{
+        "lat": -37.6855958,
+        "lng": 176.1690853
+      },
       "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/"
     },
     {
       "uid": 4,
       "name": "Tauranga City Library",
-      "lat": -37.6845175,
-      "lng": 176.1678085,
+      "position": {
+        "lat": -37.6845175,
+        "lng": 176.1678085
+      },
       "link": "https://library.tauranga.govt.nz/"
     }
   ]
