@@ -1,31 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { TableFactory } from '../../../shared/factories/table.factory';
+import { Table } from '../../../shared/models/table.model';
+import { Location } from '../../../shared/models/location.model';
 
 @Component({
   selector: 'app-locations',
   templateUrl: './locations.component.html',
-  styleUrls: ['./locations.component.scss']
+  styleUrls: ['./locations.component.scss'],
+  providers: [TableFactory]
 })
 export class LocationsComponent implements OnInit {
-  locations: any[] = [];
+  locations: Location[] = [];
+  table: Table = this.tableFactory.locationsTable();
 
-  columns: any[] = [{
-      columnDef: 'name',
-      header: 'Name',
-      formatter: 'text'
-    },
-    {
-      columnDef: 'link',
-      header: 'Url',
-      formatter: 'link'
-    },
-    {
-      columnDef: 'contact',
-      header: 'Contact Person',
-      formatter: 'text'
-    }
-  ];
-
-  constructor() {}
+  constructor(readonly tableFactory: TableFactory) {}
 
   ngOnInit() {
     this.getLocations();

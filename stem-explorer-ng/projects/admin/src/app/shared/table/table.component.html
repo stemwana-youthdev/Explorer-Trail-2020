@@ -5,9 +5,9 @@
     </th>
     <td mat-cell *matCellDef="let row">
       <ng-container [ngSwitch]="column.formatter">
-        <!-- <span *ngSwitchCase="'link'">
-          <a (click)="goToLink(row)">{{ row[column.columnDef] }}</a>
-        </span> -->
+        <span *ngSwitchCase="'link'">
+          <a [href]="row.link" target="_blank">Visit Site</a>
+        </span>
         <span *ngSwitchDefault>
           {{ row[column.columnDef] }}
         </span>
