@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
+import { MapComponent } from './containers/map/map.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
 import { AuthModule } from './shared/auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +24,7 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
     AppComponent,
     LoginPageComponent,
     HomePageComponent,
+    MapComponent,
     RegisterPageComponent,
     ListViewComponent,
     NavTabsComponent,
@@ -29,6 +32,7 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
     TruncatePipe
   ],
   imports: [
+    GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
     AuthModule,
