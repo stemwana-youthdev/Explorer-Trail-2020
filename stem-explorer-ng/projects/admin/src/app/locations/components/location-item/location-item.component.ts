@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Location } from '../../../shared/models/location.model';
+import { FormGroup } from '@angular/forms';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-location-item',
@@ -8,6 +10,9 @@ import { Location } from '../../../shared/models/location.model';
 })
 export class LocationItemComponent {
   location: Location;
+  form = new FormGroup({});
+  model = {};
+  fields: FormlyFieldConfig[];
 
   constructor() {}
 
@@ -22,5 +27,9 @@ export class LocationItemComponent {
       link: 'https://www.basestation.nz/en',
       contact: 'Pascale'
     };
+  }
+
+  constructForm() {
+    
   }
 }

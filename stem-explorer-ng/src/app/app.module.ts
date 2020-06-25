@@ -20,6 +20,9 @@ import { ListViewDialogComponent } from './components/list-view-dialog/list-view
 import { AdminAppSharedModule } from 'projects/admin/src/app/app.module';
 import { RouterModule } from '@angular/router';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
     ConfigModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot(),
+    FormlyMaterialModule
   ],
   entryComponents: [ListViewDialogComponent],
   providers: [ApiService],

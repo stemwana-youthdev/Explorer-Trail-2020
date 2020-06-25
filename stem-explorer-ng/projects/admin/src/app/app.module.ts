@@ -9,6 +9,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { AdminTableComponent } from './shared/table/table.component';
 import { LocationsComponent } from './locations/components/locations/locations.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 
 const providers = [];
 
@@ -24,7 +27,10 @@ const providers = [];
     BrowserModule,
     AppRoutingModule,
     AdminMaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot(),
+    FormlyMaterialModule
   ],
   providers,
   bootstrap: [AppComponent]
