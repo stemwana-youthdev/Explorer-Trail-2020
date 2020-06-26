@@ -43,7 +43,10 @@ import { SplashScreenComponent } from './components/splash-screen/splash-screen.
     BrowserAnimationsModule,
     MaterialModule
   ],
-  entryComponents: [ListViewDialogComponent],
+  entryComponents: [
+    ListViewDialogComponent,
+    SplashScreenComponent
+  ],
   providers: [ApiService],
   bootstrap: [AppComponent],
 })

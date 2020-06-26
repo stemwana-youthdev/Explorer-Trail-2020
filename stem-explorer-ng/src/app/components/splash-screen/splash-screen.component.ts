@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SplashScreenComponent implements OnInit {
 
+  title = 'Welcome to the STEM Explorer Trail';
+  content = 'welcome content';
+
   constructor() { }
 
   ngOnInit(): void {
