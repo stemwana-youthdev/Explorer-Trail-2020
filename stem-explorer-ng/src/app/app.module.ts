@@ -18,6 +18,7 @@ import { MaterialModule } from './shared/material.module';
 import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
 import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
     ListViewComponent,
     NavTabsComponent,
     ListViewDialogComponent,
-    TruncatePipe
+    TruncatePipe,
+    SplashScreenComponent
   ],
   imports: [
     GoogleMapsModule,
@@ -41,7 +43,10 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  entryComponents: [ListViewDialogComponent],
+  entryComponents: [
+    ListViewDialogComponent,
+    SplashScreenComponent
+  ],
   providers: [ApiService],
   bootstrap: [AppComponent],
 })
