@@ -22,6 +22,12 @@ services:
     ports:
       - "5432:5432"
 
+  # To setup the database, run the following commands in the folder with StemExplorer.csproj:
+  #
+  # dotnet tool install --global dotnet-ef # To install the entity-framework tools
+  # ConnectionStrings__StemExplorer='User ID=stem;Password=stem2020;Server=localhost;Database=StemExplorer' dotnet ef database update
+  #
+  # You may need to check that you do not have any other Postgres Servers running
   explorer_trial_api:
     build:
       context: ./StemExplorerAPI
