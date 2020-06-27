@@ -17,10 +17,10 @@ services:
       - POSTGRES_USER=stem
       - POSTGRES_PASSWORD=stem2020
       - POSTGRES_ROOT_PASSWORD=root_password
-    volums:
+    volumes:
       - stem-data:/var/lib/postgresql/data/
     ports:
-      - "54330:5432"
+      - "5432:5432"
 
   explorer_trial_api:
     build:
@@ -29,13 +29,13 @@ services:
       - PORT=5000
       - ASPNETCORE_ENVIRONMENT=Development
       - SiteHost=http://localhost:4200
-      - MongoConnection=mongodb://explorer_trial_mongo:27017
+      - ConnectionStrings__StemExplorer=User ID=stem;Password=stem2020;Server=explorer_trail_db;Database=StemExplorer
     ports:
       - "5000:5000"
     depends_on:
-      - explorer_trial_mongo
+      - explorer_trail_db
     links:
-      - explorer_trial_mongo
+      - explorer_trail_db
 
   explorer_trial_ui:
     build:
