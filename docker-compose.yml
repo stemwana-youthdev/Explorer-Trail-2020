@@ -10,6 +10,18 @@ services:
     ports:
       - "27017:27017"
 
+  explorer_trail_db:
+    image: postgres:12.3
+    environment:
+      - POSTGRES_DB=StemExplorer
+      - POSTGRES_USER=stem
+      - POSTGRES_PASSWORD=stem2020
+      - POSTGRES_ROOT_PASSWORD=root_password
+    volums:
+      - stem-data:/var/lib/postgresql/data/
+    ports:
+      - "54330:5432"
+
   explorer_trial_api:
     build:
       context: ./StemExplorerAPI
@@ -20,6 +32,10 @@ services:
       - MongoConnection=mongodb://explorer_trial_mongo:27017
     ports:
       - "5000:5000"
+    depends_on:
+      - explorer_trial_mongo
+    links:
+      - explorer_trial_mongo
 
   explorer_trial_ui:
     build:
@@ -27,9 +43,12 @@ services:
     environment:
       - PORT=4200
       - API_ENDPOINT=http://localhost:5000/api
+      - AUTH_API
     ports:
       - '4200:4200'
 
 volumes:
   mongodb-data:
+    external: false
+  stem-data:
     external: false

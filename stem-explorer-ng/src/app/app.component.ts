@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { ConfigService } from './config/config.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { AuthService } from './shared/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,19 +10,23 @@ import { ConfigService } from './config/config.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'stem-explorer-ng';
+  title = 'STEMFest Explorer Trail';
 
   constructor(
-    private configService: ConfigService,
+    private router: Router,
+    private auth: AuthService,
   ) { }
 
-  // This is just a demonstration that the config service works
-  // Please inject it in api service or similar to call api calls
-  // or wherever you need to use env variables.
-  // For local development, set env vars in src/env.js file.
-  // For production or running in docker, set is as env variable
-  // for docker container.
-  get testEnv(): string {
-    return this.configService.get<string>('API_ENDPOINT');
+  get isLoggedIn(): Observable<boolean> {
+    return this.auth.isLoggedIn;
   }
+
+  navigateToLogin() {
+    this.router.navigateByUrl('login');
+  }
+
+  logout() {
+    this.auth.logout();
+  }
+
 }

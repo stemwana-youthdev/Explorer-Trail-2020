@@ -1,20 +1,53 @@
+import { ApiService } from './shared/services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
 import { AppComponent } from './app.component';
+import { LoginPageComponent } from './containers/login-page/login-page.component';
+import { HomePageComponent } from './containers/home-page/home-page.component';
+import { MapComponent } from './containers/map/map.component';
+import { RegisterPageComponent } from './containers/register-page/register-page.component';
+import { AuthModule } from './shared/auth/auth.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ListViewComponent } from './containers/list-view/list-view.component';
+import { MaterialModule } from './shared/material.module';
+import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
+import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
+import { TruncatePipe } from './shared/pipes/truncate.pipe';
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginPageComponent,
+    HomePageComponent,
+    MapComponent,
+    RegisterPageComponent,
+    ListViewComponent,
+    NavTabsComponent,
+    ListViewDialogComponent,
+    TruncatePipe,
+    SplashScreenComponent
   ],
   imports: [
+    GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
+    AuthModule,
     ConfigModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
-  providers: [],
+  entryComponents: [
+    ListViewDialogComponent,
+    SplashScreenComponent
+  ],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
