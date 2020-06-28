@@ -1,15 +1,6 @@
 version: '3.1'
 
 services:
-  # I remember you mentioning that you were going
-  # to use MongoDB, so here it is
-  explorer_trial_mongo:
-    image: mongo
-    volumes:
-      - mongodb-data:/data/db
-    ports:
-      - "27017:27017"
-
   explorer_trail_db:
     image: postgres:12.3
     environment:
