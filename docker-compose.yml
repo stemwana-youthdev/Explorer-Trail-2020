@@ -17,7 +17,7 @@ services:
       - POSTGRES_USER=stem
       - POSTGRES_PASSWORD=stem2020
       - POSTGRES_ROOT_PASSWORD=root_password
-    volums:
+    volumes:
       - stem-data:/var/lib/postgresql/data/
     ports:
       - "54330:5432"
