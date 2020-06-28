@@ -20,6 +20,13 @@ export class ListViewComponent implements OnInit {
   locations: Location[] = [];
   Categories: any = Categories;
 
+  buttons = [
+    {category: 'S', value: 0, colorClass: 'blue'},
+    {category: 'T', value: 1, colorClass: 'green'},
+    {category: 'E', value: 2, colorClass: 'orange'},
+    {category: 'M', value: 3, colorClass: 'purple'}
+    ];
+
   constructor(private service: ApiService, public dialog: MatDialog) {
    }
 
