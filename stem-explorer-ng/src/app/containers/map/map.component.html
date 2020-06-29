@@ -5,6 +5,7 @@
   <mat-button-toggle *ngFor='let button of buttons' 
       value={{button.value}}  
       class="{{button.colorClass}}"
+      (change)="filterLocations(group.value)"
       checked>
       {{button.category}}
   </mat-button-toggle>
