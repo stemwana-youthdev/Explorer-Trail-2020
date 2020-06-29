@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { ConfigService } from 'src/app/config/config.service';
+import { Challenge } from '../models/challenge';
 
 @Injectable()
 export class ApiService {
@@ -11,12 +12,12 @@ export class ApiService {
     private config: ConfigService,
   ) {}
 
+  get apiEndpoint() {
+    return this.config.get('API_ENDPOINT') as string;
+  }
+
   getChallenges() {
-    return this.http
-      .get(`${this.config.get('API_ENDPOINT')}/Challenge/GetChallenges`)
-      .pipe(
-        map((challenges: object[]) => ({ challenges })),
-      );
+    return this.http.get(`${this.apiEndpoint}/Challenge/GetChallenges`) as Observable<Challenge[]>;
   }
 
   getLocations() {
