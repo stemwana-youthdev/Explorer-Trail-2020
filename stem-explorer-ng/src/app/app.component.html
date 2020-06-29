@@ -1,3 +1,4 @@
+<div *ngIf="!camera">
 <mat-toolbar>
   <span class="fill-remaining-space"></span>
 
@@ -20,5 +21,29 @@
   </h1>
 </div>
 
-<app-nav-tabs></app-nav-tabs>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link
+     routerLink=""
+     routerLinkActive #rla="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="rla.isActive">
+    Map
+  </a>
+  <span class="material-icons" style="font-size: 32pt;" (click)="cameraView()">
+    camera_alt
+  </span>
+  <a mat-tab-link
+     routerLink="list-view"
+     routerLinkActive #rla="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="rla.isActive">
+    List
+  </a>
+</nav>
 <router-outlet></router-outlet>
+</div>
+
+<div *ngIf="camera">
+  <zxing-scanner></zxing-scanner>
+  <button (click)="cameraView()">Close Camera</button>
+</div>
