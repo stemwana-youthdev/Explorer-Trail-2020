@@ -58,7 +58,7 @@ export class ListViewComponent implements OnInit {
   */
   filterChallenges(value) {
     value = value.map(Number);
-    this.challenges = this.allChallenges.filter(challenge => !value.includes(challenge.category));
+    this.challenges = this.allChallenges.filter(challenge => value.includes(challenge.category));
   }
 
   /*
