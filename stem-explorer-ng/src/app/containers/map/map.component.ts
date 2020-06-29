@@ -1,17 +1,19 @@
 import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '../../shared/models/location';
 
   // tslint:disable: no-string-literal
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
   zoom = 15;
   center: google.maps.LatLngLiteral;
 
   // local property to store the json data from getLocations
-  location: any[] = [];
+  location: Location[] = [];
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
     zoomControl: true,
