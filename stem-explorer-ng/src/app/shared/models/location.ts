@@ -1,5 +1,5 @@
 export interface Location {
-    uid: number;
+    id: number;
     name: string;
     lat: number;
     lng: number;
