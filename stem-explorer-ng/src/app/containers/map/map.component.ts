@@ -43,7 +43,7 @@ export class MapComponent implements OnInit {
   loadLocation() {
     this.service.getLocations().subscribe(l => {
       // store the data in a local property
-      this.location = l['location'];
+      this.location = l;
     });
   }
 }

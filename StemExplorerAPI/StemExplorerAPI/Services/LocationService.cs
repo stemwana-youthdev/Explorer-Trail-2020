@@ -22,8 +22,11 @@ namespace StemExplorerAPI.Services
             {
                 Id = l.LocationId,
                 Name = l.Name,
-                Lng = l.Longitude,
-                Lat = l.Latitude,
+                Position = new LocationPositionDto
+                {
+                    Latitude = l.Latitude,
+                    Longitude = l.Longitude,
+                },
                 Link = l.Url,
             }).ToList();
         }

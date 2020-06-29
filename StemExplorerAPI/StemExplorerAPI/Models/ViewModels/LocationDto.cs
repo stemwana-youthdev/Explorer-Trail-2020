@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Models.ViewModels
@@ -10,8 +11,15 @@ namespace StemExplorerAPI.Models.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Lat { get; set; }
-        public double Lng { get; set; }
+        public LocationPositionDto Position { get; set; }
         public string Link { get; set; }
+    }
+
+    public class LocationPositionDto
+    {
+        [JsonPropertyName("lat")]
+        public double Latitude { get; set; }
+        [JsonPropertyName("lng")]
+        public double Longitude { get; set; }
     }
 }

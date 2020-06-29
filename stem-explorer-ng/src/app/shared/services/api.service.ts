@@ -21,6 +21,6 @@ export class ApiService {
   }
 
   getLocations() {
-    return this.http.get('assets/locations.json');
+    return this.http.get(`${this.apiEndpoint}/Location/GetLocations`) as Observable<Location[]>;
   }
 }
