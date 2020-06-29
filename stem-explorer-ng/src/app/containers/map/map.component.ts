@@ -1,6 +1,7 @@
 import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Challenge } from 'src/app/shared/models/challenge';
+import { Location } from '../../shared/models/location';
 
   // tslint:disable: no-string-literal
 @Component({
@@ -20,8 +21,8 @@ export class MapComponent implements OnInit {
     ];
 
   // local property to store the json data from getLocations
-  allLocations: any = [];
-  location: any = [];
+  allLocations: Location[] = [];
+  location: Location[] = [];
   allChallenges: Challenge[] = [];
   challenges: Challenge[] = [];
 
