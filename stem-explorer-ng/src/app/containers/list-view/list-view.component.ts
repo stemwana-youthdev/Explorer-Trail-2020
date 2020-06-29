@@ -17,7 +17,6 @@ import { Location } from '../../shared/models/location';
 export class ListViewComponent implements OnInit {
 
   challenges: Challenge[] = [];
-  locations: Location[] = [];
   Categories: any = Categories;
 
   constructor(private service: ApiService, public dialog: MatDialog) {
@@ -34,16 +33,6 @@ export class ListViewComponent implements OnInit {
   }
 
   /*
-  * Gets an array of locations from the API service
-  */
-  getLocations() {
-    this.service.getLocations().subscribe((res) => {
-      // tslint:disable-next-line: no-string-literal
-      this.locations = res['location'];
-      });
-  }
-
-  /*
   * Opens the dialog for the given challenge
   */
   openDialog(challenge: Challenge) {
@@ -52,15 +41,14 @@ export class ListViewComponent implements OnInit {
         title: challenge.title,
         category: Categories[challenge.category],
         description: challenge.description,
-        name: this.locations[challenge.id - 1].name,
-        link: this.locations[challenge.id - 1].link
+        name: challenge.location.name,
+        link: challenge.location.link
       }
     });
   }
 
   ngOnInit() {
     this.getChallenges();
-    this.getLocations();
   }
 
 }
