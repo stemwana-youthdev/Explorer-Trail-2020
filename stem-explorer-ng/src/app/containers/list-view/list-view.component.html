@@ -4,7 +4,8 @@
     </span>
     <mat-button-toggle *ngFor='let button of buttons' 
         value={{button.value}}  
-        class="{{button.colorClass}}">
+        class="{{button.colorClass}}"
+        (change)="filterChallenges(group.value)">
         {{button.category}}
     </mat-button-toggle>
 </mat-button-toggle-group>
