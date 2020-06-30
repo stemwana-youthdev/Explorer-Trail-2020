@@ -19,6 +19,7 @@ import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.componen
 import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SplashScreenComponent } from './components/splash-screen/splash-screen.
     ConfigModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ZXingScannerModule,
   ],
   entryComponents: [
     ListViewDialogComponent,
