@@ -12,15 +12,20 @@ import { LocationsComponent } from './locations/components/locations/locations.c
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
+import { ContentComponent } from './content/content/content.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './services/api/api.service';
+import { UrlService } from './services/api/url.service';
+import { ContentItemComponent } from './content/content-item/content-item.component';
+import { ContentModule } from './content/content.module';
+import { SharedModule } from './shared/shared.module';
 
-const providers = [];
+const providers = [ApiService, UrlService];
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminNavbarComponent,
     DashboardComponent,
-    AdminTableComponent,
     LocationsComponent
   ],
   imports: [
@@ -30,7 +35,10 @@ const providers = [];
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormlyModule.forRoot(),
-    FormlyMaterialModule
+    FormlyMaterialModule,
+    HttpClientModule,
+    ContentModule,
+    SharedModule
   ],
   providers,
   bootstrap: [AppComponent]

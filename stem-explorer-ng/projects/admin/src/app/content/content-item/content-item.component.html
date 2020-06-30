@@ -1,0 +1,14 @@
+<div>
+  <span *ngIf="contentUid; else newContent">
+    Edit Custom Content
+  </span>
+  <ng-template #newContent>
+    Add New Custom Content
+  </ng-template>
+</div>
+
+<formly-form [form]="form" [fields]="fields" [model]="content"></formly-form>
+
+<div>
+  <button mat-button (click)="save($event)"></button>
+</div>

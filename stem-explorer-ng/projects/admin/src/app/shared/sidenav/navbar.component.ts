@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
 })
 export class AdminNavbarComponent {
   navLink = [
-    { label: 'Dashboard', path: 'dashboard' },
-    { label: 'Locations', path: 'locations' }
+    { label: 'Dashboard', path: '/dashboard' },
+    { label: 'Custom Links', path: '/content' },
+    { label: 'Locations', path: '/locations' }
   ];
 
   constructor(private router: Router) {}
 
   goToPage(path: string) {
-    console.warn(path);
     this.router.navigate([path]);
   }
 }

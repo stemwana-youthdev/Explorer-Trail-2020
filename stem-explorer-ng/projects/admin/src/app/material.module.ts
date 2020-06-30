@@ -3,6 +3,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {MatTableModule} from '@angular/material/table';
     MatSidenavModule,
     MatListModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonModule
   ]
 })
 export class AdminMaterialModule {}
