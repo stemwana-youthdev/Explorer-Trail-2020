@@ -1,5 +1,6 @@
+import { MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { ApiService } from './../../shared/services/api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 
 @Component({
@@ -13,9 +14,10 @@ export class MapComponent implements OnInit {
   zoom = 15;
   center: google.maps.LatLngLiteral;
   location: any[] = []; //local property to store the json data from getLocations
+  challenges: any[] = []; //local property for challenges
   options: google.maps.MapOptions={ //controls what function is shown on the map
     zoomControl: true,
-    scrollwheel: false,
+    scrollwheel: true,
     disableDoubleClickZoom: true,
     maxZoom: 18,
     minZoom: 8,
@@ -38,6 +40,15 @@ export class MapComponent implements OnInit {
       //console.log(l);
       this.location = l['location']; //sotre the data in a local property
     });
+  }
+
+
+  @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow
+  infoContent = ''
+
+  openInfo(marker: MapMarker, content){
+    this.infoContent = 'Challenge: ' + content
+    this.infoWindow.open(marker)
   }
 }
 

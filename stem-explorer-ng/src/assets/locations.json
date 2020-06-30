@@ -6,7 +6,10 @@
       "position": {
         "lat": -37.6865807,
         "lng": 176.1649332
-      }
+      },
+      "challengetitle": "Day of The Week",
+      "challengedescription": "Do you know what day of the week this is?",
+      "challengecategory": 0
     },
     {
       "uid": 2,
@@ -14,7 +17,10 @@
       "position": {
         "lat": -37.6857656,
         "lng": 176.1679695
-      }
+      },
+      "challengetitle": "How many numbers",
+      "challengedescription": "We need to know how many numbers there are before 10, can you count them?",
+      "challengecategory": 1
     },
     {
       "uid": 3,
@@ -22,7 +28,10 @@
       "position":{
         "lat": -37.6855958,
         "lng": 176.1690853
-      }
+      },
+      "challengetitle": "Biscuits, biscuits, biscuits!",
+      "challengedescription": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
+      "challengecategory": 2
     },
     {
       "uid": 4,
@@ -30,7 +39,10 @@
       "position": {
         "lat": -37.6845175,
         "lng": 176.1678085
-      }
+      },
+      "challengetitle": "Do you know your STEM",
+      "challengedescription": "Do you know what this letter in STEM stands for?",
+      "challengecategory": 3
     }
   ]
 }

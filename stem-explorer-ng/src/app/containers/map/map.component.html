@@ -6,10 +6,14 @@ width="100%"
 [options]="options"
 >
     <map-marker
+    #markerElem
     *ngFor="let marker of location"
     [position]="marker.position"
     [label]="marker.name"
     [title]="marker.name"
+    (mapClick)="openInfo(markerElem, marker.challengetitle)"
     >
     </map-marker>
+
+    <map-info-window>{{ infoContent }}</map-info-window>
 </google-map>
