@@ -1,6 +1,5 @@
 import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { Challenge } from 'src/app/shared/models/challenge';
 import { Location } from '../../shared/models/location';
 
   // tslint:disable: no-string-literal
@@ -16,10 +15,8 @@ export class MapComponent implements OnInit {
   // local property to store the json data from getLocations
   allLocations: Location[] = [];
   location: Location[] = [];
-  allChallenges: Challenge[] = [];
-  challenges: Challenge[] = [];
 
-  uids: number[] = [];
+
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
     zoomControl: true,
@@ -43,7 +40,6 @@ export class MapComponent implements OnInit {
       lng: 176.1649924,
     };
     this.loadLocation();
-    this.getChallenges();
   }
 
   /**
@@ -57,27 +53,13 @@ export class MapComponent implements OnInit {
     });
   }
 
-    /*
-  * Gets an array of challenges in alphabetical order from the API service
-  */
- getChallenges() {
-  this.service.getChallenges().subscribe((res) => {
-    // tslint:disable-next-line: no-string-literal
-    this.allChallenges = res['challenges'];
-    this.allChallenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
-    this.challenges = this.allChallenges;
-    });
-}
-
   /*
   * Filters locations based on the selected stem filters
   */
  filterLocations(value) {
   value = value.map(Number);
-  this.challenges = this.allChallenges.filter(challenge => value.includes(challenge.category));
-  this.uids = this.challenges.map(challenge => challenge.uid);
-  this.location = this.allLocations.filter(location => (this.uids).includes(location.uid));
-}
+  this.location = this.allLocations.filter(location => value.includes(location.category));
+  }
 }
 
 

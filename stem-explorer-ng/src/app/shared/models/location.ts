@@ -5,6 +5,7 @@ export interface Location {
         [key: string]: Position
     };
     link: string;
+    category: number;
 }
 
 export interface Position {

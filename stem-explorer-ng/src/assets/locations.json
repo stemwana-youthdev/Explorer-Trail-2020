@@ -7,7 +7,8 @@
         "lat": -37.6865807,
         "lng": 176.1649332
       },
-      "link": "https://www.basestation.nz/en"
+      "link": "https://www.basestation.nz/en",
+      "category": 0 
     },
     {
       "uid": 2,
@@ -16,7 +17,8 @@
         "lat": -37.6857656,
         "lng": 176.1679695
       },
-      "link": "https://www.trustpower.co.nz/"
+      "link": "https://www.trustpower.co.nz/",
+      "category": 1
     },
     {
       "uid": 3,
@@ -25,7 +27,8 @@
         "lat": -37.6855958,
         "lng": 176.1690853
       },
-      "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/"
+      "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/",
+      "category": 2
     },
     {
       "uid": 4,
@@ -34,7 +37,8 @@
         "lat": -37.6845175,
         "lng": 176.1678085
       },
-      "link": "https://library.tauranga.govt.nz/"
+      "link": "https://library.tauranga.govt.nz/",
+      "category": 3
     }
   ]
 }
