@@ -12,6 +12,6 @@ import { ContentComponent } from './content/content.component';
     ContentRoutingModule
   ],
   providers: [],
-  declarations: [ContentComponent, ContentItemComponent]
+  declarations: [ContentComponent, ContentItemComponent, ContentItemComponent]
 })
 export class ContentModule {}

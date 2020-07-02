@@ -12,10 +12,10 @@ const routes: Routes = [
     path: 'new',
     component: ContentItemComponent
   },
-  {
-    path: ':id',
-    component: ContentItemComponent
-  }
+  // {
+  //   path: ':id',
+  //   component: ContentItemComponent
+  // }
 ];
 
 @NgModule({

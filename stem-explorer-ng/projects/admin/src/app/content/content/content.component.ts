@@ -4,6 +4,8 @@ import { Content } from '../../shared/models/content.model';
 import { ApiService } from '../../services/api/api.service';
 import { Table } from '../../shared/models/table.model';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ContentDialogComponent } from './content-dialog/content-dialog.component';
 
 @Component({
   selector: 'app-content',
@@ -12,13 +14,14 @@ import { Router } from '@angular/router';
   providers: [TableFactory]
 })
 export class ContentComponent implements OnInit {
-  content: Content[];
+  content: Content[] = [];
   table: Table = this.tableFactory.contentTable();
 
   constructor(
     readonly tableFactory: TableFactory,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -26,16 +29,23 @@ export class ContentComponent implements OnInit {
   }
 
   getContent(): void {
-    this.api.getAllContent().subscribe((res: any) => {
-      this.content = res;
-    });
+    // this.api.getAllContent().subscribe((res: any) => {
+    //   this.content = res;
+    // });
   }
 
   goToContent(content: Content): void {
     this.router.navigate([`content/${content.uid}`]);
   }
 
-  addNewContent(): void {
-    this.router.navigate(['content/new']);
+  newContent() {
+    const popup = this.dialog.open(ContentDialogComponent, {
+      width: '400px',
+      data: {}
+    });
+
+    popup.afterClosed().subscribe(res => {
+      console.warn(res);
+    });
   }
 }

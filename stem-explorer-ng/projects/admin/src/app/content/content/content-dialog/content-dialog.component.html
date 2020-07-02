@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Add New Content</h1>
+<mat-dialog-content [formGroup]="form">
+  <!-- <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form> -->
+
+  <mat-form-field>
+    <input matInput placeholder="Link title" formControlName="title">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="URL" formControlName="link">
+  </mat-form-field>
+</mat-dialog-content>
+<div mat-content-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="model" (click)="saveContent()">Save</button>
+</div>
