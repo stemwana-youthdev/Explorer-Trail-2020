@@ -17,10 +17,9 @@ import { Location } from '../../shared/models/location';
 export class ListViewComponent implements OnInit {
 
   challenges: Challenge[] = [];
-  allChallenges: Challenge[] = [];
   locations: Location[] = [];
   Categories: any = Categories;
-
+  filter = [0, 1, 2, 3];
 
   constructor(private service: ApiService, public dialog: MatDialog) {
    }
@@ -31,9 +30,8 @@ export class ListViewComponent implements OnInit {
   getChallenges() {
     this.service.getChallenges().subscribe((res) => {
       // tslint:disable-next-line: no-string-literal
-      this.allChallenges = res['challenges'];
-      this.allChallenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
-      this.challenges = this.allChallenges;
+      this.challenges = res['challenges'];
+      this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
       });
   }
 
@@ -45,14 +43,6 @@ export class ListViewComponent implements OnInit {
       // tslint:disable-next-line: no-string-literal
       this.locations = res['location'];
       });
-  }
-
-  /*
-  * Filters challenges based on the selected stem filters
-  */
-  filterChallenges(value) {
-    value = value.map(Number);
-    this.challenges = this.allChallenges.filter(challenge => value.includes(challenge.category));
   }
 
 

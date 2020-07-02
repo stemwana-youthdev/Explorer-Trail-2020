@@ -1,4 +1,4 @@
-<app-filter-buttons (data)="filterLocations($event)"></app-filter-buttons>
+<app-filter-buttons (data)="this.filter=$event"></app-filter-buttons>
 
 <google-map
 [center]="center"
@@ -9,7 +9,7 @@ width="100%"
 >
     <map-marker
     #markerElem
-    *ngFor="let marker of location"
+    *ngFor="let marker of (location | filter:this.filter)"
     [position]="marker.position"
     [label]="marker.name"
     [title]="marker.name"

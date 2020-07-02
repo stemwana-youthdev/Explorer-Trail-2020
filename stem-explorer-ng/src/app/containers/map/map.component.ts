@@ -18,8 +18,9 @@ export class MapComponent implements OnInit {
   center: google.maps.LatLngLiteral;
 
   // local property to store the json data from getLocations
-  allLocations: Location[] = [];
   location: Location[] = [];
+
+  filter = [0, 1, 2, 3];
 
 
   // controls what function is shown on the map
@@ -55,18 +56,10 @@ export class MapComponent implements OnInit {
   loadLocation() {
     this.service.getLocations().subscribe(l => {
       // store the data in a local property
-      this.allLocations = l['location'];
-      this.location = this.allLocations;
+      this.location = l['location'];
     });
   }
 
-  /*
-  * Filters locations based on the selected stem filters
-  */
- filterLocations(value) {
-  value = value.map(Number);
-  this.location = this.allLocations.filter(location => value.includes(location.challengecategory));
- }
 
   openInfo(marker: MapMarker, content) {
     this.infoContent = `Challenge: ${content}`;

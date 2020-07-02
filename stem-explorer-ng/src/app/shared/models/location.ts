@@ -6,7 +6,7 @@ export interface Location {
     };
     challengetitle: string;
     challengedescription: string;
-    challengecategory: number;
+    category: number;
     link: string;
 }
 
