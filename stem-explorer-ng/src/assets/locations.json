@@ -7,8 +7,10 @@
         "lat": -37.6865807,
         "lng": 176.1649332
       },
-      "link": "https://www.basestation.nz/en",
-      "category": 0 
+      "challengetitle": "Day of The Week",
+      "challengedescription": "Do you know what day of the week this is?",
+      "challengecategory": 0,
+      "link": "https://www.basestation.nz/en"
     },
     {
       "uid": 2,
@@ -17,8 +19,10 @@
         "lat": -37.6857656,
         "lng": 176.1679695
       },
-      "link": "https://www.trustpower.co.nz/",
-      "category": 1
+      "challengetitle": "How many numbers",
+      "challengedescription": "We need to know how many numbers there are before 10, can you count them?",
+      "challengecategory": 1,
+      "link": "https://www.trustpower.co.nz/"
     },
     {
       "uid": 3,
@@ -27,8 +31,10 @@
         "lat": -37.6855958,
         "lng": 176.1690853
       },
-      "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/",
-      "category": 2
+      "challengetitle": "Biscuits, biscuits, biscuits!",
+      "challengedescription": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
+      "challengecategory": 2,
+      "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/"
     },
     {
       "uid": 4,
@@ -37,8 +43,10 @@
         "lat": -37.6845175,
         "lng": 176.1678085
       },
-      "link": "https://library.tauranga.govt.nz/",
-      "category": 3
+      "challengetitle": "Do you know your STEM",
+      "challengedescription": "Do you know what this letter in STEM stands for?",
+      "challengecategory": 3,
+      "link": "https://library.tauranga.govt.nz/"
     }
   ]
 }

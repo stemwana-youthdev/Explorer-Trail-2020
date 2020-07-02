@@ -4,8 +4,10 @@ export interface Location {
     position: {
         [key: string]: Position
     };
+    challengetitle: string;
+    challengedescription: string;
+    challengecategory: number;
     link: string;
-    category: number;
 }
 
 export interface Position {
