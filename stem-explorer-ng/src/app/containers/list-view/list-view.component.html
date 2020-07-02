@@ -15,8 +15,8 @@
     <h3>{{challenge.title}}</h3>
     <h4>{{Categories[challenge.category]}}</h4>
     <p>{{challenge.description | truncate:50}}</p>
-    <span class="material-icons" (click) = "openDialog(challenge)">
-        open_in_new
+    <span class="material-icons open-challenge-dialogue" (click) = "openDialog(challenge)">
+        open_in_new 
     </span>
     <mat-divider></mat-divider>
 </mat-list>

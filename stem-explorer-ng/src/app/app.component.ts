@@ -11,6 +11,7 @@ import { AuthService } from './shared/auth/auth.service';
 })
 export class AppComponent {
   title = 'STEMFest Explorer Trail';
+  camera = false;
 
   constructor(
     private router: Router,
@@ -27,6 +28,10 @@ export class AppComponent {
 
   logout() {
     this.auth.logout();
+  }
+
+  cameraView() {
+    this.camera = !this.camera;
   }
 
 }
