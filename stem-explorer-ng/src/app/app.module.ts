@@ -20,6 +20,7 @@ import { ListViewDialogComponent } from './components/list-view-dialog/list-view
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     NavTabsComponent,
     ListViewDialogComponent,
     TruncatePipe,
-    SplashScreenComponent
+    SplashScreenComponent,
+    FilterButtonsComponent
   ],
   imports: [
     GoogleMapsModule,

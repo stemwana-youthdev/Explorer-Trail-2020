@@ -1,0 +1,9 @@
+<mat-button-toggle-group #group="matButtonToggleGroup" multiple>
+    <mat-button-toggle *ngFor='let button of buttons' 
+        value={{button.value}}  
+        class="{{button.colorClass}}"
+        (change)="change(group.value)"
+        checked>
+        {{button.category}}
+    </mat-button-toggle>
+</mat-button-toggle-group>

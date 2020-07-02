@@ -61,6 +61,7 @@ export class ListViewComponent implements OnInit {
     this.challenges = this.allChallenges.filter(challenge => value.includes(challenge.category));
   }
 
+
   /*
   * Opens the dialog for the given challenge
   */
