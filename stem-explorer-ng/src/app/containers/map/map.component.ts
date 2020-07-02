@@ -13,13 +13,6 @@ export class MapComponent implements OnInit {
   zoom = 15;
   center: google.maps.LatLngLiteral;
 
-  buttons = [
-    {category: 'S', value: 0, colorClass: 'blue'},
-    {category: 'T', value: 1, colorClass: 'green'},
-    {category: 'E', value: 2, colorClass: 'orange'},
-    {category: 'M', value: 3, colorClass: 'purple'}
-    ];
-
   // local property to store the json data from getLocations
   allLocations: Location[] = [];
   location: Location[] = [];

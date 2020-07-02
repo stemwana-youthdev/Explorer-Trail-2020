@@ -1,4 +1,7 @@
 <mat-button-toggle-group #group="matButtonToggleGroup" multiple>
+    <span class="material-icons" style="font-size: 32pt;">
+        tune
+    </span>
     <mat-button-toggle *ngFor='let button of buttons' 
         value={{button.value}}  
         class="{{button.colorClass}}"
