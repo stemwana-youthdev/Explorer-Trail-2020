@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '../../shared/models/location';
 
 
+
   // tslint:disable: no-string-literal
 @Component({
   selector: 'app-map',
@@ -44,8 +45,8 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     // set maps to the center of Tauranga
     this.center = {
-      lat: -37.6934845,
-      lng: 176.1649924,
+      lat: -37.6854709,
+      lng: 176.1673285,
     };
     this.loadLocation();
   }
@@ -61,9 +62,16 @@ export class MapComponent implements OnInit {
   }
 
 
-  openInfo(marker: MapMarker, content) {
-    this.infoContent = `Challenge: ${content}`;
-    this.infoWindow.open(marker);
+ @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow
+ challengeTitle = ''
+ challengeDescription = '' //separate property for the html side to show challenge description in a new line
+  
+  openInfo(marker: MapMarker, content, content2){
+    
+    this.challengeTitle = `Challenge: ${content}`
+    this.challengeDescription = `Description: ${content2}` //Text format to display within infoWindow
+     
+    this.infoWindow.open(marker)
   }
 }
 
