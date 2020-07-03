@@ -11,9 +11,14 @@ width="100%"
     [position]="marker.position"
     [label]="marker.name"
     [title]="marker.name"
-    (mapClick)="openInfo(markerElem, marker.challengetitle)"
+    (mapClick)="openInfo(markerElem, marker.challengetitle, marker.challengedescription)"
     >
     </map-marker>
 
-    <map-info-window>{{ infoContent }}</map-info-window>
+    <map-info-window>
+
+    <h3>{{ challengeTitle }}</h3>
+    <h4>{{ challengeDescription | truncate:50 }}</h4>
+
+    </map-info-window>
 </google-map>
