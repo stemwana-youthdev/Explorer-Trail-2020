@@ -18,6 +18,10 @@ import { MaterialModule } from './shared/material.module';
 import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
 import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
+import { FilterPipe } from './shared/pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,10 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
     ListViewComponent,
     NavTabsComponent,
     ListViewDialogComponent,
-    TruncatePipe
+    TruncatePipe,
+    SplashScreenComponent,
+    FilterButtonsComponent,
+    FilterPipe
   ],
   imports: [
     GoogleMapsModule,
@@ -39,9 +46,13 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
     ConfigModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ZXingScannerModule,
   ],
-  entryComponents: [ListViewDialogComponent],
+  entryComponents: [
+    ListViewDialogComponent,
+    SplashScreenComponent
+  ],
   providers: [ApiService],
   bootstrap: [AppComponent],
 })

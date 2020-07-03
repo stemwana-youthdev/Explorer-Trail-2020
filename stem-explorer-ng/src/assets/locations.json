@@ -9,7 +9,7 @@
       },
       "challengetitle": "Day of The Week",
       "challengedescription": "Do you know what day of the week this is?",
-      "challengecategory": 0,
+      "category": 0,
       "link": "https://www.basestation.nz/en"
     },
     {
@@ -21,7 +21,7 @@
       },
       "challengetitle": "How many numbers",
       "challengedescription": "We need to know how many numbers there are before 10, can you count them?",
-      "challengecategory": 1,
+      "category": 1,
       "link": "https://www.trustpower.co.nz/"
     },
     {
@@ -33,7 +33,7 @@
       },
       "challengetitle": "Biscuits, biscuits, biscuits!",
       "challengedescription": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
-      "challengecategory": 2,
+      "category": 2,
       "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/"
     },
     {
@@ -45,7 +45,7 @@
       },
       "challengetitle": "Do you know your STEM",
       "challengedescription": "Do you know what this letter in STEM stands for?",
-      "challengecategory": 3,
+      "category": 3,
       "link": "https://library.tauranga.govt.nz/"
     }
   ]

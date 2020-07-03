@@ -19,6 +19,7 @@ export class ListViewComponent implements OnInit {
   challenges: Challenge[] = [];
   locations: Location[] = [];
   Categories: any = Categories;
+  filter = [0, 1, 2, 3];
 
   constructor(private service: ApiService, public dialog: MatDialog) {
    }
@@ -43,6 +44,7 @@ export class ListViewComponent implements OnInit {
       this.locations = res['location'];
       });
   }
+
 
   /*
   * Opens the dialog for the given challenge

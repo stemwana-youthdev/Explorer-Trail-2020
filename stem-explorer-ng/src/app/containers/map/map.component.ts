@@ -1,19 +1,29 @@
 import { MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '../../shared/models/location';
+
 
 
   // tslint:disable: no-string-literal
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+
+  // added a dependency injection in order to use the getLocations method without creating an instance of the object
+  constructor(private service: ApiService) {}
   zoom = 15;
   center: google.maps.LatLngLiteral;
 
   // local property to store the json data from getLocations
-  location: any[] = [];
+  location: Location[] = [];
+
+  filter = [0, 1, 2, 3];
+
+
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
     zoomControl: true,
@@ -24,8 +34,10 @@ export class MapComponent implements OnInit {
     gestureHandling: 'cooperative' // for gesture controls
   };
 
-  // added a dependency injection in order to use the getLocations method without creating an instance of the object
-  constructor(private service: ApiService) {}
+
+  // tslint:disable-next-line: member-ordering
+  @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow;
+  infoContent = '';
 
   /**
    * @todo use navigator.location to set this.center to user's current location.
