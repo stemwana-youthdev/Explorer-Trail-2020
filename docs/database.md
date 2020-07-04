@@ -71,3 +71,14 @@ VALUES (1, 'Day of the Week',
 
 * Open [localhost:4200](http://localhost:4200/) in your browser and check that the website is getting the right data.
 * The db is now setup with the example data.
+
+# Usage notes
+
+If you want to run any dotnet command that accesses the database inside of the docker container you will need to run:
+
+```sh
+export ConnectionStrings__StemExplorer='User ID=stem;\
+Password=stem2020;Server=localhost;Database=StemExplorer'
+```
+
+For example you may wish to run `dotnet watch run` to restart dotnet when you edit the source code.
