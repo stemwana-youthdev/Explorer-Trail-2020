@@ -10,6 +10,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 })
 export class ContentDialogComponent implements OnInit {
   form: FormGroup;
+  contentForm = new FormGroup({});
   model = {};
   fields: FormlyFieldConfig[] = [];
 
@@ -40,5 +41,30 @@ export class ContentDialogComponent implements OnInit {
       title: [this.data.title, [Validators.required, Validators.maxLength(25)]],
       link: [this.data.link, Validators.required]
     });
+
+    this.fields = [
+      {
+        key: 'title',
+        id: 'field_content_title',
+        type: 'input',
+        templateOptions: {
+          placeholder: 'Custom Content Navigation Title',
+          required: true,
+          maxLength: 25
+        }
+      },
+      {
+        key: 'link',
+        id: 'field_content_link',
+        type: 'input',
+        templateOptions: {
+          placeholder: 'Custom Content Link',
+          required: true
+        }
+      }
+      /**
+       * @todo add button here to show when link field has value to test link works.
+       */
+    ];
   }
 }

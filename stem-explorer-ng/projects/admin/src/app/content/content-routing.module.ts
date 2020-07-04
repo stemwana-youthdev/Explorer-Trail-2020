@@ -8,10 +8,10 @@ const routes: Routes = [
     path: '',
     component: ContentComponent
   },
-  {
-    path: 'new',
-    component: ContentItemComponent
-  },
+  // {
+  //   path: 'new',
+  //   component: ContentItemComponent
+  // },
   // {
   //   path: ':id',
   //   component: ContentItemComponent

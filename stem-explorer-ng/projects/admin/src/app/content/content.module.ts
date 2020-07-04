@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ContentItemComponent } from './content-item/content-item.component';
 import { ContentRoutingModule } from './content-routing.module';
 import { ContentComponent } from './content/content.component';
+import { ContentDialogComponent } from './content/content-dialog/content-dialog.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { ContentComponent } from './content/content.component';
     ContentRoutingModule
   ],
   providers: [],
-  declarations: [ContentComponent, ContentItemComponent, ContentItemComponent]
+  declarations: [ContentComponent, ContentItemComponent, ContentDialogComponent]
 })
 export class ContentModule {}
