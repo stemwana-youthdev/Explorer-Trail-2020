@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
 import { Location } from '../models/location';
 import { environment } from 'src/environments/environment';
-import { flatMap, map, catchError } from 'rxjs/operators';
+import { flatMap } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
