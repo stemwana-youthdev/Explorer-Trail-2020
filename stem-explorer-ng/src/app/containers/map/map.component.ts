@@ -32,10 +32,6 @@ export class MapComponent implements OnInit {
   };
 
 
-  // tslint:disable-next-line: member-ordering
-  @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow;
-  infoContent = '';
-
   /**
    * @todo use navigator.location to set this.center to user's current location.
    */
