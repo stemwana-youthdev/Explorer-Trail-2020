@@ -62,7 +62,6 @@ export class MapComponent implements OnInit {
   }
 
 
- @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow
  challengeTitle = ''
  challengeDescription = '' //separate property for the html side to show challenge description in a new line
   
