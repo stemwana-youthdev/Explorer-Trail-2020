@@ -23,7 +23,7 @@ namespace StemExplorerAPI.Models.ViewModels
         public string ChallengeTitle { get; set; }
         [JsonPropertyName("challengedescription")]
         public string ChallengeDescription { get; set; }
-        [JsonPropertyName("challengecategory")]
+        [JsonPropertyName("category")]
         public Enums.ChallengeCategories ChallengeCategory { get; set; }
         public string Link { get; set; }
     }
