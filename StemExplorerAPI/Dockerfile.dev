@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS runtime-stage
+
+WORKDIR /app
+
+# copy csproj and restore as distinct layers
+COPY *.sln .
+COPY StemExplorerAPI/*.csproj ./StemExplorerAPI/
+RUN dotnet restore
+
+# copy everything else and build app
+COPY StemExplorerAPI/. ./StemExplorerAPI/
+WORKDIR /app/StemExplorerAPI
+
+EXPOSE 5000
+
+CMD ASPNETCORE_URLS=http://+:$PORT dotnet watch run --urls http://0.0.0.0:5000
