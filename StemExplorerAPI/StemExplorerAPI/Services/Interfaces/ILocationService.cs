@@ -8,6 +8,6 @@ namespace StemExplorerAPI.Services.Interfaces
 {
     public interface ILocationService
     {
-        IEnumerable<LocationDto> GetLocations();
+        LocationsDto GetLocations();
     }
 }

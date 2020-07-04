@@ -16,9 +16,9 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public IEnumerable<LocationDto> GetLocations()
+        public LocationsDto GetLocations()
         {
-            return _context.Locations.Select(l => new LocationDto
+            var locations = _context.Locations.Select(l => new LocationDto
             {
                 Id = l.LocationId,
                 Name = l.Name,
@@ -27,8 +27,16 @@ namespace StemExplorerAPI.Services
                     Latitude = l.Latitude,
                     Longitude = l.Longitude,
                 },
+                ChallengeTitle = l.Challenges.First().Title,
+                ChallengeDescription = l.Challenges.First().Description,
+                ChallengeCategory = l.Challenges.First().Category,
                 Link = l.Url,
             }).ToList();
+
+            return new LocationsDto
+            {
+                Locations = locations,
+            };
         }
     }
 }

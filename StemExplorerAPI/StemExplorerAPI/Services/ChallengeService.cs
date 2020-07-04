@@ -16,17 +16,19 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public IEnumerable<ChallengeDto> GetChallenges()
+        public ChallengesDto GetChallenges()
         {
-            return _context.Challenges.Select(c => new ChallengeDto
+            var challenges = _context.Challenges.Select(c => new ChallengeDto
             {
                 Id = c.Id,
                 Title = c.Title,
                 Description = c.Description,
                 Category = c.Category,
-                Location = c.Location,
-                ChallengeLevels = _context.ChallengeLevels.Where(x => x.ChallengeId == c.Id).ToList()
             }).ToList();
+            return new ChallengesDto
+            {
+                Challenges = challenges,
+            };
         }
     }
 }

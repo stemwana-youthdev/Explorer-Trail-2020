@@ -22,7 +22,7 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/GetLocations
         [HttpGet("GetLocations")]
-        public IEnumerable<LocationDto> GetAllLocations()
+        public LocationsDto GetAllLocations()
         {
             return _locationService.GetLocations();
         }

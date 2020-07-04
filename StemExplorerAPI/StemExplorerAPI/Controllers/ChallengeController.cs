@@ -22,7 +22,7 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/GetChallenges
         [HttpGet("GetChallenges")]
-        public IEnumerable<ChallengeDto> GetAllChallenges()
+        public ChallengesDto GetAllChallenges()
         {
             return _challengeService.GetChallenges();
         }
