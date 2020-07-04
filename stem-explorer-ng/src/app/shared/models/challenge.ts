@@ -1,7 +1,7 @@
 import { Location } from './location';
 
 export interface Challenge {
-    id: number;
+    uid: number;
     title: string;
     description: string;
     category: number;

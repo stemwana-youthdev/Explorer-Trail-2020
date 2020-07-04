@@ -17,6 +17,7 @@ import { Location } from '../../shared/models/location';
 export class ListViewComponent implements OnInit {
 
   challenges: Challenge[] = [];
+  locations: Location[] = [];
   Categories: any = Categories;
 
   constructor(private service: ApiService, public dialog: MatDialog) {
@@ -27,28 +28,39 @@ export class ListViewComponent implements OnInit {
   */
   getChallenges() {
     this.service.getChallenges().subscribe((res) => {
-      this.challenges = res;
+      this.challenges = res.challenges;
       this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
       });
+  }
+
+  /*
+  * Gets an array of locations from the API service
+  */
+  getLocations() {
+    this.service.getLocations().subscribe((res) => {
+      this.locations = res.location;
+    });
   }
 
   /*
   * Opens the dialog for the given challenge
   */
   openDialog(challenge: Challenge) {
+    const location: Location | undefined = this.locations.filter(l => l.uid === challenge.uid)[0];
     this.dialog.open(ListViewDialogComponent, {
       data: {
         title: challenge.title,
         category: Categories[challenge.category],
         description: challenge.description,
-        name: challenge.location.name,
-        link: challenge.location.link
+        name: location?.name,
+        link: location?.link
       }
     });
   }
 
   ngOnInit() {
     this.getChallenges();
+    this.getLocations();
   }
 
 }
