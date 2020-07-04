@@ -5,5 +5,4 @@ export interface Challenge {
     title: string;
     description: string;
     category: number;
-    location: Location;
 }
