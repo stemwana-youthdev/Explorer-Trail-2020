@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Columns, Table } from '../models/table.model';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-admin-table',
@@ -12,6 +13,7 @@ export class AdminTableComponent implements OnInit {
 
   @Input() dataSource: any[];
   @Input() table: Table;
+  @Input() canDrag = false;
 
   constructor() {}
 
@@ -27,5 +29,10 @@ export class AdminTableComponent implements OnInit {
   private setColumns() {
     this.columns = this.table.columns;
     this.displayedColumns = this.columns.map((x => x.columnDef));
+  }
+
+  dropRow(event: CdkDragDrop<any>) {
+    const dataList = [...this.dataSource];
+    moveItemInArray(dataList, event.previousIndex, event.currentIndex);
   }
 }

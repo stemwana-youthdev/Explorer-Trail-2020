@@ -7,13 +7,14 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './containers/dashboard/dashboard.component';
-import { ContentModule } from './content/content.module';
-import { LocationsComponent } from './locations/components/locations/locations.component';
-import { AdminMaterialModule } from './material.module';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { AdminMaterialModule } from './shared/material.module';
 import { ApiService } from './services/api/api.service';
 import { UrlService } from './services/api/url.service';
 import { SharedModule } from './shared/shared.module';
+import { ContentComponent } from './modules/content/content.component';
+import { ContentDialogComponent } from './modules/content/content-dialog/content-dialog.component';
+import { LocationsComponent } from './modules/locations/locations/locations.component';
 
 const providers = [ApiService, UrlService];
 
@@ -21,7 +22,9 @@ const providers = [ApiService, UrlService];
   declarations: [
     AppComponent,
     DashboardComponent,
-    LocationsComponent
+    LocationsComponent,
+    ContentComponent,
+    ContentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,6 @@ const providers = [ApiService, UrlService];
     FormlyModule.forRoot(),
     FormlyMaterialModule,
     HttpClientModule,
-    ContentModule,
     SharedModule
   ],
   providers,

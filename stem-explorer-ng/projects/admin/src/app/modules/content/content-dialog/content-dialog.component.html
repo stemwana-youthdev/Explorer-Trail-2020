@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Add New Content</h1>
+<div mat-dialog-content>
+  <div [formGroup]="form">
+    <mat-form-field class="dialog-input">
+      <input matInput placeholder="Link title" formControlName="title">
+    </mat-form-field>
+    <mat-form-field class="dialog-input">
+      <input matInput placeholder="URL" formControlName="link">
+    </mat-form-field>
+  </div>
+</div>
+<div mat-content-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button class="primary-button" [mat-dialog-close]="form" (click)="saveContent()">Save</button>
+</div>

@@ -6,6 +6,7 @@ import { Table } from '../../shared/models/table.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ContentDialogComponent } from './content-dialog/content-dialog.component';
+import { CustomContent } from './custom-content';
 
 @Component({
   selector: 'app-content',
@@ -29,6 +30,8 @@ export class ContentComponent implements OnInit {
   }
 
   getContent(): void {
+    // temp until API completed
+    this.content = CustomContent;
     // this.api.getAllContent().subscribe((res: any) => {
     //   this.content = res;
     // });

@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './containers/dashboard/dashboard.component';
-import { LocationsComponent } from './locations/components/locations/locations.component';
-import { ContentComponent } from './content/content/content.component';
-import { ContentItemComponent } from './content/content-item/content-item.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { ContentComponent } from './modules/content/content.component';
+import { LocationsComponent } from './modules/locations/locations/locations.component';
 
 const routes: Routes = [
   {
@@ -11,26 +10,12 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'dashboard'
   },
-  {
-    path: 'dashboard',
-    component: DashboardComponent
-  },
+  { path: 'dashboard', component: DashboardComponent },
   {
     path: 'locations',
     component: LocationsComponent
   },
-  {
-    path: 'content',
-    component: ContentComponent
-  },
-  {
-    path: 'content/:id',
-    component: ContentItemComponent
-  },
-  {
-    path: 'content/new',
-    component: ContentItemComponent
-  }
+  { path: 'content', component: ContentComponent }
 ];
 
 @NgModule({

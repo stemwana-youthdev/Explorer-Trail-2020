@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource" cdkDropList [cdkDropListData]="dataSource" (cdkDropListDropped)="dropRow($event)">
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
     <th class="table-header" mat-header-cell *matHeaderCellDef>
       {{ column.header }}
@@ -16,5 +16,5 @@
   </ng-container>
   
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" cdkDrag [cdkDragData]="row" [cdkDragDisabled]="!canDrag"></tr>
 </table>

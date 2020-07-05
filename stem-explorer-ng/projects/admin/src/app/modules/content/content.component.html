@@ -1,0 +1,5 @@
+<h1>Custom Content</h1>
+
+<button mat-button class="mat-raised-button primary-button" (click)="newContent()">Add New</button>
+
+<app-admin-table [table]="table" [dataSource]="content" [canDrag]="true"></app-admin-table>

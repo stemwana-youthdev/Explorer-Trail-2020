@@ -1,12 +1,14 @@
 <h1>
-  Welcome to {{ title }}!
+  STEM Explorer Trail Admin
 </h1>
 
-<mat-drawer-container class="main-container">
-  <mat-drawer mode="side" opened>
+<mat-sidenav-container class="main-container">
+  <mat-sidenav mode="side" opened>
     <app-admin-navbar></app-admin-navbar>
-  </mat-drawer>
-  <mat-drawer-content>
-    <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-card>
+      <router-outlet></router-outlet>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>
