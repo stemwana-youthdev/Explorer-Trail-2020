@@ -20,9 +20,10 @@ import { ListViewDialogComponent } from './components/list-view-dialog/list-view
 import { AdminAppSharedModule } from 'projects/admin/src/app/app.module';
 import { RouterModule } from '@angular/router';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
+import { FilterPipe } from './shared/pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,10 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     ListViewComponent,
     NavTabsComponent,
     ListViewDialogComponent,
-    TruncatePipe
+    TruncatePipe,
+    SplashScreenComponent,
+    FilterButtonsComponent,
+    FilterPipe
   ],
   imports: [
     GoogleMapsModule,
@@ -46,11 +50,12 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ReactiveFormsModule,
-    FormlyModule.forRoot(),
-    FormlyMaterialModule
+    ZXingScannerModule,
   ],
-  entryComponents: [ListViewDialogComponent],
+  entryComponents: [
+    ListViewDialogComponent,
+    SplashScreenComponent
+  ],
   providers: [ApiService],
   bootstrap: [AppComponent],
 })
