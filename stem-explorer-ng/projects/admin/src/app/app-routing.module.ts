@@ -6,16 +6,16 @@ import { LocationsComponent } from './modules/locations/locations/locations.comp
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     pathMatch: 'full',
     redirectTo: 'dashboard'
   },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'admin/dashboard', component: DashboardComponent },
   {
-    path: 'locations',
+    path: 'admin/locations',
     component: LocationsComponent
   },
-  { path: 'content', component: ContentComponent }
+  { path: 'admin/content', component: ContentComponent }
 ];
 
 @NgModule({
