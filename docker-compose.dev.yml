@@ -7,6 +7,9 @@
 # and reloads the page when the source code is changed. It also uses
 # `dotnet watch run` to do the same thing with the back-end.
 #
+# Running explorer_trial_api without also running explorer_trail_db (from
+# docker-compose.yml) will result in errors.
+#
 # To use this config run:
 # docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 #
@@ -32,10 +35,6 @@ services:
       - ./StemExplorerAPI/StemExplorerAPI:/app/StemExplorerAPI
     ports:
       - "5000:5000"
-    depends_on:
-      - explorer_trail_db
-    links:
-      - explorer_trail_db
 
   explorer_trial_ui:
     build:
