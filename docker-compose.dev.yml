@@ -1,35 +1,24 @@
-# This config can be used as an alternative to docker-compose.yml.
+# This config can be used as to suplement docker-compose.yml.
 #
 # The default config (in docker-compose.yml) builds the application when the
 # image is built, and then only runs an http server in the final image, which
 # means that changes to the code require a restart. This config gets around
 # that by using `ng serve`, which is a command in the angular cli that rebuilds
-# and reloads the page when the source code is changed.
+# and reloads the page when the source code is changed. It also uses
+# `dotnet watch run` to do the same thing with the back-end.
 #
 # To use this config run:
-# docker-compose -f docker-compose.dev.yml up --build
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 #
 # Or to only run the Angular server run:
-# docker-compose -f docker-compose.dev.yml up --build explorer_trial_ui
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trial_ui
 #
 # Or for just the backend:
-# docker-compose -f docker-compose.dev.yml up --build explorer_trail_db explorer_trial_api
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trail_db explorer_trial_api
 
 version: '3.1'
 
 services:
-  explorer_trail_db:
-    image: postgres:12.3
-    environment:
-      - POSTGRES_DB=StemExplorer
-      - POSTGRES_USER=stem
-      - POSTGRES_PASSWORD=stem2020
-      - POSTGRES_ROOT_PASSWORD=root_password
-    volumes:
-      - stem-data:/var/lib/postgresql/data/
-    ports:
-      - "5432:5432"
-
   explorer_trial_api:
     build:
       context: ./StemExplorerAPI
@@ -56,7 +45,3 @@ services:
       - ./stem-explorer-ng/src:/var/www/app/src
     ports:
       - "4200:4200"
-
-volumes:
-  stem-data:
-    external: false
