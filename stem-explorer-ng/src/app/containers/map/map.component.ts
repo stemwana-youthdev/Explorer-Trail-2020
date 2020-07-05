@@ -62,16 +62,13 @@ export class MapComponent implements OnInit {
   }
 
 
- @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow
- challengeTitle = ''
- challengeDescription = '' //separate property for the html side to show challenge description in a new line
-  
-  openInfo(marker: MapMarker, content, content2){
-    
-    this.challengeTitle = `Challenge: ${content}`
-    this.challengeDescription = `Description: ${content2}` //Text format to display within infoWindow
-     
-    this.infoWindow.open(marker)
+  challengeTitle = '';
+  challengeDescription = ''; // separate property for the html side to show challenge description in a new line
+
+  openInfo(marker: MapMarker, content, content2) {
+    this.challengeTitle = `Challenge: ${content}`;
+    this.challengeDescription = `Description: ${content2}`; // Text format to display within infoWindow
+    this.infoWindow.open(marker);
   }
 }
 
