@@ -1,25 +1,18 @@
-<div *ngIf="!camera">
-  <app-toolbar *ngIf="showNavBar | async"></app-toolbar>
+<app-toolbar *ngIf="showNavBar | async"></app-toolbar>
 
-  <div *ngIf="isHomePage | async" style="text-align:center">
-    <h1>
-      {{ title }}
-    </h1>
-  </div>
-
-  <app-nav-tabs *ngIf="isHomePage | async"></app-nav-tabs>
-
-  <router-outlet></router-outlet>
-
-  <span class="material-icons"
-      (click)="cameraView()" 
-      id="camera"
-      *ngIf="isHomePage | async">
-        camera_alt
-  </span>
+<div *ngIf="isHomePage | async" style="text-align:center">
+  <h1>
+    {{ title }}
+  </h1>
 </div>
 
-<div *ngIf="camera">
-  <zxing-scanner></zxing-scanner>
-  <button mat-button (click)="cameraView()">Close Camera</button>
-</div>
+<app-nav-tabs *ngIf="isHomePage | async"></app-nav-tabs>
+
+<router-outlet></router-outlet>
+
+<span class="material-icons"
+    (click)="cameraView()" 
+    id="camera"
+    *ngIf="isHomePage | async">
+      camera_alt
+</span>

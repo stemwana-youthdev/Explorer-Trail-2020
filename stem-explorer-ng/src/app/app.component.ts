@@ -10,7 +10,6 @@ import { map, startWith, distinct } from 'rxjs/operators';
 })
 export class AppComponent {
   title = 'STEMFest Explorer Trail';
-  camera = false;
 
   constructor(
     private router: Router,
@@ -38,7 +37,7 @@ export class AppComponent {
   }
 
   cameraView() {
-    this.camera = !this.camera;
+    this.router.navigateByUrl('/camera');
   }
 
 }
