@@ -27,9 +27,9 @@ namespace StemExplorerAPI.Services
                     Latitude = l.Latitude,
                     Longitude = l.Longitude,
                 },
-                ChallengeTitle = l.Challenges.First().Title,
-                ChallengeDescription = l.Challenges.First().Description,
-                ChallengeCategory = l.Challenges.First().Category,
+                ChallengeTitle = l.Challenges.Any() ? l.Challenges.First().Title : null,
+                ChallengeDescription = l.Challenges.Any() ? l.Challenges.First().Description : null,
+                ChallengeCategory = l.Challenges.Any() ? l.Challenges.First().Category : 0,
                 Link = l.Url,
             }).ToList();
 
