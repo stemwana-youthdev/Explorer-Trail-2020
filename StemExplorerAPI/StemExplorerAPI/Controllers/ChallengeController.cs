@@ -22,9 +22,9 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/GetChallenges
         [HttpGet("GetChallenges")]
-        public ChallengesDto GetAllChallenges()
+        public async Task<ChallengesDto> GetAllChallenges()
         {
-            return _challengeService.GetChallenges();
+            return await _challengeService.GetChallenges();
         }
 
         // GET: api/Challenge/5

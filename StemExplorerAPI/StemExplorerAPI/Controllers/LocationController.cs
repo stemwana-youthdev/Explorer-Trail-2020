@@ -22,9 +22,9 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/GetLocations
         [HttpGet("GetLocations")]
-        public LocationsDto GetAllLocations()
+        public async Task<LocationsDto> GetAllLocations()
         {
-            return _locationService.GetLocations();
+            return await _locationService.GetLocations();
         }
 
         // GET: api/Location/5

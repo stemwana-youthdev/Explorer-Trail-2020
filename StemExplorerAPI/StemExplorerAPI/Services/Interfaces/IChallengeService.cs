@@ -8,6 +8,6 @@ namespace StemExplorerAPI.Services.Interfaces
 {
     public interface IChallengeService
     {
-        ChallengesDto GetChallenges();
+        Task<ChallengesDto> GetChallenges();
     }
 }

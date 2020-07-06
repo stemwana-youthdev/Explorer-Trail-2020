@@ -1,4 +1,5 @@
-﻿using StemExplorerAPI.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StemExplorerAPI.Models;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 using System;
@@ -16,9 +17,9 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public LocationsDto GetLocations()
+        public async Task<LocationsDto> GetLocations()
         {
-            var locations = _context.Locations.Select(l => new LocationDto
+            var locations = await _context.Locations.Select(l => new LocationDto
             {
                 Id = l.LocationId,
                 Name = l.Name,
@@ -31,7 +32,7 @@ namespace StemExplorerAPI.Services
                 ChallengeDescription = l.Challenges.Any() ? l.Challenges.First().Description : null,
                 ChallengeCategory = l.Challenges.Any() ? l.Challenges.First().Category : 0,
                 Link = l.Url,
-            }).ToList();
+            }).ToListAsync();
 
             return new LocationsDto
             {
