@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith, distinct } from 'rxjs/operators';
 
-import { AuthService } from './shared/auth/auth.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +14,6 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
   ) { }
 
   get currentUrl(): Observable<string> {
@@ -38,18 +35,6 @@ export class AppComponent {
     return this.currentUrl.pipe(
       map((url) => url !== '/camera' && !url.startsWith('/admin'))
     );
-  }
-
-  get isLoggedIn(): Observable<boolean> {
-    return this.auth.isLoggedIn;
-  }
-
-  navigateToLogin() {
-    this.router.navigateByUrl('login');
-  }
-
-  logout() {
-    this.auth.logout();
   }
 
   cameraView() {

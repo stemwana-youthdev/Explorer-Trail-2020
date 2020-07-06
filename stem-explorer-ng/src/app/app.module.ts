@@ -22,6 +22,7 @@ import { SplashScreenComponent } from './components/splash-screen/splash-screen.
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
 import { FilterPipe } from './shared/pipes/filter.pipe';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FilterPipe } from './shared/pipes/filter.pipe';
     TruncatePipe,
     SplashScreenComponent,
     FilterButtonsComponent,
-    FilterPipe
+    FilterPipe,
+    ToolbarComponent
   ],
   imports: [
     GoogleMapsModule,
