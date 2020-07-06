@@ -1,5 +1,5 @@
 <div *ngIf="!camera">
-  <mat-toolbar>
+  <mat-toolbar *ngIf="showNavBar | async">
     <span class="fill-remaining-space"></span>
 
     <button mat-button *ngIf="!(isLoggedIn | async); else loggedInBlock" (click)="navigateToLogin()">Log In</button>
@@ -15,19 +15,20 @@
     </ng-template>
   </mat-toolbar>
 
-  <div style="text-align:center">
+  <div *ngIf="isHomePage | async" style="text-align:center">
     <h1>
       {{ title }}
     </h1>
   </div>
 
-  <app-nav-tabs></app-nav-tabs>
+  <app-nav-tabs *ngIf="isHomePage | async"></app-nav-tabs>
 
   <router-outlet></router-outlet>
 
   <span class="material-icons"
       (click)="cameraView()" 
-      id = "camera">
+      id="camera"
+      *ngIf="isHomePage | async">
         camera_alt
   </span>
 </div>
