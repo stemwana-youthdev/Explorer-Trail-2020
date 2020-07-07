@@ -18,5 +18,3 @@
     AUTH_API: '<development-auth-api-key>',
   };
 });
-
-if (!window.MediaDeviceInfo) window.MediaDeviceInfo = {};
