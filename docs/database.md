@@ -19,22 +19,10 @@ Entity Framework (EF) is an object-relational mapper for .NET Core. It bridges t
 This tutorial is for setting up the database defined in docker-compose.yml. You may prefer to run the database directly on your machine, but you will have to adapt the commands that I am using.
 
 * You need to have Docker installed and running. If you don't please read [the Docker tutorial](./docker.md). You also need the .NET Core SDK.
-* Open a terminal and install the Entity Framework tools using `dotnet tool install --global dotnet-ef`.
 * Navigate to the project folder and start the Docker containers using `docker-compose up --build` if they are not already running.
 * In a new terminal tab, run the following commands:
 
 ```sh
-# Navigate to the right directory
-cd path/to/Explorer-Trail-2020
-cd StemExplorerAPI/StemExplorerAPI
-
-# Specify how to connect to the database
-export ConnectionStrings__StemExplorer='User ID=stem;\
-Password=stem2020;Server=localhost;Database=StemExplorer'
-
-# Update the database to match the schemas
-~/.dotnet/tools/dotnet-ef database update
-
 # Open a SQL prompt in the Docker container
 docker exec -it explorer-trail-2020_explorer_trail_db_1 \
 psql -d StemExplorer -U stem
@@ -74,11 +62,12 @@ VALUES (1, 'Day of the Week',
 
 # Usage notes
 
-If you want to run any dotnet command that accesses the database inside of the docker container you will need to run:
+If you are going to modify the database structure you will need to install the Entity Framework tools using `dotnet tool install --global dotnet-ef`.
+
+To use `dotnet ef` you need to set the following environment variables. You can either run these before you use it each time or put them in `~/.bash_profile` (`~/.zprofile` if your vscode terminal says zsh).
 
 ```sh
+export PATH="$PATH:~/dotnet/tools"
 export ConnectionStrings__StemExplorer='User ID=stem;\
 Password=stem2020;Server=localhost;Database=StemExplorer'
 ```
-
-For example you may wish to run `dotnet watch run` to restart dotnet when you edit the source code.
