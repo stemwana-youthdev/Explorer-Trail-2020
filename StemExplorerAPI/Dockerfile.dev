@@ -11,4 +11,4 @@ RUN dotnet restore
 COPY StemExplorerAPI/. ./StemExplorerAPI/
 WORKDIR /app/StemExplorerAPI
 
-CMD ASPNETCORE_URLS=http://+:$PORT dotnet watch run --urls http://0.0.0.0:5000
+CMD ASPNETCORE_URLS=http://+:$PORT dotnet watch run --urls http://0.0.0.0:$PORT
