@@ -41,9 +41,7 @@ services:
       context: ./stem-explorer-ng
       dockerfile: Dockerfile.dev
     environment:
-      # Override with PROXY_CONFIG=src/proxy.files.js to use files in assets
-      # instead of the API
-      - PROXY_CONFIG=src/proxy.docker.js
+      - API_HOST=http://explorer_trial_api:5000
     volumes:
       - ./stem-explorer-ng/src:/var/www/app/src
     ports:
