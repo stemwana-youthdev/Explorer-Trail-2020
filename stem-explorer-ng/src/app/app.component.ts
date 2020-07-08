@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith, distinct } from 'rxjs/operators';
-import { CameraComponent } from './containers/camera/camera.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +13,6 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private dialog: MatDialog,
   ) { }
 
   get currentUrl(): Observable<string> {
