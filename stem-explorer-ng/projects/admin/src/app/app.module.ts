@@ -43,7 +43,7 @@ const providers = [ApiService, UrlService];
 export class AdminAppModule { }
 
 @NgModule({})
-export class AdminAppSharedModule {
+export class AdminSharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: AdminAppModule,

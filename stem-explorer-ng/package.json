@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "ng serve --open && npm run admin",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "admin": "ng serve --project admin --open"
+    "admin": "ng serve --project admin --open --port 4300"
   },
   "private": true,
   "dependencies": {
