@@ -12,11 +12,9 @@
   }
 })(this, function() {
   return {
-    API_ENDPOINT: 'http://localhost:5000/api',
+    API_ENDPOINT: '/api',
     // If you are afraid that you might accidentally commit this, run:
     // git update-index --skip-worktree src/env.js
     AUTH_API: '<development-auth-api-key>',
   };
 });
-
-if (!window.MediaDeviceInfo) window.MediaDeviceInfo = {};

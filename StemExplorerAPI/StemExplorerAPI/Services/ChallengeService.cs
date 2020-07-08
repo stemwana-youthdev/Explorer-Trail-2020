@@ -1,4 +1,5 @@
-﻿using StemExplorerAPI.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StemExplorerAPI.Models;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 using System;
@@ -16,15 +17,15 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public ChallengesDto GetChallenges()
+        public async Task<ChallengesDto> GetChallenges()
         {
-            var challenges = _context.Challenges.Select(c => new ChallengeDto
+            var challenges = await _context.Challenges.Select(c => new ChallengeDto
             {
                 Id = c.Id,
                 Title = c.Title,
                 Description = c.Description,
                 Category = c.Category,
-            }).ToList();
+            }).ToListAsync();
             return new ChallengesDto
             {
                 Challenges = challenges,
