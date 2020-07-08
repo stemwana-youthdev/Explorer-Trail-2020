@@ -24,6 +24,7 @@ import { FilterButtonsComponent } from './components/filter-buttons/filter-butto
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { CameraComponent } from './containers/camera/camera.component';
+import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CameraComponent } from './containers/camera/camera.component';
     FilterButtonsComponent,
     FilterPipe,
     ToolbarComponent,
-    CameraComponent
+    CameraComponent,
+    CameraButtonComponent
   ],
   imports: [
     GoogleMapsModule,

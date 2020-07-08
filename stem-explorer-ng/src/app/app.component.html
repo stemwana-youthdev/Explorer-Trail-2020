@@ -10,9 +10,4 @@
 
 <router-outlet></router-outlet>
 
-<span class="material-icons"
-    (click)="cameraView()" 
-    id="camera"
-    *ngIf="isHomePage | async">
-      camera_alt
-</span>
+<app-camera-button *ngIf="isHomePage | async"></app-camera-button>

@@ -39,10 +39,4 @@ export class AppComponent {
     );
   }
 
-  cameraView() {
-    this.dialog.open(CameraComponent, {
-      panelClass: 'fullscreen-dialog',
-    });
-  }
-
 }
