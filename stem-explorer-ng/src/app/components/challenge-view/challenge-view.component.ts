@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { Challenge } from '../../shared/models/challenge';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Categories } from '../../shared/enums/categories.enum';
 
 @Component({
   selector: 'app-challenge-view',
@@ -12,8 +11,9 @@ import {map} from 'rxjs/operators';
 })
 export class ChallengeViewComponent implements OnInit {
 
-  challenge: Challenge;
+  challenge = {} as Challenge;
   id: number;
+  Categories: any = Categories;
 
   constructor(private service: ApiService, private route: ActivatedRoute) {
   }
