@@ -23,6 +23,10 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { ChallengeViewComponent } from './components/challenge-view/challenge-view.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { CameraComponent } from './containers/camera/camera.component';
+import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +42,10 @@ import { ChallengeViewComponent } from './components/challenge-view/challenge-vi
     SplashScreenComponent,
     FilterButtonsComponent,
     FilterPipe,
-    ChallengeViewComponent
+    ChallengeViewComponent,
+    ToolbarComponent,
+    CameraComponent,
+    CameraButtonComponent
   ],
   imports: [
     GoogleMapsModule,

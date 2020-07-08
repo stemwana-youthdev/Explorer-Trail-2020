@@ -30,3 +30,16 @@ $stem-explorer-ng-theme: mat-light-theme($stem-explorer-ng-primary, $stem-explor
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Used for the camera pop-up
+.fullscreen-dialog {
+  max-width: none !important;
+  max-height: none;
+  width: 100vw;
+  height: 100vh;
+
+  mat-dialog-container {
+    border-radius: 0;
+    padding: 0;
+  }
+}
