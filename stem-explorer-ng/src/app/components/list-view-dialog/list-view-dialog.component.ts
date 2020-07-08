@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 /*
 * Component for the list view dialog for more information
@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./list-view-dialog.component.scss']
 })
 export class ListViewDialogComponent implements OnInit {
+
 
   constructor(@Inject(MAT_DIALOG_DATA) public data, private router: Router) { }
 
