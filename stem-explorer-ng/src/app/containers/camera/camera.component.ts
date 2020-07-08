@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,12 +9,7 @@ import { Router } from '@angular/router';
 export class CameraComponent {
 
   constructor(
-    private location: Location,
     private router: Router,
   ) { }
-
-  cameraView() {
-    this.location.back();
-  }
 
 }
