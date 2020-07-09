@@ -2,7 +2,7 @@
   "challenges": [
     {
       "uid": 1,
-      "title": "Day of The Week",
+      "title": "A Challenge that is not in the db",
       "description": "Do you know what day of the week this is?",
       "category": 0
     },

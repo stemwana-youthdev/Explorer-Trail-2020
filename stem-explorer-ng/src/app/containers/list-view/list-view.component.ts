@@ -29,8 +29,7 @@ export class ListViewComponent implements OnInit {
   */
   getChallenges() {
     this.service.getChallenges().subscribe((res) => {
-      // tslint:disable-next-line: no-string-literal
-      this.challenges = res['challenges'];
+      this.challenges = res.challenges;
       this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
       });
   }
@@ -40,23 +39,23 @@ export class ListViewComponent implements OnInit {
   */
   getLocations() {
     this.service.getLocations().subscribe((res) => {
-      // tslint:disable-next-line: no-string-literal
-      this.locations = res['location'];
-      });
+      this.locations = res.location;
+    });
   }
 
 
   /*
   * Opens the dialog for the given challenge
   */
-  openDialog(challenge) {
+  openDialog(challenge: Challenge) {
+    const location: Location | undefined = this.locations.find(l => l.uid === challenge.uid);
     this.dialog.open(ListViewDialogComponent, {
       data: {
         title: challenge.title,
         category: Categories[challenge.category],
         description: challenge.description,
-        name: this.locations[challenge.uid - 1].name,
-        link: this.locations[challenge.uid - 1].link
+        name: location?.name,
+        link: location?.link
       }
     });
   }
