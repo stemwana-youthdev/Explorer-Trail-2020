@@ -17,8 +17,8 @@ export class ChallengeViewComponent implements OnInit {
   id: number;
   Categories: any = Categories;
   Levels: any = Levels;
-  challengeLevel: ChallengeLevels[] = [];
-  levels: number[];
+  challengeInfo: ChallengeLevels[] = [];
+  levels: number[] = [];
   selectedLevel: number;
   currentChallenge = {} as ChallengeLevels;
 
@@ -54,8 +54,8 @@ export class ChallengeViewComponent implements OnInit {
   getChallengeLevels() {
     this.service.getChallengeLevels().subscribe((res) => {
       // tslint:disable-next-line: no-string-literal
-      this.challengeLevel = res['challengeLevels'].filter(item => item.challengeId === this.id);
-      this.levels = this.challengeLevel.map(level => level.difficulty);
+      this.challengeInfo = res['challengeLevels'].filter(item => item.challengeId === this.id);
+      this.levels = this.challengeInfo.map(level => level.difficulty);
       this.selectedLevel = Math.min(...this.levels);
       this.getCurrentChallenge(this.selectedLevel);
       });
@@ -63,7 +63,7 @@ export class ChallengeViewComponent implements OnInit {
 
   // Gets the current challenge information based on the level selected
   getCurrentChallenge(value) {
-    this.currentChallenge = this.challengeLevel.find(challenge => challenge.difficulty === value);
+    this.currentChallenge = this.challengeInfo.find(challenge => challenge.difficulty === value);
   }
 
 }
