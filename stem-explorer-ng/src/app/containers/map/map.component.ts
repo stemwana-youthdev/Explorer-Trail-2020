@@ -31,6 +31,7 @@ export class MapComponent implements OnInit {
     gestureHandling: 'cooperative' // for gesture controls
   };
 
+  @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow;
 
   /**
    * @todo use navigator.location to set this.center to user's current location.
