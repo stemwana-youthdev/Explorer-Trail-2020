@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-drawer',
@@ -11,10 +12,16 @@ export class DrawerComponent {
   @ViewChild('drawer')
   drawer: MatDrawer;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   toggle() {
     this.drawer.toggle();
+  }
+
+  navigateToHomepage() {
+    this.router.navigateByUrl('');
   }
 
 }
