@@ -12,4 +12,8 @@ export class ApiService {
   getLocations() {
     return this.http.get('assets/locations.json');
   }
+
+  getChallenge(uid) {
+    return this.http.get('assets/locations.json');
+  }
 }
