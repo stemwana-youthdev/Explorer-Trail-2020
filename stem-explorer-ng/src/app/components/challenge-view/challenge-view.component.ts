@@ -3,6 +3,7 @@ import { ApiService } from '../../shared/services/api.service';
 import { Challenge } from '../../shared/models/challenge';
 import { ActivatedRoute } from '@angular/router';
 import { Categories } from '../../shared/enums/categories.enum';
+import { Levels } from 'src/app/shared/enums/levels.enum';
 
 @Component({
   selector: 'app-challenge-view',
@@ -14,12 +15,17 @@ export class ChallengeViewComponent implements OnInit {
   challenge = {} as Challenge;
   id: number;
   Categories: any = Categories;
+  Levels: any = Levels;
+  challengeLevel;
+  levels: number[];
+  defaultLevel;
 
   constructor(private service: ApiService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.getChallenges();
+    this.getChallenge();
+    this.getChallengeLevels();
 
     // Gets the id from the current route
     this.route.params.subscribe(params => {
@@ -31,10 +37,19 @@ export class ChallengeViewComponent implements OnInit {
   /*
   * Gets one challenge based on the uid
   */
- getChallenges() {
+ getChallenge() {
   this.service.getChallenges().subscribe((res) => {
     // tslint:disable-next-line: no-string-literal
     this.challenge = res['challenges'].find(item => item.uid === this.id);
+    });
+}
+
+getChallengeLevels() {
+  this.service.getChallengeLevels().subscribe((res) => {
+    // tslint:disable-next-line: no-string-literal
+    this.challengeLevel = res['challengeLevels'].filter(item => item.challengeId === this.id);
+    this.levels = this.challengeLevel.map(level => level.difficulty);
+    this.defaultLevel = Math.min(...this.levels);
     });
 }
 

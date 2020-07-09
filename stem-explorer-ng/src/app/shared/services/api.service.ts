@@ -31,6 +31,11 @@ export class ApiService {
   getChallenge(uid) {
     return this.http.get('assets/locations.json');
   }
+
+  getChallengeLevels() {
+    return this.http.get('assets/challengeLevels.json');
+  }
+
 }
 
 export interface Challenges {

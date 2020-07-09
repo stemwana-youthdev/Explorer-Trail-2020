@@ -1,0 +1,86 @@
+{
+    "challengeLevels": [
+      {
+        "uid": 1,
+        "questionText": "Is Monday a day of the week?",
+        "difficulty": 1,
+        "answerType": 0,
+        "answer": "Yes",
+        "challengeId": 3
+      },
+      {
+        "uid": 2,
+        "questionText": "Is Tuesday a day of the week?",
+        "difficulty": 2,
+        "answerType": 0,
+        "answer": "Yes",
+        "challengeId": 3
+      },
+      {
+        "uid": 3,
+        "questionText": "Is Wednesday a day of the week?",
+        "difficulty": 3,
+        "answerType": 0,
+        "answer": "Yes",
+        "challengeId": 3
+      },
+      {
+        "uid": 4,
+        "questionText": "Is Thursday a day of the week?",
+        "difficulty": 4,
+        "answerType": 0,
+        "answer": "Yes",
+        "challengeId": 3
+      },
+      {
+        "uid": 5,
+        "questionText": "How many numbers are there before 10?",
+        "difficulty": 1,
+        "answerType": 0,
+        "answer": "10",
+        "challengeId": 4
+      },
+      {
+        "uid": 6,
+        "questionText": "What is the best type of biscuit?",
+        "difficulty": 4,
+        "answerType": 0,
+        "answer": "Gingernuts",
+        "challengeId": 5
+      },
+      {
+        "uid": 7,
+        "questionText": "What does S stand for in STEM?",
+        "difficulty": 1,
+        "answerType": 0,
+        "answer": "Science",
+        "challengeId": 6
+      },
+      {
+        "uid": 8,
+        "questionText": "What does T stand for in STEM?",
+        "difficulty": 2,
+        "answerType": 0,
+        "answer": "Technology",
+        "challengeId": 6
+      },
+      {
+        "uid": 9,
+        "questionText": "What does E stand for in STEM?",
+        "difficulty": 3,
+        "answerType": 0,
+        "answer": "Engineering",
+        "challengeId": 6
+      },
+      {
+        "uid": 10,
+        "questionText": "What does M stand for in STEM?",
+        "difficulty": 4,
+        "answerType": 0,
+        "answer": "Maths",
+        "challengeId": 6
+      }
+      
+      
+    ]
+  }

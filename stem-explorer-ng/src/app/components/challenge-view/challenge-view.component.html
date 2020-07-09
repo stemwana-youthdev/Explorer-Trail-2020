@@ -1,4 +1,9 @@
 <h1>{{ challenge.title }}</h1>
 <h2>{{ Categories[challenge.category] }}</h2>
 <h3>Duration: </h3>
+<mat-form-field appearance="fill">
+    <mat-select [(value)]="defaultLevel">
+      <mat-option [value]="option" *ngFor="let option of levels">{{ Levels[option] }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 <p>{{ challenge.description }}</p>
