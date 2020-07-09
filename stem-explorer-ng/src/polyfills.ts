@@ -61,3 +61,9 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+// Workaround for angular trying to 
+if (!window.MediaDeviceInfo) {
+   // @ts-ignore
+   window.MediaDeviceInfo = {};
+}
