@@ -1,4 +1,8 @@
 <mat-toolbar>
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  
   <span class="fill-remaining-space"></span>
   
   <button mat-button *ngIf="!(isLoggedIn | async); else loggedInBlock" (click)="navigateToLogin()">Log In</button>

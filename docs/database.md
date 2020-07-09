@@ -20,43 +20,7 @@ This tutorial is for setting up the database defined in docker-compose.yml. You 
 
 * You need to have Docker installed and running. If you don't please read [the Docker tutorial](./docker.md). You also need the .NET Core SDK.
 * Navigate to the project folder and start the Docker containers using `docker-compose up --build` if they are not already running.
-* In a new terminal tab, run the following commands:
-
-```sh
-# Open a SQL prompt in the Docker container
-docker exec -it explorer-trail-2020_explorer_trail_db_1 \
-psql -d StemExplorer -U stem
-```
-
-* You should see a prompt like `StemExplorer=#`.
-* Copy and paste the following to create the example challenges and locations:
-
-```sql
-INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "Url")
-VALUES (1, 'Basestation', -37.6865807, 176.1649332,
-        'https://www.basestation.nz/en'),
-       (2, 'Trustpower', -37.6857656, 176.1679695,
-        'https://www.trustpower.co.nz/'),
-       (3, 'i-SITE', -37.6855958, 176.1690853,
-        'https://www.newzealand.com/in/plan/business/tauranga-i-size-visitor-information-centre/'),
-       (4, 'Tauranga City Library', -37.6845175, 176.1678085,
-        'https://library.tauranga.govt.nz/');
-
-INSERT INTO "Challenges" ("Id", "Title", "Description", "Category", "LocationId")
-VALUES (1, 'Day of the Week',
-        'Do you know what day of the week it is?',
-        0, 1),
-       (2, 'How many numbers',
-        'We need to know how many numbers there are before 10, can you count them?',
-        1, 2),
-       (3, 'Biscuits, biscuits, biscuits!',
-        'There may be a lot of different types of biscuits, but which ones are the best? There''s only one right answer!',
-        2, 3),
-       (4, 'Do you know your STEM',
-        'Do you know what this letter in STEM stands for?',
-        3, 4);
-```
-
+* In a new terminal tab, run `./db-seed.sh`.
 * Open [localhost:4200](http://localhost:4200/) in your browser and check that the website is getting the right data.
 * The db is now setup with the example data.
 
@@ -70,4 +34,11 @@ To use `dotnet ef` you need to set the following environment variables. You can 
 export PATH="$PATH:~/dotnet/tools"
 export ConnectionStrings__StemExplorer='User ID=stem;\
 Password=stem2020;Server=localhost;Database=StemExplorer'
+```
+
+You can also open a SQL prompt inside of the container using:
+
+```sh
+docker exec -it explorer-trail-2020_explorer_trail_db_1 \
+psql -d StemExplorer -U stem
 ```
