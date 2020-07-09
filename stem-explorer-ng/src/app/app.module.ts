@@ -26,6 +26,8 @@ import { ChallengeViewComponent } from './components/challenge-view/challenge-vi
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { CameraComponent } from './containers/camera/camera.component';
 import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -57,6 +59,7 @@ import { CameraButtonComponent } from './containers/camera-button/camera-button.
     BrowserAnimationsModule,
     MaterialModule,
     ZXingScannerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   entryComponents: [
     ListViewDialogComponent,
