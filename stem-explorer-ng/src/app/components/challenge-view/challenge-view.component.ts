@@ -44,13 +44,18 @@ export class ChallengeViewComponent implements OnInit {
     });
 }
 
-getChallengeLevels() {
-  this.service.getChallengeLevels().subscribe((res) => {
-    // tslint:disable-next-line: no-string-literal
-    this.challengeLevel = res['challengeLevels'].filter(item => item.challengeId === this.id);
-    this.levels = this.challengeLevel.map(level => level.difficulty);
-    this.defaultLevel = Math.min(...this.levels);
-    });
-}
+  /*
+  * Uses ApiService to get challengeLevels information and stores all challenge information
+  * for the current challenge in challengeLevel. Then it stores an array of the level numbers into
+  * another property, levels. It also sets the default level to be the lowest in the level array.
+  */
+  getChallengeLevels() {
+    this.service.getChallengeLevels().subscribe((res) => {
+      // tslint:disable-next-line: no-string-literal
+      this.challengeLevel = res['challengeLevels'].filter(item => item.challengeId === this.id);
+      this.levels = this.challengeLevel.map(level => level.difficulty);
+      this.defaultLevel = Math.min(...this.levels);
+      });
+  }
 
 }
