@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,6 +11,9 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
+
+  @Input()
+  drawer: MatDrawer;
 
   constructor(
     private router: Router,

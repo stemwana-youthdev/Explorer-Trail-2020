@@ -28,6 +28,7 @@ import { CameraComponent } from './containers/camera/camera.component';
 import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { DrawerComponent } from './containers/drawer/drawer.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { environment } from '../environments/environment';
     ChallengeViewComponent,
     ToolbarComponent,
     CameraComponent,
-    CameraButtonComponent
+    CameraButtonComponent,
+    DrawerComponent
   ],
   imports: [
     GoogleMapsModule,
