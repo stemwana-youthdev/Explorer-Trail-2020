@@ -6,7 +6,7 @@
         "difficulty": 1,
         "answerType": 0,
         "answer": "Yes",
-        "challengeId": 3
+        "challengeId": 1
       },
       {
         "uid": 2,
@@ -14,7 +14,7 @@
         "difficulty": 2,
         "answerType": 0,
         "answer": "Yes",
-        "challengeId": 3
+        "challengeId": 1
       },
       {
         "uid": 3,
@@ -22,7 +22,7 @@
         "difficulty": 3,
         "answerType": 0,
         "answer": "Yes",
-        "challengeId": 3
+        "challengeId": 1
       },
       {
         "uid": 4,
@@ -30,7 +30,7 @@
         "difficulty": 4,
         "answerType": 0,
         "answer": "Yes",
-        "challengeId": 3
+        "challengeId": 1
       },
       {
         "uid": 5,
@@ -38,7 +38,7 @@
         "difficulty": 1,
         "answerType": 0,
         "answer": "10",
-        "challengeId": 4
+        "challengeId": 2
       },
       {
         "uid": 6,
@@ -46,7 +46,7 @@
         "difficulty": 4,
         "answerType": 0,
         "answer": "Gingernuts",
-        "challengeId": 5
+        "challengeId": 3
       },
       {
         "uid": 7,
@@ -54,7 +54,7 @@
         "difficulty": 1,
         "answerType": 0,
         "answer": "Science",
-        "challengeId": 6
+        "challengeId": 4
       },
       {
         "uid": 8,
@@ -62,7 +62,7 @@
         "difficulty": 2,
         "answerType": 0,
         "answer": "Technology",
-        "challengeId": 6
+        "challengeId": 4
       },
       {
         "uid": 9,
@@ -70,7 +70,7 @@
         "difficulty": 3,
         "answerType": 0,
         "answer": "Engineering",
-        "challengeId": 6
+        "challengeId": 4
       },
       {
         "uid": 10,
@@ -78,7 +78,7 @@
         "difficulty": 4,
         "answerType": 0,
         "answer": "Maths",
-        "challengeId": 6
+        "challengeId": 4
       }
       
       
