@@ -13,6 +13,7 @@ namespace StemExplorerAPI
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IChallengeService, ChallengeService>();
+            services.AddScoped<IExternalContentService, ExternalContentService>();
             services.AddScoped<ILocationService, LocationService>();
 
             return services;
