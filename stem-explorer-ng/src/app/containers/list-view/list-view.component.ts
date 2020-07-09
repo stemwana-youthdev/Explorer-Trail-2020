@@ -51,9 +51,7 @@ export class ListViewComponent implements OnInit {
     const location: Location | undefined = this.locations.find(l => l.uid === challenge.uid);
     this.dialog.open(ListViewDialogComponent, {
       data: {
-        title: challenge.title,
-        category: Categories[challenge.category],
-        description: challenge.description,
+        challenge,
         name: location?.name,
         link: location?.link
       }

@@ -27,6 +27,10 @@ export class ApiService {
       `${this.apiEndpoint}/Location/GetLocations`
     );
   }
+
+  getChallenge(uid) {
+    return this.http.get('assets/locations.json');
+  }
 }
 
 export interface Challenges {

@@ -22,11 +22,13 @@ import { SplashScreenComponent } from './components/splash-screen/splash-screen.
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
 import { FilterPipe } from './shared/pipes/filter.pipe';
+import { ChallengeViewComponent } from './components/challenge-view/challenge-view.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { CameraComponent } from './containers/camera/camera.component';
 import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { environment } from '../environments/environment';
     SplashScreenComponent,
     FilterButtonsComponent,
     FilterPipe,
+    ChallengeViewComponent,
     ToolbarComponent,
     CameraComponent,
     CameraButtonComponent

@@ -1,11 +1,11 @@
 <h2 mat-dialog-title></h2>
 <mat-dialog-content>
-  <h2>{{data.title}}</h2>
-  <h3>{{data.category}}</h3>
-  <p>{{data.description}}</p>
+  <h2>{{data.challenge.title}}</h2>
+  <h3>{{Categories[data.challenge.category]}}</h3>
+  <p>{{data.challenge.description}}</p>
   <a href="{{data.link}}" target="_blank">Location: {{data.name}}</a>
   <br><br>
-  <button mat-stroked-button>Start Challenge</button>
+  <button mat-stroked-button mat-dialog-close (click)="goToChallenge(data.challenge.uid)">Start Challenge</button>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>
