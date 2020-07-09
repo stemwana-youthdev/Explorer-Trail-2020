@@ -29,4 +29,8 @@ VALUES (1, 'Day of the Week',
         'Do you know what this letter in STEM stands for?',
         3, 4);
 
+INSERT INTO "ExternalContent" ("Id", "Title", "Url", "Order")
+VALUES (1, 'Tauranga STEM Festival', 'https://www.taurangastemfestival.co.nz/', 2),
+       (2, 'Google Maps', 'https://www.google.co.nz/maps', 1);
+
 EOF
