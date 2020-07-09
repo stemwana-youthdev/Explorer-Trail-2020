@@ -19,7 +19,7 @@ export class ChallengeViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getChallenges();
+    this.getChallenge();
 
     // Gets the id from the current route
     this.route.params.subscribe(params => {
@@ -31,7 +31,7 @@ export class ChallengeViewComponent implements OnInit {
   /*
   * Gets an array of challenges in alphabetical order from the API service
   */
- getChallenges() {
+ getChallenge() {
   this.service.getChallenges().subscribe((res) => {
     // tslint:disable-next-line: no-string-literal
     this.challenge = res['challenges'].find(item => item.uid === this.id);

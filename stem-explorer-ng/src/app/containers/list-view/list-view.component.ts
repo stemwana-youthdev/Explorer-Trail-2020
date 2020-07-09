@@ -52,10 +52,7 @@ export class ListViewComponent implements OnInit {
   openDialog(challenge) {
     this.dialog.open(ListViewDialogComponent, {
       data: {
-        uid: challenge.uid,
-        title: challenge.title,
-        category: Categories[challenge.category],
-        description: challenge.description,
+        challenge,
         name: this.locations[challenge.uid - 1].name,
         link: this.locations[challenge.uid - 1].link
       }
