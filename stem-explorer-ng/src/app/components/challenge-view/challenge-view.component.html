@@ -1,13 +1,17 @@
 <h1>{{ challenge.title }}</h1>
 <h2>{{ Categories[challenge.category] }}</h2>
 <h3>Duration: </h3>
+<p>{{ challenge.description }}</p>
 
 <mat-form-field appearance="fill">
-    <mat-select [(value)]="defaultLevel">
+    <mat-select [(value)]="defaultLevel" (selectionChange)="getCurrentChallenge(defaultLevel)">
       <mat-option [value]="option" *ngFor="let option of levels">{{ Levels[option] }}</mat-option>
     </mat-select>
-  </mat-form-field>
+</mat-form-field>
 
-<p>{{ challenge.description }}</p>
+<p><b>Instructions: </b>{{ currentChallenge.instructions }}</p>
+<h3>QUESTION: {{ currentChallenge.questionText }}</h3>
+
+
 
 

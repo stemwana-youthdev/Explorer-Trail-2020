@@ -19,6 +19,7 @@ export class ChallengeViewComponent implements OnInit {
   challengeLevel;
   levels: number[];
   defaultLevel;
+  currentChallenge;
 
   constructor(private service: ApiService, private route: ActivatedRoute) {
   }
@@ -55,7 +56,13 @@ export class ChallengeViewComponent implements OnInit {
       this.challengeLevel = res['challengeLevels'].filter(item => item.challengeId === this.id);
       this.levels = this.challengeLevel.map(level => level.difficulty);
       this.defaultLevel = Math.min(...this.levels);
+      this.getCurrentChallenge(this.defaultLevel);
       });
+  }
+
+  // Gets the current challenge information based on the level selected
+  getCurrentChallenge(value) {
+    this.currentChallenge = this.challengeLevel.find(challenge => challenge.difficulty === value);
   }
 
 }
