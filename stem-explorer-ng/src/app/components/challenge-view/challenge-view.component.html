@@ -4,7 +4,7 @@
 <p>{{ challenge.description }}</p>
 
 <mat-form-field appearance="fill">
-    <mat-select [(value)]="defaultLevel" (selectionChange)="getCurrentChallenge(defaultLevel)">
+    <mat-select [(value)]="selectedLevel" (selectionChange)="getCurrentChallenge(selectedLevel)">
       <mat-option [value]="option" *ngFor="let option of levels">{{ Levels[option] }}</mat-option>
     </mat-select>
 </mat-form-field>

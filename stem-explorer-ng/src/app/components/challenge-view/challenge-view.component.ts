@@ -4,6 +4,7 @@ import { Challenge } from '../../shared/models/challenge';
 import { ActivatedRoute } from '@angular/router';
 import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
+import { ChallengeLevels } from 'src/app/shared/models/challenge-levels';
 
 @Component({
   selector: 'app-challenge-view',
@@ -16,10 +17,10 @@ export class ChallengeViewComponent implements OnInit {
   id: number;
   Categories: any = Categories;
   Levels: any = Levels;
-  challengeLevel;
+  challengeLevel: ChallengeLevels[] = [];
   levels: number[];
-  defaultLevel;
-  currentChallenge;
+  selectedLevel: number;
+  currentChallenge = {} as ChallengeLevels;
 
   constructor(private service: ApiService, private route: ActivatedRoute) {
   }
@@ -55,8 +56,8 @@ export class ChallengeViewComponent implements OnInit {
       // tslint:disable-next-line: no-string-literal
       this.challengeLevel = res['challengeLevels'].filter(item => item.challengeId === this.id);
       this.levels = this.challengeLevel.map(level => level.difficulty);
-      this.defaultLevel = Math.min(...this.levels);
-      this.getCurrentChallenge(this.defaultLevel);
+      this.selectedLevel = Math.min(...this.levels);
+      this.getCurrentChallenge(this.selectedLevel);
       });
   }
 
