@@ -1,0 +1,23 @@
+<table mat-table [dataSource]="dataSource" cdkDropList [cdkDropListData]="dataSource" (cdkDropListDropped)="dropRow($event)">
+  <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+    <th class="table-header" mat-header-cell *matHeaderCellDef>
+      {{ column.header }}
+    </th>
+    <td mat-cell *matCellDef="let row" (click)="clickRow(row)">
+      <ng-container [ngSwitch]="column.formatter">
+        <span *ngSwitchCase="'link'">
+          <a [href]="row.link" target="_blank">Visit Site <mat-icon>launch</mat-icon></a>
+        </span>
+        <span *ngSwitchDefault>
+          {{ row[column.columnDef] }}
+        </span>
+      </ng-container>
+    </td>
+  </ng-container>
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    
+    cdkDrag [cdkDragData]="row" [cdkDragDisabled]="!canDrag"></tr>
+</table>
