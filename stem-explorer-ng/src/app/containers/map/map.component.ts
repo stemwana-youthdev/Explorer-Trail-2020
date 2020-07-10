@@ -3,7 +3,6 @@ import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '../../shared/models/location';
 
-  // tslint:disable: no-string-literal
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',

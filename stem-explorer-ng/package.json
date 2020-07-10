@@ -3,13 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open && npm run admin",
+    "start": "ng serve --open",
     "start:with-fixtures": "cross-env USE_FIXTURES=true ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "admin": "ng serve --project admin --open --port 4300"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

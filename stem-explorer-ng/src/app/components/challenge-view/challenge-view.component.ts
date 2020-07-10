@@ -41,7 +41,6 @@ export class ChallengeViewComponent implements OnInit {
   */
  getChallenge() {
   this.service.getChallenges().subscribe((res) => {
-    // tslint:disable-next-line: no-string-literal
     this.challenge = res['challenges'].find(item => item.uid === this.id);
     });
 }
@@ -53,7 +52,6 @@ export class ChallengeViewComponent implements OnInit {
   */
   getChallengeLevels() {
     this.service.getChallengeLevels().subscribe((res) => {
-      // tslint:disable-next-line: no-string-literal
       this.challengeInfo = res['challengeLevels'].filter(item => item.challengeId === this.id);
       this.levels = this.challengeInfo.map(level => level.difficulty);
       this.selectedLevel = Math.min(...this.levels);

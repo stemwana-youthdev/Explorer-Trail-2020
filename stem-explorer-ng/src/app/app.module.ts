@@ -4,7 +4,6 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { AdminSharedModule } from 'projects/admin/src/app/app.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
@@ -55,7 +54,6 @@ import { DrawerComponent } from './containers/drawer/drawer.component';
     GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
-    // AdminSharedModule.forRoot(),
     AuthModule,
     ConfigModule,
     HttpClientModule,
