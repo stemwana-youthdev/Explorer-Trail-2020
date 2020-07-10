@@ -40,7 +40,7 @@ export class DrawerComponent implements OnInit {
   }
 
   navigateToHomepage() {
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/');
   }
 
 }
