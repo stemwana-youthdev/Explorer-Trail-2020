@@ -3,8 +3,6 @@ import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '../../shared/models/location';
 
-
-
   // tslint:disable: no-string-literal
 @Component({
   selector: 'app-map',
@@ -23,7 +21,6 @@ export class MapComponent implements OnInit {
 
   filter = [0, 1, 2, 3];
 
-
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
     zoomControl: true,
@@ -34,10 +31,7 @@ export class MapComponent implements OnInit {
     gestureHandling: 'cooperative' // for gesture controls
   };
 
-
-  // tslint:disable-next-line: member-ordering
   @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow;
-  infoContent = '';
 
   /**
    * @todo use navigator.location to set this.center to user's current location.
@@ -57,7 +51,7 @@ export class MapComponent implements OnInit {
   loadLocation() {
     this.service.getLocations().subscribe(l => {
       // store the data in a local property
-      this.location = l['location'];
+      this.location = l.location;
     });
   }
 

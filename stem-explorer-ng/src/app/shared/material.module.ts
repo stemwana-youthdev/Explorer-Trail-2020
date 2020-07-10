@@ -10,6 +10,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -25,6 +28,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatSidenavModule,
   ],
   exports: [
     MatTabsModule,
@@ -36,6 +42,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatSidenavModule,
   ],
 })
 export class MaterialModule { }

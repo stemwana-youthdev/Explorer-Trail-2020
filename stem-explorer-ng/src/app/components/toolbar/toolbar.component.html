@@ -1,0 +1,19 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  <span class="fill-remaining-space"></span>
+  
+  <button mat-button *ngIf="!(isLoggedIn | async); else loggedInBlock" (click)="navigateToLogin()">Log In</button>
+  
+  <ng-template #loggedInBlock>
+    <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+      <mat-icon>account_box</mat-icon>
+    </button>
+  
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="logout()">Log Out</button>
+    </mat-menu>
+  </ng-template>
+</mat-toolbar>

@@ -22,6 +22,13 @@ import { MaterialModule } from './shared/material.module';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
 import { ApiService } from './shared/services/api.service';
+import { ChallengeViewComponent } from './components/challenge-view/challenge-view.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { CameraComponent } from './containers/camera/camera.component';
+import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { DrawerComponent } from './containers/drawer/drawer.component';
 
 
 @NgModule({
@@ -37,7 +44,12 @@ import { ApiService } from './shared/services/api.service';
     TruncatePipe,
     SplashScreenComponent,
     FilterButtonsComponent,
-    FilterPipe
+    FilterPipe,
+    ChallengeViewComponent,
+    ToolbarComponent,
+    CameraComponent,
+    CameraButtonComponent,
+    DrawerComponent
   ],
   imports: [
     GoogleMapsModule,
@@ -50,6 +62,7 @@ import { ApiService } from './shared/services/api.service';
     BrowserAnimationsModule,
     MaterialModule,
     ZXingScannerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   entryComponents: [
     ListViewDialogComponent,

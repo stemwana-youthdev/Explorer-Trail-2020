@@ -1,27 +1,48 @@
-# This config can be used as an alternative to the explorer_trial_ui config in
-# docker-compose.yml.
+# This config can be used as to suplement docker-compose.yml.
 #
 # The default config (in docker-compose.yml) builds the application when the
 # image is built, and then only runs an http server in the final image, which
 # means that changes to the code require a restart. This config gets around
 # that by using `ng serve`, which is a command in the angular cli that rebuilds
-# and reloads the page when the source code is changed.
+# and reloads the page when the source code is changed. It also uses
+# `dotnet watch run` to do the same thing with the back-end.
+#
+# Running explorer_trial_api without also running explorer_trail_db (from
+# docker-compose.yml) will result in errors.
 #
 # To use this config run:
-# docker-compose -f docker-compose.dev.yml up --build
-#
-# Or to run the api server at the same time:
 # docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+#
+# Or to only run the Angular server run:
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trial_ui
+#
+# Or for just the backend:
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trail_db explorer_trial_api
 
 version: '3.1'
 
 services:
+  explorer_trial_api:
+    build:
+      context: ./StemExplorerAPI
+      dockerfile: Dockerfile.dev
+    environment:
+      - PORT=5000
+      - ASPNETCORE_ENVIRONMENT=Development
+      - SiteHost=http://*:4200
+      - ConnectionStrings__StemExplorer=User ID=stem;Password=stem2020;Server=explorer_trail_db;Database=StemExplorer
+    volumes:
+      - ./StemExplorerAPI/StemExplorerAPI:/app/StemExplorerAPI
+    ports:
+      - "5000:5000"
+
   explorer_trial_ui:
     build:
       context: ./stem-explorer-ng
       dockerfile: Dockerfile.dev
+    environment:
+      - API_HOST=http://explorer_trial_api:5000
     volumes:
       - ./stem-explorer-ng/src:/var/www/app/src
     ports:
       - "4200:4200"
-
