@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
 import { Location } from '../models/location';
+import { ExternalContent } from '../models/external-content';
 
 @Injectable()
 export class ApiService {
@@ -25,6 +26,12 @@ export class ApiService {
   getLocations() {
     return this.http.get<Locations>(
       `${this.apiEndpoint}/Location/GetLocations`
+    );
+  }
+
+  getExternalContent() {
+    return this.http.get<ExternalContent[]>(
+      `${this.apiEndpoint}/ExternalContent/GetContent`
     );
   }
 
