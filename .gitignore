@@ -1,1 +1,8 @@
 .env
+.vscode/launch.json
+.vscode/tasks.json
+
+# dependencies
+/node_modules
+
+/.vs

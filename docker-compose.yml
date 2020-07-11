@@ -1,14 +1,17 @@
 version: '3.1'
 
 services:
-  # I remember you mentioning that you were going
-  # to use MongoDB, so here it is
-  explorer_trial_mongo:
-    image: mongo
+  explorer_trail_db:
+    image: postgres:12.3
+    environment:
+      - POSTGRES_DB=StemExplorer
+      - POSTGRES_USER=stem
+      - POSTGRES_PASSWORD=stem2020
+      - POSTGRES_ROOT_PASSWORD=root_password
     volumes:
-      - mongodb-data:/data/db
+      - stem-data:/var/lib/postgresql/data/
     ports:
-      - "27017:27017"
+      - "5432:5432"
 
   explorer_trial_api:
     build:
@@ -17,9 +20,13 @@ services:
       - PORT=5000
       - ASPNETCORE_ENVIRONMENT=Development
       - SiteHost=http://localhost:4200
-      - MongoConnection=mongodb://explorer_trial_mongo:27017
+      - ConnectionStrings__StemExplorer=User ID=stem;Password=stem2020;Server=explorer_trail_db;Database=StemExplorer
     ports:
       - "5000:5000"
+    depends_on:
+      - explorer_trail_db
+    links:
+      - explorer_trail_db
 
   explorer_trial_ui:
     build:
@@ -32,5 +39,5 @@ services:
       - '4200:4200'
 
 volumes:
-  mongodb-data:
+  stem-data:
     external: false

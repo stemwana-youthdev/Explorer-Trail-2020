@@ -1,0 +1,26 @@
+<app-filter-buttons (data)="this.filter=$event"></app-filter-buttons>
+
+<google-map
+[center]="center"
+[zoom]="zoom"
+height="500px"
+width="100%"
+[options]="options"
+>
+    <map-marker
+    #markerElem
+    *ngFor="let marker of (location | filter:this.filter)"
+    [position]="marker.position"
+    [label]="marker.name"
+    [title]="marker.name"
+    (mapClick)="openInfo(markerElem, marker.challengetitle, marker.challengedescription)"
+    >
+    </map-marker>
+
+    <map-info-window>
+
+    <h3>{{ challengeTitle }}</h3>
+    <h4>{{ challengeDescription | truncate:50 }}</h4>
+
+    </map-info-window>
+</google-map>

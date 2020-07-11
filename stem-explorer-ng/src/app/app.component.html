@@ -1,12 +1,18 @@
-<nav>
-  <button (click)="navigateToLogin()">Log In</button>
-</nav>
+<app-toolbar *ngIf="showNavBar | async" [drawer]="drawer"></app-toolbar>
 
-<div style="text-align:center">
-  <h1>
-    {{ title }}
-  </h1>
-</div>
+<mat-drawer-container autosize>
+  <app-drawer #drawer></app-drawer>
 
-<app-nav-tabs></app-nav-tabs>
-<router-outlet></router-outlet>
+  <div *ngIf="isHomePage | async" style="text-align:center">
+    <h1>
+      {{ title }}
+    </h1>
+  </div>
+
+  <app-nav-tabs *ngIf="isHomePage | async"></app-nav-tabs>
+
+  <router-outlet></router-outlet>
+
+  <app-camera-button *ngIf="isHomePage | async"></app-camera-button>
+
+</mat-drawer-container>

@@ -73,6 +73,27 @@ namespace StemExplorerAPI.Migrations
                     b.ToTable("ChallengeLevels");
                 });
 
+            modelBuilder.Entity("StemExplorerAPI.Models.Entities.ExternalContent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExternalContent");
+                });
+
             modelBuilder.Entity("StemExplorerAPI.Models.Entities.Location", b =>
                 {
                     b.Property<int>("LocationId")

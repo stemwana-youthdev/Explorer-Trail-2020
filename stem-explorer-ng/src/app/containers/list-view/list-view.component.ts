@@ -6,6 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
 import { Location } from '../../shared/models/location';
 
+/*
+* Component to show the challenges in a list view
+*/
 @Component({
   selector: 'app-list-view',
   templateUrl: './list-view.component.html',
@@ -15,32 +18,42 @@ export class ListViewComponent implements OnInit {
 
   challenges: Challenge[] = [];
   locations: Location[] = [];
-  Categories : any = Categories;
+  Categories: any = Categories;
+  filter = [0, 1, 2, 3];
 
   constructor(private service: ApiService, public dialog: MatDialog) {
    }
 
+  /*
+  * Gets an array of challenges in alphabetical order from the API service
+  */
   getChallenges() {
-    this.service.getChallenges().subscribe((res)=>{
-      this.challenges = res["challenges"]
-      this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)
+    this.service.getChallenges().subscribe((res) => {
+      this.challenges = res.challenges;
+      this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
       });
   }
 
+  /*
+  * Gets an array of locations from the API service
+  */
   getLocations() {
-    this.service.getLocations().subscribe((res)=>{
-      this.locations = res["location"]
-      });
+    this.service.getLocations().subscribe((res) => {
+      this.locations = res.location;
+    });
   }
 
-  openDialog(challenge) {
+
+  /*
+  * Opens the dialog for the given challenge
+  */
+  openDialog(challenge: Challenge) {
+    const location: Location | undefined = this.locations.find(l => l.uid === challenge.uid);
     this.dialog.open(ListViewDialogComponent, {
       data: {
-        title: challenge.title,
-        category: Categories[challenge.category],
-        description: challenge.description,
-        name: this.locations[challenge.uid - 1].name,
-        link: this.locations[challenge.uid - 1].link
+        challenge,
+        name: location?.name,
+        link: location?.link
       }
     });
   }

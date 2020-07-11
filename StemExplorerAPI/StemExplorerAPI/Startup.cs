@@ -38,7 +38,7 @@ namespace StemExplorerAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, StemExplorerContext dataContext)
         {
             if (env.IsDevelopment())
             {
@@ -49,10 +49,16 @@ namespace StemExplorerAPI
 
             app.UseAuthorization();
 
+            app.UseCors(builder => {
+                builder.AllowAnyOrigin();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            dataContext.Database.Migrate();
         }
     }
 }
