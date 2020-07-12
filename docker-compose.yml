@@ -13,7 +13,7 @@ services:
     ports:
       - "5432:5432"
 
-  explorer_trial_api:
+  explorer_trail_api:
     build:
       context: ./StemExplorerAPI
     environment:
@@ -28,7 +28,7 @@ services:
     links:
       - explorer_trail_db
 
-  explorer_trial_ui:
+  explorer_trail_ui:
     build:
       context: ./stem-explorer-ng
     environment:

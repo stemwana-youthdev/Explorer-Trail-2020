@@ -7,25 +7,25 @@
 # and reloads the page when the source code is changed. It also uses
 # `dotnet watch run` to do the same thing with the back-end.
 #
-# Running explorer_trial_api without also running explorer_trail_db (from
+# Running explorer_trail_api without also running explorer_trail_db (from
 # docker-compose.yml) will result in errors.
 #
 # To use this config run:
 # docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 #
 # Or to only run the Angular server run:
-# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trial_ui
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trail_ui
 #
 # For just the admin server (available at http://localhost:4300/admin/) run:
 # docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trail_admin
 #
 # Or for just the backend:
-# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trail_db explorer_trial_api
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trail_db explorer_trail_api
 
 version: '3.1'
 
 services:
-  explorer_trial_api:
+  explorer_trail_api:
     build:
       context: ./StemExplorerAPI
       dockerfile: Dockerfile.dev
@@ -39,13 +39,13 @@ services:
     ports:
       - "5000:5000"
 
-  explorer_trial_ui:
+  explorer_trail_ui:
     build:
       context: ./stem-explorer-ng
       dockerfile: Dockerfile.dev
     environment:
       - ADMIN_URL=http://explorer_trail_admin:4300
-      - API_HOST=http://explorer_trial_api:5000
+      - API_HOST=http://explorer_trail_api:5000
     volumes:
       - ./stem-explorer-ng/src:/var/www/app/src
     ports:
