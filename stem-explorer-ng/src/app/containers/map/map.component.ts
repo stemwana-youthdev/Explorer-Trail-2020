@@ -2,6 +2,7 @@ import { MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '../../shared/models/location';
+import { Router } from '@angular/router';
 
   // tslint:disable: no-string-literal
 @Component({
@@ -12,7 +13,7 @@ import { Location } from '../../shared/models/location';
 export class MapComponent implements OnInit {
 
   // added a dependency injection in order to use the getLocations method without creating an instance of the object
-  constructor(private service: ApiService) {}
+  constructor(private service: ApiService, private router: Router) {}
   zoom = 15;
   center: google.maps.LatLngLiteral;
 
@@ -63,6 +64,10 @@ export class MapComponent implements OnInit {
     this.challengeTitle = `Challenge: ${content}`;
     this.challengeDescription = `Description: ${content2}`; // Text format to display within infoWindow
     this.infoWindow.open(marker);
+  }
+
+  goToChallenge(id) {
+    this.router.navigate(['challenge/' + id]);
   }
 }
 

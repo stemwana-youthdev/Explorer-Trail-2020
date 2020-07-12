@@ -21,6 +21,8 @@ width="100%"
 
     <h3>{{ challengeTitle }}</h3>
     <h4>{{ challengeDescription | truncate:50 }}</h4>
+    <button mat-stroked-button (click)="goToChallenge(1)">Start Challenge</button>
+
 
     </map-info-window>
 </google-map>
