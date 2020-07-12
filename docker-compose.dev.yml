@@ -16,6 +16,9 @@
 # Or to only run the Angular server run:
 # docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trial_ui
 #
+# For just the admin server (available at http://localhost:4300/admin/) run:
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trail_admin
+#
 # Or for just the backend:
 # docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build explorer_trail_db explorer_trial_api
 
