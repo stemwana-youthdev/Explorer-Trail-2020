@@ -23,6 +23,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": false,
+            "baseHref": "/admin/",
             "assets": [
               "src/favicon.ico",
               "src/assets"

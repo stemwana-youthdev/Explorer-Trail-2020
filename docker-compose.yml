@@ -32,11 +32,20 @@ services:
     build:
       context: ./stem-explorer-ng
     environment:
+      - ADMIN_URL=http://explorer_trail_admin:4200
       - PORT=4200
       - API_ENDPOINT=http://localhost:5000/api
       - AUTH_API
     ports:
       - '4200:4200'
+
+  explorer_trail_admin:
+    build:
+      context: ./stem-admin
+    environment:
+      - PORT=4200
+    ports:
+      - '4201:4200'
 
 volumes:
   stem-data:

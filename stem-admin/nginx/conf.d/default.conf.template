@@ -1,10 +1,6 @@
 server {
     listen ${PORT};
 
-    location /admin {
-        proxy_pass ${ADMIN_URL};
-    }
-
     location / {
         root /var/www/html;
 
@@ -50,7 +46,7 @@ server {
 
         # Any route that doesn't have a file extension (e.g. /devices)
         location / {
-            try_files ${DOLLAR}uri ${DOLLAR}uri/ /index.html;
+            try_files ${DOLLAR}uri ${DOLLAR}uri/ /admin/index.html;
         }
     }
 }
