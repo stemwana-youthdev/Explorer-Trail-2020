@@ -41,8 +41,18 @@ services:
       context: ./stem-explorer-ng
       dockerfile: Dockerfile.dev
     environment:
+      - ADMIN_URL=http://explorer_trail_admin:4300
       - API_HOST=http://explorer_trial_api:5000
     volumes:
       - ./stem-explorer-ng/src:/var/www/app/src
     ports:
       - "4200:4200"
+
+  explorer_trail_admin:
+    build:
+      context: ./stem-admin
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./stem-admin/src:/var/www/app/src
+    ports:
+      - '4300:4300'
