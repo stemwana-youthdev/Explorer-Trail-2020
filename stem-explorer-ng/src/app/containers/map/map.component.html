@@ -13,7 +13,7 @@ width="100%"
     [position]="marker.position"
     [label]="marker.name"
     [title]="marker.name"
-    (mapClick)="openInfo(markerElem, marker.challengetitle, marker.challengedescription)"
+    (mapClick)="openInfo(markerElem, marker.challengetitle, marker.challengedescription, marker.challengeid)"
     >
     </map-marker>
 
@@ -21,7 +21,7 @@ width="100%"
 
     <h3>{{ challengeTitle }}</h3>
     <h4>{{ challengeDescription | truncate:50 }}</h4>
-    <button mat-stroked-button (click)="goToChallenge(1)">Start Challenge</button>
+    <button mat-stroked-button (click)="goToChallenge(challengeId)">Start Challenge</button>
 
 
     </map-info-window>

@@ -22,6 +22,11 @@ export class MapComponent implements OnInit {
 
   filter = [0, 1, 2, 3];
 
+  // separate property for the information for the map pop up
+  challengeTitle = '';
+  challengeDescription = '';
+  challengeId: number;
+
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
     zoomControl: true,
@@ -57,15 +62,14 @@ export class MapComponent implements OnInit {
   }
 
 
-  challengeTitle = '';
-  challengeDescription = ''; // separate property for the html side to show challenge description in a new line
-
-  openInfo(marker: MapMarker, content, content2) {
+  openInfo(marker: MapMarker, content, content2, id) {
     this.challengeTitle = `Challenge: ${content}`;
     this.challengeDescription = `Description: ${content2}`; // Text format to display within infoWindow
+    this.challengeId = id;
     this.infoWindow.open(marker);
   }
 
+  // Navigate to challenge page using current challenge id
   goToChallenge(id) {
     this.router.navigate(['challenge/' + id]);
   }
