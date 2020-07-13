@@ -10,8 +10,8 @@ export class FilterButtonsComponent implements OnInit {
   @Output() data: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   buttons = [
-    {category: 'S', value: 0, colorClass: 'blue'},
-    {category: 'T', value: 1, colorClass: 'green'},
+    {category: 'S', value: 0, colorClass: 'green'},
+    {category: 'T', value: 1, colorClass: 'blue'},
     {category: 'E', value: 2, colorClass: 'orange'},
     {category: 'M', value: 3, colorClass: 'purple'}
     ];
