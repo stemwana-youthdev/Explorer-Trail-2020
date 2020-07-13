@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { Navigate } from '../state/router.state';
 
 @Component({
   selector: 'app-navbar',
@@ -17,9 +18,13 @@ export class NavbarComponent {
     { label: 'Locations', path: '/locations' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private store: Store
+  ) {}
 
   goToPage(path: string) {
-    this.router.navigate([path]);
+    this.store.dispatch([
+      new Navigate(path)
+    ]);
   }
 }

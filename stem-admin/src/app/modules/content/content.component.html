@@ -4,7 +4,7 @@
 
 <app-table
   [table]="table"
-  [dataSource]="content"
+  [dataSource]="(state$ | async).content"
   [canDrag]="true"
   (selectRow)="contentDialog($event)"
 ></app-table>

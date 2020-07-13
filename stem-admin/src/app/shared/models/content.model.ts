@@ -1,5 +1,5 @@
 export interface Content {
-  uid: number;
+  uid?: number;
   title: string;
   link: string;
   order: number;

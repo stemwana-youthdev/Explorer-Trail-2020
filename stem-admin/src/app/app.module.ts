@@ -8,21 +8,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { ContentComponent } from './modules/content/content.component';
 import { ApiService } from './services/api/api.service';
 import { UrlService } from './services/api/url.service';
-import { ContentDialogComponent } from './modules/content/content-dialog/content-dialog.component';
 import { LocationsComponent } from './modules/locations/locations/locations.component';
 import { LocationItemComponent } from './modules/locations/location-item/location-item.component';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { RouterState } from './shared/state/router.state';
+import { ContentDialogComponent } from './modules/content/content-dialog/content-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    ContentComponent,
-    ContentDialogComponent,
     LocationsComponent,
-    LocationItemComponent
+    LocationItemComponent,
+    ContentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +33,15 @@ import { LocationItemComponent } from './modules/locations/location-item/locatio
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    NgxsModule.forRoot([RouterState], {
+      developmentMode: !environment.production
+    }),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot()
   ],
   providers: [ApiService, UrlService],
-  entryComponents: [ContentDialogComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ContentDialogComponent]
 })
 export class AppModule { }

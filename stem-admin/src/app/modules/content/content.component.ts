@@ -6,6 +6,10 @@ import { Table } from '../../shared/models/table.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ContentDialogComponent } from './content-dialog/content-dialog.component';
 import { CustomContent } from './custom-content';
+import { Store, Select } from '@ngxs/store';
+import { AddContentItem, SetContent } from './content-state/content.actions';
+import { Observable } from 'rxjs';
+import { ContentState } from './content-state/content.state';
 
 @Component({
   selector: 'app-content',
@@ -17,11 +21,18 @@ export class ContentComponent implements OnInit {
   content: Content[] = [];
   table: Table = this.tableFactory.contentTable();
 
+  state$: Observable<ContentState>;
+
+  @Select(ContentState.getContent) content$;
+
   constructor(
     readonly tableFactory: TableFactory,
     private api: ApiService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private store: Store
+  ) {
+    this.state$ = this.store.select(state => state);
+  }
 
   ngOnInit() {
     this.getContent();
@@ -32,11 +43,14 @@ export class ContentComponent implements OnInit {
    * @todo connect when API is done.
    */
   getContent(): void {
-    // temp until API completed
     this.content = CustomContent;
-    // this.api.getAllContent().subscribe((res: any) => {
-    //   this.content = res;
-    // });
+    this.store.dispatch([
+      new SetContent(this.content)
+    ]);
+    console.warn('get content!')
+    this.store.select(state => {
+      console.warn('this.store.select', state)
+    })
   }
 
   /**
@@ -60,6 +74,9 @@ export class ContentComponent implements OnInit {
       /**
        * @todo add order no. for new content to add it to bottom of the list.
        */
+      this.store.dispatch([
+        new AddContentItem(res)
+      ]);
     });
   }
 }
