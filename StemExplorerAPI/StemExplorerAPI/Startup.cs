@@ -34,7 +34,18 @@ namespace StemExplorerAPI
             
             services.AddControllers();
 
+            //Enables Dependency Injection
             services.RegisterServices();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Stem Explorer APIs",
+                    Version = "v2",
+                    Description = "Documentation for the Stem Explorer API endpoints"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +68,10 @@ namespace StemExplorerAPI
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v2/swagger.json", "Stem Explorer API"));
 
             dataContext.Database.Migrate();
         }
