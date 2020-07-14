@@ -33,4 +33,34 @@ INSERT INTO "ExternalContent" ("Id", "Title", "Url", "Order")
 VALUES (1, 'Tauranga STEM Festival', 'https://www.taurangastemfestival.co.nz/', 2),
        (2, 'Google Maps', 'https://www.google.co.nz/maps', 1);
 
+INSERT INTO "ChallengeLevels" ("Id", "QuestionText", "Difficulty", "AnswerType", "ChallengeId")
+VALUES (1,
+        'What is the best type of biscuit?',
+        3, 0, 3),
+       (2,
+        'What does the "S" in STEM stand for?',
+        0, 2, 4),
+       (3,
+        'What does the "T" in STEM stand for?',
+        1, 2, 4),
+       (4,
+        'What does the "E" in STEM stand for?',
+        2, 2, 4),
+       (5,
+        'What does the "M" in STEM stand for?',
+        0, 2, 4);
+
+INSERT INTO "ChallengeAnswers" ("Id", "AnswerText", "IsCorrect", "ChallengeLevelId")
+VALUES (1, 'Shortbread', TRUE, 1),
+       (2, 'Gingernuts', FALSE, 1),
+       (3, 'Krispie', FALSE, 1),
+       (4, 'Wine', FALSE, 1),
+       (5, 'Science', TRUE, 2),
+       (6, 'Technology', TRUE, 3),
+       (7, 'Tech', TRUE, 3),
+       (8, 'Engineering', TRUE, 4),
+       (9, 'Mathematics', TRUE, 5),
+       (10, 'Maths', TRUE, 5),
+       (11, 'Math', TRUE, 5);
+
 EOF
