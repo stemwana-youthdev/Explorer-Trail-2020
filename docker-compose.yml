@@ -43,6 +43,7 @@ services:
       context: ./stem-admin
     environment:
       - PORT=4300
+      - API_ENDPOINT=http://localhost:5000/api
     ports:
       - '4300:4300'
 

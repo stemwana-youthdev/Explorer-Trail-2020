@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build -- --prod
 
 RUN gzip -k -r ./dist
-#RUN rm ./dist/stem-admin/env.js.gz
+RUN rm ./dist/stem-admin/env.js.gz
 
 #------------------------------------------------------
 
