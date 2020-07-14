@@ -23,7 +23,7 @@ ENV ROOT /var/www/app
 RUN apk add --no-cache gettext
 
 WORKDIR /var/www/html
-COPY --from=build-stage $ROOT/dist/stem-admin ./admin
+COPY --from=build-stage $ROOT/dist/stem-admin .
 
 WORKDIR /etc/nginx
 COPY --from=build-stage $ROOT/nginx .
