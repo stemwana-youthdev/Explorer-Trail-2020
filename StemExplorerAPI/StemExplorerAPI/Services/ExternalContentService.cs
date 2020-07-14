@@ -39,5 +39,21 @@ namespace StemExplorerAPI.Services
             });
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateContent(int id, ExternalContentDto newContent)
+        {
+            var content = await _context.ExternalContent.SingleAsync(c => c.Id == id);
+            content.Title = newContent.Title;
+            content.Url = newContent.Url;
+            content.Order = newContent.Order;
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task DeleteContent(int id)
+        {
+            var content = await _context.ExternalContent.SingleAsync(c => c.Id == id);
+            _context.ExternalContent.Remove(content);
+            await _context.SaveChangesAsync();
+        }
     }
 }

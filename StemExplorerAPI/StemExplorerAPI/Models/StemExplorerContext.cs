@@ -37,7 +37,7 @@ namespace StemExplorerAPI.Models
             modelBuilder.Entity<ChallengeLevel>()
                 .Property(c => c.Difficulty)
                 .HasConversion<int>();
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }
