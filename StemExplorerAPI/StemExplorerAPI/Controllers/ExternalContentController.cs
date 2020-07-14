@@ -25,5 +25,11 @@ namespace StemExplorerAPI.Controllers
         {
             return await _externalContentService.GetContent();
         }
+
+        [HttpPost]
+        public async Task Post([FromBody] ExternalContentDto newContent)
+        {
+            await _externalContentService.InsertContent(newContent);
+        }
     }
 }
