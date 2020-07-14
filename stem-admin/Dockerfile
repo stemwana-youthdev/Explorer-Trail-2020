@@ -29,7 +29,7 @@ WORKDIR /etc/nginx
 COPY --from=build-stage $ROOT/nginx .
 
 WORKDIR /var/www/src
-#COPY --from=build-stage $ROOT/env.js.template ./
+COPY --from=build-stage $ROOT/env.js.template ./
 COPY --from=build-stage $ROOT/run.sh ./
 RUN chmod +x ./run.sh
 
