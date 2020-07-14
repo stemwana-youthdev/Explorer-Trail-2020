@@ -17,19 +17,17 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public async Task<ChallengesDto> GetChallenges()
+        public async Task<List<ChallengeDto>> GetChallenges()
         {
-            var challenges = await _context.Challenges.Select(c => new ChallengeDto
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Description = c.Description,
-                Category = c.Category,
-            }).ToListAsync();
-            return new ChallengesDto
-            {
-                Challenges = challenges,
-            };
+            return await _context.Challenges
+                .AsNoTracking()
+                .Select(c => new ChallengeDto
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    Description = c.Description,
+                    Category = c.Category,
+                }).ToListAsync();
         }
     }
 }
