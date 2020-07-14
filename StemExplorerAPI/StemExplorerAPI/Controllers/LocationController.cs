@@ -72,7 +72,7 @@ namespace StemExplorerAPI.Controllers
                 var locationId = await _locationService.AddLocation(locationDto);
                 return CreatedAtRoute("GetById", new { id = locationId }, locationDto);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
