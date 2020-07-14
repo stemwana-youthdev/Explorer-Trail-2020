@@ -62,10 +62,10 @@ export class MapComponent implements OnInit {
   }
 
 
-  openInfo(marker: MapMarker, content, content2, id) {
-    this.challengeTitle = `Challenge: ${content}`;
-    this.challengeDescription = `Description: ${content2}`; // Text format to display within infoWindow
-    this.challengeId = id;
+  openInfo(marker: MapMarker, challenge) {
+    this.challengeTitle = `Challenge: ${challenge.challengetitle}`;
+    this.challengeDescription = `Description: ${challenge.challengedescription}`; // Text format to display within infoWindow
+    this.challengeId = challenge.challengeid;
     this.infoWindow.open(marker);
   }
 
