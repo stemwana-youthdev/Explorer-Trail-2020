@@ -32,7 +32,6 @@ services:
     build:
       context: ./stem-explorer-ng
     environment:
-      - ADMIN_URL=http://explorer_trail_admin:4300
       - PORT=4200
       - API_ENDPOINT=http://localhost:5000/api
       - AUTH_API

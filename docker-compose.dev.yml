@@ -44,7 +44,6 @@ services:
       context: ./stem-explorer-ng
       dockerfile: Dockerfile.dev
     environment:
-      - ADMIN_URL=http://explorer_trail_admin:4300
       - API_HOST=http://explorer_trail_api:5000
     volumes:
       - ./stem-explorer-ng/src:/var/www/app/src
