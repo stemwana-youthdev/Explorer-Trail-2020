@@ -2,6 +2,7 @@ import { MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '../../shared/models/location';
+import { Router } from '@angular/router';
 
   // tslint:disable: no-string-literal
 @Component({
@@ -12,7 +13,7 @@ import { Location } from '../../shared/models/location';
 export class MapComponent implements OnInit {
 
   // added a dependency injection in order to use the getLocations method without creating an instance of the object
-  constructor(private service: ApiService) {}
+  constructor(private service: ApiService, private router: Router) {}
   zoom = 15;
   center: google.maps.LatLngLiteral;
 
@@ -20,6 +21,11 @@ export class MapComponent implements OnInit {
   location: Location[] = [];
 
   filter = [0, 1, 2, 3];
+
+  // separate property for the information for the map pop up
+  challengeTitle = '';
+  challengeDescription = '';
+  challengeId: number;
 
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
@@ -56,13 +62,16 @@ export class MapComponent implements OnInit {
   }
 
 
-  challengeTitle = '';
-  challengeDescription = ''; // separate property for the html side to show challenge description in a new line
-
-  openInfo(marker: MapMarker, content, content2) {
-    this.challengeTitle = `Challenge: ${content}`;
-    this.challengeDescription = `Description: ${content2}`; // Text format to display within infoWindow
+  openInfo(marker: MapMarker, challenge) {
+    this.challengeTitle = `Challenge: ${challenge.challengetitle}`;
+    this.challengeDescription = `Description: ${challenge.challengedescription}`; // Text format to display within infoWindow
+    this.challengeId = challenge.challengeid;
     this.infoWindow.open(marker);
+  }
+
+  // Navigate to challenge page using current challenge id
+  goToChallenge(id) {
+    this.router.navigate(['challenge/' + id]);
   }
 }
 
