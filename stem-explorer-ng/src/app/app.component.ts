@@ -30,10 +30,4 @@ export class AppComponent {
     );
   }
 
-  get showNavBar() {
-    return this.currentUrl.pipe(
-      map((url) => !url.startsWith('/admin'))
-    );
-  }
-
 }
