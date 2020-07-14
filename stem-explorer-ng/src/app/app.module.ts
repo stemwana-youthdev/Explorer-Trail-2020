@@ -29,6 +29,7 @@ import { CameraButtonComponent } from './containers/camera-button/camera-button.
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
+import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { DrawerComponent } from './containers/drawer/drawer.component';
     ToolbarComponent,
     CameraComponent,
     CameraButtonComponent,
-    DrawerComponent
+    DrawerComponent,
+    HintDialogComponent
   ],
   imports: [
     GoogleMapsModule,
@@ -65,7 +67,8 @@ import { DrawerComponent } from './containers/drawer/drawer.component';
   ],
   entryComponents: [
     ListViewDialogComponent,
-    SplashScreenComponent
+    SplashScreenComponent,
+    HintDialogComponent
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],
