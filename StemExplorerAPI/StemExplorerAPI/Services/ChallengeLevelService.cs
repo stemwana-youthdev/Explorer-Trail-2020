@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StemExplorerAPI.Models;
+using StemExplorerAPI.Models.Entities;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 using System;
@@ -41,5 +42,26 @@ namespace StemExplorerAPI.Services
                 ChallengeLevels = levels,
             };
         }
+
+        public async Task<bool> ValidateAnswer(int levelId, string givenAnswer)
+        {
+            var level = await _context.ChallengeLevels
+                .Include(l => l.Answers)
+                .SingleAsync(l => l.Id == levelId);
+            foreach (var possibleAnswer in level.Answers)
+            {
+                if (AnswerMatches(givenAnswer, possibleAnswer))
+                {
+                    return possibleAnswer.IsCorrect;
+                }
+            }
+            return false;
+        }
+
+        private bool AnswerMatches(string givenAnswer, ChallengeAnswer possibleAnswer)
+            => NormalizeAnswer(givenAnswer) == NormalizeAnswer(possibleAnswer.AnswerText);
+
+        private string NormalizeAnswer(string answer)
+            => answer.Trim().ToLowerInvariant();
     }
 }
