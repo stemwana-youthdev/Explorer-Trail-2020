@@ -35,6 +35,7 @@ namespace StemExplorerAPI.Services
                             AnswerText = a.AnswerText,
                             IsCorrect = a.IsCorrect,
                         }).ToList(),
+                    ChallengeId = l.ChallengeId,
                 })
                 .ToListAsync();
             return new ChallengeLevelsDto
@@ -61,6 +62,7 @@ namespace StemExplorerAPI.Services
                             AnswerText = a.AnswerText,
                             IsCorrect = a.IsCorrect,
                         }).ToList(),
+                    ChallengeId = l.ChallengeId,
                 })
                 .ToListAsync();
             return new ChallengeLevelsDto
