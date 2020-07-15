@@ -18,6 +18,31 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
+        public async Task<ChallengeLevelsDto> GetLevels()
+        {
+            var levels = await _context.ChallengeLevels
+                .Select(l => new ChallengeLevelDto
+                {
+                    Id = l.Id,
+                    QuestionText = l.QuestionText,
+                    Difficulty = l.Difficulty,
+                    Instructions = l.Instructions,
+                    AnswerType = l.AnswerType,
+                    PossibleAnswers = l.Answers
+                        .Select(a => new ChallengeAnswerDto
+                        {
+                            Id = a.Id,
+                            AnswerText = a.AnswerText,
+                            IsCorrect = a.IsCorrect,
+                        }).ToList(),
+                })
+                .ToListAsync();
+            return new ChallengeLevelsDto
+            {
+                ChallengeLevels = levels,
+            };
+        }
+
         public async Task<ChallengeLevelsDto> GetLevelsForChallenge(int challengeId)
         {
             var levels = await _context.ChallengeLevels
