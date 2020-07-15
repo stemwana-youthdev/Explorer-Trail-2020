@@ -31,6 +31,7 @@ import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
 import { FabComponent } from './components/fab/fab.component';
+import { FabContainerComponent } from './components/fab-container/fab-container.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { FabComponent } from './components/fab/fab.component';
     CameraButtonComponent,
     DrawerComponent,
     HintDialogComponent,
-    FabComponent
+    FabComponent,
+    FabContainerComponent
   ],
   imports: [
     GoogleMapsModule,
