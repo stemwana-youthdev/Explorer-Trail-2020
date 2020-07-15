@@ -22,5 +22,6 @@ namespace StemExplorerAPI.Models.ViewModels
         public Enums.AnswerType AnswerType { get; set; }
         public List<ChallengeAnswerDto> PossibleAnswers { get; set; }
         public int ChallengeId { get; set; }
+        public string Hint { get; set; }
     }
 }

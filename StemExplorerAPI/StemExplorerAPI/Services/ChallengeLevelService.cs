@@ -36,6 +36,7 @@ namespace StemExplorerAPI.Services
                             IsCorrect = a.IsCorrect,
                         }).ToList(),
                     ChallengeId = l.ChallengeId,
+                    Hint = l.Hint,
                 })
                 .ToListAsync();
             return new ChallengeLevelsDto
@@ -63,6 +64,7 @@ namespace StemExplorerAPI.Services
                             IsCorrect = a.IsCorrect,
                         }).ToList(),
                     ChallengeId = l.ChallengeId,
+                    Hint = l.Hint,
                 })
                 .ToListAsync();
             return new ChallengeLevelsDto

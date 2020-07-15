@@ -18,7 +18,8 @@
             "isCorrect": false
           }
         ],
-        "challengeId": 1
+        "challengeId": 1,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 2,
@@ -38,7 +39,8 @@
             "isCorrect": false
           }
         ],
-        "challengeId": 1
+        "challengeId": 1,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 3,
@@ -58,7 +60,8 @@
             "isCorrect": false
           }
         ],
-        "challengeId": 1
+        "challengeId": 1,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 4,
@@ -78,7 +81,8 @@
             "isCorrect": false
           }
         ],
-        "challengeId": 1
+        "challengeId": 1,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 5,
@@ -93,7 +97,8 @@
             "isCorrect": true
           }
         ],
-        "challengeId": 2
+        "challengeId": 2,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 6,
@@ -123,7 +128,8 @@
             "isCorrect": false
           }
         ],
-        "challengeId": 3
+        "challengeId": 3,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 7,
@@ -138,7 +144,8 @@
             "isCorrect": true
           }
         ],
-        "challengeId": 4
+        "challengeId": 4,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 8,
@@ -158,7 +165,8 @@
             "isCorrect": true
           }
         ],
-        "challengeId": 4
+        "challengeId": 4,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 9,
@@ -173,7 +181,8 @@
             "isCorrect": true
           }
         ],
-        "challengeId": 4
+        "challengeId": 4,
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 10,
@@ -198,9 +207,8 @@
             "isCorrect": true
           }
         ],
-        "challengeId": 4
+        "challengeId": 4,
+        "hint": "Hint goes here testing..."
       }
-      
-      
     ]
-  }
+}

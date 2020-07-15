@@ -12,6 +12,7 @@ namespace StemExplorerAPI.Models.Entities
         public Enums.ChallengeLevel Difficulty { get; set; }
         public string Instructions { get; set; }
         public Enums.AnswerType AnswerType { get; set; }
+        public string Hint { get; set; }
 
         // EF relationship definition
         public ICollection<ChallengeAnswer> Answers { get; set; }
