@@ -1,0 +1,5 @@
+@use '../../variables' as *;
+
+button.mat-fab {
+  background: tint(80%, $primary-black);
+}

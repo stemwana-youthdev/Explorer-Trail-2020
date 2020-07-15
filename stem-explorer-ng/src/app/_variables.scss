@@ -35,3 +35,7 @@ $secondary-light-orange: #FCEAD7;
   font-family: 'Caveat', sans-serif;
   font-weight: 400;
 }
+
+@function tint($percentage, $color) {
+  @return mix($color, white, $percentage);
+}
