@@ -24,4 +24,14 @@ export class AppComponent {
     );
   }
 
+  get isMap() {
+    return this.currentUrl.pipe(
+      map((url) => url === '/'),
+    );
+  }
+
+  navigateToList() {
+    this.router.navigateByUrl('list-view');
+  }
+
 }

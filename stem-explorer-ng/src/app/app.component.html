@@ -1,8 +1,15 @@
 <app-toolbar [drawer]="drawer"></app-toolbar>
 
 <mat-drawer-container autosize>
+
   <app-drawer #drawer></app-drawer>
 
   <router-outlet></router-outlet>
+
+  <app-fab-container *ngIf="isMap | async">
+    <app-fab matIcon="list" (fabClick)="navigateToList()"></app-fab>
+    <span class="fill-remaining-space"></span>
+    <app-camera-button></app-camera-button>
+  </app-fab-container>
 
 </mat-drawer-container>
