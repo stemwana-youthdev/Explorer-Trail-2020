@@ -31,7 +31,11 @@ export class AppComponent {
   }
 
   navigateToList() {
-    this.router.navigateByUrl('list-view');
+    this.router.navigateByUrl('/list-view');
+  }
+
+  navigateToMap() {
+    this.router.navigateByUrl('/');
   }
 
 }
