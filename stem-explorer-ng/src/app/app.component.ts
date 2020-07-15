@@ -24,16 +24,4 @@ export class AppComponent {
     );
   }
 
-  get isHomePage() {
-    return this.currentUrl.pipe(
-      map((url) => url === '/' || url === '/list-view'),
-    );
-  }
-
-  get showNavBar() {
-    return this.currentUrl.pipe(
-      map((url) => !url.startsWith('/admin'))
-    );
-  }
-
 }
