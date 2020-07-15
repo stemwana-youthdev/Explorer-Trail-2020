@@ -1,0 +1,37 @@
+$primary-black: #000000;
+$primary-green: #99CC33;
+$primary-blue: #3BABE2;
+$primary-orange: #F9B335;
+$primary-purple: #672784;
+
+$secondary-red: #B94708;
+$secondary-pink: #E71F68;
+$secondary-light-blue: #CBE2F7;
+$secondary-light-orange: #FCEAD7;
+
+@mixin typeface-display {
+  font-family: 'Lato', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+@mixin typeface-heading {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@mixin typeface-sub-heading {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+
+@mixin typeface-body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+}
+
+@mixin typeface-accent {
+  font-family: 'Caveat', sans-serif;
+  font-weight: 400;
+}

@@ -1,3 +1,5 @@
+// Import variables
+@use 'app/variables' as *;
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -29,7 +31,11 @@ $stem-explorer-ng-theme: mat-light-theme($stem-explorer-ng-primary, $stem-explor
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  margin: 0;
+  @include typeface-body;
+}
 
 // Used for the camera pop-up
 .fullscreen-dialog {
