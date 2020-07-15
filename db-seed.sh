@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# If you want to clear the database (and any other docker volumes) run:
+# docker-compose down --volumes
+
 # Open a SQL prompt in the Docker container
 # and send some sql into it
 docker exec -i explorer-trail-2020_explorer_trail_db_1 \
