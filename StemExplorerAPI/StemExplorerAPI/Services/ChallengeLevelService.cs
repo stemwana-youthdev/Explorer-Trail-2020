@@ -27,6 +27,7 @@ namespace StemExplorerAPI.Services
                     Id = l.Id,
                     QuestionText = l.QuestionText,
                     Difficulty = l.Difficulty,
+                    Instructions = l.Instructions,
                     AnswerType = l.AnswerType,
                     PossibleAnswers = l.Answers
                         .Select(a => new ChallengeAnswerDto
