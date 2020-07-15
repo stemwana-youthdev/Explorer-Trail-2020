@@ -5,4 +5,5 @@ export interface ChallengeLevels {
     instructions: string;
     answer: string;
     challengeId: number;
+    hint: string;
 }

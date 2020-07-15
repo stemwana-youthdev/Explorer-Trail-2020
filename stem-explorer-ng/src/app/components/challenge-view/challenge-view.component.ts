@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { ChallengeLevels } from 'src/app/shared/models/challenge-levels';
+import { MatDialog } from '@angular/material/dialog';
+import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 
 @Component({
   selector: 'app-challenge-view',
@@ -22,7 +24,7 @@ export class ChallengeViewComponent implements OnInit {
   selectedLevel: number;
   currentChallenge = {} as ChallengeLevels;
 
-  constructor(private service: ApiService, private route: ActivatedRoute) {
+  constructor(private service: ApiService, private route: ActivatedRoute, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -64,6 +66,16 @@ export class ChallengeViewComponent implements OnInit {
   // Gets the current challenge information based on the level selected
   getCurrentChallenge(value) {
     this.currentChallenge = this.challengeInfo.find(challenge => challenge.difficulty === value);
+  }
+
+  openDialog(title, level, hint) {
+    this.dialog.open(HintDialogComponent, {
+      data: {
+        title,
+        level,
+        hint
+      }
+    });
   }
 
 }
