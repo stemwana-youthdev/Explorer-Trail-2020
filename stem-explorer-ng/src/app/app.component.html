@@ -7,13 +7,13 @@
   <router-outlet></router-outlet>
 
   <app-fab-container *ngIf="isMap | async; else genericFab">
-    <app-fab matIcon="list" (fabClick)="navigateToList()"></app-fab>
+    <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
     <span class="fill-remaining-space"></span>
     <app-camera-button></app-camera-button>
   </app-fab-container>
   <ng-template #genericFab>
     <app-fab-container>
-      <app-fab matIcon="location_on" (fabClick)="navigateToMap()"></app-fab>
+      <app-fab matIcon="location_on" (click)="navigateToMap()"></app-fab>
       <span class="fill-remaining-space"></span>
     </app-fab-container>
   </ng-template>

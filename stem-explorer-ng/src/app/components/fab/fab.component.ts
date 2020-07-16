@@ -9,12 +9,6 @@ export class FabComponent {
 
   @Input() matIcon?: string;
 
-  @Output() fabClick = new EventEmitter<void>();
-
   constructor() { }
-
-  onClick() {
-    this.fabClick.emit(undefined);
-  }
 
 }
