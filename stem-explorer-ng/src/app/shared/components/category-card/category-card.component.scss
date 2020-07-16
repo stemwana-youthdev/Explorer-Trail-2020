@@ -1,6 +1,7 @@
 @use 'src/app/variables' as *;
 
 .mat-card {
+    box-shadow: none;
     border-radius: 0;
     border-width: 3px;
     border-style: solid;
