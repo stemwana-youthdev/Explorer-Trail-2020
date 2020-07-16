@@ -1,10 +1,13 @@
-<h1>Custom Content</h1>
+<!-- <div *ngIf="state$ | async as state"> -->
 
-<button mat-button class="mat-raised-button primary-button" (click)="contentDialog()">Add New</button>
+  <h1>Custom Content</h1>
+  
+  <button mat-button class="mat-raised-button primary-button" (click)="contentDialog()">Add New</button>
 
-<app-table
+  <app-table
   [table]="table"
-  [dataSource]="(state$ | async).content"
+  [dataSource]="state"
   [canDrag]="true"
   (selectRow)="contentDialog($event)"
-></app-table>
+  ></app-table>
+<!-- </div> -->

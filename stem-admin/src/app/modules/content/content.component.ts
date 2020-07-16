@@ -9,6 +9,7 @@ import { CustomContent } from './custom-content';
 import { Store, Select } from '@ngxs/store';
 import { AddContentItem, SetContent } from './content-state/content.actions';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ContentState } from './content-state/content.state';
 
 @Component({
@@ -21,9 +22,11 @@ export class ContentComponent implements OnInit {
   content: Content[] = [];
   table: Table = this.tableFactory.contentTable();
 
+  @Select(ContentState.getContent) allContent$;
+
   state$: Observable<ContentState>;
 
-  @Select(ContentState.getContent) content$;
+  // @Select(ContentState.getContent) content$;
 
   constructor(
     readonly tableFactory: TableFactory,
@@ -32,6 +35,7 @@ export class ContentComponent implements OnInit {
     private store: Store
   ) {
     this.state$ = this.store.select(state => state);
+    console.warn(this.allContent$)
   }
 
   ngOnInit() {
@@ -43,14 +47,11 @@ export class ContentComponent implements OnInit {
    * @todo connect when API is done.
    */
   getContent(): void {
+    console.warn('get content!')
     this.content = CustomContent;
     this.store.dispatch([
       new SetContent(this.content)
     ]);
-    console.warn('get content!')
-    this.store.select(state => {
-      console.warn('this.store.select', state)
-    })
   }
 
   /**

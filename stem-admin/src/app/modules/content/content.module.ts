@@ -7,7 +7,7 @@ import { ContentState } from './content-state/content.state';
 import { ContentComponent } from './content.component';
 
 const routes: Routes = [
-  { path: 'content', component: ContentComponent }
+  { path: 'all', component: ContentComponent }
 ];
 
 @NgModule({
