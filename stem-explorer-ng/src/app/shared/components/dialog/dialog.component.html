@@ -1,1 +1,6 @@
-<mat-dialog-content [class]="color"><ng-content></ng-content></mat-dialog-content>
+<mat-dialog-content [class]="color">
+    <mat-dialog-actions align="right">
+        <button mat-icon-button mat-dialog-close>X</button>
+    </mat-dialog-actions>
+    <ng-content></ng-content>
+</mat-dialog-content>
