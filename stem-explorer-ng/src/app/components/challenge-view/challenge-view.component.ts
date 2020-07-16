@@ -77,7 +77,7 @@ export class ChallengeViewComponent implements OnInit {
         hint,
         category
       },
-      panelClass: 'padding',
+      panelClass: 'app-dialog',
     });
   }
 

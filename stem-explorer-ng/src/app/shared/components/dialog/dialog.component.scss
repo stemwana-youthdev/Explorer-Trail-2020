@@ -8,6 +8,21 @@
     border-color: white;
 }
 
+.close-button {
+    position: absolute;
+    display: block;
+    right: -17px;
+    top: 5px;
+}
+
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+}
+
+.dialog-position {
+    position: relative;
+}
+
 @mixin coloured-dialog($color) {
     border-color: $color;
 }

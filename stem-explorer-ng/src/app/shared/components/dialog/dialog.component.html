@@ -1,6 +1,9 @@
+<div class="dialog-position">
+<button mat-icon-button mat-dialog-close class="close-button">
+    <span class="material-icons">
+    close
+    </span></button>
 <mat-dialog-content [class]="color">
-    <mat-dialog-actions align="right">
-        <button mat-icon-button mat-dialog-close>X</button>
-    </mat-dialog-actions>
     <ng-content></ng-content>
 </mat-dialog-content>
+</div>

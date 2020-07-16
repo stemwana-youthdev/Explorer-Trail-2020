@@ -55,7 +55,7 @@ export class ListViewComponent implements OnInit {
         name: location?.name,
         link: location?.link
       },
-      panelClass: 'padding',
+      panelClass: 'app-dialog',
     });
   }
 
