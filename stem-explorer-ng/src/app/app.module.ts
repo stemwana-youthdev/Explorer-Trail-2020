@@ -33,6 +33,7 @@ import { HintDialogComponent } from './components/hint-dialog/hint-dialog.compon
 import { ButtonComponent } from './shared/components/button/button.component';
 import { CategoryButtonComponent } from './shared/components/category-button/category-button.component';
 import { CategoryCardComponent } from './shared/components/category-card/category-card.component';
+import { ChallengeTitleComponent } from './shared/components/challenge-title/challenge-title.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { CategoryCardComponent } from './shared/components/category-card/categor
     HintDialogComponent,
     ButtonComponent,
     CategoryButtonComponent,
-    CategoryCardComponent
+    CategoryCardComponent,
+    ChallengeTitleComponent
   ],
   imports: [
     GoogleMapsModule,
