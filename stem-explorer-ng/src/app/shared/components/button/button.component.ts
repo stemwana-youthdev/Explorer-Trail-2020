@@ -9,7 +9,7 @@ import { createOfflineCompileUrlResolver } from '@angular/compiler';
 })
 export class ButtonComponent implements OnInit {
 
-  @Input() color: number;
+  @Input() color: 'green'|'blue'|'orange'|'purple'|'pink';
 
   constructor() { }
 
