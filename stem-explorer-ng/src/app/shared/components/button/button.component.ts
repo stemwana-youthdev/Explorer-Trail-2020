@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { createOfflineCompileUrlResolver } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-button',
@@ -7,8 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ButtonComponent implements OnInit {
 
-  @Input() colour: string;
-  
+  @Input() color: number;
+
   constructor() { }
 
   ngOnInit(): void {

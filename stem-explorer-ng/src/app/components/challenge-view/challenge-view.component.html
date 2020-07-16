@@ -13,8 +13,9 @@
 
 <p><b>Instructions: </b>{{ currentChallenge.instructions }}</p>
 <h3>QUESTION: {{ currentChallenge.questionText }}</h3>
-<button mat-button *ngIf="currentChallenge.hint" 
-        (click)="openDialog(challenge.title, selectedLevel, currentChallenge.hint)">Get Hint</button>
+<app-button mat-flat-button *ngIf="currentChallenge.hint" 
+        (click)="openDialog(challenge.title, selectedLevel, currentChallenge.hint)"
+        color="pink">Get Hint</app-button>
 
 
 
