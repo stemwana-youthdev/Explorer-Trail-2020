@@ -1,0 +1,41 @@
+@use 'src/app/variables' as *;
+
+button.mat-flat-button {
+    color: white;
+    border-radius: 0;
+    width: 100%;
+    background-color: tint(80%, $primary-black);
+    padding: 5px;
+    font-weight: bold;
+}
+
+@mixin coloured-button($color) {
+    color: white;
+    border-radius: 0;
+    width: 100%;
+    background-color: $color;
+    &.inverted {
+        background-color: white;
+        color: $color;
+    }
+}
+
+button.green {
+    @include coloured-button($primary-green)
+}
+
+button.blue {
+    @include coloured-button($primary-blue)
+}
+
+button.orange {
+    @include coloured-button($primary-orange)
+}
+
+button.purple {
+    @include coloured-button($primary-purple)
+}
+
+button.pink {
+    @include coloured-button($secondary-pink)
+}

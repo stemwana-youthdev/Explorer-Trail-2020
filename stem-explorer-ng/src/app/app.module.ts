@@ -32,7 +32,10 @@ import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
 import { FabComponent } from './shared/components/fab/fab.component';
 import { FabContainerComponent } from './shared/components/fab-container/fab-container.component';
-
+import { ButtonComponent } from './shared/components/button/button.component';
+import { CategoryButtonComponent } from './shared/components/category-button/category-button.component';
+import { CategoryCardComponent } from './shared/components/category-card/category-card.component';
+import { ChallengeTitleComponent } from './shared/components/challenge-title/challenge-title.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,11 @@ import { FabContainerComponent } from './shared/components/fab-container/fab-con
     DrawerComponent,
     HintDialogComponent,
     FabComponent,
-    FabContainerComponent
+    FabContainerComponent,
+    ButtonComponent,
+    CategoryButtonComponent,
+    CategoryCardComponent,
+    ChallengeTitleComponent
   ],
   imports: [
     GoogleMapsModule,
