@@ -30,6 +30,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
+import { ButtonComponent } from './shared/components/button/button.component';
+import { CategoryButtonComponent } from './shared/components/category-button/category-button.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { HintDialogComponent } from './components/hint-dialog/hint-dialog.compon
     CameraComponent,
     CameraButtonComponent,
     DrawerComponent,
-    HintDialogComponent
+    HintDialogComponent,
+    ButtonComponent,
+    CategoryButtonComponent
   ],
   imports: [
     GoogleMapsModule,
