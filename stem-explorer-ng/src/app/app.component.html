@@ -1,18 +1,21 @@
-<app-toolbar *ngIf="showNavBar | async" [drawer]="drawer"></app-toolbar>
+<app-toolbar [drawer]="drawer"></app-toolbar>
 
 <mat-drawer-container autosize>
+
   <app-drawer #drawer></app-drawer>
-
-  <div *ngIf="isHomePage | async" style="text-align:center">
-    <h1>
-      {{ title }}
-    </h1>
-  </div>
-
-  <app-nav-tabs *ngIf="isHomePage | async"></app-nav-tabs>
 
   <router-outlet></router-outlet>
 
-  <app-camera-button *ngIf="isHomePage | async"></app-camera-button>
+  <app-fab-container *ngIf="isMap | async; else genericFab">
+    <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
+    <span class="fill-remaining-space"></span>
+    <app-camera-button></app-camera-button>
+  </app-fab-container>
+  <ng-template #genericFab>
+    <app-fab-container>
+      <app-fab matIcon="location_on" (click)="navigateToMap()"></app-fab>
+      <span class="fill-remaining-space"></span>
+    </app-fab-container>
+  </ng-template>
 
 </mat-drawer-container>
