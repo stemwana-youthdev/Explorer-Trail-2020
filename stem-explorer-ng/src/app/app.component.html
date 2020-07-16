@@ -6,9 +6,8 @@
 
   <router-outlet></router-outlet>
 
-  <app-fab-container *ngIf="isMap | async; else genericFab">
+  <app-fab-container *ngIf="isMap | async; else genericFab" class="no-height">
     <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
-    <span class="fill-remaining-space"></span>
     <app-camera-button></app-camera-button>
   </app-fab-container>
   <ng-template #genericFab>
