@@ -49,3 +49,9 @@ body {
     padding: 0;
   }
 }
+
+.padding .mat-dialog-container {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 0;
+}

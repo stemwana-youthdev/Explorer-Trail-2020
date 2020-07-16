@@ -54,7 +54,8 @@ export class ListViewComponent implements OnInit {
         challenge,
         name: location?.name,
         link: location?.link
-      }
+      },
+      panelClass: 'padding',
     });
   }
 

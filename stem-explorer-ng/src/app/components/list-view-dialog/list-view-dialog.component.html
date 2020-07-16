@@ -1,8 +1,8 @@
-<mat-dialog-content>
-  <h2>{{data.challenge.title}}</h2>
-  <h3>{{Categories[data.challenge.category]}}</h3>
+<app-dialog [class]="data.challenge.category">
+  <app-challenge-title [class]="data.challenge.category">{{data.challenge.title}}</app-challenge-title>
+  <h4>{{Categories[data.challenge.category]}}</h4>
   <p>{{data.challenge.description}}</p>
   <a href="{{data.link}}" target="_blank">Location: {{data.name}}</a>
   <br><br>
   <app-category-button mat-dialog-close [category]="data.challenge.category" (click)="goToChallenge(data.challenge.uid)">Start Challenge</app-category-button>
-</mat-dialog-content>
+</app-dialog>

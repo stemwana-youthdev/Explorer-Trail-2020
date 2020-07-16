@@ -7,6 +7,7 @@ import { Levels } from 'src/app/shared/enums/levels.enum';
 import { ChallengeLevels } from 'src/app/shared/models/challenge-levels';
 import { MatDialog } from '@angular/material/dialog';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-challenge-view',
@@ -68,13 +69,15 @@ export class ChallengeViewComponent implements OnInit {
     this.currentChallenge = this.challengeInfo.find(challenge => challenge.difficulty === value);
   }
 
-  openDialog(title, level, hint) {
+  openDialog(title, level, hint, category) {
     this.dialog.open(HintDialogComponent, {
       data: {
         title,
         level,
-        hint
-      }
+        hint,
+        category
+      },
+      panelClass: 'padding',
     });
   }
 

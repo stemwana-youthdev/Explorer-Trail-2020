@@ -1,0 +1,34 @@
+@use 'src/app/variables' as *;
+
+.mat-dialog-content {
+    border-radius: 0;
+    border-width: 3px;
+    border-style: solid;
+    padding: 20px;
+    border-color: white;
+}
+
+@mixin coloured-dialog($color) {
+    border-color: $color;
+}
+
+.mat-dialog-content.green {
+    @include coloured-dialog($primary-green)
+}
+
+.mat-dialog-content.blue {
+    @include coloured-dialog($primary-blue)
+}
+
+.mat-dialog-content.orange {
+    @include coloured-dialog($primary-orange)
+}
+
+.mat-dialog-content.purple {
+    @include coloured-dialog($primary-purple)
+}
+
+.mat-dialog-content.pink {
+    @include coloured-dialog($secondary-pink)
+}
+

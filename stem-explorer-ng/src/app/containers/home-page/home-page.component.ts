@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
     */
    const visited = localStorage.getItem('visited');
    if (visited == null) {
-     this.dialog.open(SplashScreenComponent);
+     this.dialog.open(SplashScreenComponent, {panelClass: 'padding'});
      localStorage.setItem('visited', 'true');
    }
   }
