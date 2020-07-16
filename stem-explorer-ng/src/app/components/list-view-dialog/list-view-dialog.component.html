@@ -2,7 +2,17 @@
   <app-challenge-title [category]="data.challenge.category">{{data.challenge.title}}</app-challenge-title>
   <h4>{{Categories[data.challenge.category]}}</h4>
   <p>{{data.challenge.description}}</p>
-  <a href="{{data.link}}" target="_blank">Location: {{data.name}}</a>
+  
+  <span class="material-icons">location_on</span>
+  <app-contact-info [category]="data.challenge.category" onclick="return false;">
+      {{data.name}}
+  </app-contact-info>
+  <br>
+  <span class="material-icons">language</span>
+  <app-contact-info [link]="data.link" [category]="data.challenge.category">
+      View Website
+  </app-contact-info>
   <br><br>
+
   <app-category-button mat-dialog-close [category]="data.challenge.category" (click)="goToChallenge(data.challenge.uid)">Start Challenge</app-category-button>
 </app-category-dialog>
