@@ -30,8 +30,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
-import { FabComponent } from './components/fab/fab.component';
-import { FabContainerComponent } from './components/fab-container/fab-container.component';
+import { FabComponent } from './shared/components/fab/fab.component';
+import { FabContainerComponent } from './shared/components/fab-container/fab-container.component';
 
 
 @NgModule({

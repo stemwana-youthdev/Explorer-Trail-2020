@@ -1,4 +1,4 @@
-@use '../../variables' as *;
+@use 'src/app/variables' as *;
 
 button.mat-fab {
   background: tint(80%, $primary-black);
