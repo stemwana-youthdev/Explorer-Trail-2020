@@ -63,7 +63,7 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
-        // POST: api/Location
+        // POST: api/Location/AddLocation
         [HttpPost("AddLocation")]
         public async Task<IActionResult> AddLocationAsync([FromBody] LocationRequestDto locationDto)
         {
@@ -79,16 +79,50 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
-        // PUT: api/Location/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        //// PUT: api/Location/UpdateLocation
+        [HttpPut("UpdateLocation")]
+        public async Task<IActionResult> Put([FromBody] LocationDto locationDto)
         {
+            try
+            {
+                var location = await _locationService.GetLocationById(locationDto.Id);
+
+                if (location == null)
+                {
+                    return NotFound();
+                }
+
+                await _locationService.EditLocation(locationDto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // DELETE: api/Location/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                var location = await _locationService.GetLocationById(id);
+
+                if (location == null)
+                {
+                    return NotFound();
+                }
+
+                await _locationService.DeleteLocation(location);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
     }
 }
