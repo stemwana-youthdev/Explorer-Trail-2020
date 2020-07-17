@@ -1,6 +1,6 @@
 import { MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { ApiService } from './../../shared/services/api.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Location } from '../../shared/models/location';
 import { Router } from '@angular/router';
 
@@ -10,11 +10,12 @@ import { Router } from '@angular/router';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
   // added a dependency injection in order to use the getLocations method without creating an instance of the object
   constructor(private service: ApiService, private router: Router) {}
   zoom = 15;
   center: google.maps.LatLngLiteral;
+  geolocationWatchId: number;
 
   // local property to store the json data from getLocations
   location: Location[] = [];
@@ -90,13 +91,17 @@ export class MapComponent implements OnInit {
       return;
     }
 
-    navigator.geolocation.watchPosition((position) => {
+    this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
       const { latitude, longitude } = position.coords;
       this.center = {
         lat: latitude,
         lng: longitude,
       };
     });
+  }
+
+  ngOnDestroy() {
+    navigator.geolocation?.clearWatch(this.geolocationWatchId);
   }
 
   openInfo(marker: MapMarker, challenge) {
