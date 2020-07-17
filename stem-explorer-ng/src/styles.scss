@@ -49,3 +49,13 @@ body {
     padding: 0;
   }
 }
+
+.mat-toolbar {
+  position: fixed;
+  top: 0px;
+  z-index: 99;
+}
+
+body {
+  padding-top: 57px;
+}

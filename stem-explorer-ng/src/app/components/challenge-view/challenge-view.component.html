@@ -1,7 +1,8 @@
 <div class="challenge-details">
-  <app-challenge-title [category]="challenge.category">{{ challenge.title }}</app-challenge-title>
-  <mat-divider></mat-divider>
-  <h4>{{ Categories[challenge.category] }}</h4>
+  <div class="challenge-header">
+    <app-challenge-title [category]="challenge.category">{{ challenge.title }}</app-challenge-title>
+  </div>
+  <h4 id="top-element">{{ Categories[challenge.category] }}</h4>
   <h4>Duration: </h4>
   <p>{{ challenge.description }}</p>
 
