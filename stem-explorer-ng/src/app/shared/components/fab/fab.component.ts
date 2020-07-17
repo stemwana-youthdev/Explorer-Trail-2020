@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class FabComponent {
 
   @Input() matIcon?: string;
+  @Input() position: 'right' | 'left' = 'left';
 
   constructor() { }
 
