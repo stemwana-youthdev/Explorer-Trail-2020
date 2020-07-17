@@ -3,15 +3,9 @@
   <h4>{{Categories[data.challenge.category]}}</h4>
   <p>{{data.challenge.description}}</p>
   
-  <span class="material-icons">location_on</span>
-  <app-contact-info [category]="data.challenge.category" onclick="return false;">
-      {{data.name}}
-  </app-contact-info>
+  <app-contact-info [category]="data.challenge.category" icon="location_on" [label]="data.name" onclick="return false"></app-contact-info>
   <br>
-  <span class="material-icons">language</span>
-  <app-contact-info [link]="data.link" [category]="data.challenge.category">
-      View Website
-  </app-contact-info>
+  <app-contact-info [link]="data.link" [category]="data.challenge.category" icon="language" label="View Website"></app-contact-info>
   <br><br>
 
   <app-category-button mat-dialog-close [category]="data.challenge.category" (click)="goToChallenge(data.challenge.uid)">Start Challenge</app-category-button>

@@ -10,6 +10,8 @@ export class ContactInfoComponent {
 
   @Input() category: number;
   @Input() link: string;
+  @Input() icon: string;
+  @Input() label: string;
   colors = [
     {category: Categories.Science, color: 'green'},
     {category: Categories.Technology, color: 'blue'},
