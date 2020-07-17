@@ -3,6 +3,7 @@ import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Location } from '../../shared/models/location';
 import { Router } from '@angular/router';
+import { Categories } from 'src/app/shared/enums/categories.enum';
 
   // tslint:disable: no-string-literal
 @Component({
@@ -63,6 +64,13 @@ export class MapComponent implements OnInit, OnDestroy {
     ],
   };
 
+  icons = {
+    [Categories.Science]: '/assets/icons/light green point.svg',
+    [Categories.Technology]: '/assets/icons/light blue point.svg',
+    [Categories.Engineering]: '/assets/icons/light orange point.svg',
+    [Categories.Maths]: '/assets/icons/purple point.svg',
+  };
+
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
   ngOnInit() {
@@ -102,6 +110,13 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     navigator.geolocation?.clearWatch(this.geolocationWatchId);
+  }
+
+  getIconForMarker(marker: Location): google.maps.Icon {
+    return {
+      url: this.icons[marker.category],
+      scaledSize: new google.maps.Size(30, 48),
+    };
   }
 
   openInfo(marker: MapMarker, challenge) {
