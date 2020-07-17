@@ -8,10 +8,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-
   // added a dependency injection in order to use the getLocations method without creating an instance of the object
   constructor(private service: ApiService, private router: Router) {}
   zoom = 15;
@@ -29,15 +28,41 @@ export class MapComponent implements OnInit {
 
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
-    zoomControl: true,
     scrollwheel: true,
+    disableDefaultUI: true,
     disableDoubleClickZoom: true,
     maxZoom: 18,
     minZoom: 8,
-    gestureHandling: 'cooperative' // for gesture controls
+    gestureHandling: 'cooperative', // for gesture controls
+    styles: [
+      {
+        featureType: 'poi',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
+        featureType: 'road',
+        stylers: [{ visibility: 'simplified' }],
+      },
+      {
+        featureType: 'landscape',
+        stylers: [{ visibility: 'simplified' }],
+      },
+      {
+        featureType: 'administrative',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
+        elementType: 'labels',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
+        featureType: 'transit',
+        stylers: [{ visibility: 'off' }],
+      },
+    ],
   };
 
-  @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow;
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
   /**
    * @todo use navigator.location to set this.center to user's current location.
@@ -55,12 +80,11 @@ export class MapComponent implements OnInit {
    * uses the ApiService to call on the getLocations method to open a listerning stream to get the data from the json file
    */
   loadLocation() {
-    this.service.getLocations().subscribe(l => {
+    this.service.getLocations().subscribe((l) => {
       // store the data in a local property
       this.location = l.location;
     });
   }
-
 
   openInfo(marker: MapMarker, challenge) {
     this.challengeTitle = `Challenge: ${challenge.challengetitle}`;
