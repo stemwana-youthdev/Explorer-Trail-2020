@@ -64,9 +64,6 @@ export class MapComponent implements OnInit {
 
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
-  /**
-   * @todo use navigator.location to set this.center to user's current location.
-   */
   ngOnInit() {
     // set maps to the center of Tauranga
     this.center = {
@@ -74,6 +71,7 @@ export class MapComponent implements OnInit {
       lng: 176.1673285,
     };
     this.loadLocation();
+    this.loadGeolocation();
   }
 
   /**
@@ -83,6 +81,21 @@ export class MapComponent implements OnInit {
     this.service.getLocations().subscribe((l) => {
       // store the data in a local property
       this.location = l.location;
+    });
+  }
+
+  loadGeolocation() {
+    if (!navigator.geolocation) {
+      console.warn('Geolocation not supported');
+      return;
+    }
+
+    navigator.geolocation.watchPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      this.center = {
+        lat: latitude,
+        lng: longitude,
+      };
     });
   }
 
