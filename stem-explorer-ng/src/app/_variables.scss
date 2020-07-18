@@ -39,3 +39,5 @@ $secondary-light-orange: #FCEAD7;
 @function tint($percentage, $color) {
   @return mix($color, white, $percentage);
 }
+
+$fab-padding: 1rem;

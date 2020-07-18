@@ -2,4 +2,15 @@
 
 button.mat-fab {
   background: tint(80%, $primary-black);
+
+  position: fixed;
+  bottom: $fab-padding;
+
+  &.left {
+    left: $fab-padding;
+  }
+
+  &.right {
+    right: $fab-padding;
+  }
 }
