@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200608095111_InitialMigration.cs" />
     <Compile Remove="Migrations\20200608095111_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200718031612_AddGooglePlaceIdToLocation.cs" />
+    <Compile Remove="Migrations\20200718031612_AddGooglePlaceIdToLocation.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

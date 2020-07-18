@@ -24,46 +24,63 @@ namespace StemExplorerAPI.Services
 
         public async Task<List<LocationDto>> GetLocations()
         {
-            return await _context.Locations
-                .AsNoTracking()
-                .Select(l => new LocationDto
-                {
-                    Id = l.LocationId,
-                    Name = l.Name,
-                    Position = new LocationPositionDto
+            try
+            {
+                return await _context.Locations
+                    .AsNoTracking()
+                    .Select(l => new LocationDto
                     {
-                        Latitude = l.Latitude,
-                        Longitude = l.Longitude,
-                    },
-                    ChallengeTitle = l.Challenges.Any() ? l.Challenges.First().Title : null,
-                    ChallengeDescription = l.Challenges.Any() ? l.Challenges.First().Description : null,
-                    ChallengeCategory = l.Challenges.Any() ? l.Challenges.First().Category : 0,
-                    Link = l.Url,
-                })
-                .ToListAsync();
+                        Id = l.LocationId,
+                        Name = l.Name,
+                        GooglePlaceId = l.GooglePlaceId,
+                        Position = new LocationPositionDto
+                        {
+                            Latitude = l.Latitude ?? null,
+                            Longitude = l.Longitude ?? null,
+                        },
+                        Link = l.Url,
+                    })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<LocationDto> GetLocationById(int locationId)
         {
-            return await _context.Locations
-                .AsNoTracking()
-                .Where(l => l.LocationId == locationId)
-                .Select(dto => new LocationDto
-                {
-                    Id = dto.LocationId,
-                    Name = dto.Name,
-                    Position = new LocationPositionDto
+            try
+            {
+                return await _context.Locations
+                    .AsNoTracking()
+                    .Where(l => l.LocationId == locationId)
+                    .Select(location => new LocationDto
                     {
-                        Latitude = dto.Latitude,
-                        Longitude = dto.Longitude,
-                    },
-                    // need to sort logic on this type of query - this will always only display the first title/description etc 
-                    // for a challenge at a location
-                    ChallengeTitle = dto.Challenges.Any() ? dto.Challenges.First().Title : null,
-                    ChallengeDescription = dto.Challenges.Any() ? dto.Challenges.First().Description : null,
-                    ChallengeCategory = dto.Challenges.Any() ? dto.Challenges.First().Category : 0,
-                    Link = dto.Url,
-                }).SingleOrDefaultAsync();
+                        Id = location.LocationId,
+                        Name = location.Name,
+                        GooglePlaceId = location.GooglePlaceId,
+                        Position = new LocationPositionDto
+                        {
+                            Latitude = location.Latitude ?? null,
+                            Longitude = location.Longitude ?? null,
+                        },
+                        LocationChallenges = location.Challenges.Select(lc => new LocationChallenges
+                        {
+                            ChallengeId = lc.Id,
+                            ChallengeTitle = lc.Title,
+                            ChallengeDescription = lc.Description,
+                            ChallengeCategory = lc.Category
+                        }).ToList(),
+                        Link = location.Url,
+                    }).SingleOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<int> AddLocation(LocationRequestDto locationDto)
@@ -71,8 +88,9 @@ namespace StemExplorerAPI.Services
             var location = new Location
             {
                 Name = locationDto.Name,
-                Latitude = locationDto.Latitude,
-                Longitude = locationDto.Longitude,
+                GooglePlaceId = locationDto.GooglePlaceId,
+                Latitude = locationDto?.Latitude,
+                Longitude = locationDto?.Longitude,
                 Url = locationDto.Url,
                 // TODO - Clarify workflow for adding contact to new location
                 //ContactName = locationDto.ContactName,
@@ -81,7 +99,7 @@ namespace StemExplorerAPI.Services
 
             _context.Locations.Add(location);
             await _context.SaveChangesAsync();
-            
+
             return location.LocationId;
         }
 
@@ -93,8 +111,9 @@ namespace StemExplorerAPI.Services
                 var entity = await _context.Locations.SingleOrDefaultAsync(l => l.LocationId == locationDto.Id);
 
                 entity.Name = locationDto.Name;
-                entity.Latitude = locationDto.Position.Latitude;
-                entity.Longitude = locationDto.Position.Longitude;
+                entity.GooglePlaceId = locationDto.GooglePlaceId;
+                entity.Latitude = locationDto.Position.Latitude ?? null;
+                entity.Longitude = locationDto.Position.Longitude ?? null;
                 entity.Url = locationDto.Link;
 
                 // Do we want to edit the challenge details through this method also?

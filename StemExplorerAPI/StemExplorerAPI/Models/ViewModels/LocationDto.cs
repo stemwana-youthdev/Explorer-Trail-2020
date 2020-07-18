@@ -12,23 +12,29 @@ namespace StemExplorerAPI.Models.ViewModels
         [JsonPropertyName("uid")]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string GooglePlaceId { get; set; }
         public LocationPositionDto Position { get; set; }
+        public IEnumerable<LocationChallenges> LocationChallenges { get; set; }
+        public string Link { get; set; }
+    }
+
+    public class LocationPositionDto
+    {
+        [JsonPropertyName("lat")]
+        public double? Latitude { get; set; }
+        [JsonPropertyName("lng")]
+        public double? Longitude { get; set; }
+    }
+
+    public class LocationChallenges
+    {
+        [JsonPropertyName("challengeid")]
+        public int ChallengeId { get; set; }
         [JsonPropertyName("challengetitle")]
         public string ChallengeTitle { get; set; }
         [JsonPropertyName("challengedescription")]
         public string ChallengeDescription { get; set; }
         [JsonPropertyName("category")]
         public Enums.ChallengeCategories ChallengeCategory { get; set; }
-        public string Link { get; set; }
-        [JsonPropertyName("challengeid")]
-        public int ChallengeId { get; set; }
-    }
-
-    public class LocationPositionDto
-    {
-        [JsonPropertyName("lat")]
-        public double Latitude { get; set; }
-        [JsonPropertyName("lng")]
-        public double Longitude { get; set; }
     }
 }
