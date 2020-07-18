@@ -2,6 +2,10 @@
   <app-challenge-title [category]="data.challenge.category">{{data.challenge.title}}</app-challenge-title>
   <h4>{{ Levels[data.level.difficulty] }}</h4>
 
+  <p>
+    {{ data.level.questionText }}
+  </p>
+
   <h2>Answer <span class="smaller">- Choose one</span></h2>
   
   <ng-container [ngSwitch]="data.level.answerType">
