@@ -4,6 +4,8 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Location } from '../../shared/models/location';
 import { Router } from '@angular/router';
 import { Categories } from 'src/app/shared/enums/categories.enum';
+import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
   // tslint:disable: no-string-literal
 @Component({
@@ -13,7 +15,12 @@ import { Categories } from 'src/app/shared/enums/categories.enum';
 })
 export class MapComponent implements OnInit, OnDestroy {
   // added a dependency injection in order to use the getLocations method without creating an instance of the object
-  constructor(private service: ApiService, private router: Router) {}
+  constructor(
+    private service: ApiService,
+    private router: Router,
+    private dialog: MatDialog,
+  ) {}
+
   zoom = 15;
   center: google.maps.LatLngLiteral;
   geolocationWatchId: number;
@@ -24,10 +31,7 @@ export class MapComponent implements OnInit, OnDestroy {
   filter = [0, 1, 2, 3];
 
   // separate property for the information for the map pop up
-  locationName = '';
-  challengeTitle = '';
-  challengeDescription = '';
-  challengeId: number;
+  infoLocation = null as Location;
 
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
@@ -121,16 +125,23 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   openInfo(marker: MapMarker, location: Location) {
-    this.locationName = location.name;
-    this.challengeTitle = `Challenge: ${location.challengetitle}`;
-    this.challengeDescription = `Description: ${location.challengedescription}`; // Text format to display within infoWindow
-    this.challengeId = location.challengeid;
-    this.infoWindow.open(marker);
-  }
-
-  // Navigate to challenge page using current challenge id
-  goToChallenge(id) {
-    this.router.navigate(['challenge/' + id]);
+    if (location.challengeid) {
+      this.dialog.open(ListViewDialogComponent, {
+        data: {
+          challenge: {
+            uid: location.challengeid,
+            title: location.challengetitle,
+            category: location.category,
+            description: location.challengedescription,
+          },
+          name: location.name,
+          link: location.link
+        }
+      });
+    } else {
+      this.infoLocation = location;
+      this.infoWindow.open(marker);
+    }
   }
 }
 

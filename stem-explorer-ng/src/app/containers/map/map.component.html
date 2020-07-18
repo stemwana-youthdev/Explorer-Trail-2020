@@ -18,12 +18,6 @@ width="100%"
     </map-marker>
 
     <map-info-window>
-
-    <h2>{{ locationName }}</h2>
-    <h3>{{ challengeTitle }}</h3>
-    <h4>{{ challengeDescription | truncate:50 }}</h4>
-    <button mat-flat-button (click)="goToChallenge(challengeId)">Start Challenge</button>
-
-
+        <h2>{{ locationName }}</h2>
     </map-info-window>
 </google-map>
