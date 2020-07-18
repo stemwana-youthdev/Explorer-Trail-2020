@@ -1,0 +1,27 @@
+@use 'src/app/variables' as *;
+
+a {
+    text-decoration: none;
+}
+
+@mixin coloured-content($color) {
+    color: $color;
+    position: absolute;
+    padding: 3px;
+}
+
+.green {
+    @include coloured-content($primary-green)
+}
+
+.blue {
+    @include coloured-content($primary-blue)
+}
+
+.orange {
+    @include coloured-content($primary-orange)
+}
+
+.purple {
+    @include coloured-content($primary-purple)
+}

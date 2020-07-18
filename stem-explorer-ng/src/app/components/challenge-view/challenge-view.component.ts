@@ -68,13 +68,15 @@ export class ChallengeViewComponent implements OnInit {
     this.currentChallenge = this.challengeInfo.find(challenge => challenge.difficulty === value);
   }
 
-  openDialog(title, level, hint) {
+  openDialog(title, level, hint, category) {
     this.dialog.open(HintDialogComponent, {
       data: {
         title,
         level,
-        hint
-      }
+        hint,
+        category
+      },
+      panelClass: 'app-dialog',
     });
   }
 

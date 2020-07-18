@@ -17,7 +17,7 @@
   <p>{{ currentChallenge.instructions }}</p>
 
   <app-button *ngIf="currentChallenge.hint" 
-          (click)="openDialog(challenge.title, selectedLevel, currentChallenge.hint)"
+          (click)="openDialog(challenge.title, selectedLevel, currentChallenge.hint, challenge.category)"
           color="pink">Get Hint
   </app-button>
 
