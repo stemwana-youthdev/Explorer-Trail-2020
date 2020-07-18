@@ -55,6 +55,11 @@ body {
   color: white;
 }
 
+.mat-select,
+.mat-flat-button {
+  @include typeface-sub-heading;
+}
+
 .app-dialog .mat-dialog-container {
   padding-top: 0;
   padding-bottom: 0;
