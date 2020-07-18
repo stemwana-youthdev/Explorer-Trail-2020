@@ -59,3 +59,13 @@ body {
 .app-dialog {
   position: relative;
 }
+
+.mat-toolbar {
+  position: fixed;
+  top: 0px;
+  z-index: 99;
+}
+
+body {
+  padding-top: 57px;
+}

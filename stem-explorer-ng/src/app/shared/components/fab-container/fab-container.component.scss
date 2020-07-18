@@ -1,0 +1,12 @@
+@use 'src/app/variables' as *;
+
+:host {
+  display: block;
+  height: 56px;
+  margin: $fab-padding;
+
+  &.no-height {
+    height: 0;
+    margin: 0;
+  }
+}
