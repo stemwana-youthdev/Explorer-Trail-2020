@@ -9,6 +9,7 @@
   color: white;
   background-color: tint(80%, $primary-black);
   padding: 1rem;
+  font-weight: bold;
 }
 
 @mixin coloured-field($color) {
