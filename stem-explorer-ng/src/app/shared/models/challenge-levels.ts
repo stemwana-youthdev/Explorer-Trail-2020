@@ -3,7 +3,13 @@ export interface ChallengeLevels {
     questionText: string;
     difficulty: number;
     instructions: string;
-    answer: string;
+    possibleAnswers: ChallengeAnswer;
     challengeId: number;
     hint: string;
+}
+
+export interface ChallengeAnswer {
+    uid: number;
+    answerText: string;
+    isCorrect: boolean;
 }
