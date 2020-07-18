@@ -30,6 +30,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
+import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
 import { FabComponent } from './shared/components/fab/fab.component';
 import { FabContainerComponent } from './shared/components/fab-container/fab-container.component';
 import { ButtonComponent } from './shared/components/button/button.component';
@@ -60,6 +61,7 @@ import { ContactInfoComponent } from './shared/components/contact-info/contact-i
     CameraButtonComponent,
     DrawerComponent,
     HintDialogComponent,
+    AnswerDialogComponent,
     FabComponent,
     FabContainerComponent,
     ButtonComponent,

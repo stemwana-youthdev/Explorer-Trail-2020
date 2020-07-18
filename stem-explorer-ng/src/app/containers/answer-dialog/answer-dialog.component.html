@@ -1,0 +1,22 @@
+<app-category-dialog [category]="data.challenge.category">
+  <app-challenge-title [category]="data.challenge.category">{{data.challenge.title}}</app-challenge-title>
+  <h4>{{ Levels[data.level.difficulty] }}</h4>
+
+  <h2>Answer <span class="smaller">- Choose one</span></h2>
+  
+  <ng-container [ngSwitch]="data.level.answerType">
+
+    <ul *ngSwitchCase="AnswerType.Multichoice" class="answer-list">
+      <li *ngFor="let answer of data.level.possibleAnswers">
+        <app-button (click)="answerSelected(answer)">
+          {{ answer.answerText }}
+        </app-button>
+      </li>
+    </ul>
+
+    <p *ngSwitchDefault>
+      Answer type {{ AnswerType[data.level.answerType] }} not implemented.
+    </p>
+
+  </ng-container>
+</app-category-dialog>
