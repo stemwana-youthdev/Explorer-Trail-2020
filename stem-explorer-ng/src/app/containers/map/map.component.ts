@@ -24,6 +24,7 @@ export class MapComponent implements OnInit, OnDestroy {
   filter = [0, 1, 2, 3];
 
   // separate property for the information for the map pop up
+  locationName = '';
   challengeTitle = '';
   challengeDescription = '';
   challengeId: number;
@@ -119,10 +120,11 @@ export class MapComponent implements OnInit, OnDestroy {
     };
   }
 
-  openInfo(marker: MapMarker, challenge) {
-    this.challengeTitle = `Challenge: ${challenge.challengetitle}`;
-    this.challengeDescription = `Description: ${challenge.challengedescription}`; // Text format to display within infoWindow
-    this.challengeId = challenge.challengeid;
+  openInfo(marker: MapMarker, location: Location) {
+    this.locationName = location.name;
+    this.challengeTitle = `Challenge: ${location.challengetitle}`;
+    this.challengeDescription = `Description: ${location.challengedescription}`; // Text format to display within infoWindow
+    this.challengeId = location.challengeid;
     this.infoWindow.open(marker);
   }
 
