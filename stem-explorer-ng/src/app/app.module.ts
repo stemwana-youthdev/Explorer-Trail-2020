@@ -43,6 +43,8 @@ import { CategoryDialogComponent } from './shared/components/category-dialog/cat
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
 import { InputComponent } from './shared/components/input/input.component';
 import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
+import { FormFieldComponent } from './shared/components/form-field/form-field.component';
+import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { SuccessDialogComponent } from './components/success-dialog/success-dial
     DialogComponent,
     CategoryDialogComponent,
     ContactInfoComponent,
+    FormFieldComponent,
+    CategoryFormFieldComponent,
     InputComponent,
     SuccessDialogComponent
   ],

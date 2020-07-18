@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatSidenavModule,
     MatCardModule,
+    MatInputModule,
   ],
   exports: [
     MatTabsModule,
