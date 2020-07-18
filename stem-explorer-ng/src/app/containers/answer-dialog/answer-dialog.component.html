@@ -8,7 +8,7 @@
 
     <ul *ngSwitchCase="AnswerType.Multichoice" class="answer-list">
       <li *ngFor="let answer of data.level.possibleAnswers">
-        <app-button (click)="answerSelected(answer)">
+        <app-button outlined (click)="answerSelected(answer)">
           {{ answer.answerText }}
         </app-button>
       </li>

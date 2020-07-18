@@ -39,3 +39,9 @@ button.purple {
 button.pink {
     @include coloured-button($secondary-pink)
 }
+
+button.outlined {
+    background: white;
+    color: $primary-black;
+    border: 3px solid $primary-black;
+}
