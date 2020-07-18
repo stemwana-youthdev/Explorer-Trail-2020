@@ -1,0 +1,37 @@
+@use 'src/app/variables' as *;
+
+:host {
+  display: block;
+  padding: 0;
+}
+
+:host > div {
+  color: white;
+  background-color: tint(80%, $primary-black);
+  padding: 1rem;
+}
+
+@mixin coloured-field($color) {
+  color: white;
+  background-color: $color;
+}
+
+:host > .green {
+  @include coloured-field($primary-green);
+}
+
+:host > .blue {
+  @include coloured-field($primary-blue);
+}
+
+:host > .orange {
+  @include coloured-field($primary-orange);
+}
+
+:host > .purple {
+  @include coloured-field($primary-purple);
+}
+
+:host > .pink {
+  @include coloured-field($secondary-pink);
+}

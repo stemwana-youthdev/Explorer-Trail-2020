@@ -39,6 +39,8 @@ import { ChallengeTitleComponent } from './shared/components/challenge-title/cha
 import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
+import { FormFieldComponent } from './shared/components/form-field/form-field.component';
+import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { ContactInfoComponent } from './shared/components/contact-info/contact-i
     ChallengeTitleComponent,
     DialogComponent,
     CategoryDialogComponent,
-    ContactInfoComponent
+    ContactInfoComponent,
+    FormFieldComponent,
+    CategoryFormFieldComponent,
   ],
   imports: [
     GoogleMapsModule,
