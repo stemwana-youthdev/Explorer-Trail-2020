@@ -10,34 +10,18 @@ a {
     padding: 3px;
 }
 
-a.green {
+.green {
     @include coloured-content($primary-green)
 }
 
-a.blue {
+.blue {
     @include coloured-content($primary-blue)
 }
 
-a.orange {
+.orange {
     @include coloured-content($primary-orange)
 }
 
-a.purple {
-    @include coloured-content($primary-purple)
-}
-
-span.green {
-    @include coloured-content($primary-green)
-}
-
-span.blue {
-    @include coloured-content($primary-blue)
-}
-
-span.orange {
-    @include coloured-content($primary-orange)
-}
-
-span.purple {
+.purple {
     @include coloured-content($primary-purple)
 }
