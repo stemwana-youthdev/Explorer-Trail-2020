@@ -20,6 +20,8 @@ namespace StemExplorerAPI.Models.ViewModels
         [JsonPropertyName("category")]
         public Enums.ChallengeCategories ChallengeCategory { get; set; }
         public string Link { get; set; }
+        [JsonPropertyName("challengeid")]
+        public int ChallengeId { get; set; }
     }
 
     public class LocationPositionDto

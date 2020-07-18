@@ -1,19 +1,28 @@
-<h1>{{ challenge.title }}</h1>
-<h2>{{ Categories[challenge.category] }}</h2>
-<h3>Duration: </h3>
-<p>{{ challenge.description }}</p>
+<div class="challenge-details">
+  <div class="challenge-header">
+    <app-challenge-title [category]="challenge.category">{{ challenge.title }}</app-challenge-title>
+  </div>
+  <h4 id="top-element">{{ Categories[challenge.category] }}</h4>
+  <h4>Duration: </h4>
+  <p>{{ challenge.description }}</p>
 
-<mat-form-field appearance="fill" *ngIf="levels.length >= 1">
-    <mat-select [disabled]="levels.length === 1" 
-                [(value)]="selectedLevel" 
-                (selectionChange)="getCurrentChallenge(selectedLevel)">
-      <mat-option [value]="option" *ngFor="let option of levels">{{ Levels[option] }}</mat-option>
-    </mat-select>
-</mat-form-field>
+  <mat-form-field appearance="fill" *ngIf="levels.length > 1">
+      <mat-select [(value)]="selectedLevel" 
+                  (selectionChange)="getCurrentChallenge(selectedLevel)">
+        <mat-option [value]="option" *ngFor="let option of levels">{{ Levels[option] }}</mat-option>
+      </mat-select>
+  </mat-form-field>
 
-<p><b>Instructions: </b>{{ currentChallenge.instructions }}</p>
-<h3>QUESTION: {{ currentChallenge.questionText }}</h3>
+  <app-challenge-title [category]="challenge.category">Instructions</app-challenge-title>
+  <p>{{ currentChallenge.instructions }}</p>
 
+  <app-button *ngIf="currentChallenge.hint" 
+          (click)="openDialog(challenge.title, selectedLevel, currentChallenge.hint, challenge.category)"
+          color="pink">Get Hint
+  </app-button>
+
+  <app-category-button [category]="challenge.category" style="position: relative; top: 10px;">Enter Answer</app-category-button>
+</div>
 
 
 

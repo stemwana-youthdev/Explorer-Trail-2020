@@ -28,7 +28,16 @@ import { CameraButtonComponent } from './containers/camera-button/camera-button.
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
-
+import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
+import { FabComponent } from './shared/components/fab/fab.component';
+import { FabContainerComponent } from './shared/components/fab-container/fab-container.component';
+import { ButtonComponent } from './shared/components/button/button.component';
+import { CategoryButtonComponent } from './shared/components/category-button/category-button.component';
+import { CategoryCardComponent } from './shared/components/category-card/category-card.component';
+import { ChallengeTitleComponent } from './shared/components/challenge-title/challenge-title.component';
+import { DialogComponent } from './shared/components/dialog/dialog.component';
+import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
+import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +57,17 @@ import { DrawerComponent } from './containers/drawer/drawer.component';
     ToolbarComponent,
     CameraComponent,
     CameraButtonComponent,
-    DrawerComponent
+    DrawerComponent,
+    HintDialogComponent,
+    FabComponent,
+    FabContainerComponent,
+    ButtonComponent,
+    CategoryButtonComponent,
+    CategoryCardComponent,
+    ChallengeTitleComponent,
+    DialogComponent,
+    CategoryDialogComponent,
+    ContactInfoComponent
   ],
   imports: [
     GoogleMapsModule,
@@ -64,7 +83,8 @@ import { DrawerComponent } from './containers/drawer/drawer.component';
   ],
   entryComponents: [
     ListViewDialogComponent,
-    SplashScreenComponent
+    SplashScreenComponent,
+    HintDialogComponent
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

@@ -1,0 +1,8 @@
+<span class="material-icons">{{icon}}</span>
+<a *ngIf="link" [class]="color" [href]="link" target="_blank">
+    {{label}}
+</a>
+
+<span *ngIf="!link" [class]="color">
+    {{label}}
+</span>

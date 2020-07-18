@@ -1,11 +1,10 @@
 <app-filter-buttons (data)="this.filter=$event"></app-filter-buttons>
 
-<mat-list *ngFor="let challenge of (challenges | filter:this.filter)">
-    <h3>{{challenge.title}}</h3>
+<app-category-card *ngFor="let challenge of (challenges | filter:this.filter)" [category]="challenge.category">
+    <app-challenge-title [category]="challenge.category">{{challenge.title}}</app-challenge-title>
     <h4>{{Categories[challenge.category]}}</h4>
     <p>{{challenge.description | truncate:50}}</p>
     <span class="material-icons open-challenge-dialogue" (click) = "openDialog(challenge)">
         open_in_new 
     </span>
-    <mat-divider></mat-divider>
-</mat-list>
+</app-category-card>

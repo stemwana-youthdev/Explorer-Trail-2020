@@ -1,43 +1,41 @@
+@use 'src/app/variables' as *;
+
 .mat-button-toggle-group {
     width: 100%;
     border: none;
     border-radius: 0;
 }
 
+.mat-button-toggle-group span {
+    background-color: tint(80%, $primary-black);
+    color: white;
+    font-size: 35px;
+    padding: 5px;
+}
+
 .mat-button-toggle {
     color: white;
+    background-color: tint(80%, $primary-black);
     width: 100%;
+    font-size: 20px;
 }
 
-.blue.mat-button-toggle {
-    background-color: grey;
+@mixin coloured-button($color) {
+    background-color: $color;
 }
 
-.blue.mat-button-toggle-checked {
-    background-color: blue;
+.mat-button-toggle-checked.green {
+    @include coloured-button($primary-green)
 }
 
-
-.green.mat-button-toggle {
-    background-color: grey;
+.mat-button-toggle-checked.blue {
+    @include coloured-button($primary-blue)
 }
 
-.green.mat-button-toggle-checked {
-    background-color: green;
+.mat-button-toggle-checked.orange {
+    @include coloured-button($primary-orange)
 }
 
-.orange.mat-button-toggle {
-    background-color: grey;
-}
-
-.orange.mat-button-toggle-checked {
-    background-color: orange;
-}
-
-.purple.mat-button-toggle {
-    background-color: grey;
-}
-
-.purple.mat-button-toggle-checked {
-    background-color: purple;
+.mat-button-toggle-checked.purple {
+    @include coloured-button($primary-purple)
 }
