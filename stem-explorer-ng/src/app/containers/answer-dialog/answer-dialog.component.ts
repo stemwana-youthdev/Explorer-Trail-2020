@@ -27,12 +27,10 @@ export class AnswerDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AnswerDialogData,
     private router: Router,
-  ) {
-    console.log(data);
-  }
+  ) { }
 
   answerSelected(answer: ChallengeAnswer) {
-    console.log(answer);
+    console.log('Answer selected:', answer);
   }
 
 }
