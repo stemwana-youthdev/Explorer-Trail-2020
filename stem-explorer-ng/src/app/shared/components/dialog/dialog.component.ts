@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DialogComponent implements OnInit {
 
+  @Input() inverted: any;
   @Input() color: 'green'|'blue'|'orange'|'purple'|'pink';
 
   constructor() { }

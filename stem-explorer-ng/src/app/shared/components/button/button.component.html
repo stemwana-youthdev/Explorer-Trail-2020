@@ -1,4 +1,5 @@
 <button mat-flat-button [disabled]="disabled"
-  [class]="color + (outlined !== undefined ? ' outlined' : '')">
+  [class]="color + (outlined !== undefined ? ' outlined' : '')
+                 + (inverted !== undefined ? ' inverted' : '')">
   <ng-content></ng-content>
 </button>
