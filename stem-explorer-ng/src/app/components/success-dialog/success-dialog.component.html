@@ -13,5 +13,8 @@
     </div>
   </div>
 
+  <app-category-button inverted mat-dialog-close [category]="data.challenge.category"
+    (click)="nextLevel()">Next level</app-category-button>
+
   <app-category-button inverted mat-dialog-close [category]="data.challenge.category" (click)="navigateToHomepage()">Back to home</app-category-button>
 </app-category-dialog>
