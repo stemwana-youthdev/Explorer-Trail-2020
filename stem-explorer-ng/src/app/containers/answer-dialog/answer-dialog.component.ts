@@ -2,13 +2,13 @@ import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Levels } from '../../shared/enums/levels.enum';
-import { ChallengeAnswer, ChallengeLevels } from 'src/app/shared/models/challenge-levels';
+import { ChallengeAnswer, ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { Challenge } from 'src/app/shared/models/challenge';
 import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
 import { InputComponent } from 'src/app/shared/components/input/input.component';
 
 export interface AnswerDialogData {
-  level: ChallengeLevels;
+  level: ChallengeLevel;
   challenge: Challenge;
 }
 

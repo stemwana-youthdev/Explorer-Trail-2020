@@ -4,7 +4,7 @@ import { Challenge } from '../../shared/models/challenge';
 import { ActivatedRoute } from '@angular/router';
 import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
-import { ChallengeLevels } from 'src/app/shared/models/challenge-levels';
+import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { MatDialog } from '@angular/material/dialog';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from 'src/app/containers/answer-dialog/answer-dialog.component';
@@ -20,10 +20,10 @@ export class ChallengeViewComponent implements OnInit {
   id: number;
   Categories: any = Categories;
   Levels: any = Levels;
-  challengeInfo: ChallengeLevels[] = [];
+  challengeInfo: ChallengeLevel[] = [];
   levels: number[] = [];
   selectedLevel: number;
-  currentChallenge = {} as ChallengeLevels;
+  currentLevel = {} as ChallengeLevel;
 
   constructor(private service: ApiService, private route: ActivatedRoute, public dialog: MatDialog) {
   }
@@ -66,7 +66,7 @@ export class ChallengeViewComponent implements OnInit {
 
   // Gets the current challenge information based on the level selected
   getCurrentChallenge(value) {
-    this.currentChallenge = this.challengeInfo.find(challenge => challenge.difficulty === value);
+    this.currentLevel = this.challengeInfo.find(challenge => challenge.difficulty === value);
   }
 
   openHintDialog(title, level, hint, category) {
@@ -84,7 +84,7 @@ export class ChallengeViewComponent implements OnInit {
   openAnswerDialog() {
     this.dialog.open(AnswerDialogComponent, {
       data: {
-        level: this.currentChallenge,
+        level: this.currentLevel,
         challenge: this.challenge,
       },
       panelClass: 'app-dialog',
