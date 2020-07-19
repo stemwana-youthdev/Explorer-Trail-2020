@@ -31,6 +31,14 @@ export class SuccessDialogComponent {
     this.router.navigateByUrl('/');
   }
 
+  navigateToRegister() {
+    this.router.navigateByUrl('/register');
+  }
+
+  navigateToLogin() {
+    this.router.navigateByUrl('/login');
+  }
+
   nextLevel() {
     this.dialogRef.close('next-level');
   }
