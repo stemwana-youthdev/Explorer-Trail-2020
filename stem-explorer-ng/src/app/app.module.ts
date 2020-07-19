@@ -40,6 +40,7 @@ import { ChallengeTitleComponent } from './shared/components/challenge-title/cha
 import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
+import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ContactInfoComponent } from './shared/components/contact-info/contact-i
     ChallengeTitleComponent,
     DialogComponent,
     CategoryDialogComponent,
-    ContactInfoComponent
+    ContactInfoComponent,
+    SuccessDialogComponent
   ],
   imports: [
     GoogleMapsModule,
