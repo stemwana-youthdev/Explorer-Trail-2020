@@ -13,10 +13,9 @@ import { SuccessDialogComponent } from '../success-dialog/success-dialog.compone
 @Component({
   selector: 'app-challenge-view',
   templateUrl: './challenge-view.component.html',
-  styleUrls: ['./challenge-view.component.scss']
+  styleUrls: ['./challenge-view.component.scss'],
 })
 export class ChallengeViewComponent implements OnInit {
-
   challenge = {} as Challenge;
   id: number;
   Categories: any = Categories;
@@ -26,48 +25,54 @@ export class ChallengeViewComponent implements OnInit {
   selectedLevel: number;
   currentLevel = {} as ChallengeLevel;
 
-  constructor(private service: ApiService, private route: ActivatedRoute, public dialog: MatDialog) {
-  }
+  constructor(
+    private service: ApiService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getChallenge();
     this.getChallengeLevels();
 
     // Gets the id from the current route
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.id = +params.id;
-   });
+    });
   }
 
-
   /*
-  * Gets one challenge based on the uid
-  */
- getChallenge() {
-  this.service.getChallenges().subscribe((res) => {
-    // tslint:disable-next-line: no-string-literal
-    this.challenge = res['challenges'].find(item => item.uid === this.id);
+   * Gets one challenge based on the uid
+   */
+  getChallenge() {
+    this.service.getChallenges().subscribe((res) => {
+      // tslint:disable-next-line: no-string-literal
+      this.challenge = res['challenges'].find((item) => item.uid === this.id);
     });
-}
+  }
 
   /*
-  * Uses ApiService to get challengeLevels information and stores all challenge information
-  * for the current challenge in challengeLevel. Then it stores an array of the level numbers into
-  * another property, levels. It also sets the default level to be the lowest in the level array.
-  */
+   * Uses ApiService to get challengeLevels information and stores all challenge information
+   * for the current challenge in challengeLevel. Then it stores an array of the level numbers into
+   * another property, levels. It also sets the default level to be the lowest in the level array.
+   */
   getChallengeLevels() {
     this.service.getChallengeLevels().subscribe((res) => {
       // tslint:disable-next-line: no-string-literal
-      this.challengeInfo = res['challengeLevels'].filter(item => item.challengeId === this.id);
-      this.levels = this.challengeInfo.map(level => level.difficulty);
+      this.challengeInfo = res['challengeLevels'].filter(
+        (item) => item.challengeId === this.id
+      );
+      this.levels = this.challengeInfo.map((level) => level.difficulty);
       this.selectedLevel = Math.min(...this.levels);
       this.getCurrentChallenge(this.selectedLevel);
-      });
+    });
   }
 
   // Gets the current challenge information based on the level selected
   getCurrentChallenge(value) {
-    this.currentLevel = this.challengeInfo.find(challenge => challenge.difficulty === value);
+    this.currentLevel = this.challengeInfo.find(
+      (challenge) => challenge.difficulty === value
+    );
   }
 
   openHintDialog(title, level, hint, category) {
@@ -76,7 +81,7 @@ export class ChallengeViewComponent implements OnInit {
         title,
         level,
         hint,
-        category
+        category,
       },
       panelClass: 'app-dialog',
     });
@@ -102,16 +107,33 @@ export class ChallengeViewComponent implements OnInit {
 
     // Check if the answer is correct
     if (isCorrect) {
-      this.dialog.open(SuccessDialogComponent, {
+      // Open a success dialog
+      const successDialog = this.dialog.open(SuccessDialogComponent, {
         data: {
           level: this.currentLevel,
           challenge: this.challenge,
         },
         panelClass: 'app-dialog',
       });
+
+      // Wait until the dialog is closed
+      const successResult = await successDialog.afterClosed().toPromise();
+      // If the user clicked next level, switch to the next level
+      if (successResult === 'next-level') {
+        this.nextLevel();
+      }
     } else {
       console.log('incorrect');
     }
   }
 
+  nextLevel() {
+    const nextLevel = Math.min(
+      ...this.levels.filter((d) => d > this.selectedLevel)
+    );
+    if (nextLevel < Infinity) {
+      this.selectedLevel = nextLevel;
+      this.getCurrentChallenge(nextLevel);
+    }
+  }
 }
