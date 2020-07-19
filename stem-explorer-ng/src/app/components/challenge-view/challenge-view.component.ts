@@ -81,14 +81,25 @@ export class ChallengeViewComponent implements OnInit {
     });
   }
 
-  openAnswerDialog() {
-    this.dialog.open(AnswerDialogComponent, {
+  async openAnswerDialog() {
+    const answerDialog = this.dialog.open(AnswerDialogComponent, {
       data: {
         level: this.currentLevel,
         challenge: this.challenge,
       },
       panelClass: 'app-dialog',
     });
+
+    const isCorrect = await answerDialog.afterClosed().toPromise();
+    if (typeof isCorrect !== 'boolean') {
+      return;
+    }
+
+    if (isCorrect) {
+      console.log('correct');
+    } else {
+      console.log('incorrect');
+    }
   }
 
 }

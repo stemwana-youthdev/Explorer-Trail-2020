@@ -1,10 +1,11 @@
-import { Component, Inject, Input } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Levels } from '../../shared/enums/levels.enum';
-import { ChallengeAnswer, ChallengeLevel } from 'src/app/shared/models/challenge-level';
+import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { Challenge } from 'src/app/shared/models/challenge';
 import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 export interface AnswerDialogData {
   level: ChallengeLevel;
@@ -24,13 +25,22 @@ export class AnswerDialogComponent {
   Levels: any = Levels;
   AnswerType: any = AnswerType;
 
+  checkingAnswer = false;
+  selectedAnswer = '';
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AnswerDialogData,
-    private router: Router,
+    private dialogRef: MatDialogRef<AnswerDialogComponent>,
+    private api: ApiService,
   ) { }
 
-  answerSelected(answer: ChallengeAnswer) {
-    console.log('Answer selected:', answer);
+  async submitAnswer(answer: string) {
+    if (this.checkingAnswer) { return; }
+    this.checkingAnswer = true;
+    this.selectedAnswer = answer;
+
+    const isCorrect = await this.api.validateAnswer(this.data.level.uid, answer).toPromise();
+    this.dialogRef.close(isCorrect);
   }
 
 }

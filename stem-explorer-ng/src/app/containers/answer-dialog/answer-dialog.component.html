@@ -12,7 +12,8 @@
 
     <ul *ngSwitchCase="AnswerType.Multichoice" class="answer-list">
       <li *ngFor="let answer of data.level.possibleAnswers">
-        <app-button outlined (click)="answerSelected(answer)">
+        <app-button outlined [disabled]="checkingAnswer && answer.answerText !== selectedAnswer"
+          (click)="submitAnswer(answer.answerText)">
           {{ answer.answerText }}
         </app-button>
       </li>
@@ -23,4 +24,6 @@
     </p>
 
   </ng-container>
+
+  <p *ngIf="checkingAnswer">Checking your answer&hellip;</p>
 </app-category-dialog>
