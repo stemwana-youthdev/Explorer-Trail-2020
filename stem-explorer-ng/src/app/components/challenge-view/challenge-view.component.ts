@@ -81,7 +81,9 @@ export class ChallengeViewComponent implements OnInit {
     });
   }
 
+  // Async allows us to do this in an imperative style w/o blocking
   async openAnswerDialog() {
+    // Open the answer dialog
     const answerDialog = this.dialog.open(AnswerDialogComponent, {
       data: {
         level: this.currentLevel,
@@ -90,11 +92,14 @@ export class ChallengeViewComponent implements OnInit {
       panelClass: 'app-dialog',
     });
 
+    // Wait until the dialog is closed
     const isCorrect = await answerDialog.afterClosed().toPromise();
+    // Ignore if the user closed the dialog without selecting an answer
     if (typeof isCorrect !== 'boolean') {
       return;
     }
 
+    // Check if the answer is correct
     if (isCorrect) {
       console.log('correct');
     } else {
