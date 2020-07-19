@@ -1,9 +1,9 @@
-export interface ChallengeLevels {
+export interface ChallengeLevel {
     uid: number;
     questionText: string;
     difficulty: number;
     instructions: string;
-    possibleAnswers: ChallengeAnswer;
+    possibleAnswers: ChallengeAnswer[];
     challengeId: number;
     hint: string;
 }
