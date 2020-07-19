@@ -13,7 +13,7 @@ services:
     ports:
       - "5432:5432"
 
-  explorer_trial_api:
+  explorer_trail_api:
     build:
       context: ./StemExplorerAPI
     environment:
@@ -28,7 +28,7 @@ services:
     links:
       - explorer_trail_db
 
-  explorer_trial_ui:
+  explorer_trail_ui:
     build:
       context: ./stem-explorer-ng
     environment:
@@ -37,6 +37,15 @@ services:
       - AUTH_API
     ports:
       - '4200:4200'
+
+  explorer_trail_admin:
+    build:
+      context: ./stem-admin
+    environment:
+      - PORT=4300
+      - API_ENDPOINT=http://localhost:5000/api
+    ports:
+      - '4300:4300'
 
 volumes:
   stem-data:
