@@ -42,6 +42,7 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
 import { InputComponent } from './shared/components/input/input.component';
+import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { InputComponent } from './shared/components/input/input.component';
     CategoryDialogComponent,
     ContactInfoComponent,
     InputComponent,
+    SuccessDialogComponent
   ],
   imports: [
     GoogleMapsModule,

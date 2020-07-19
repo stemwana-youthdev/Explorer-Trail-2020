@@ -8,6 +8,7 @@ import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { MatDialog } from '@angular/material/dialog';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from 'src/app/containers/answer-dialog/answer-dialog.component';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-challenge-view',
@@ -101,7 +102,13 @@ export class ChallengeViewComponent implements OnInit {
 
     // Check if the answer is correct
     if (isCorrect) {
-      console.log('correct');
+      this.dialog.open(SuccessDialogComponent, {
+        data: {
+          level: this.currentLevel,
+          challenge: this.challenge,
+        },
+        panelClass: 'app-dialog',
+      });
     } else {
       console.log('incorrect');
     }
