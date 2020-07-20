@@ -25,6 +25,8 @@ export class AnswerDialogComponent {
   Levels: any = Levels;
   AnswerType: any = AnswerType;
 
+  answerValue = '';
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AnswerDialogData,
     private router: Router,

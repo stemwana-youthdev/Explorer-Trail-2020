@@ -22,7 +22,7 @@
     </ul>
 
     <form *ngSwitchDefault (submit)="$event.preventDefault(); answerSelected(answerValue)">
-      <app-input placeholder="Type answer here" name="answer"></app-input>
+      <app-input placeholder="Type answer here" name="answer" [(ngModel)]="answerValue"></app-input>
       <app-category-button>Enter Answer</app-category-button>
     </form>
 
