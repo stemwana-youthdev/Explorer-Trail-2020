@@ -29,6 +29,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
+import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
 import { FabComponent } from './shared/components/fab/fab.component';
 import { FabContainerComponent } from './shared/components/fab-container/fab-container.component';
 import { ButtonComponent } from './shared/components/button/button.component';
@@ -38,6 +39,8 @@ import { ChallengeTitleComponent } from './shared/components/challenge-title/cha
 import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
+import { FormFieldComponent } from './shared/components/form-field/form-field.component';
+import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,7 @@ import { ContactInfoComponent } from './shared/components/contact-info/contact-i
     CameraButtonComponent,
     DrawerComponent,
     HintDialogComponent,
+    AnswerDialogComponent,
     FabComponent,
     FabContainerComponent,
     ButtonComponent,
@@ -67,7 +71,9 @@ import { ContactInfoComponent } from './shared/components/contact-info/contact-i
     ChallengeTitleComponent,
     DialogComponent,
     CategoryDialogComponent,
-    ContactInfoComponent
+    ContactInfoComponent,
+    FormFieldComponent,
+    CategoryFormFieldComponent,
   ],
   imports: [
     GoogleMapsModule,

@@ -4,6 +4,7 @@ export interface Location {
   position: Position;
   challengetitle: string;
   challengedescription: string;
+  challengeid: number;
   category: number;
   link: string;
 }
