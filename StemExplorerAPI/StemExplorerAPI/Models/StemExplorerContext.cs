@@ -16,7 +16,7 @@ namespace StemExplorerAPI.Models
 
         public StemExplorerContext(DbContextOptions<StemExplorerContext> options) : base(options)
         {
-            
+            Database.EnsureCreated();
         }
 
         internal DbSet<Challenge> Challenges { get; set; }
@@ -39,6 +39,8 @@ namespace StemExplorerAPI.Models
                 .HasConversion<int>();
             
             base.OnModelCreating(modelBuilder);
+
+            DataSeeding.Seed(modelBuilder);
         }
     }
 }

@@ -12,6 +12,8 @@ export class ApiService {
     return this.config.get('API_ENDPOINT') as string;
   }
 
+  testApi = `https://localhost:44382/api`;
+
   constructor(
     private http: HttpClient,
     private config: ConfigService,
@@ -25,7 +27,14 @@ export class ApiService {
 
   getLocations() {
     return this.http.get<Locations>(
-      `${this.apiEndpoint}/Location/GetLocations`
+      `${this.testApi}/Location/GetLocations`
+      // `${this.apiEndpoint}/Location/GetLocations`
+    );
+  }
+
+  getLocationById(id: string) {
+    return this.http.get<any>(
+      `${this.testApi}/Location/${id}`
     );
   }
 

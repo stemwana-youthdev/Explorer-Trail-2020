@@ -30,9 +30,11 @@ namespace StemExplorerAPI
             var connection = Configuration.GetConnectionString("StemExplorer");
 
             services.AddDbContext<StemExplorerContext>(opt =>
-                opt.UseNpgsql(connection));
-            
-            services.AddControllers();
+                opt.UseInMemoryDatabase(databaseName: "StemExplorer"));
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             //Enables Dependency Injection
             services.RegisterServices();
@@ -73,7 +75,7 @@ namespace StemExplorerAPI
 
             app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v2/swagger.json", "Stem Explorer API"));
 
-            dataContext.Database.Migrate();
+            //dataContext.Database.Migrate();
         }
     }
 }
