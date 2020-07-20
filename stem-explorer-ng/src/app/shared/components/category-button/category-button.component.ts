@@ -9,6 +9,7 @@ import { Categories } from '../../enums/categories.enum';
 export class CategoryButtonComponent {
 
   @Input() inverted: any;
+  @Input() disabled: any;
   @Input() category: number;
   colors = [
     {category: Categories.Science, color: 'green'},

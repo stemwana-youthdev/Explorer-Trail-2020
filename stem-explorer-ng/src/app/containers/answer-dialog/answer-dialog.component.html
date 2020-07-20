@@ -23,8 +23,8 @@
     </ul>
 
     <form *ngSwitchDefault (submit)="$event.preventDefault(); submitAnswer(answerValue)">
-      <app-input placeholder="Type answer here" name="answer" [(ngModel)]="answerValue"></app-input>
-      <app-category-button [category]="data.challenge.category">Enter Answer</app-category-button>
+      <app-input placeholder="Type answer here" [disabled]="checkingAnswer" name="answer" [(ngModel)]="answerValue"></app-input>
+      <app-category-button [disabled]="checkingAnswer" [category]="data.challenge.category">Enter Answer</app-category-button>
     </form>
 
   </ng-container>

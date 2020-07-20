@@ -5,6 +5,8 @@ import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { Challenge } from 'src/app/shared/models/challenge';
 import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { delay } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 export interface AnswerDialogData {
   level: ChallengeLevel;
@@ -42,6 +44,8 @@ export class AnswerDialogComponent {
     this.checkingAnswer = true;
     this.selectedAnswer = answer;
 
+    // Artificial network delay
+    await delay(1000)(of(null)).toPromise();
     // Use the api to check the answer
     const isCorrect = await this.api.validateAnswer(this.data.level.uid, answer).toPromise();
     // Close the dialog and return if the given answer was correct
