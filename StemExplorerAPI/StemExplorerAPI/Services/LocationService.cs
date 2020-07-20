@@ -116,7 +116,6 @@ namespace StemExplorerAPI.Services
                 entity.Longitude = locationDto.Position.Longitude ?? null;
                 entity.Url = locationDto.Link;
 
-                // Do we want to edit the challenge details through this method also?
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)

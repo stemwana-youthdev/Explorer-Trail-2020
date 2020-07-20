@@ -31,8 +31,10 @@ namespace StemExplorerAPI
 
             services.AddDbContext<StemExplorerContext>(opt =>
                 opt.UseNpgsql(connection));
-            
-            services.AddControllers();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             //Enables Dependency Injection
             services.RegisterServices();
