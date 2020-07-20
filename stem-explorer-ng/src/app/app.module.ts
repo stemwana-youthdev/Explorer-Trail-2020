@@ -41,6 +41,8 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
 import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
+import { FormFieldComponent } from './shared/components/form-field/form-field.component';
+import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,9 @@ import { SuccessDialogComponent } from './components/success-dialog/success-dial
     DialogComponent,
     CategoryDialogComponent,
     ContactInfoComponent,
-    SuccessDialogComponent
+    SuccessDialogComponent,
+    FormFieldComponent,
+    CategoryFormFieldComponent,
   ],
   imports: [
     GoogleMapsModule,

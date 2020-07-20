@@ -36,6 +36,15 @@ body {
   margin: 0;
   @include typeface-body;
 }
+h1, h2 {
+  @include typeface-heading;
+}
+h3, h4, h5, h6, b, strong {
+  @include typeface-sub-heading;
+}
+i, em {
+  @include typeface-accent;
+}
 
 // Used for the camera pop-up
 .fullscreen-dialog {
@@ -48,6 +57,16 @@ body {
     border-radius: 0;
     padding: 0;
   }
+}
+
+.mat-select-value,
+.mat-select-arrow {
+  color: white;
+}
+
+.mat-select,
+.mat-flat-button {
+  @include typeface-sub-heading;
 }
 
 .app-dialog .mat-dialog-container {
