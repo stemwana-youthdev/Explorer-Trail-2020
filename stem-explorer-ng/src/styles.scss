@@ -1,3 +1,5 @@
+// Import variables
+@use 'app/variables' as *;
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -29,7 +31,20 @@ $stem-explorer-ng-theme: mat-light-theme($stem-explorer-ng-primary, $stem-explor
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  margin: 0;
+  @include typeface-body;
+}
+h1, h2 {
+  @include typeface-heading;
+}
+h3, h4, h5, h6, b, strong {
+  @include typeface-sub-heading;
+}
+i, em {
+  @include typeface-accent;
+}
 
 // Used for the camera pop-up
 .fullscreen-dialog {
@@ -42,4 +57,41 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 0;
     padding: 0;
   }
+}
+
+.mat-select-value,
+.mat-select-arrow {
+  color: white;
+}
+
+.mat-select,
+.mat-flat-button {
+  @include typeface-sub-heading;
+}
+
+.app-dialog .mat-dialog-container {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 0;
+}
+
+.app-dialog {
+  position: relative;
+}
+
+.mat-toolbar {
+  position: fixed;
+  top: 0px;
+  z-index: 99;
+  background-color: white;
+  border-bottom: solid;
+  border-color: tint(20%, $primary-black);
+}
+
+body {
+  padding-top: 56px;
+}
+
+.mat-drawer-container {
+  background-color: white;
 }

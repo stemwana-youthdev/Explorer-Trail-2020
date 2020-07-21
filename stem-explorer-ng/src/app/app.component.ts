@@ -24,16 +24,18 @@ export class AppComponent {
     );
   }
 
-  get isHomePage() {
+  get isMap() {
     return this.currentUrl.pipe(
-      map((url) => url === '/' || url === '/list-view'),
+      map((url) => url === '/'),
     );
   }
 
-  get showNavBar() {
-    return this.currentUrl.pipe(
-      map((url) => !url.startsWith('/admin'))
-    );
+  navigateToList() {
+    this.router.navigateByUrl('/list-view');
+  }
+
+  navigateToMap() {
+    this.router.navigateByUrl('/');
   }
 
 }

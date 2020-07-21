@@ -3,7 +3,7 @@
 <google-map
 [center]="center"
 [zoom]="zoom"
-height="500px"
+height="100%"
 width="100%"
 [options]="options"
 >
@@ -11,18 +11,11 @@ width="100%"
     #markerElem
     *ngFor="let marker of (location | filter:this.filter)"
     [position]="marker.position"
-    [label]="marker.name"
     [title]="marker.name"
+    [options]="{ icon: getIconForMarker(marker) }"
     (mapClick)="openInfo(markerElem, marker)"
     >
     </map-marker>
 
-    <map-info-window>
-
-    <h3>{{ challengeTitle }}</h3>
-    <h4>{{ challengeDescription | truncate:50 }}</h4>
-    <button mat-stroked-button (click)="goToChallenge(challengeId)">Start Challenge</button>
-
-
-    </map-info-window>
+    <map-info-window></map-info-window>
 </google-map>

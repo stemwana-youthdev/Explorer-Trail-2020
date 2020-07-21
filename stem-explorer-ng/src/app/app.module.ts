@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
@@ -30,7 +31,20 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
-
+import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
+import { FabComponent } from './shared/components/fab/fab.component';
+import { FabContainerComponent } from './shared/components/fab-container/fab-container.component';
+import { ButtonComponent } from './shared/components/button/button.component';
+import { CategoryButtonComponent } from './shared/components/category-button/category-button.component';
+import { CategoryCardComponent } from './shared/components/category-card/category-card.component';
+import { ChallengeTitleComponent } from './shared/components/challenge-title/challenge-title.component';
+import { DialogComponent } from './shared/components/dialog/dialog.component';
+import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
+import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
+import { InputComponent } from './shared/components/input/input.component';
+import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
+import { FormFieldComponent } from './shared/components/form-field/form-field.component';
+import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +65,21 @@ import { HintDialogComponent } from './components/hint-dialog/hint-dialog.compon
     CameraComponent,
     CameraButtonComponent,
     DrawerComponent,
-    HintDialogComponent
+    HintDialogComponent,
+    AnswerDialogComponent,
+    FabComponent,
+    FabContainerComponent,
+    ButtonComponent,
+    CategoryButtonComponent,
+    CategoryCardComponent,
+    ChallengeTitleComponent,
+    DialogComponent,
+    CategoryDialogComponent,
+    ContactInfoComponent,
+    FormFieldComponent,
+    CategoryFormFieldComponent,
+    InputComponent,
+    SuccessDialogComponent
   ],
   imports: [
     GoogleMapsModule,
@@ -64,6 +92,7 @@ import { HintDialogComponent } from './components/hint-dialog/hint-dialog.compon
     MaterialModule,
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    FormsModule,
   ],
   entryComponents: [
     ListViewDialogComponent,

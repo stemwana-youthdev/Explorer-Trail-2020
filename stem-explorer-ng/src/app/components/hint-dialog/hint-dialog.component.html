@@ -1,6 +1,5 @@
-<h2>{{data.title}}</h2>
-<h3>{{Level[data.level]}}</h3>
-<p>{{data.hint}}</p>
-<mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Close</button>
-  </mat-dialog-actions>
+<app-dialog color="pink">
+  <app-challenge-title [category]="data.category">{{data.title}}</app-challenge-title>
+  <h4>{{Level[data.level]}}</h4>
+  <p>{{data.hint}}</p>
+</app-dialog>

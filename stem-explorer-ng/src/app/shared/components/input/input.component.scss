@@ -1,0 +1,15 @@
+@use 'src/app/variables' as *;
+
+input {
+  @include typeface-body;
+  font-size: inherit;
+  line-height: 36px;
+
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+
+  outline: none;
+  border: 3px solid $primary-black;
+}
