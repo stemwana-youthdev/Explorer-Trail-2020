@@ -1,15 +1,20 @@
 export interface Location {
-  uid: number;
+  id: number;
+  googlePlaceId: number;
   name: string;
   position: Position;
-  challengetitle: string;
-  challengedescription: string;
-  challengeid: number;
-  category: number;
   link: string;
+  locationChallenges: LocationChallengeInfo;
 }
 
 export interface Position {
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
+}
+
+export interface LocationChallengeInfo {
+  challengeCateogry: number;
+  challengeDescription: string;
+  challengeId: number;
+  challengeTitle: string;
 }

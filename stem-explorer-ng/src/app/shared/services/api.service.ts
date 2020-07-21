@@ -21,12 +21,18 @@ export class ApiService {
 
   getChallenges() {
     return this.http.get<Challenges>(
-      `${this.apiEndpoint}/Challenge/GetChallenges`
+      // `${this.apiEndpoint}/Challenge/GetChallenges`
+      `${this.testApi}/Challenge/GetChallenges`
     );
   }
 
+  getChallengeById(id: string) {
+    return this.http.get(`${this.testApi}/Challenge/${id}`);
+    // return this.http.get('assets/locations.json');
+  }
+
   getLocations() {
-    return this.http.get<Locations>(
+    return this.http.get<Location[]>(
       `${this.testApi}/Location/GetLocations`
       // `${this.apiEndpoint}/Location/GetLocations`
     );
@@ -40,12 +46,9 @@ export class ApiService {
 
   getExternalContent() {
     return this.http.get<ExternalContent[]>(
-      `${this.apiEndpoint}/ExternalContent/GetContent`
+      `${this.testApi}/ExternalContent/GetContent`
+      // `${this.apiEndpoint}/ExternalContent/GetContent`
     );
-  }
-
-  getChallenge(uid) {
-    return this.http.get('assets/locations.json');
   }
 
   getChallengeLevels() {
@@ -56,8 +59,4 @@ export class ApiService {
 
 export interface Challenges {
   challenges: Challenge[];
-}
-
-export interface Locations {
-  location: Location[];
 }

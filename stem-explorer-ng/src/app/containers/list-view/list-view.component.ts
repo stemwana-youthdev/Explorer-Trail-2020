@@ -39,7 +39,7 @@ export class ListViewComponent implements OnInit {
   */
   getLocations() {
     this.service.getLocations().subscribe((res) => {
-      this.locations = res.location;
+      // this.locations = res.location;
     });
   }
 

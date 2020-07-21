@@ -1,7 +1,7 @@
 import { MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { Location } from '../../shared/models/location';
+import { Location, LocationChallengeInfo } from '../../shared/models/location';
 import { Router } from '@angular/router';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
@@ -16,7 +16,6 @@ export class MapComponent implements OnInit, OnDestroy {
   // added a dependency injection in order to use the getLocations method without creating an instance of the object
   constructor(
     private service: ApiService,
-    private router: Router,
     private dialog: MatDialog,
   ) {}
 
@@ -25,7 +24,7 @@ export class MapComponent implements OnInit, OnDestroy {
   geolocationWatchId: number;
 
   // local property to store the json data from getLocations
-  location: Location[] = [];
+  locations: Location[] = [];
 
   filter = [0, 1, 2, 3];
 
@@ -91,47 +90,51 @@ export class MapComponent implements OnInit, OnDestroy {
    * uses the ApiService to call on the getLocations method to open a listerning stream to get the data from the json file
    */
   loadLocation() {
-    this.service.getLocations().subscribe((l) => {
+    this.service.getLocations().subscribe((locations) => {
       // store the data in a local property
-      this.location = l.location;
+      this.locations = locations;
     });
   }
 
   loadGeolocation() {
     if (!navigator.geolocation) {
       console.warn('Geolocation not supported');
-      return;
-    }
-
-    this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
-      const { latitude, longitude } = position.coords;
       this.center = {
-        lat: latitude,
-        lng: longitude,
+        lat: -37.6854709,
+        lng: 176.1673285,
       };
-    });
+    } else {
+      this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        this.center = {
+          lat: latitude,
+          lng: longitude,
+        };
+      });
+    }
   }
 
   ngOnDestroy() {
     navigator.geolocation?.clearWatch(this.geolocationWatchId);
   }
 
-  getIconForMarker(marker: Location): google.maps.Icon {
+  getIconForMarker(markerInfo: LocationChallengeInfo): google.maps.Icon {
     return {
-      url: this.icons[marker.category],
+      url: this.icons[markerInfo.challengeCateogry],
       scaledSize: new google.maps.Size(30, 48),
     };
   }
 
   openInfo(marker: MapMarker, location: Location) {
-    if (location.challengeid) {
+    const challenge = location.locationChallenges;
+    if (challenge.challengeId) {
       this.dialog.open(ListViewDialogComponent, {
         data: {
           challenge: {
-            uid: location.challengeid,
-            title: location.challengetitle,
-            category: location.category,
-            description: location.challengedescription,
+            uid: challenge.challengeId,
+            title: challenge.challengeTitle,
+            category: challenge.challengeCateogry,
+            description: challenge.challengeDescription,
           },
           name: location.name,
           link: location.link
