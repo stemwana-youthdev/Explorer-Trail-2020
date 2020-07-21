@@ -31,6 +31,7 @@ namespace StemExplorerAPI
 
             services.AddDbContext<StemExplorerContext>(opt =>
                 opt.UseInMemoryDatabase(databaseName: "StemExplorer"));
+                // opt.UseNpgsql(connection));
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
