@@ -6,7 +6,10 @@
     {{ data.level.questionText }}
   </p>
 
-  <h2>Answer <span class="smaller">- Choose one</span></h2>
+  <h2>
+    Answer
+    <span *ngIf="data.level.answerType === AnswerType.Multichoice" class="smaller">- Choose one</span>
+  </h2>
   
   <ng-container [ngSwitch]="data.level.answerType">
 
@@ -18,9 +21,10 @@
       </li>
     </ul>
 
-    <p *ngSwitchDefault>
-      Answer type {{ AnswerType[data.level.answerType] }} not implemented.
-    </p>
+    <form *ngSwitchDefault (submit)="$event.preventDefault(); answerSelected(answerValue)">
+      <app-input placeholder="Type answer here" name="answer"></app-input>
+      <app-category-button>Enter Answer</app-category-button>
+    </form>
 
   </ng-container>
 </app-category-dialog>

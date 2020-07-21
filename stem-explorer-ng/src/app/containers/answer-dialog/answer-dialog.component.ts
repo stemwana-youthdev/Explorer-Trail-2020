@@ -5,6 +5,7 @@ import { Levels } from '../../shared/enums/levels.enum';
 import { ChallengeAnswer, ChallengeLevels } from 'src/app/shared/models/challenge-levels';
 import { Challenge } from 'src/app/shared/models/challenge';
 import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
+import { InputComponent } from 'src/app/shared/components/input/input.component';
 
 export interface AnswerDialogData {
   level: ChallengeLevels;
