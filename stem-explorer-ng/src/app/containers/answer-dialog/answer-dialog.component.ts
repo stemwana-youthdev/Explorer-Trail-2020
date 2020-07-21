@@ -24,6 +24,7 @@ export class AnswerDialogComponent {
   Levels: any = Levels;
   AnswerType: any = AnswerType;
 
+  validationError?: string;
   checkingAnswer = false;
   selectedAnswer = '';
   answerValue = '';
@@ -36,6 +37,12 @@ export class AnswerDialogComponent {
 
   // Async allows us to do this in an imperative style w/o blocking
   async submitAnswer(answer: string) {
+    // Show an error if the user tries to answer nothing
+    if (answer.trim().length === 0) {
+      this.validationError = 'You must enter an answer';
+      return;
+    }
+
     // Don't do anything if the user has already made a choice
     if (this.checkingAnswer) { return; }
     // Flags to change the UI

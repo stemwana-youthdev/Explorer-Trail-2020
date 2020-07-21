@@ -23,11 +23,13 @@
     </ul>
 
     <form *ngSwitchDefault (submit)="$event.preventDefault(); submitAnswer(answerValue)">
-      <app-input placeholder="Type answer here" [disabled]="checkingAnswer" name="answer" [(ngModel)]="answerValue"></app-input>
+      <app-input placeholder="Type answer here" [disabled]="checkingAnswer" name="answer" [color]="validationError ? 'red' : ''" [(ngModel)]="answerValue"></app-input>
       <app-category-button [disabled]="checkingAnswer" [category]="data.challenge.category">Enter Answer</app-category-button>
     </form>
 
   </ng-container>
+
+  <p *ngIf="validationError">{{ validationError }}</p>
 
   <p *ngIf="checkingAnswer">Checking your answer&hellip;</p>
 </app-category-dialog>

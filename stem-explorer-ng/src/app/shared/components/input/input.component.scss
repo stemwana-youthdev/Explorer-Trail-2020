@@ -12,4 +12,8 @@ input {
 
   outline: none;
   border: 3px solid $primary-black;
+
+  &.red {
+    border-color: $secondary-red;
+  }
 }
