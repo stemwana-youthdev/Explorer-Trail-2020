@@ -6,7 +6,7 @@ import { Challenge } from 'src/app/shared/models/challenge';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
-export interface SuccessDialogData {
+export interface IncorrectDialogData {
   level: ChallengeLevel;
   challenge: Challenge;
 }
@@ -21,7 +21,7 @@ export class IncorrectDialogComponent {
   Levels: any = Levels;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: SuccessDialogData,
+    @Inject(MAT_DIALOG_DATA) public data: IncorrectDialogData,
     public auth: AuthService,
     private router: Router,
   ) { }
