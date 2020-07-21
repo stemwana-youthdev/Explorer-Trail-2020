@@ -32,12 +32,12 @@ export class ChallengeViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getChallenge();
-    this.getChallengeLevels();
-
     // Gets the id from the current route
     this.route.params.subscribe((params) => {
       this.id = +params.id;
+
+      this.getChallenge();
+      this.getChallengeLevels();
     });
   }
 
@@ -45,9 +45,9 @@ export class ChallengeViewComponent implements OnInit {
    * Gets one challenge based on the uid
    */
   getChallenge() {
-    this.service.getChallenges().subscribe((res) => {
+    this.service.getChallenge(this.id).subscribe((res) => {
       // tslint:disable-next-line: no-string-literal
-      this.challenge = res['challenges'].find((item) => item.uid === this.id);
+      this.challenge = res;
     });
   }
 
@@ -57,11 +57,8 @@ export class ChallengeViewComponent implements OnInit {
    * another property, levels. It also sets the default level to be the lowest in the level array.
    */
   getChallengeLevels() {
-    this.service.getChallengeLevels().subscribe((res) => {
-      // tslint:disable-next-line: no-string-literal
-      this.challengeInfo = res['challengeLevels'].filter(
-        (item) => item.challengeId === this.id
-      );
+    this.service.getChallengeLevels(this.id).subscribe((res) => {
+      this.challengeInfo = res.challengeLevels;
       this.levels = this.challengeInfo.map((level) => level.difficulty);
       this.selectedLevel = Math.min(...this.levels);
       this.getCurrentChallenge(this.selectedLevel);
