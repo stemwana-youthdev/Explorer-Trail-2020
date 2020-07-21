@@ -1,0 +1,18 @@
+<app-dialog inverted color="pink">
+  <h2>{{ data.challenge.title }}</h2>
+  <h3>{{ Levels[data.level.difficulty] }}</h3>
+
+  <div class="message">
+    <div class="graphic">
+      <!-- Image goes here --> Yay!!!
+    </div>
+    <div class="text">
+      Oops! <br />
+      Wrong <br />
+      Answer
+    </div>
+  </div>
+
+  <app-button inverted mat-dialog-close color="pink">Try again</app-button>
+  <app-button inverted mat-dialog-close color="pink" (click)="navigateToHomepage()">Back to home</app-button>
+</app-dialog>

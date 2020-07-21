@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from 'src/app/containers/answer-dialog/answer-dialog.component';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { IncorrectDialogComponent } from '../incorrect-dialog/incorrect-dialog.component';
 
 @Component({
   selector: 'app-challenge-view',
@@ -123,7 +124,14 @@ export class ChallengeViewComponent implements OnInit {
         this.nextLevel();
       }
     } else {
-      console.log('incorrect');
+      // Open an incorrect dialog
+      this.dialog.open(IncorrectDialogComponent, {
+        data: {
+          level: this.currentLevel,
+          challenge: this.challenge,
+        },
+        panelClass: 'app-dialog',
+      });
     }
   }
 

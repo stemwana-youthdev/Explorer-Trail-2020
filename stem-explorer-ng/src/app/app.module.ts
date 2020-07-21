@@ -45,6 +45,7 @@ import { InputComponent } from './shared/components/input/input.component';
 import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
 import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
+import { IncorrectDialogComponent } from './components/incorrect-dialog/incorrect-dialog.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { CategoryFormFieldComponent } from './shared/components/category-form-fi
     FormFieldComponent,
     CategoryFormFieldComponent,
     InputComponent,
-    SuccessDialogComponent
+    SuccessDialogComponent,
+    IncorrectDialogComponent,
   ],
   imports: [
     GoogleMapsModule,
