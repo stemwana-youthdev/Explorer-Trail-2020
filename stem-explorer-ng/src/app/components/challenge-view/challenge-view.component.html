@@ -14,10 +14,10 @@
   </app-category-form-field>
 
   <app-challenge-title [category]="challenge.category">Instructions</app-challenge-title>
-  <p>{{ currentChallenge.instructions }}</p>
+  <p>{{ currentLevel.instructions }}</p>
 
-  <app-button *ngIf="currentChallenge.hint" 
-          (click)="openHintDialog(challenge.title, selectedLevel, currentChallenge.hint, challenge.category)"
+  <app-button *ngIf="currentLevel.hint" 
+          (click)="openHintDialog(challenge.title, selectedLevel, currentLevel.hint, challenge.category)"
           color="pink">Get Hint
   </app-button>
 

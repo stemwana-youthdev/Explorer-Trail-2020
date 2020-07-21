@@ -11,6 +11,8 @@ export class ButtonComponent implements OnInit {
 
   @Input() color: 'green'|'blue'|'orange'|'purple'|'pink';
   @Input() outlined: any;
+  @Input() disabled: any;
+  @Input() inverted: any;
 
   constructor() { }
 

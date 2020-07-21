@@ -1,0 +1,31 @@
+<app-category-dialog inverted [category]="data.challenge.category">
+  <h2>{{ data.challenge.title }}</h2>
+  <h3>{{ Levels[data.level.difficulty] }}</h3>
+
+  <div class="message">
+    <div class="graphic">
+      <!-- Image goes here --> Yay!!!
+    </div>
+    <div class="text">
+      Well done! <br />
+      Correct <br />
+      Answer!
+    </div>
+  </div>
+
+  <app-category-button *ngIf="(auth.isLoggedIn | async); else loginOrRegister" inverted mat-dialog-close [category]="data.challenge.category"
+    (click)="nextLevel()">Next level</app-category-button>
+
+  <ng-template #loginOrRegister>
+    <h4>Register or Login to track your progress</h4>
+  
+    <app-category-button inverted mat-dialog-close [category]="data.challenge.category" (click)="navigateToRegister()">
+      Register
+    </app-category-button>
+    <app-category-button inverted mat-dialog-close [category]="data.challenge.category" (click)="navigateToLogin()">
+      Login
+    </app-category-button>
+  </ng-template>
+
+  <app-category-button inverted mat-dialog-close [category]="data.challenge.category" (click)="navigateToHomepage()">Back to home</app-category-button>
+</app-category-dialog>
