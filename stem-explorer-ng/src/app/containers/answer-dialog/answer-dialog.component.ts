@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Levels } from '../../shared/enums/levels.enum';
 import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { Challenge } from 'src/app/shared/models/challenge';
@@ -27,6 +26,7 @@ export class AnswerDialogComponent {
 
   checkingAnswer = false;
   selectedAnswer = '';
+  answerValue = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AnswerDialogData,

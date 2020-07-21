@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
@@ -40,6 +41,7 @@ import { ChallengeTitleComponent } from './shared/components/challenge-title/cha
 import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
+import { InputComponent } from './shared/components/input/input.component';
 import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
 import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
@@ -74,9 +76,10 @@ import { CategoryFormFieldComponent } from './shared/components/category-form-fi
     DialogComponent,
     CategoryDialogComponent,
     ContactInfoComponent,
-    SuccessDialogComponent,
     FormFieldComponent,
     CategoryFormFieldComponent,
+    InputComponent,
+    SuccessDialogComponent
   ],
   imports: [
     GoogleMapsModule,
@@ -89,6 +92,7 @@ import { CategoryFormFieldComponent } from './shared/components/category-form-fi
     MaterialModule,
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    FormsModule,
   ],
   entryComponents: [
     ListViewDialogComponent,
