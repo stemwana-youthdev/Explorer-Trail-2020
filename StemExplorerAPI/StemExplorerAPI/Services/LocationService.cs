@@ -35,9 +35,13 @@ namespace StemExplorerAPI.Services
                         GooglePlaceId = l.GooglePlaceId,
                         Position = new LocationPositionDto
                         {
-                            Latitude = l.Latitude ?? null,
-                            Longitude = l.Longitude ?? null,
+                            Lat = l.Latitude ?? null,
+                            Lng = l.Longitude ?? null,
                         },
+                        LocationChallenges = l.Challenges.Select(lc => new LocationChallenges
+                        {
+                            ChallengeCategory = lc.Category
+                        }).ToList(),
                         Link = l.Url,
                     })
                     .ToListAsync();
@@ -63,8 +67,8 @@ namespace StemExplorerAPI.Services
                         GooglePlaceId = location.GooglePlaceId,
                         Position = new LocationPositionDto
                         {
-                            Latitude = location.Latitude ?? null,
-                            Longitude = location.Longitude ?? null,
+                            Lat= location.Latitude ?? null,
+                            Lng = location.Longitude ?? null,
                         },
                         LocationChallenges = location.Challenges.Select(lc => new LocationChallenges
                         {
@@ -112,8 +116,8 @@ namespace StemExplorerAPI.Services
 
                 entity.Name = locationDto.Name;
                 entity.GooglePlaceId = locationDto.GooglePlaceId;
-                entity.Latitude = locationDto.Position.Latitude ?? null;
-                entity.Longitude = locationDto.Position.Longitude ?? null;
+                entity.Latitude = locationDto.Position.Lat ?? null;
+                entity.Longitude = locationDto.Position.Lng ?? null;
                 entity.Url = locationDto.Link;
 
                 // Do we want to edit the challenge details through this method also?

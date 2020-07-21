@@ -20,7 +20,8 @@ export class ApiService {
   }
 
   getContentItem(uid: string): Observable<Content> {
-    const url = `${this.urlService.content}/${uid}`;
+    // const url = `${this.urlService.content}/${uid}`;
+    const url = ``;
     return this.http.get<Content>(url);
   }
 
