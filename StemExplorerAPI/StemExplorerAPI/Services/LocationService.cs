@@ -40,6 +40,7 @@ namespace StemExplorerAPI.Services
                         },
                         LocationChallenges = l.Challenges.Select(lc => new LocationChallenges
                         {
+                            ChallengeId = lc.Id,
                             ChallengeCategory = lc.Category
                         }).ToList(),
                         Link = l.Url,

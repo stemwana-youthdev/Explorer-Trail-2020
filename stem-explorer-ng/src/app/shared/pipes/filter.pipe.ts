@@ -1,14 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Location } from '../models/location';
 
 @Pipe({
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(value: any[], filter: any[]) {
+  transform(value: Location[], filter: any[]) {
+    console.warn(filter)
     console.warn(value)
     filter = filter.map(Number);
-    return value.filter(item => filter.includes(item.category));
+    const filtered = value.filter(item => filter.includes(item.locationChallenges.challengeCateogry));
+    console.warn(filtered)
+    return filtered;
   }
 
 }

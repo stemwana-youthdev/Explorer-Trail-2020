@@ -6,14 +6,17 @@
   height="100%"
   width="100%"
   [options]="options">
-  <map-marker
-    #markerElem
-    *ngFor="let marker of (locations | filter:this.filter)"
-    [position]="marker.position"
-    [title]="marker.name"
-    [options]="{ icon: getIconForMarker(marker.locationChallenges) }"
-    (mapClick)="openInfo(markerElem, marker)">
-  </map-marker>
+  <span *ngIf="locations">
+    
+    <map-marker
+      #markerElem
+      *ngFor="let marker of (locations | filter:this.filter)"
+      [position]="marker.position"
+      [title]="marker.name"
+      (mapClick)="openInfo(markerElem, marker)">
+    </map-marker>
+  </span>
+  <!-- [options]="{ icon: getIconForMarker(marker) }" -->
 
     <map-info-window>
         <h2>{{ locationName }}</h2>

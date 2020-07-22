@@ -7,29 +7,29 @@ import { Categories } from 'src/app/shared/enums/categories.enum';
 import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit, OnDestroy {
-  // added a dependency injection in order to use the getLocations method without creating an instance of the object
-  constructor(
-    private service: ApiService,
-    private dialog: MatDialog,
-  ) {}
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
-  zoom = 15;
+  // tslint:disable: variable-name
+  private _locations: Location[] = [];
+  zoom = 17;
   center: google.maps.LatLngLiteral;
   geolocationWatchId: number;
-
-  // local property to store the json data from getLocations
-  locations: Location[] = [];
-
   filter = [0, 1, 2, 3];
 
   // separate property for the information for the map pop up
   infoLocation = null as Location;
+
+  // local property to store the json data from getLocations
+  get locations(): Location[] {
+    return this._locations;
+  }
 
   // controls what function is shown on the map
   options: google.maps.MapOptions = {
@@ -67,14 +67,11 @@ export class MapComponent implements OnInit, OnDestroy {
     ],
   };
 
-  icons = {
-    [Categories.Science]: '/assets/icons/light green point.svg',
-    [Categories.Technology]: '/assets/icons/light blue point.svg',
-    [Categories.Engineering]: '/assets/icons/light orange point.svg',
-    [Categories.Maths]: '/assets/icons/purple point.svg',
-  };
-
-  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
+  // added a dependency injection in order to use the getLocations method without creating an instance of the object
+  constructor(
+    private service: ApiService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     // set maps to the center of Tauranga
@@ -82,45 +79,59 @@ export class MapComponent implements OnInit, OnDestroy {
       lat: -37.6854709,
       lng: 176.1673285,
     };
-    this.loadLocation();
+    this.loadLocations();
     this.loadGeolocation();
   }
 
   /**
    * uses the ApiService to call on the getLocations method to open a listerning stream to get the data from the json file
    */
-  loadLocation() {
+  loadLocations() {
     this.service.getLocations().subscribe((locations) => {
       // store the data in a local property
-      this.locations = locations;
+      this._locations = locations;
     });
   }
 
   loadGeolocation() {
-    if (!navigator.geolocation) {
-      console.warn('Geolocation not supported');
-      this.center = {
-        lat: -37.6854709,
-        lng: 176.1673285,
-      };
-    } else {
-      this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        this.center = {
-          lat: latitude,
-          lng: longitude,
-        };
-      });
-    }
+    this.center = {
+      lat: -37.6854709,
+      lng: 176.1673285,
+    };
+
+    // if (!navigator.geolocation) {
+    //   console.warn('Geolocation not supported');
+    //   this.center = {
+    //     lat: -37.6854709,
+    //     lng: 176.1673285,
+    //   };
+    // } else {
+    //   this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
+    //     const { latitude, longitude } = position.coords;
+    //     this.center = {
+    //       lat: latitude,
+    //       lng: longitude,
+    //     };
+    //   });
+    // }
   }
 
   ngOnDestroy() {
     navigator.geolocation?.clearWatch(this.geolocationWatchId);
   }
 
-  getIconForMarker(markerInfo: LocationChallengeInfo): google.maps.Icon {
+  getIconForMarker(markerInfo: Location): google.maps.Icon {
+    const icons = {
+      [Categories.Science]: '/assets/icons/light green point.svg',
+      [Categories.Technology]: '/assets/icons/light blue point.svg',
+      [Categories.Engineering]: '/assets/icons/light orange point.svg',
+      [Categories.Maths]: '/assets/icons/purple point.svg',
+    };
+
+    console.warn(markerInfo.locationChallenges.challengeCateogry)
+
     return {
-      url: this.icons[markerInfo.challengeCateogry],
+      url: icons[markerInfo.locationChallenges.challengeCateogry],
       scaledSize: new google.maps.Size(30, 48),
     };
   }
