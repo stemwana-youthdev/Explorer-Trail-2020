@@ -24,7 +24,7 @@
 
     <form *ngSwitchDefault (submit)="$event.preventDefault(); submitAnswer(answerValue)">
       <app-input placeholder="Type answer here" [disabled]="checkingAnswer" name="answer" [color]="validationError ? 'red' : ''" [(ngModel)]="answerValue"></app-input>
-      <app-category-button [disabled]="checkingAnswer" [category]="data.challenge.category">Enter Answer</app-category-button>
+      <app-category-button [disabled]="checkingAnswer || (answerValue.trim().length === 0)" [category]="data.challenge.category">Enter Answer</app-category-button>
     </form>
 
   </ng-container>
