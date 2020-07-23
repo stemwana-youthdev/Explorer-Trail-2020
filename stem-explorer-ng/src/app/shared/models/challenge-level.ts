@@ -9,6 +9,7 @@ export interface ChallengeLevel {
     possibleAnswers: ChallengeAnswer[];
     challengeId: number;
     hint: string;
+    answerType: number;
 }
 
 export interface ChallengeAnswer {
