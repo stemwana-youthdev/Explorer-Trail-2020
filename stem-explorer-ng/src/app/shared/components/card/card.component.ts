@@ -3,16 +3,13 @@ import { Categories } from '../../enums/categories.enum';
 import { StemColorsService } from '../../services/stem-colors.service';
 
 @Component({
-  selector: 'app-contact-info',
-  templateUrl: './contact-info.component.html',
-  styleUrls: ['./contact-info.component.scss']
+  selector: 'app-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss']
 })
-export class ContactInfoComponent {
+export class CardComponent {
 
-  @Input() category: number;
-  @Input() link: string;
-  @Input() icon: string;
-  @Input() label: string;
+  @Input() category: Categories;
 
   constructor(
     private stemColors: StemColorsService,

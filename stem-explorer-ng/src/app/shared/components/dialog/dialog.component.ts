@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Categories } from '../../enums/categories.enum';
+import { StemColorsService } from '../../services/stem-colors.service';
 
 @Component({
   selector: 'app-dialog',
@@ -8,11 +10,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DialogComponent implements OnInit {
 
   @Input() inverted: any;
-  @Input() color: 'green'|'blue'|'orange'|'purple'|'pink';
+  @Input() color?: 'green'|'blue'|'orange'|'purple'|'pink';
+  @Input() category?: Categories;
 
-  constructor() { }
+  constructor(
+    private stemColors: StemColorsService,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  get colorClass() {
+    return this.stemColors.getColor(this.category) ?? this.color ?? 'pink';
   }
 
 }

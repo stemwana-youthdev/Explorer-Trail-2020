@@ -1,4 +1,6 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Categories } from '../../enums/categories.enum';
+import { StemColorsService } from '../../services/stem-colors.service';
 
 @Component({
   selector: 'app-form-field',
@@ -7,6 +9,15 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 })
 export class FormFieldComponent {
 
-  @Input() color: string;
+  @Input() color?: string;
+  @Input() category?: Categories;
+
+  constructor(
+    private stemColors: StemColorsService,
+  ) {}
+
+  get colorClass() {
+    return this.stemColors.getColor(this.category) ?? this.color;
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { createOfflineCompileUrlResolver } from '@angular/compiler';
+import { StemColorsService } from '../../services/stem-colors.service';
+import { Categories } from '../../enums/categories.enum';
 
 
 @Component({
@@ -9,14 +10,21 @@ import { createOfflineCompileUrlResolver } from '@angular/compiler';
 })
 export class ButtonComponent implements OnInit {
 
-  @Input() color: 'green'|'blue'|'orange'|'purple'|'pink';
+  @Input() color?: 'green'|'blue'|'orange'|'purple'|'pink';
   @Input() outlined: any;
   @Input() disabled: any;
   @Input() inverted: any;
+  @Input() category?: Categories;
 
-  constructor() { }
+  constructor(
+    private stemColors: StemColorsService,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  get colorClass() {
+    return this.stemColors.getColor(this.category) ?? this.color ?? 'pink';
   }
 
 }

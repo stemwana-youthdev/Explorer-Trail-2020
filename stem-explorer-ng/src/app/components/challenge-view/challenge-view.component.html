@@ -6,12 +6,12 @@
   <h4>Duration: </h4>
   <p>{{ challenge.description }}</p>
 
-  <app-category-form-field [category]="challenge.category" *ngIf="levels.length > 1">
+  <app-form-field [category]="challenge.category" *ngIf="levels.length > 1">
       <mat-select [(value)]="selectedLevel" 
                   (selectionChange)="getCurrentChallenge(selectedLevel)">
         <mat-option [value]="option" *ngFor="let option of levels">{{ Levels[option] }}</mat-option>
       </mat-select>
-  </app-category-form-field>
+  </app-form-field>
 
   <app-challenge-title [category]="challenge.category">Instructions</app-challenge-title>
   <p>{{ currentLevel.instructions }}</p>
@@ -21,10 +21,10 @@
           color="pink">Get Hint
   </app-button>
 
-  <app-category-button [category]="challenge.category" style="position: relative; top: 10px;"
+  <app-button [category]="challenge.category" style="position: relative; top: 10px;"
     (click)="openAnswerDialog()">
     Enter Answer
-  </app-category-button>
+  </app-button>
 </div>
 
 
