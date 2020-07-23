@@ -39,9 +39,8 @@ import { ChallengeTitleComponent } from './shared/components/challenge-title/cha
 import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
 import { InputComponent } from './shared/components/input/input.component';
-import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
+import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
-import { IncorrectDialogComponent } from './components/incorrect-dialog/incorrect-dialog.component';
 import { StemColorsService } from './shared/services/stem-colors.service';
 import { CardComponent } from './shared/components/card/card.component';
 
@@ -75,8 +74,7 @@ import { CardComponent } from './shared/components/card/card.component';
     ContactInfoComponent,
     FormFieldComponent,
     InputComponent,
-    SuccessDialogComponent,
-    IncorrectDialogComponent,
+    ResultDialogComponent,
   ],
   imports: [
     GoogleMapsModule,
