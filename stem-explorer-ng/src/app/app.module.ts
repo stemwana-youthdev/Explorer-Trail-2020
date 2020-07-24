@@ -35,16 +35,14 @@ import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.
 import { FabComponent } from './shared/components/fab/fab.component';
 import { FabContainerComponent } from './shared/components/fab-container/fab-container.component';
 import { ButtonComponent } from './shared/components/button/button.component';
-import { CategoryButtonComponent } from './shared/components/category-button/category-button.component';
-import { CategoryCardComponent } from './shared/components/category-card/category-card.component';
 import { ChallengeTitleComponent } from './shared/components/challenge-title/challenge-title.component';
 import { DialogComponent } from './shared/components/dialog/dialog.component';
-import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
 import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
 import { InputComponent } from './shared/components/input/input.component';
-import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
+import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
-import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
+import { StemColorsService } from './shared/services/stem-colors.service';
+import { CardComponent } from './shared/components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -70,16 +68,13 @@ import { CategoryFormFieldComponent } from './shared/components/category-form-fi
     FabComponent,
     FabContainerComponent,
     ButtonComponent,
-    CategoryButtonComponent,
-    CategoryCardComponent,
+    CardComponent,
     ChallengeTitleComponent,
     DialogComponent,
-    CategoryDialogComponent,
     ContactInfoComponent,
     FormFieldComponent,
-    CategoryFormFieldComponent,
     InputComponent,
-    SuccessDialogComponent
+    ResultDialogComponent,
   ],
   imports: [
     GoogleMapsModule,
@@ -99,7 +94,10 @@ import { CategoryFormFieldComponent } from './shared/components/category-form-fi
     SplashScreenComponent,
     HintDialogComponent
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    StemColorsService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

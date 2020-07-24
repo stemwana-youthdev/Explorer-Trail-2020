@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CategoryFormFieldComponent } from './category-form-field.component';
+import { ResultDialogComponent } from './result-dialog.component';
 
-describe('CategoryFormFieldComponent', () => {
-  let component: CategoryFormFieldComponent;
-  let fixture: ComponentFixture<CategoryFormFieldComponent>;
+describe('ResultDialogComponent', () => {
+  let component: ResultDialogComponent;
+  let fixture: ComponentFixture<ResultDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryFormFieldComponent ]
+      declarations: [ ResultDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CategoryFormFieldComponent);
+    fixture = TestBed.createComponent(ResultDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

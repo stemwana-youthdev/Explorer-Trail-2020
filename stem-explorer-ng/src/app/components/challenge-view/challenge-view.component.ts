@@ -8,7 +8,7 @@ import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { MatDialog } from '@angular/material/dialog';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from 'src/app/containers/answer-dialog/answer-dialog.component';
-import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
 
 @Component({
   selector: 'app-challenge-view',
@@ -105,25 +105,21 @@ export class ChallengeViewComponent implements OnInit {
       return;
     }
 
-    // Check if the answer is correct
-    if (isCorrect) {
-      // Open a success dialog
-      const successDialog = this.dialog.open(SuccessDialogComponent, {
-        data: {
-          level: this.currentLevel,
-          challenge: this.challenge,
-        },
-        panelClass: 'app-dialog',
-      });
+    // Open another dialog
+    const resultDialog = this.dialog.open(ResultDialogComponent, {
+      data: {
+        level: this.currentLevel,
+        challenge: this.challenge,
+        isCorrect,
+      },
+      panelClass: 'app-dialog',
+    });
 
-      // Wait until the dialog is closed
-      const successResult = await successDialog.afterClosed().toPromise();
-      // If the user clicked next level, switch to the next level
-      if (successResult === 'next-level') {
-        this.nextLevel();
-      }
-    } else {
-      console.log('incorrect');
+    // Wait until the dialog is closed
+    const dialogResult = await resultDialog.afterClosed().toPromise();
+    // If the user clicked next level, switch to the next level
+    if (dialogResult === 'next-level') {
+      this.nextLevel();
     }
   }
 

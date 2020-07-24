@@ -24,6 +24,7 @@ export class AnswerDialogComponent {
   Levels: any = Levels;
   AnswerType: any = AnswerType;
 
+  validationError?: string;
   checkingAnswer = false;
   selectedAnswer = '';
   answerValue = '';
