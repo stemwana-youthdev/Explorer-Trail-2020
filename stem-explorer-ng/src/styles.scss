@@ -41,6 +41,11 @@ h1, h2 {
 }
 h3, h4, h5, h6, b, strong {
   @include typeface-sub-heading;
+  margin-bottom: 0.2em;
+  margin-top: 0.5em;
+}
+p {
+  margin-top: 0.5em;
 }
 i, em {
   @include typeface-accent;
