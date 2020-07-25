@@ -1,4 +1,4 @@
-<div *ngIf="message">{{ message }}</div>
+<p *ngIf="message">{{ message }}</p>
 
 <zxing-scanner (scanSuccess)="scanSuccess($event)" (camerasFound)="camerasFound()"
   (camerasNotFound)="camerasNotFound()"></zxing-scanner>

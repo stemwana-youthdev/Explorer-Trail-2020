@@ -1,23 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-camera',
   templateUrl: './camera.component.html',
-  styleUrls: ['./camera.component.scss']
+  styleUrls: ['./camera.component.scss'],
 })
-export class CameraComponent {
-
+export class CameraComponent implements OnInit {
   message = 'Loading cameras...';
 
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private api: ApiService,
-  ) { }
+    private api: ApiService
+  ) {}
 
   async scanSuccess(url: string) {
     const regex = /^https?\:\/\/[\w\.]+\/challenge\/(\d+)$/;
@@ -31,9 +31,9 @@ export class CameraComponent {
 
     const challengeId = parseInt(match[1], 10);
     const challenges = await this.api.getChallenges().toPromise();
-    const challenge = challenges.challenges.find(c => c.uid === challengeId);
+    const challenge = challenges.challenges.find((c) => c.uid === challengeId);
     const locations = await this.api.getLocations().toPromise();
-    const location = locations.location.find(l => l.uid === challengeId);
+    const location = locations.location.find((l) => l.uid === challengeId);
 
     this.dialog.closeAll();
     this.dialog.open(ListViewDialogComponent, {
@@ -46,6 +46,14 @@ export class CameraComponent {
     });
   }
 
+  ngOnInit() {
+    setTimeout(() => {
+      if (this.message) {
+        this.message += ` Please check that ${document.title} has access to your camera.`;
+      }
+    }, 5000); // 5000ms
+  }
+
   camerasFound() {
     this.message = null;
   }
@@ -53,5 +61,4 @@ export class CameraComponent {
   camerasNotFound() {
     this.message = 'No camera found.';
   }
-
 }
