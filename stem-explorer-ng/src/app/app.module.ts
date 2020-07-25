@@ -26,7 +26,7 @@ import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
-import { SharedModule } from './shared/shared.module';
+import { SharedModule } from './shared/module';
 import { MaterialModule } from './shared/material.module';
 
 @NgModule({
