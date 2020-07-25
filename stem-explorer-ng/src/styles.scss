@@ -102,3 +102,7 @@ body {
 .mat-drawer-container {
   background-color: white;
 }
+
+.app-dialog .mat-dialog-content {
+  max-height: none;
+}

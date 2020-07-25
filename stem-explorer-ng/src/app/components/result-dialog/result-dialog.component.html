@@ -1,27 +1,23 @@
 <app-dialog inverted [category]="category">
-  <h2>{{ data.challenge.title }}</h2>
-  <h3>{{ Levels[data.level.difficulty] }}</h3>
+  <h3>{{ data.challenge.title }}</h3>
+  <h4>{{ Levels[data.level.difficulty] }}</h4>
 
   <div class="message" *ngIf="data.isCorrect; else incorrectMessage">
-    <div class="graphic">
-      <!-- Image goes here --> Yay!!!
-    </div>
-    <div class="text">
-      Well done! <br />
-      Correct <br />
-      Answer!
-    </div>
+    <span class="material-icons graphic">
+      done_outline
+    </span>
+    <h3 class="text">
+      Well done! Correct Answer!
+    </h3>
   </div>
   <ng-template #incorrectMessage>
     <div class="message">
-      <div class="graphic">
-        <!-- Image goes here --> ,=(
-      </div>
-      <div class="text">
-        Oops! <br />
-        Wrong <br />
-        Answer
-      </div>
+      <span class="material-icons graphic">
+        close
+      </span>
+      <h3 class="text">
+        Oops! Wrong Answer
+      </h3>
     </div>
   </ng-template>
 

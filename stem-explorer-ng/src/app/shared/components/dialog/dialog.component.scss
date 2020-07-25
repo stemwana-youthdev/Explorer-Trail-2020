@@ -24,7 +24,7 @@
 }
 
 .close-button.inverted {
-    color: white;
+    visibility: hidden;
 }
 
 @mixin coloured-dialog($color) {
