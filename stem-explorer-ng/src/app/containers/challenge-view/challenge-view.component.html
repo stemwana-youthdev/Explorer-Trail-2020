@@ -1,31 +1,9 @@
-<div class="challenge-details">
-  <div class="challenge-header">
-    <app-challenge-title [category]="challenge.category">{{ challenge.title }}</app-challenge-title>
-  </div>
-  <h4 id="top-element">{{ Categories[challenge.category] }}</h4>
-  <h4>Duration: </h4>
-  <p>{{ challenge.description }}</p>
-
-  <app-form-field [category]="challenge.category" *ngIf="levels.length > 1">
-      <mat-select [(value)]="selectedLevel" 
-                  (selectionChange)="getCurrentChallenge(selectedLevel)">
-        <mat-option [value]="option" *ngFor="let option of levels">{{ Levels[option] }}</mat-option>
-      </mat-select>
-  </app-form-field>
-
-  <app-challenge-title [category]="challenge.category">Instructions</app-challenge-title>
-  <p>{{ currentLevel.instructions }}</p>
-
-  <app-button *ngIf="currentLevel.hint" 
-          (click)="openHintDialog(challenge.title, selectedLevel, currentLevel.hint, challenge.category)"
-          color="pink">Get Hint
-  </app-button>
-
-  <app-button [category]="challenge.category" style="position: relative; top: 10px;"
-    (click)="openAnswerDialog()">
-    Enter Answer
-  </app-button>
-</div>
-
-
-
+<app-challenge-details
+  [challenge]="challenge"
+  [challengeLevels]="challengeInfo"
+  [selectedLevel]="selectedLevel"
+  (levelChange)="onLevelChange($event)"
+  (hint)="onHint($event)"
+  (answer)="onAnswer($event)"
+>
+</app-challenge-details>

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { Challenge } from '../../shared/models/challenge';
 import { ActivatedRoute } from '@angular/router';
-import { Categories } from '../../shared/enums/categories.enum';
-import { Levels } from 'src/app/shared/enums/levels.enum';
 import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { MatDialog } from '@angular/material/dialog';
 import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
@@ -18,12 +16,8 @@ import { ResultDialogComponent } from '../../components/result-dialog/result-dia
 export class ChallengeViewComponent implements OnInit {
   challenge = {} as Challenge;
   id: number;
-  Categories: any = Categories;
-  Levels: any = Levels;
   challengeInfo: ChallengeLevel[] = [];
-  levels: number[] = [];
   selectedLevel: number;
-  currentLevel = {} as ChallengeLevel;
 
   constructor(
     private service: ApiService,
@@ -39,6 +33,23 @@ export class ChallengeViewComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.id = +params.id;
     });
+  }
+
+  onLevelChange(level: number) {
+    this.selectedLevel = level;
+  }
+
+  onHint(currentLevel: ChallengeLevel) {
+    this.openHintDialog(
+      this.challenge.title,
+      this.selectedLevel,
+      currentLevel.hint,
+      this.challenge.category,
+    );
+  }
+
+  onAnswer(currentLevel: ChallengeLevel) {
+    this.openAnswerDialog(currentLevel);
   }
 
   /*
@@ -62,17 +73,8 @@ export class ChallengeViewComponent implements OnInit {
       this.challengeInfo = res['challengeLevels'].filter(
         (item) => item.challengeId === this.id
       );
-      this.levels = this.challengeInfo.map((level) => level.difficulty);
-      this.selectedLevel = Math.min(...this.levels);
-      this.getCurrentChallenge(this.selectedLevel);
+      this.selectedLevel = Math.min(...this.challengeInfo.map((level) => level.difficulty));
     });
-  }
-
-  // Gets the current challenge information based on the level selected
-  getCurrentChallenge(value) {
-    this.currentLevel = this.challengeInfo.find(
-      (challenge) => challenge.difficulty === value
-    );
   }
 
   openHintDialog(title, level, hint, category) {
@@ -88,11 +90,11 @@ export class ChallengeViewComponent implements OnInit {
   }
 
   // Async allows us to do this in an imperative style w/o blocking
-  async openAnswerDialog() {
+  async openAnswerDialog(currentLevel: ChallengeLevel) {
     // Open the answer dialog
     const answerDialog = this.dialog.open(AnswerDialogComponent, {
       data: {
-        level: this.currentLevel,
+        level: currentLevel,
         challenge: this.challenge,
       },
       panelClass: 'app-dialog',
@@ -108,7 +110,7 @@ export class ChallengeViewComponent implements OnInit {
     // Open another dialog
     const resultDialog = this.dialog.open(ResultDialogComponent, {
       data: {
-        level: this.currentLevel,
+        level: currentLevel,
         challenge: this.challenge,
         isCorrect,
       },
@@ -125,11 +127,10 @@ export class ChallengeViewComponent implements OnInit {
 
   nextLevel() {
     const nextLevel = Math.min(
-      ...this.levels.filter((d) => d > this.selectedLevel)
+      ...this.challengeInfo.map((level) => level.difficulty).filter((d) => d > this.selectedLevel)
     );
     if (nextLevel < Infinity) {
       this.selectedLevel = nextLevel;
-      this.getCurrentChallenge(nextLevel);
     }
   }
 }

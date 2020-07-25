@@ -43,6 +43,7 @@ import { ResultDialogComponent } from './components/result-dialog/result-dialog.
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
 import { StemColorsService } from './shared/services/stem-colors.service';
 import { CardComponent } from './shared/components/card/card.component';
+import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { CardComponent } from './shared/components/card/card.component';
     FormFieldComponent,
     InputComponent,
     ResultDialogComponent,
+    ChallengeDetailsComponent,
   ],
   imports: [
     GoogleMapsModule,
