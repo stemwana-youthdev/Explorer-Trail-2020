@@ -2,7 +2,7 @@ import { ApiService } from './shared/services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +44,7 @@ import { FormFieldComponent } from './shared/components/form-field/form-field.co
 import { StemColorsService } from './shared/services/stem-colors.service';
 import { CardComponent } from './shared/components/card/card.component';
 import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
+import { ChallengeListComponent } from './components/challenge-list/challenge-list.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ChallengeDetailsComponent } from './components/challenge-details/challe
     InputComponent,
     ResultDialogComponent,
     ChallengeDetailsComponent,
+    ChallengeListComponent,
   ],
   imports: [
     GoogleMapsModule,

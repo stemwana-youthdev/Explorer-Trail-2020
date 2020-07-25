@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { Categories } from '../../shared/enums/categories.enum';
 import { Challenge } from '../../shared/models/challenge';
 import { MatDialog } from '@angular/material/dialog';
 import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
@@ -18,11 +17,12 @@ export class ListViewComponent implements OnInit {
 
   challenges: Challenge[] = [];
   locations: Location[] = [];
-  Categories: any = Categories;
   filter = [0, 1, 2, 3];
 
-  constructor(private service: ApiService, public dialog: MatDialog) {
-   }
+  constructor(
+    private service: ApiService,
+    public dialog: MatDialog,
+  ) { }
 
   /*
   * Gets an array of challenges in alphabetical order from the API service
