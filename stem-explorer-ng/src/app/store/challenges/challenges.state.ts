@@ -36,9 +36,9 @@ export class ChallengesState {
   public static challenge(state: ChallengesStateModel) {
     return createSelector(
       [ChallengesState],
-      (uid: number): Challenge => {
+      (challengeId: number): Challenge => {
         return state.challenges.find(
-          (challenge) => challenge.uid === uid,
+          (challenge) => challenge.uid === challengeId,
         );
       },
     );

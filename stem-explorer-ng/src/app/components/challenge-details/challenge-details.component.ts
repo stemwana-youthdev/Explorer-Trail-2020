@@ -7,6 +7,16 @@ import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from '../../shared/enums/levels.enum';
 import { MatSelectChange } from '@angular/material/select';
 
+export interface HintEvent {
+  challenge: Challenge;
+  level: ChallengeLevel;
+}
+
+export interface AnswerEvent {
+  challenge: Challenge;
+  level: ChallengeLevel;
+}
+
 
 @Component({
   selector: 'app-challenge-details',
@@ -19,8 +29,8 @@ export class ChallengeDetailsComponent implements OnInit {
   @Input() selectedLevel: number;
 
   @Output() levelChange = new EventEmitter<number>();
-  @Output() hint = new EventEmitter<ChallengeLevel>();
-  @Output() answer = new EventEmitter<ChallengeLevel>();
+  @Output() hint = new EventEmitter<HintEvent>();
+  @Output() answer = new EventEmitter<AnswerEvent>();
 
   Categories: any = Categories;
   Levels: any = Levels;
@@ -45,11 +55,17 @@ export class ChallengeDetailsComponent implements OnInit {
   }
 
   onHint() {
-    this.hint.emit(this.currentLevel);
+    this.hint.emit({
+      challenge: this.challenge,
+      level: this.currentLevel,
+    });
   }
 
   onAnswer() {
-    this.answer.emit(this.currentLevel);
+    this.answer.emit({
+      challenge: this.challenge,
+      level: this.currentLevel,
+    });
   }
 
 }

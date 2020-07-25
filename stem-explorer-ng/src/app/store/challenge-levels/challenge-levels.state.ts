@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
+import { Action, Selector, State, StateContext, StateToken, createSelector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -9,7 +9,7 @@ import { ChallengeLevel } from '../../shared/models/challenge-level';
 
 
 export interface ChallengeLevelsStateModel {
-  challengeLevels: ChallengeLevel[];
+  challengesLevels: ChallengeLevel[];
 }
 
 const CHALLENGE_LEVELS_TOKEN: StateToken<ChallengeLevelsStateModel> = new StateToken('challengeLevels');
@@ -17,7 +17,7 @@ const CHALLENGE_LEVELS_TOKEN: StateToken<ChallengeLevelsStateModel> = new StateT
 @State<ChallengeLevelsStateModel>({
   name: CHALLENGE_LEVELS_TOKEN,
   defaults: {
-    challengeLevels: [],
+    challengesLevels: [],
   },
   children: [],
 })
@@ -28,14 +28,26 @@ export class ChallengeLevelsState {
   ) { }
 
   @Selector()
-  public static challengeLevels(state: ChallengeLevelsStateModel): ChallengeLevel[] {
-    return state.challengeLevels;
+  public static challengesLevels(state: ChallengeLevelsStateModel): ChallengeLevel[] {
+    return state.challengesLevels;
+  }
+
+  @Selector()
+  public static challengeLevels(state: ChallengeLevelsStateModel) {
+    return createSelector(
+      [ChallengeLevelsState],
+      (challengeId: number): ChallengeLevel[] => {
+        return state.challengesLevels.filter(
+          (challengeLevel) => challengeLevel.challengeId === challengeId,
+        );
+      },
+    );
   }
 
   @Action(LoadChallengeLevelsData)
   public loadData({ patchState }: StateContext<ChallengeLevelsStateModel>) {
     return this.apiService.getChallengeLevels().pipe(
-      tap((data) => patchState({ challengeLevels: data.challengeLevels })),
+      tap((data) => patchState({ challengesLevels: data.challengeLevels })),
     );
   }
 }

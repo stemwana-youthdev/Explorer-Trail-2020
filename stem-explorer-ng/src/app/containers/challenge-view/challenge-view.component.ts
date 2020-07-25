@@ -1,12 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../shared/services/api.service';
-import { Challenge } from '../../shared/models/challenge';
 import { ActivatedRoute } from '@angular/router';
-import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { MatDialog } from '@angular/material/dialog';
+import { Select, Store } from '@ngxs/store';
+import { Observable, combineLatest } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
+
+import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-levels.state';
+import { ChallengesState } from '../../store/challenges/challenges.state';
+import { LoadChallengesData } from '../../store/challenges/challenges.actions';
+import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
+
+import { Challenge } from '../../shared/models/challenge';
+import { ChallengeLevel } from '../../shared/models/challenge-level';
+
+import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dialog.component';
+
 import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
-import { AnswerDialogComponent } from 'src/app/containers/answer-dialog/answer-dialog.component';
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
+import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
+
 
 @Component({
   selector: 'app-challenge-view',
@@ -14,67 +26,72 @@ import { ResultDialogComponent } from '../../components/result-dialog/result-dia
   styleUrls: ['./challenge-view.component.scss'],
 })
 export class ChallengeViewComponent implements OnInit {
-  challenge = {} as Challenge;
-  id: number;
-  challengeInfo: ChallengeLevel[] = [];
   selectedLevel: number;
 
   constructor(
-    private service: ApiService,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    private store: Store,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
-    this.getChallenge();
-    this.getChallengeLevels();
+    this.store.dispatch(new LoadChallengesData());
+    this.store.dispatch(new LoadChallengeLevelsData());
 
-    // Gets the id from the current route
-    this.route.params.subscribe((params) => {
-      this.id = +params.id;
-    });
+    this.listenToChallengeLevelsChanges();
+  }
+
+  private listenToChallengeLevelsChanges() {
+    this.challengeLevels$
+      .pipe(
+        map((challengeLevels) => {
+          const difficulties = challengeLevels.map((level) => level.difficulty);
+          return Math.min(...difficulties);
+        }),
+        filter((minLevel) => minLevel < Infinity),
+      )
+      .subscribe((minLevel) => {
+        this.selectedLevel = minLevel;
+      });
+  }
+
+  get challengeId$(): Observable<number> {
+    return this.route.params.pipe(map((routeParams) => +routeParams.id));
+  }
+
+  get challenge$(): Observable<Challenge> {
+    return combineLatest([
+      this.store.select(ChallengesState.challenge),
+      this.challengeId$,
+    ]).pipe(
+      map(([fn, challengeId]) => fn(challengeId)),
+    );
+  }
+
+  get challengeLevels$(): Observable<ChallengeLevel[]> {
+    return combineLatest([
+      this.store.select(ChallengeLevelsState.challengeLevels),
+      this.challengeId$,
+    ]).pipe(
+      map(([fn, challengeId]) => fn(challengeId)),
+    );
   }
 
   onLevelChange(level: number) {
     this.selectedLevel = level;
   }
 
-  onHint(currentLevel: ChallengeLevel) {
+  onHint({ challenge, level }: HintEvent) {
     this.openHintDialog(
-      this.challenge.title,
+      challenge.title,
       this.selectedLevel,
-      currentLevel.hint,
-      this.challenge.category,
+      level.hint,
+      challenge.category,
     );
   }
 
-  onAnswer(currentLevel: ChallengeLevel) {
-    this.openAnswerDialog(currentLevel);
-  }
-
-  /*
-   * Gets one challenge based on the uid
-   */
-  getChallenge() {
-    this.service.getChallenges().subscribe((res) => {
-      // tslint:disable-next-line: no-string-literal
-      this.challenge = res['challenges'].find((item) => item.uid === this.id);
-    });
-  }
-
-  /*
-   * Uses ApiService to get challengeLevels information and stores all challenge information
-   * for the current challenge in challengeLevel. Then it stores an array of the level numbers into
-   * another property, levels. It also sets the default level to be the lowest in the level array.
-   */
-  getChallengeLevels() {
-    this.service.getChallengeLevels().subscribe((res) => {
-      // tslint:disable-next-line: no-string-literal
-      this.challengeInfo = res['challengeLevels'].filter(
-        (item) => item.challengeId === this.id
-      );
-      this.selectedLevel = Math.min(...this.challengeInfo.map((level) => level.difficulty));
-    });
+  onAnswer({ challenge, level }: AnswerEvent) {
+    this.openAnswerDialog(challenge, level);
   }
 
   openHintDialog(title, level, hint, category) {
@@ -90,12 +107,12 @@ export class ChallengeViewComponent implements OnInit {
   }
 
   // Async allows us to do this in an imperative style w/o blocking
-  async openAnswerDialog(currentLevel: ChallengeLevel) {
+  async openAnswerDialog(challenge: Challenge, currentLevel: ChallengeLevel) {
     // Open the answer dialog
     const answerDialog = this.dialog.open(AnswerDialogComponent, {
       data: {
         level: currentLevel,
-        challenge: this.challenge,
+        challenge,
       },
       panelClass: 'app-dialog',
     });
@@ -111,7 +128,7 @@ export class ChallengeViewComponent implements OnInit {
     const resultDialog = this.dialog.open(ResultDialogComponent, {
       data: {
         level: currentLevel,
-        challenge: this.challenge,
+        challenge,
         isCorrect,
       },
       panelClass: 'app-dialog',
@@ -125,10 +142,11 @@ export class ChallengeViewComponent implements OnInit {
     }
   }
 
-  nextLevel() {
-    const nextLevel = Math.min(
-      ...this.challengeInfo.map((level) => level.difficulty).filter((d) => d > this.selectedLevel)
-    );
+  async nextLevel() {
+    const challengeLevels = await this.challengeLevels$.toPromise();
+    const difficulties = challengeLevels.map((level) => level.difficulty);
+    const higherLevels = difficulties.filter((d) => d > this.selectedLevel);
+    const nextLevel = Math.min(...higherLevels);
     if (nextLevel < Infinity) {
       this.selectedLevel = nextLevel;
     }

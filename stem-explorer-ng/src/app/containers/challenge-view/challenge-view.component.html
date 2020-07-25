@@ -1,6 +1,7 @@
 <app-challenge-details
-  [challenge]="challenge"
-  [challengeLevels]="challengeInfo"
+  *ngIf="challenge$ | async"
+  [challenge]="challenge$ | async"
+  [challengeLevels]="challengeLevels$ | async"
   [selectedLevel]="selectedLevel"
   (levelChange)="onLevelChange($event)"
   (hint)="onHint($event)"
