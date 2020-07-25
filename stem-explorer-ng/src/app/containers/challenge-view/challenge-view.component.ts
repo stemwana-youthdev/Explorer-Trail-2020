@@ -6,9 +6,9 @@ import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { MatDialog } from '@angular/material/dialog';
-import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
+import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from 'src/app/containers/answer-dialog/answer-dialog.component';
-import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
+import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 
 @Component({
   selector: 'app-challenge-view',
