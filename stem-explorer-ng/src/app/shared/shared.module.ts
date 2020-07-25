@@ -42,5 +42,19 @@ import { CardComponent } from './components/card/card.component';
     ApiService,
     StemColorsService,
   ],
+  exports: [
+    NavTabsComponent,
+    TruncatePipe,
+    FilterPipe,
+    FabComponent,
+    FabContainerComponent,
+    ButtonComponent,
+    CardComponent,
+    ChallengeTitleComponent,
+    DialogComponent,
+    ContactInfoComponent,
+    FormFieldComponent,
+    InputComponent,
+  ],
 })
 export class SharedModule { }
