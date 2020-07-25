@@ -80,16 +80,9 @@ i, em {
 }
 
 .mat-toolbar {
-  position: fixed;
-  top: 0px;
-  z-index: 99;
   background-color: white;
   border-bottom: solid;
   border-color: tint(20%, $primary-black);
-}
-
-body {
-  padding-top: 56px;
 }
 
 .mat-drawer-container {
