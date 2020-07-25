@@ -1,11 +1,17 @@
-import { MapMarker, MapInfoWindow } from '@angular/google-maps';
-import { ApiService } from './../../shared/services/api.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { Location } from '../../shared/models/location';
-import { Router } from '@angular/router';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
+import { MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { MatDialog } from '@angular/material/dialog';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+
+import { ApiService } from './../../shared/services/api.service';
+import { ChallengesState } from '../../store/challenges/challenges.state';
+
+import { Categories } from '../../shared/enums/categories.enum';
+import { Location } from '../../shared/models/location';
+
+import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
+
 
   // tslint:disable: no-string-literal
 @Component({
@@ -14,10 +20,11 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit, OnDestroy {
+  @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
+
   // added a dependency injection in order to use the getLocations method without creating an instance of the object
   constructor(
     private service: ApiService,
-    private router: Router,
     private dialog: MatDialog,
   ) {}
 
@@ -27,8 +34,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   // local property to store the json data from getLocations
   location: Location[] = [];
-
-  filter = [0, 1, 2, 3];
 
   // separate property for the information for the map pop up
   infoLocation = null as Location;

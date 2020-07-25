@@ -1,5 +1,3 @@
-<app-filter-buttons (data)="onFilter($event)"></app-filter-buttons>
-
 <app-card
   *ngFor="let challenge of (challenges | filter:this.filter)"
   [category]="challenge.category"

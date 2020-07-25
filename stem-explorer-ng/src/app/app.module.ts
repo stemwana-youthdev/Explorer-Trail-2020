@@ -47,6 +47,7 @@ import { StemColorsService } from './shared/services/stem-colors.service';
 import { CardComponent } from './shared/components/card/card.component';
 import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
 import { ChallengeListComponent } from './components/challenge-list/challenge-list.component';
+import { ChallengeFilterComponent } from './containers/challenge-filter/challenge-filter.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ChallengeListComponent } from './components/challenge-list/challenge-li
     ResultDialogComponent,
     ChallengeDetailsComponent,
     ChallengeListComponent,
+    ChallengeFilterComponent,
   ],
   imports: [
     GoogleMapsModule,

@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/shared/services/api.service';
-import { Challenge } from '../../shared/models/challenge';
 import { MatDialog } from '@angular/material/dialog';
-import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+import { ApiService } from '../../shared/services/api.service';
+import { ChallengesState } from '../../store/challenges/challenges.state';
+import { LoadChallengesData, FilterChallenges } from '../../store/challenges/challenges.actions';
+
+import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
+
+import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
 
 /*
 * Component to show the challenges in a list view
@@ -14,24 +22,27 @@ import { Location } from '../../shared/models/location';
   styleUrls: ['./list-view.component.scss']
 })
 export class ListViewComponent implements OnInit {
+  @Select(ChallengesState.challenges) public challenges$: Observable<Challenge[]>;
+  @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
 
-  challenges: Challenge[] = [];
   locations: Location[] = [];
-  filter = [0, 1, 2, 3];
 
   constructor(
     private service: ApiService,
+    private store: Store,
     public dialog: MatDialog,
   ) { }
 
-  /*
-  * Gets an array of challenges in alphabetical order from the API service
-  */
-  getChallenges() {
-    this.service.getChallenges().subscribe((res) => {
-      this.challenges = res.challenges;
-      this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
-      });
+  ngOnInit() {
+    this.store.dispatch(new LoadChallengesData());
+    this.getLocations();
+  }
+
+  get sortedChallenges$(): Observable<Challenge[]> {
+    return this.challenges$.pipe(
+      startWith([]),
+      map((challenges) => challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)),
+    );
   }
 
   /*
@@ -43,6 +54,9 @@ export class ListViewComponent implements OnInit {
     });
   }
 
+  onFilter(filter: number[]) {
+    this.store.dispatch(new FilterChallenges(filter));
+  }
 
   /*
   * Opens the dialog for the given challenge
@@ -57,11 +71,6 @@ export class ListViewComponent implements OnInit {
       },
       panelClass: 'app-dialog',
     });
-  }
-
-  ngOnInit() {
-    this.getChallenges();
-    this.getLocations();
   }
 
 }

@@ -4,12 +4,13 @@ import { tap, map } from 'rxjs/operators';
 
 import { ApiService } from 'src/app/shared/services/api.service';
 
-import { LoadChallengesData } from './challenges.actions';
+import { LoadChallengesData, FilterChallenges } from './challenges.actions';
 import { Challenge } from '../../shared/models/challenge';
 
 
 export interface ChallengesStateModel {
   challenges: Challenge[];
+  filter: number[];
 }
 
 const CHALLENGES_TOKEN: StateToken<ChallengesStateModel> = new StateToken('challenges');
@@ -18,6 +19,7 @@ const CHALLENGES_TOKEN: StateToken<ChallengesStateModel> = new StateToken('chall
   name: CHALLENGES_TOKEN,
   defaults: {
     challenges: [],
+    filter: [0, 1, 2, 3],
   },
   children: [],
 })
@@ -30,6 +32,11 @@ export class ChallengesState {
   @Selector()
   public static challenges(state: ChallengesStateModel): Challenge[] {
     return state.challenges;
+  }
+
+  @Selector()
+  public static challengeFilter(state: ChallengesStateModel): number[] {
+    return state.filter;
   }
 
   @Selector()
@@ -50,5 +57,15 @@ export class ChallengesState {
       map((data) => data.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)),
       tap((data) => patchState({ challenges: data })),
     );
+  }
+
+  @Action(FilterChallenges)
+  public filterChallenges(
+    { patchState }: StateContext<ChallengesStateModel>,
+    action: FilterChallenges,
+  ) {
+    patchState({
+      filter: action.filter,
+    });
   }
 }

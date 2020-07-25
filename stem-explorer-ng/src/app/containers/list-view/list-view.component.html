@@ -1,7 +1,7 @@
+<app-challenge-filter></app-challenge-filter>
 <app-challenge-list
-  [challenges]="challenges"
-  [filter]="filter"
-  (filterData)="this.filter = $event"
+  [challenges]="challenges$ | async"
+  [filter]="filter$ | async"
   (itemClick)="openDialog($event)"
 >
 </app-challenge-list>

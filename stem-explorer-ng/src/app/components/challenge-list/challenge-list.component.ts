@@ -13,7 +13,6 @@ export class ChallengeListComponent implements OnInit {
   @Input() challenges: Challenge[];
   @Input() filter: number[];
 
-  @Output() filterData = new EventEmitter<any[]>();
   @Output() itemClick = new EventEmitter<Challenge>();
 
   Categories: any = Categories;
@@ -21,10 +20,6 @@ export class ChallengeListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  onFilter(data: number[]) {
-    this.filterData.emit(data);
   }
 
   onItemClick(challenge: Challenge) {
