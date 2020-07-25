@@ -2,14 +2,15 @@
   <app-challenge-title [category]="data.challenge.category">{{data.challenge.title}}</app-challenge-title>
   <h4>{{ Levels[data.level.difficulty] }}</h4>
 
-  <p>
+  <p id="question">
+    <b>Question: </b>
     {{ data.level.questionText }}
   </p>
 
-  <h2>
+  <h3>
     Answer
     <span *ngIf="data.level.answerType === AnswerType.Multichoice" class="smaller">- Choose one</span>
-  </h2>
+  </h3>
   
   <ng-container [ngSwitch]="data.level.answerType">
 
