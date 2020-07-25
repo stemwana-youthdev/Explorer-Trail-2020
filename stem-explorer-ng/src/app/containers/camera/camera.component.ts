@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 
@@ -12,6 +13,7 @@ export class CameraComponent {
 
   constructor(
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private api: ApiService,
   ) { }
 
@@ -19,8 +21,9 @@ export class CameraComponent {
     const regex = /^https?\:\/\/[\w\.]+\/challenge\/(\d+)$/;
     const match = url.match(regex);
     if (!match) {
-      // TODO: alert the user (probably small popup)
-      console.error('invalid qr code');
+      this.snackBar.open('QR code not recognised', null, {
+        duration: 5000, // 5000ms
+      });
       return;
     }
 
