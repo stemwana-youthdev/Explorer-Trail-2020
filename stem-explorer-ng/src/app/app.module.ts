@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
+import { StoreModule } from './store/store.module';
+
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
@@ -92,6 +94,7 @@ import { ChallengeListComponent } from './components/challenge-list/challenge-li
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
+    StoreModule,
   ],
   entryComponents: [
     ListViewDialogComponent,
