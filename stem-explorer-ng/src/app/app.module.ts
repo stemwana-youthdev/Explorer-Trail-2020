@@ -24,7 +24,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ToolbarComponent } from './containers/toolbar/toolbar.component';
 import { CameraComponent } from './containers/camera/camera.component';
 import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
