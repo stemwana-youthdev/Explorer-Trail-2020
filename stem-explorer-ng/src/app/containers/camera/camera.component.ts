@@ -11,6 +11,8 @@ import { ApiService } from 'src/app/shared/services/api.service';
 })
 export class CameraComponent {
 
+  message = 'Loading cameras...';
+
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -42,6 +44,14 @@ export class CameraComponent {
       },
       panelClass: 'app-dialog',
     });
+  }
+
+  camerasFound() {
+    this.message = null;
+  }
+
+  camerasNotFound() {
+    this.message = 'No camera found.';
   }
 
 }

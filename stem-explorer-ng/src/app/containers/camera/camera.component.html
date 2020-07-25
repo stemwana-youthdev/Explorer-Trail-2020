@@ -1,4 +1,7 @@
-<zxing-scanner (scanSuccess)="scanSuccess($event)"></zxing-scanner>
+<div *ngIf="message">{{ message }}</div>
+
+<zxing-scanner (scanSuccess)="scanSuccess($event)" (camerasFound)="camerasFound()"
+  (camerasNotFound)="camerasNotFound()"></zxing-scanner>
 
 <button mat-icon-button mat-dialog-close>
   <mat-icon>close</mat-icon>
