@@ -2,6 +2,6 @@
 <app-challenge-list
   [challenges]="challenges$ | async"
   [filter]="filter$ | async"
-  (itemClick)="openDialog($event)"
+  (itemClick)="onItemClick($event)"
 >
 </app-challenge-list>

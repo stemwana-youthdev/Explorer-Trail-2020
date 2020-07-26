@@ -6,7 +6,7 @@ import { map, startWith } from 'rxjs/operators';
 
 import { ApiService } from '../../shared/services/api.service';
 import { ChallengesState } from '../../store/challenges/challenges.state';
-import { LoadChallengesData, FilterChallenges } from '../../store/challenges/challenges.actions';
+import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
@@ -54,14 +54,14 @@ export class ListViewComponent implements OnInit {
     });
   }
 
-  onFilter(filter: number[]) {
-    this.store.dispatch(new FilterChallenges(filter));
+  onItemClick(challenge: Challenge) {
+    this.openChallengeDialog(challenge);
   }
 
   /*
   * Opens the dialog for the given challenge
   */
-  openDialog(challenge: Challenge) {
+  private openChallengeDialog(challenge: Challenge) {
     const location: Location | undefined = this.locations.find(l => l.uid === challenge.uid);
     this.dialog.open(ListViewDialogComponent, {
       data: {
