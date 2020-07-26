@@ -10,6 +10,7 @@ import { Location } from '../../shared/models/location';
 
 export interface LocationsStateModel {
   locations: Location[];
+  fetched: boolean;
 }
 
 const LOCATIONS_TOKEN: StateToken<LocationsStateModel> = new StateToken('locations');
@@ -18,6 +19,7 @@ const LOCATIONS_TOKEN: StateToken<LocationsStateModel> = new StateToken('locatio
   name: LOCATIONS_TOKEN,
   defaults: {
     locations: [],
+    fetched: false,
   },
   children: [],
 })
@@ -57,9 +59,15 @@ export class LocationsState {
   }
 
   @Action(LoadLocationsData)
-  public loadData({ patchState }: StateContext<LocationsStateModel>) {
-    return this.apiService.getLocations().pipe(
-      tap((data) => patchState({ locations: data.location })),
-    );
+  public loadData(ctx: StateContext<LocationsStateModel>) {
+    const state = ctx.getState();
+    if (!state.fetched) {
+      return this.apiService.getLocations().pipe(
+        tap((data) => ctx.patchState({
+          locations: data.location,
+          fetched: true,
+        })),
+      );
+    }
   }
 }

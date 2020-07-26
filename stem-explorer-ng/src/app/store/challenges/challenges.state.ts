@@ -10,6 +10,7 @@ import { Challenge } from '../../shared/models/challenge';
 
 export interface ChallengesStateModel {
   challenges: Challenge[];
+  fetched: boolean;
   filter: number[];
 }
 
@@ -19,6 +20,7 @@ const CHALLENGES_TOKEN: StateToken<ChallengesStateModel> = new StateToken('chall
   name: CHALLENGES_TOKEN,
   defaults: {
     challenges: [],
+    fetched: false,
     filter: [0, 1, 2, 3],
   },
   children: [],
@@ -52,11 +54,17 @@ export class ChallengesState {
   }
 
   @Action(LoadChallengesData)
-  public loadData({ patchState }: StateContext<ChallengesStateModel>) {
-    return this.apiService.getChallenges().pipe(
-      map((data) => data.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)),
-      tap((data) => patchState({ challenges: data })),
-    );
+  public loadData(ctx: StateContext<ChallengesStateModel>) {
+    const state = ctx.getState();
+    if (!state.fetched) {
+      return this.apiService.getChallenges().pipe(
+        map((data) => data.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)),
+        tap((data) => ctx.patchState({
+          challenges: data,
+          fetched: true,
+        })),
+      );
+    }
   }
 
   @Action(FilterChallenges)
