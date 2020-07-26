@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { GeolocationService } from 'src/app/shared/services/geolocation.service';
+import { Subscription } from 'rxjs';
 
   // tslint:disable: no-string-literal
 @Component({
@@ -19,11 +21,12 @@ export class MapComponent implements OnInit, OnDestroy {
     private service: ApiService,
     private router: Router,
     private dialog: MatDialog,
+    private geolocation: GeolocationService
   ) {}
 
   zoom = 15;
   center: google.maps.LatLngLiteral;
-  geolocationWatchId: number;
+  geolocationSubscription: Subscription;
 
   // local property to store the json data from getLocations
   location: Location[] = [];
@@ -99,22 +102,15 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   loadGeolocation() {
-    if (!navigator.geolocation) {
-      console.warn('Geolocation not supported');
-      return;
-    }
-
-    this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      this.center = {
-        lat: latitude,
-        lng: longitude,
-      };
+    this.geolocationSubscription = this.geolocation.location.subscribe({
+      next: (location) => {
+        this.center = location;
+      },
     });
   }
 
   ngOnDestroy() {
-    navigator.geolocation?.clearWatch(this.geolocationWatchId);
+    this.geolocationSubscription.unsubscribe();
   }
 
   getIconForMarker(marker: Location): google.maps.Icon {
@@ -135,7 +131,7 @@ export class MapComponent implements OnInit, OnDestroy {
             description: location.challengedescription,
           },
           name: location.name,
-          link: location.link
+          link: location.link,
         },
         panelClass: 'app-dialog',
       });

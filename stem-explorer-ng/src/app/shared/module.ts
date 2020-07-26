@@ -17,6 +17,7 @@ import { InputComponent } from './components/input/input.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { StemColorsService } from './services/stem-colors.service';
 import { CardComponent } from './components/card/card.component';
+import { GeolocationService } from './services/geolocation.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CardComponent } from './components/card/card.component';
   providers: [
     ApiService,
     StemColorsService,
+    GeolocationService,
   ],
   exports: [
     NavTabsComponent,
