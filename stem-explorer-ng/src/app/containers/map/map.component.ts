@@ -132,6 +132,7 @@ export class MapComponent implements OnInit, OnDestroy {
           },
           name: location.name,
           link: location.link,
+          position: location.position,
         },
         panelClass: 'app-dialog',
       });

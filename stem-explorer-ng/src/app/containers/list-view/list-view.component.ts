@@ -60,7 +60,8 @@ export class ListViewComponent implements OnInit {
       data: {
         challenge,
         name: location?.name,
-        link: location?.link
+        link: location?.link,
+        position: location?.position,
       },
       panelClass: 'app-dialog',
     });
