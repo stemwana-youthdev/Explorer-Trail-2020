@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
+import { ChallengeDialogComponent } from 'src/app/containers/challenge-dialog/challenge-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 class CameraAccessError extends Error {
@@ -42,18 +42,10 @@ export class CameraComponent {
     }
 
     const challengeId = parseInt(match[1], 10);
-    const challenges = await this.api.getChallenges().toPromise();
-    const challenge = challenges.challenges.find((c) => c.uid === challengeId);
-    const locations = await this.api.getLocations().toPromise();
-    const location = locations.location.find((l) => l.uid === challengeId);
 
     this.dialog.closeAll();
-    this.dialog.open(ListViewDialogComponent, {
-      data: {
-        challenge,
-        name: location?.name,
-        link: location?.link,
-      },
+    this.dialog.open(ChallengeDialogComponent, {
+      data: { challengeId },
       panelClass: 'app-dialog',
     });
   }
