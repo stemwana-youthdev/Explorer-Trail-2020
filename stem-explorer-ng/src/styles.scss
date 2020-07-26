@@ -41,6 +41,13 @@ h1, h2 {
 }
 h3, h4, h5, h6, b, strong {
   @include typeface-sub-heading;
+  margin-bottom: 0.2rem;
+}
+h3 {
+  margin-top: 0;
+}
+h4, p{
+  margin-top: 0.5rem;
 }
 i, em {
   @include typeface-accent;
@@ -87,4 +94,8 @@ i, em {
 
 .mat-drawer-container {
   background-color: white;
+}
+
+.app-dialog .mat-dialog-content {
+  max-height: none;
 }
