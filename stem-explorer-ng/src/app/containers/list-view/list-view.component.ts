@@ -21,6 +21,13 @@ export class ListViewComponent implements OnInit {
   Categories: any = Categories;
   filter = [0, 1, 2, 3];
 
+  icons = {
+    [Categories.Science]: '/assets/icons/light green point.svg',
+    [Categories.Technology]: '/assets/icons/light blue point.svg',
+    [Categories.Engineering]: '/assets/icons/light orange point.svg',
+    [Categories.Maths]: '/assets/icons/purple point.svg',
+  };
+
   constructor(private service: ApiService, public dialog: MatDialog) {
    }
 
@@ -57,6 +64,15 @@ export class ListViewComponent implements OnInit {
       },
       panelClass: 'app-dialog',
     });
+  }
+
+  challengePosition(challenge: Challenge) {
+    const location: Location | undefined = this.locations.find(l => l.uid === challenge.uid);
+    return location?.position;
+  }
+
+  getMarkerIconForCategory(category: Categories) {
+    return this.icons[category];
   }
 
   ngOnInit() {

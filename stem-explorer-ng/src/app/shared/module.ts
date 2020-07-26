@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AuthModule } from './auth/auth.module';
@@ -18,6 +19,7 @@ import { FormFieldComponent } from './components/form-field/form-field.component
 import { StemColorsService } from './services/stem-colors.service';
 import { CardComponent } from './components/card/card.component';
 import { GeolocationService } from './services/geolocation.service';
+import { ChallengeDistanceComponent } from './components/challenge-distance/challenge-distance.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,14 @@ import { GeolocationService } from './services/geolocation.service';
     ButtonComponent,
     CardComponent,
     ChallengeTitleComponent,
+    ChallengeDistanceComponent,
     DialogComponent,
     ContactInfoComponent,
     FormFieldComponent,
     InputComponent,
   ],
   imports: [
+    CommonModule,
     AuthModule,
     HttpClientModule,
     MaterialModule,
@@ -53,6 +57,7 @@ import { GeolocationService } from './services/geolocation.service';
     ButtonComponent,
     CardComponent,
     ChallengeTitleComponent,
+    ChallengeDistanceComponent,
     DialogComponent,
     ContactInfoComponent,
     FormFieldComponent,

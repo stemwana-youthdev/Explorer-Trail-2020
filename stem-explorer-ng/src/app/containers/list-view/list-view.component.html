@@ -1,7 +1,11 @@
 <app-filter-buttons (data)="this.filter=$event"></app-filter-buttons>
 
 <app-card *ngFor="let challenge of (challenges | filter:this.filter)" [category]="challenge.category">
-    <app-challenge-title [category]="challenge.category">{{challenge.title}}</app-challenge-title>
+    <app-challenge-title [category]="challenge.category">
+        <img class="marker-icon" [src]="getMarkerIconForCategory(challenge.category)">
+        <app-challenge-distance [position]="challengePosition(challenge)"></app-challenge-distance>
+        {{ challenge.title }}
+    </app-challenge-title>
     <h4>{{Categories[challenge.category]}}</h4>
     <p>{{challenge.description | truncate:50}}</p>
     <span class="material-icons open-challenge-dialogue" (click) = "openDialog(challenge)">

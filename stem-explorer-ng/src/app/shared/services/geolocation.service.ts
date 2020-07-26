@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+export const google = window.google;
 export type LatLng = google.maps.LatLngLiteral;
 
 @Injectable({
@@ -11,7 +13,8 @@ export class GeolocationService {
 
   constructor() {
     if (!navigator.geolocation) {
-      this.location.error('Geolocation not supported');
+      console.warn('Geolocation not supported');
+      this.location.complete();
       return;
     }
 
@@ -23,8 +26,20 @@ export class GeolocationService {
         });
       },
       (error) => {
-        this.location.error(error);
+        console.warn(error);
+        this.location.complete();
       }
+    );
+  }
+
+  distanceTo(location: LatLng) {
+    return this.location.pipe(
+      map((geolocation) =>
+        google.maps.geometry.spherical.computeDistanceBetween(
+          new google.maps.LatLng(geolocation),
+          new google.maps.LatLng(location)
+        )
+      )
     );
   }
 }
