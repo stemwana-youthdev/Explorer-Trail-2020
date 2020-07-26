@@ -9,7 +9,7 @@ import { LoadLocationsData } from '../../store/locations/locations.actions';
 
 import { Location } from '../../shared/models/location';
 
-import { ChallengeDialogComponent } from '../../components/challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { InfoLocationClickEvent, ChallengeMapComponent } from '../../components/challenge-map/challenge-map.component';
 
 

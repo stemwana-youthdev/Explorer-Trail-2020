@@ -6,13 +6,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
+import { LocationsState } from '../../store/locations/locations.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
+import { LoadLocationsData } from '../../store/locations/locations.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
 
 import { Categories } from '../../shared/enums/categories.enum';
-import { LocationsState } from 'src/app/store/locations/locations.state';
 
 
 interface ChallengeDialogData {
@@ -40,6 +41,7 @@ export class ChallengeDialogComponent implements OnInit {
 
   ngOnInit()  {
     this.store.dispatch(new LoadChallengesData());
+    this.store.dispatch(new LoadLocationsData());
   }
 
   get challenge$(): Observable<Challenge> {

@@ -16,7 +16,7 @@ import { MapComponent } from './containers/map/map.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListViewComponent } from './containers/list-view/list-view.component';
-import { ChallengeDialogComponent } from './components/challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogComponent } from './containers/challenge-dialog/challenge-dialog.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';

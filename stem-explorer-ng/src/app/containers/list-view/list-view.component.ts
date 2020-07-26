@@ -8,9 +8,8 @@ import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 
 import { Challenge } from '../../shared/models/challenge';
-import { Location } from '../../shared/models/location';
 
-import { ChallengeDialogComponent } from '../../components/challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 
 /*
 * Component to show the challenges in a list view
