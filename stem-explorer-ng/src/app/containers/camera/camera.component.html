@@ -1,4 +1,5 @@
-<p *ngIf="message">{{ message }}</p>
+<p *ngIf="isLoading">Loading camera...</p>
+<p *ngIf="error">{{ error.message }}</p>
 
 <zxing-scanner (scanSuccess)="scanSuccess($event)" (camerasFound)="camerasFound()"
   (camerasNotFound)="camerasNotFound()"></zxing-scanner>

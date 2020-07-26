@@ -3,7 +3,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { delay } from 'rxjs/operators';
+
+class CameraAccessError extends Error {
+  constructor() {
+    super(`Please check that ${document.title} has access to your camera.`);
+  }
+}
+
+class CameraNotFoundError extends Error {
+  constructor() {
+    super('Could not find any cameras.');
+  }
+}
 
 @Component({
   selector: 'app-camera',
@@ -11,7 +22,8 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./camera.component.scss'],
 })
 export class CameraComponent implements OnInit {
-  message = 'Loading cameras...';
+  isLoading = true;
+  error?: Error;
 
   constructor(
     private dialog: MatDialog,
@@ -48,17 +60,23 @@ export class CameraComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      if (this.message) {
-        this.message += ` Please check that ${document.title} has access to your camera.`;
+      if (!this.error) {
+        this.showError(new CameraAccessError());
       }
     }, 5000); // 5000ms
   }
 
   camerasFound() {
-    this.message = null;
+    this.isLoading = false;
   }
 
   camerasNotFound() {
-    this.message = 'No camera found.';
+    this.showError(new CameraNotFoundError());
+  }
+
+  showError(error: Error) {
+    console.error(error);
+    this.error = error;
+    this.isLoading = false;
   }
 }
