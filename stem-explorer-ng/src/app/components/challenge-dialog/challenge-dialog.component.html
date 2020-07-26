@@ -1,13 +1,30 @@
-<app-dialog [category]="data.challenge.category">
-  <app-challenge-title [category]="data.challenge.category">{{data.challenge.title}}</app-challenge-title>
-  <h4>{{Categories[data.challenge.category]}}</h4>
+<app-dialog [category]="category$ | async">
+  <app-challenge-title [category]="category$ | async">
+    {{ (challenge$ | async)?.title }}
+  </app-challenge-title>
+  <h4>{{ Categories[category$ | async] }}</h4>
   <h4>Duration: </h4>
-  <p>{{data.challenge.description}}</p>
-  
-  <app-contact-info [category]="data.challenge.category" icon="location_on" [label]="data.name"></app-contact-info>
+  <p>{{ (challenge$ | async)?.description }}</p>
+
+  <app-contact-info
+    [category]="category$ | async"
+    icon="location_on"
+    [label]="(location$ | async)?.name"
+  ></app-contact-info>
   <br>
-  <app-contact-info [link]="data.link" [category]="data.challenge.category" icon="language" label="View Website"></app-contact-info>
+  <app-contact-info
+    [link]="(location$ | async)?.link"
+    [category]="category$ | async"
+    icon="language"
+    label="View Website"
+  ></app-contact-info>
   <br><br>
 
-  <app-button mat-dialog-close [category]="data.challenge.category" (click)="goToChallenge(data.challenge.uid)">Start Challenge</app-button>
+  <app-button
+    mat-dialog-close
+    [category]="category$ | async"
+    (click)="goToChallenge()"
+  >
+    Start Challenge
+  </app-button>
 </app-dialog>

@@ -4,7 +4,6 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-import { ApiService } from '../../shared/services/api.service';
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 
@@ -25,17 +24,13 @@ export class ListViewComponent implements OnInit {
   @Select(ChallengesState.challenges) public challenges$: Observable<Challenge[]>;
   @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
 
-  locations: Location[] = [];
-
   constructor(
-    private service: ApiService,
     private store: Store,
     public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
     this.store.dispatch(new LoadChallengesData());
-    this.getLocations();
   }
 
   get sortedChallenges$(): Observable<Challenge[]> {
@@ -43,15 +38,6 @@ export class ListViewComponent implements OnInit {
       startWith([]),
       map((challenges) => challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)),
     );
-  }
-
-  /*
-  * Gets an array of locations from the API service
-  */
-  getLocations() {
-    this.service.getLocations().subscribe((res) => {
-      this.locations = res.location;
-    });
   }
 
   onItemClick(challenge: Challenge) {
@@ -62,12 +48,9 @@ export class ListViewComponent implements OnInit {
   * Opens the dialog for the given challenge
   */
   private openChallengeDialog(challenge: Challenge) {
-    const location: Location | undefined = this.locations.find(l => l.uid === challenge.uid);
     this.dialog.open(ChallengeDialogComponent, {
       data: {
-        challenge,
-        name: location?.name,
-        link: location?.link
+        challengeId: challenge.uid,
       },
       panelClass: 'app-dialog',
     });

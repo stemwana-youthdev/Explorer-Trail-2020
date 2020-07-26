@@ -44,6 +44,18 @@ export class LocationsState {
     );
   }
 
+  @Selector()
+  public static challengeLocation(state: LocationsStateModel) {
+    return createSelector(
+      [LocationsState],
+      (challengeId: number): Location => {
+        return state.locations.find(
+          (location) => location.challengeid === challengeId,
+        );
+      },
+    );
+  }
+
   @Action(LoadLocationsData)
   public loadData({ patchState }: StateContext<LocationsStateModel>) {
     return this.apiService.getLocations().pipe(

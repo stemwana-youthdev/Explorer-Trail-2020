@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-levels.state';
@@ -25,8 +25,10 @@ import { HintEvent, AnswerEvent } from '../../components/challenge-details/chall
   templateUrl: './challenge-view.component.html',
   styleUrls: ['./challenge-view.component.scss'],
 })
-export class ChallengeViewComponent implements OnInit {
+export class ChallengeViewComponent implements OnInit, OnDestroy {
   selectedLevel: number;
+
+  private challengesChangeSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,8 +43,12 @@ export class ChallengeViewComponent implements OnInit {
     this.listenToChallengeLevelsChanges();
   }
 
+  ngOnDestroy(): void {
+    this.challengesChangeSubscription.unsubscribe();
+  }
+
   private listenToChallengeLevelsChanges() {
-    this.challengeLevels$
+    this.challengesChangeSubscription = this.challengeLevels$
       .pipe(
         map((challengeLevels) => {
           const difficulties = challengeLevels.map((level) => level.difficulty);

@@ -49,14 +49,7 @@ export class MapComponent implements OnInit {
   private openChallengeDialog(location: Location) {
     this.dialog.open(ChallengeDialogComponent, {
       data: {
-        challenge: {
-          uid: location.challengeid,
-          title: location.challengetitle,
-          category: location.category,
-          description: location.challengedescription,
-        },
-        name: location.name,
-        link: location.link
+        challengeId: location.challengeid,
       },
       panelClass: 'app-dialog',
     });
