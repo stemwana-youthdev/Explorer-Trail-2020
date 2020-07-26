@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListViewDialogComponent } from './list-view-dialog.component';
+import { ChallengeDialogComponent } from './challenge-dialog.component';
 
-describe('ListViewDialogComponent', () => {
-  let component: ListViewDialogComponent;
-  let fixture: ComponentFixture<ListViewDialogComponent>;
+describe('ChallengeDialogComponent', () => {
+  let component: ChallengeDialogComponent;
+  let fixture: ComponentFixture<ChallengeDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListViewDialogComponent ]
+      declarations: [ ChallengeDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListViewDialogComponent);
+    fixture = TestBed.createComponent(ChallengeDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

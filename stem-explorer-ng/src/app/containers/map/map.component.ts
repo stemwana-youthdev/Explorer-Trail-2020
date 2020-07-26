@@ -9,11 +9,10 @@ import { LoadLocationsData } from '../../store/locations/locations.actions';
 
 import { Location } from '../../shared/models/location';
 
-import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
+import { ChallengeDialogComponent } from '../../components/challenge-dialog/challenge-dialog.component';
 import { InfoLocationClickEvent, ChallengeMapComponent } from '../../components/challenge-map/challenge-map.component';
 
 
-  // tslint:disable: no-string-literal
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -48,7 +47,7 @@ export class MapComponent implements OnInit {
   }
 
   private openChallengeDialog(location: Location) {
-    this.dialog.open(ListViewDialogComponent, {
+    this.dialog.open(ChallengeDialogComponent, {
       data: {
         challenge: {
           uid: location.challengeid,

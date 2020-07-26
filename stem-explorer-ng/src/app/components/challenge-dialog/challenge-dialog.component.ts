@@ -7,11 +7,11 @@ import { Categories } from '../../shared/enums/categories.enum';
 * Component for the list view dialog for more information
 */
 @Component({
-  selector: 'app-list-view-dialog',
-  templateUrl: './list-view-dialog.component.html',
-  styleUrls: ['./list-view-dialog.component.scss']
+  selector: 'app-challenge-dialog',
+  templateUrl: './challenge-dialog.component.html',
+  styleUrls: ['./challenge-dialog.component.scss'],
 })
-export class ListViewDialogComponent implements OnInit {
+export class ChallengeDialogComponent implements OnInit {
 
   Categories: any = Categories;
 

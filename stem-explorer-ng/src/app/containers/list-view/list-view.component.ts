@@ -11,7 +11,7 @@ import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
 
-import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
+import { ChallengeDialogComponent } from '../../components/challenge-dialog/challenge-dialog.component';
 
 /*
 * Component to show the challenges in a list view
@@ -63,7 +63,7 @@ export class ListViewComponent implements OnInit {
   */
   private openChallengeDialog(challenge: Challenge) {
     const location: Location | undefined = this.locations.find(l => l.uid === challenge.uid);
-    this.dialog.open(ListViewDialogComponent, {
+    this.dialog.open(ChallengeDialogComponent, {
       data: {
         challenge,
         name: location?.name,
