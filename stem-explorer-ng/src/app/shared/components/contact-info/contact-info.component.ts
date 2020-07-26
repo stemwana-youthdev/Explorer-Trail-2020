@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Categories } from '../../enums/categories.enum';
+import { StemColorsService } from '../../services/stem-colors.service';
 
 @Component({
   selector: 'app-contact-info',
@@ -12,17 +13,13 @@ export class ContactInfoComponent {
   @Input() link: string;
   @Input() icon: string;
   @Input() label: string;
-  colors = [
-    {category: Categories.Science, color: 'green'},
-    {category: Categories.Technology, color: 'blue'},
-    {category: Categories.Engineering, color: 'orange'},
-    {category: Categories.Maths, color: 'purple'}
-  ];
 
-  constructor() { }
+  constructor(
+    private stemColors: StemColorsService,
+  ) { }
 
   get color() {
-    return this.colors.find(l => l.category === this.category)?.color;
+    return this.stemColors.getColor(this.category);
   }
 
 }
