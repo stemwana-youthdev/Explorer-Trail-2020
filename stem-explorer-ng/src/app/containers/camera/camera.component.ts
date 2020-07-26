@@ -58,12 +58,10 @@ export class CameraComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    setTimeout(() => {
-      if (!this.error) {
-        this.showError(new CameraAccessError());
-      }
-    }, 5000); // 5000ms
+  permissionResponse(response: boolean) {
+    if (!response) {
+      this.showError(new CameraAccessError());
+    }
   }
 
   camerasFound() {
