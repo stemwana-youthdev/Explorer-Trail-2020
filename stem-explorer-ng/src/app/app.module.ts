@@ -33,6 +33,7 @@ import { ResultDialogComponent } from './components/result-dialog/result-dialog.
 import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
 import { ChallengeListComponent } from './components/challenge-list/challenge-list.component';
 import { ChallengeFilterComponent } from './containers/challenge-filter/challenge-filter.component';
+import { ChallengeMapComponent } from './components/challenge-map/challenge-map.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ChallengeFilterComponent } from './containers/challenge-filter/challeng
     ChallengeDetailsComponent,
     ChallengeListComponent,
     ChallengeFilterComponent,
+    ChallengeMapComponent,
   ],
   imports: [
     GoogleMapsModule,
