@@ -35,9 +35,7 @@ export class CameraComponent {
     const regex = /^https?\:\/\/[\w\.]+\/challenge\/(\d+)$/;
     const match = url.match(regex);
     if (!match) {
-      this.snackBar.open('QR code not recognised', null, {
-        duration: 5000, // 5000ms
-      });
+      this.qrCodeNotRecognized();
       return;
     }
 
@@ -47,6 +45,12 @@ export class CameraComponent {
     this.dialog.open(ChallengeDialogComponent, {
       data: { challengeId },
       panelClass: 'app-dialog',
+    });
+  }
+
+  private qrCodeNotRecognized() {
+    this.snackBar.open('QR code not recognised', null, {
+      duration: 5000,
     });
   }
 
@@ -64,7 +68,7 @@ export class CameraComponent {
     this.showError(new CameraNotFoundError());
   }
 
-  showError(error: Error) {
+  private showError(error: Error) {
     console.error(error);
     this.error = error;
     this.isLoading = false;
