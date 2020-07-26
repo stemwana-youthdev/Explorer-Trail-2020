@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListViewDialogComponent } from 'src/app/components/list-view-dialog/list-view-dialog.component';
@@ -21,7 +21,7 @@ class CameraNotFoundError extends Error {
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
 })
-export class CameraComponent implements OnInit {
+export class CameraComponent {
   isLoading = true;
   error?: Error;
 
