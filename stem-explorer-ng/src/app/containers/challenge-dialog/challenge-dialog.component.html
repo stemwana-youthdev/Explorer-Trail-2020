@@ -1,0 +1,34 @@
+<ng-container *ngIf="loaded$ | async">
+  <app-dialog [category]="category$ | async">
+    <app-challenge-title [category]="category$ | async">
+      {{ (challenge$ | async)?.title }}
+    </app-challenge-title>
+    <h4>{{ Categories[category$ | async] }}</h4>
+    <h4>Duration: </h4>
+    <p>{{ (challenge$ | async)?.description }}</p>
+
+    <app-contact-info
+      [category]="category$ | async"
+      icon="location_on"
+      [label]="(location$ | async)?.name"
+    ></app-contact-info>
+    <br>
+    <app-contact-info
+      [link]="(location$ | async)?.link"
+      [category]="category$ | async"
+      icon="language"
+      label="View Website"
+    ></app-contact-info>
+    <br><br>
+
+    <app-button
+      mat-dialog-close
+      [category]="category$ | async"
+      (click)="goToChallenge()"
+    >
+      Start Challenge
+    </app-button>
+  </app-dialog>
+</ng-container>
+
+<mat-spinner *ngIf="!(loaded$ | async)"></mat-spinner>
