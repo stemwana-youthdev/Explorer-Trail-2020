@@ -4,19 +4,17 @@
 
   <app-drawer #drawer></app-drawer>
 
-  <div class="content">
+  <div [class]="'content' + (!(isMap | async) ? ' padding' : '')">
     <router-outlet></router-outlet>
-  
-    <app-fab-container *ngIf="isMap | async; else genericFab" class="no-height">
-      <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
-      <app-camera-button></app-camera-button>
-    </app-fab-container>
-    <ng-template #genericFab>
-      <app-fab-container>
-        <app-fab matIcon="location_on" (click)="navigateToMap()"></app-fab>
-        <span class="fill-remaining-space"></span>
-      </app-fab-container>
-    </ng-template>
   </div>
+  
+  <ng-container *ngIf="isMap | async; else genericFab">
+    <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
+    <app-camera-button></app-camera-button>
+  </ng-container>
+  <ng-template #genericFab>
+    <app-fab matIcon="location_on" (click)="navigateToMap()"></app-fab>
+    <span class="fill-remaining-space"></span>
+  </ng-template>
 
 </mat-drawer-container>
