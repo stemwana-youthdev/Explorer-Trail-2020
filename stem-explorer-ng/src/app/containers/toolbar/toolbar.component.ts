@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 
-import { AuthService } from 'src/app/shared/auth/auth.service';
-import { MatDrawer } from '@angular/material/sidenav';
+import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-toolbar',

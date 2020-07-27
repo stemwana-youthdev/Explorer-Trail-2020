@@ -1,10 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfigModule } from './config/config.module';
+import { StoreModule } from './store/store.module';
+import { SharedModule } from './shared/module';
+import { MaterialModule } from './shared/material.module';
+
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { HomePageComponent } from './containers/home-page/home-page.component';
@@ -12,12 +16,12 @@ import { MapComponent } from './containers/map/map.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListViewComponent } from './containers/list-view/list-view.component';
-import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
+import { ChallengeDialogComponent } from './containers/challenge-dialog/challenge-dialog.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
-import { ChallengeViewComponent } from './components/challenge-view/challenge-view.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
+import { ToolbarComponent } from './containers/toolbar/toolbar.component';
 import { CameraComponent } from './containers/camera/camera.component';
 import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -26,8 +30,10 @@ import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
-import { SharedModule } from './shared/module';
-import { MaterialModule } from './shared/material.module';
+import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
+import { ChallengeListComponent } from './components/challenge-list/challenge-list.component';
+import { ChallengeFilterComponent } from './containers/challenge-filter/challenge-filter.component';
+import { ChallengeMapComponent } from './components/challenge-map/challenge-map.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +43,7 @@ import { MaterialModule } from './shared/material.module';
     MapComponent,
     RegisterPageComponent,
     ListViewComponent,
-    ListViewDialogComponent,
+    ChallengeDialogComponent,
     SplashScreenComponent,
     FilterButtonsComponent,
     ChallengeViewComponent,
@@ -48,6 +54,10 @@ import { MaterialModule } from './shared/material.module';
     HintDialogComponent,
     AnswerDialogComponent,
     ResultDialogComponent,
+    ChallengeDetailsComponent,
+    ChallengeListComponent,
+    ChallengeFilterComponent,
+    ChallengeMapComponent,
   ],
   imports: [
     GoogleMapsModule,
@@ -58,11 +68,12 @@ import { MaterialModule } from './shared/material.module';
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
+    StoreModule,
     SharedModule,
     MaterialModule,
   ],
   entryComponents: [
-    ListViewDialogComponent,
+    ChallengeDialogComponent,
     SplashScreenComponent,
     HintDialogComponent
   ],
