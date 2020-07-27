@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
 import { ApiService } from './services/api.service';
 import { MaterialModule } from './material.module';
-import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FabComponent } from './components/fab/fab.component';
@@ -21,7 +20,6 @@ import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
-    NavTabsComponent,
     TruncatePipe,
     FilterPipe,
     FabComponent,
@@ -45,7 +43,6 @@ import { CardComponent } from './components/card/card.component';
     StemColorsService,
   ],
   exports: [
-    NavTabsComponent,
     TruncatePipe,
     FilterPipe,
     FabComponent,
