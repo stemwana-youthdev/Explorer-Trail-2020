@@ -5,9 +5,12 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
+import { LocationsState } from 'src/app/store/locations/locations.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
+import { LoadLocationsData } from '../../store/locations/locations.actions';
 
 import { Challenge } from '../../shared/models/challenge';
+import { Location } from '../../shared/models/location';
 
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { Categories } from 'src/app/shared/enums/categories.enum';
@@ -23,18 +26,12 @@ import { Categories } from 'src/app/shared/enums/categories.enum';
 export class ListViewComponent implements OnInit {
   @Select(ChallengesState.challenges) public challenges$: Observable<Challenge[]>;
   @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
+  @Select(LocationsState.locations) public locations$: Observable<Location[]>;
 
   challenges: Challenge[] = [];
   locations: Location[] = [];
   Categories: any = Categories;
   filter = [0, 1, 2, 3];
-
-  icons = {
-    [Categories.Science]: '/assets/icons/light green point.svg',
-    [Categories.Technology]: '/assets/icons/light blue point.svg',
-    [Categories.Engineering]: '/assets/icons/light orange point.svg',
-    [Categories.Maths]: '/assets/icons/purple point.svg',
-  };
 
   constructor(
     private store: Store,
@@ -43,6 +40,7 @@ export class ListViewComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadChallengesData());
+    this.store.dispatch(new LoadLocationsData());
   }
 
   get sortedChallenges$(): Observable<Challenge[]> {
