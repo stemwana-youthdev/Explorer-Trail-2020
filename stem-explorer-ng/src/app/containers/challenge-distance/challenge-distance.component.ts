@@ -24,7 +24,10 @@ export class ChallengeDistanceComponent {
   get distanceText() {
     return this.locationDistance$.pipe(
       map((distance) => {
-        if (distance >= 1000) {
+        console.log(this.locationId, distance)
+        if (distance === undefined) {
+          return '';
+        } else if (distance >= 1000) {
           return `${(distance / 1000).toFixed(1)}km`;
         } else {
           return `${distance.toFixed(0)}m`;

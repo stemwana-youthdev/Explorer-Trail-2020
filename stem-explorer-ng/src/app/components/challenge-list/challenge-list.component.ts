@@ -39,8 +39,4 @@ export class ChallengeListComponent implements OnInit {
     return this.icons[category];
   }
 
-  challengePosition(challenge: Challenge) {
-    return this.locations?.find((l) => l.challengeid === challenge.uid)?.position;
-  }
-
 }
