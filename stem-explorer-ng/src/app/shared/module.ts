@@ -8,6 +8,7 @@ import { MaterialModule } from './material.module';
 import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { LargeDistancePipe } from './pipes/large-distance.pipe';
 import { FabComponent } from './components/fab/fab.component';
 import { FabContainerComponent } from './components/fab-container/fab-container.component';
 import { ButtonComponent } from './components/button/button.component';
@@ -25,6 +26,7 @@ import { GeolocationService } from './services/geolocation.service';
     NavTabsComponent,
     TruncatePipe,
     FilterPipe,
+    LargeDistancePipe,
     FabComponent,
     FabContainerComponent,
     ButtonComponent,
@@ -50,6 +52,7 @@ import { GeolocationService } from './services/geolocation.service';
     NavTabsComponent,
     TruncatePipe,
     FilterPipe,
+    LargeDistancePipe,
     FabComponent,
     FabContainerComponent,
     ButtonComponent,

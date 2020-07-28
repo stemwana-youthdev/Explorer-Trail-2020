@@ -2,6 +2,7 @@
 <app-challenge-list
   [challenges]="challenges$ | async"
   [locations]="locations$ | async"
+  [locationDistances]="locationDistances$ | async"
   [filter]="filter$ | async"
   (itemClick)="onItemClick($event)"
 >

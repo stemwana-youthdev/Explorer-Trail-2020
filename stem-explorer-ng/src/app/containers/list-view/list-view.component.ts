@@ -29,6 +29,7 @@ export class ListViewComponent implements OnInit {
   @Select(ChallengesState.challenges) public challenges$: Observable<Challenge[]>;
   @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
   @Select(LocationsState.locations) public locations$: Observable<Location[]>;
+  @Select(LocationDistancesState.locationDistances) public locationDistances$: Observable<LocationDistance[]>;
 
   challenges: Challenge[] = [];
   locations: Location[] = [];
