@@ -28,17 +28,7 @@ export class MapComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private geolocation: GeolocationService
-  ) {}
-
-  zoom = 15;
-  center: google.maps.LatLngLiteral;
-  geolocationSubscription: Subscription;
-
-  // local property to store the json data from getLocations
-  location: Location[] = [];
-
-  filter = [0, 1, 2, 3];
+  ) { }
 
   // separate property for the information for the map pop up
   infoLocation = null as Location;
