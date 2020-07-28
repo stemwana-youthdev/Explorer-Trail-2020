@@ -1,4 +1,4 @@
-<app-dialog color="pink">
+<app-dialog [category]="data.category">
   <app-challenge-title [category]="data.category">{{data.title}}</app-challenge-title>
   <h4>{{Level[data.level]}}</h4>
   <p>{{data.hint}}</p>
