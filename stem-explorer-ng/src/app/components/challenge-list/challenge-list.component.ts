@@ -47,7 +47,7 @@ export class ChallengeListComponent implements OnInit {
     )?.uid;
   }
 
-  getLocationDistance(challenge: Challenge) {
+  getLocationDistance = (challenge: Challenge) => {
     const locationId = this.getLocationIdForChallenge(challenge);
     return this.locationDistances.find(
       (distance) => distance.locationId === locationId

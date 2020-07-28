@@ -1,5 +1,5 @@
 <app-card
-  *ngFor="let challenge of (challenges | filter:this.filter)"
+  *ngFor="let challenge of (challenges | filter:this.filter | sortBy:getLocationDistance)"
   [category]="challenge.category"
 >
   <app-challenge-title [category]="challenge.category">
