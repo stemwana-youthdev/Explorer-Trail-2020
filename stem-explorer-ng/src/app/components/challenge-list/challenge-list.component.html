@@ -4,7 +4,7 @@
 >
   <app-challenge-title [category]="challenge.category">
     <img class="marker-icon" [src]="getMarkerIconForCategory(challenge.category)">
-  <app-challenge-distance [locationId]="challenge.uid"></app-challenge-distance>
+  <app-challenge-distance [locationId]="getLocationIdForChallenge(challenge)"></app-challenge-distance>
     {{challenge.title}}
   </app-challenge-title>
   <h4>{{Categories[challenge.category]}}</h4>
