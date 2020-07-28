@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { GeolocationService, LatLng } from '../../services/geolocation.service';
+import { Store } from '@ngxs/store';
 import { map } from 'rxjs/operators';
+import { LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
 
 @Component({
   selector: 'app-challenge-distance',
@@ -8,14 +9,20 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./challenge-distance.component.scss'],
 })
 export class ChallengeDistanceComponent {
-  @Input() position: LatLng;
+  @Input() locationId: number;
 
   constructor(
-    private geolocation: GeolocationService,
+    private store: Store,
   ) {}
 
+  get locationDistance$() {
+    return this.store
+      .select(LocationDistancesState.locationDistance)
+      .pipe(map((fn) => fn(this.locationId)));
+  }
+
   get distanceText() {
-    return this.geolocation.distanceTo(this.position).pipe(
+    return this.locationDistance$.pipe(
       map((distance) => {
         if (distance >= 1000) {
           return `${(distance / 1000).toFixed(1)}km`;

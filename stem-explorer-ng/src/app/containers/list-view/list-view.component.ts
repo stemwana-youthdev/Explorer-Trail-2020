@@ -14,6 +14,8 @@ import { Location } from '../../shared/models/location';
 
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { Categories } from 'src/app/shared/enums/categories.enum';
+import { WatchLocationDistances } from 'src/app/store/location-distances/location-distances.actions';
+import { LocationDistance, LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
 
 /*
 * Component to show the challenges in a list view
@@ -41,6 +43,7 @@ export class ListViewComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new LoadChallengesData());
     this.store.dispatch(new LoadLocationsData());
+    this.store.dispatch(new WatchLocationDistances());
   }
 
   get sortedChallenges$(): Observable<Challenge[]> {

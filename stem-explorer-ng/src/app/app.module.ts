@@ -34,6 +34,7 @@ import { ChallengeDetailsComponent } from './components/challenge-details/challe
 import { ChallengeListComponent } from './components/challenge-list/challenge-list.component';
 import { ChallengeFilterComponent } from './containers/challenge-filter/challenge-filter.component';
 import { ChallengeMapComponent } from './components/challenge-map/challenge-map.component';
+import { ChallengeDistanceComponent } from './containers/challenge-distance/challenge-distance.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ChallengeMapComponent } from './components/challenge-map/challenge-map.
     ChallengeListComponent,
     ChallengeFilterComponent,
     ChallengeMapComponent,
+    ChallengeDistanceComponent,
   ],
   imports: [
     GoogleMapsModule,
