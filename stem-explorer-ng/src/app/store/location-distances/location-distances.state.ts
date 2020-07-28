@@ -1,6 +1,6 @@
 import { StateToken, State, Selector, createSelector, Store, StateContext, Action } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { flatMap, map, tap, switchMap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 
 import { GeolocationService } from 'src/app/shared/services/geolocation.service';
@@ -59,7 +59,7 @@ export class LocationDistancesState {
     const state = ctx.getState();
     if (!state.watching) {
       return this.store.select(LocationsState.locations).pipe(
-        flatMap((locations) => {
+        switchMap((locations) => {
           return combineLatest(
             locations.map((location) => {
               return this.geolocationService
