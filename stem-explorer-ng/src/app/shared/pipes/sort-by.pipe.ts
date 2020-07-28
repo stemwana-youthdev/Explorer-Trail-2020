@@ -5,9 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SortByPipe<T> implements PipeTransform {
 
-  transform(array: T[], prop: (x: T) => number | string): T[] {
+  transform(array: T[], prop: ((x: T) => number | string) | string): T[] {
+    const f = typeof prop === 'string' ? (x: T) => x[prop] : prop;
     array = Array.from(array);
-    array.sort((a, b) => prop(a) >= prop(b) ? 1 : -1);
+    array.sort((a, b) => f(a) >= f(b) ? 1 : -1);
     return array;
   }
 
