@@ -32,4 +32,8 @@ export class ToolbarComponent {
     this.auth.logout();
   }
 
+  navigateToHome() {
+    this.router.navigateByUrl('');
+  }
+
 }
