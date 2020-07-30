@@ -9,6 +9,17 @@ button.mat-flat-button {
     font-weight: bold;
 }
 
+button {
+    max-width: 800px !important;
+    text-align: left;
+}
+
+@media only screen and (min-width: 800px) {
+    button {
+        text-align: center;
+    }
+}
+
 @mixin coloured-button($color) {
     color: white;
     border-radius: 0;
