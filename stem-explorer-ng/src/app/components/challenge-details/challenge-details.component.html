@@ -23,13 +23,16 @@
     <app-challenge-title [category]="challenge.category">Instructions</app-challenge-title>
     <p>{{ currentLevel.instructions }}</p>
 
-    <app-button
-      *ngIf="currentLevel.hint"
-      color="pink"
-      (click)="onHint()"
-    >
-      Get Hint
-    </app-button>
+    <div id="antiOverlay">
+      <app-button
+        *ngIf="currentLevel.hint"
+        color="pink"
+        (click)="onHint()"
+      >
+        Get Hint
+      </app-button>
+    </div>  
+
   </ng-container>
 
   <app-button

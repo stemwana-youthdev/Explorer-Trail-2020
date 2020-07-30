@@ -31,11 +31,15 @@ app-form-field {
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
-  max-width: 800px;
+  max-width: 768px;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 768px) {
   * {
     text-align: center;
   }
+}
+
+#antiOverlay {
+  width: 100%;
 }

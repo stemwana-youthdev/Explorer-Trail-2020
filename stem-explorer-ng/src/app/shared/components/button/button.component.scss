@@ -10,11 +10,11 @@ button.mat-flat-button {
 }
 
 button {
-    max-width: 800px !important;
+    max-width: 768px !important;
     text-align: left;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 768px) {
     button {
         text-align: center;
     }
