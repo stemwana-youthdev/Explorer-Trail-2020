@@ -1,7 +1,7 @@
 import { StateToken, State, Selector, createSelector, Store, StateContext, Action } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { flatMap, map, tap, switchMap } from 'rxjs/operators';
-import { combineLatest } from 'rxjs';
+import { tap, switchMap, map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
 
 import { GeolocationService } from 'src/app/shared/services/geolocation.service';
 
@@ -30,10 +30,14 @@ const LOCATION_DISTANCES_TOKEN: StateToken<LocationDistancesStateModel> = new St
 })
 @Injectable()
 export class LocationDistancesState {
+  distanceMatrixService: google.maps.DistanceMatrixService;
+
   constructor(
     private geolocationService: GeolocationService,
     private store: Store
-  ) {}
+  ) {
+    this.distanceMatrixService = new google.maps.DistanceMatrixService();
+  }
 
   @Selector()
   public static locationDistances(
@@ -58,20 +62,42 @@ export class LocationDistancesState {
   ) {
     const state = ctx.getState();
     if (!state.watching) {
-      return this.store.select(LocationsState.locations).pipe(
-        switchMap((locations) => {
-          return combineLatest(
-            locations.map((location) => {
-              return this.geolocationService
-                .distanceTo(location.position)
-                .pipe(
-                  map((distance) => ({ distance, locationId: location.uid }))
-                );
-            })
-          );
-        }),
+      ctx.patchState({ watching: true });
+      return combineLatest([
+        this.store.select(LocationsState.locations),
+        this.geolocationService.location,
+      ]).pipe(
+        switchMap(([locations, geolocation]) =>
+          this.getDistanceMatrix({
+            origins: [geolocation],
+            destinations: locations.map((l) => l.position),
+            travelMode: google.maps.TravelMode.DRIVING,
+          }).pipe(
+            map((distanceMatrix) =>
+              distanceMatrix.rows[0].elements.map((element, index) => ({
+                locationId: locations[index].uid,
+                distance: element.distance.value,
+              }))
+            )
+          )
+        ),
         tap((locationDistances) => ctx.patchState({ locationDistances }))
       );
     }
+  }
+
+  getDistanceMatrix(
+    request: google.maps.DistanceMatrixRequest
+  ): Observable<google.maps.DistanceMatrixResponse> {
+    return new Observable((subscriber) => {
+      this.distanceMatrixService.getDistanceMatrix(request, (response, status) => {
+        if (status === 'OK') {
+          subscriber.next(response);
+        } else {
+          subscriber.error(status);
+        }
+        subscriber.complete();
+      });
+    });
   }
 }
