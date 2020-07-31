@@ -6,6 +6,7 @@ import { map, startWith } from 'rxjs/operators';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
+import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 
@@ -30,6 +31,7 @@ export class ListViewComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadChallengesData());
+    this.store.dispatch(new VisitedHomepage());
   }
 
   get sortedChallenges$(): Observable<Challenge[]> {

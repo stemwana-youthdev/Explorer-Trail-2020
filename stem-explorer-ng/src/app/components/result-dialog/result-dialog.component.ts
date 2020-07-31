@@ -5,6 +5,8 @@ import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { Challenge } from 'src/app/shared/models/challenge';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { Store } from '@ngxs/store';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 
 export interface ResultDialogData {
   level: ChallengeLevel;
@@ -26,14 +28,19 @@ export class ResultDialogComponent {
     public auth: AuthService,
     private router: Router,
     private dialogRef: MatDialogRef<ResultDialogComponent>,
+    private store: Store,
   ) { }
 
   get category() {
     return this.data.isCorrect ? this.data.challenge.category : null;
   }
 
+  get lastHomepage() {
+    return this.store.selectSnapshot(LastHomepageState.lastHomepage);
+  }
+
   navigateToHomepage() {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl(this.lastHomepage);
   }
 
   navigateToRegister() {
