@@ -3,7 +3,7 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   
-  <span class="fill-remaining-space"><img src="../../../assets/logo.png" class="logo"/></span>
+  <span class="fill-remaining-space"><img src="../../../assets/logo.png" class="logo" (click)="navigateToHome()"/></span>
   
   <button mat-button *ngIf="!(isLoggedIn | async); else loggedInBlock" (click)="navigateToLogin()">Log In</button>
   
