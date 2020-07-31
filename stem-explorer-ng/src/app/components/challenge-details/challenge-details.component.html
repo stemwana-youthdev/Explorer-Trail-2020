@@ -9,11 +9,14 @@
   <p>{{ challenge.description }}</p>
 
   <app-form-field *ngIf="levels.length > 1" [category]="challenge.category">
-    <mat-select [value]="selectedLevel" (selectionChange)="onSelectionChange($event)">
+    <mat-select [value]="selectedLevel" (selectionChange)="onSelectionChange($event)" #select>
       <mat-option *ngFor="let option of levels" [value]="option">
         {{ Levels[option] }}
       </mat-option>
     </mat-select>
+    <span class="material-icons arrow" (click)="select.open()">
+      expand_more
+    </span>
   </app-form-field>
 
   <ng-container *ngIf="currentLevel">

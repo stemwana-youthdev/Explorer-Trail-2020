@@ -9,15 +9,14 @@ import { StemColorsService } from '../../services/stem-colors.service';
 })
 export class FormFieldComponent {
 
-  @Input() color?: string;
-  @Input() category?: Categories;
+  @Input() category: Categories;
 
   constructor(
     private stemColors: StemColorsService,
   ) {}
 
-  get colorClass() {
-    return this.stemColors.getColor(this.category) ?? this.color;
+  get color() {
+    return this.stemColors.getColor(this.category);
   }
 
 }
