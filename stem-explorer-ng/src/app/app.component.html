@@ -1,10 +1,8 @@
 <app-toolbar [drawer]="drawer"></app-toolbar>
 
-<mat-drawer-container autosize>
+<app-drawer #drawer>
 
-  <app-drawer #drawer></app-drawer>
-
-  <div [class]="'content' + (!(isMap | async) ? ' padding' : '')">
+  <div [class]="!(isMap | async) ? 'padding' : ''">
     <router-outlet></router-outlet>
   </div>
   
@@ -17,4 +15,4 @@
     <span class="fill-remaining-space"></span>
   </ng-template>
 
-</mat-drawer-container>
+</app-drawer>
