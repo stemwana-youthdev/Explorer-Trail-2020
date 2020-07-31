@@ -2,21 +2,14 @@
 
   <mat-drawer #drawer mode="over">
     <mat-list>
-      <mat-list-item>
-        <button mat-button (click)="navigateToHomepage()">Home</button>
-      </mat-list-item>
-      <mat-list-item>
-        <button mat-button>About the App</button>
-      </mat-list-item>
-      <mat-list-item>
-        <button mat-button>Featured Retailers</button>
-      </mat-list-item>
-      <mat-list-item>
-        <button mat-button>Contact Us</button>
+      <mat-list-item *ngFor="let link of links">
+        <button mat-button (click)="navigateTo(link)">
+          {{ link.title }}
+        </button>
       </mat-list-item>
       <mat-divider></mat-divider>
       <mat-list-item *ngFor="let content of externalContent">
-        <a mat-button [href]="content.url">
+        <a mat-button [href]="content.url" target="_blank">
           {{ content.title }}
           <mat-icon>open_in_new</mat-icon>
         </a>
