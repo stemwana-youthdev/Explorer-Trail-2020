@@ -10,6 +10,7 @@ export interface ResultDialogData {
   level: ChallengeLevel;
   challenge: Challenge;
   isCorrect: boolean;
+  hasNext: boolean;
 }
 
 @Component({
