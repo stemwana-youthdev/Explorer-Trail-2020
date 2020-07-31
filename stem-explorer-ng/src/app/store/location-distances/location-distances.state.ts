@@ -1,7 +1,7 @@
 import { StateToken, State, Selector, createSelector, Store, StateContext, Action } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { tap, switchMap, map } from 'rxjs/operators';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, zip } from 'rxjs';
 
 import { GeolocationService } from 'src/app/shared/services/geolocation.service';
 
@@ -51,7 +51,8 @@ export class LocationDistancesState {
     return createSelector(
       [LocationsState, LocationDistancesState],
       (locationId: number) => {
-        return state.locationDistances.find((d) => d.locationId === locationId)?.distance;
+        return state.locationDistances.find((d) => d.locationId === locationId)
+          ?.distance;
       }
     );
   }
@@ -65,13 +66,17 @@ export class LocationDistancesState {
       ctx.patchState({ watching: true });
       return combineLatest([
         this.store.select(LocationsState.locations),
-        this.geolocationService.location,
+        // geolocation observables will be synchronized
+        // so only fire once
+        zip(this.geolocationService.location, this.isInCBD$),
       ]).pipe(
-        switchMap(([locations, geolocation]) =>
+        switchMap(([locations, [geolocation, isInCBD]]) =>
           this.getDistanceMatrix({
             origins: [geolocation],
             destinations: locations.map((l) => l.position),
-            travelMode: google.maps.TravelMode.DRIVING,
+            travelMode: isInCBD
+              ? google.maps.TravelMode.WALKING
+              : google.maps.TravelMode.DRIVING,
           }).pipe(
             map((distanceMatrix) =>
               distanceMatrix.rows[0].elements.map((element, index) => ({
@@ -86,6 +91,26 @@ export class LocationDistancesState {
     }
   }
 
+  // CBD boundary according to
+  // https://www.tauranga.govt.nz/Portals/0/data/council/roads/files/tcc_road_categories_map.pdf
+  get isInCBD$() {
+    const cbd = new google.maps.LatLngBounds(
+      {
+        lat: -37.689038,
+        lng: 176.161683,
+      },
+      {
+        lat: -37.676751,
+        lng: 176.172378,
+      }
+    );
+
+    return this.geolocationService.location.pipe(
+      map((geolocation) => cbd.contains(geolocation))
+    );
+  }
+
+  // Observable wrapper for distanceMatrixService.getDistanceMatrix
   getDistanceMatrix(
     request: google.maps.DistanceMatrixRequest
   ): Observable<google.maps.DistanceMatrixResponse> {
