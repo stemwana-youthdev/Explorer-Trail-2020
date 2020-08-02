@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
 import { Observable, combineLatest, Subscription } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, take } from 'rxjs/operators';
 
 import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-levels.state';
 import { ChallengesState } from '../../store/challenges/challenges.state';
@@ -131,11 +131,13 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     }
 
     // Open another dialog
+    const hasNext = await this.getNextLevel() !== null;
     const resultDialog = this.dialog.open(ResultDialogComponent, {
       data: {
         level: currentLevel,
         challenge,
         isCorrect,
+        hasNext,
       },
       panelClass: 'app-dialog',
     });
@@ -144,17 +146,21 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     const dialogResult = await resultDialog.afterClosed().toPromise();
     // If the user clicked next level, switch to the next level
     if (dialogResult === 'next-level') {
-      this.nextLevel();
+      this.selectedLevel = (await this.getNextLevel()) ?? this.selectedLevel;
     }
   }
 
-  async nextLevel() {
-    const challengeLevels = await this.challengeLevels$.toPromise();
+  async getNextLevel() {
+    const challengeLevels = await this.challengeLevels$
+      .pipe(take(1))
+      .toPromise();
     const difficulties = challengeLevels.map((level) => level.difficulty);
     const higherLevels = difficulties.filter((d) => d > this.selectedLevel);
     const nextLevel = Math.min(...higherLevels);
     if (nextLevel < Infinity) {
-      this.selectedLevel = nextLevel;
+      return nextLevel;
+    } else {
+      return null;
     }
   }
 }
