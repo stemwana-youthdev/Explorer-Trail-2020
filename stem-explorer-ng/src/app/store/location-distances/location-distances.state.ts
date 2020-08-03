@@ -1,7 +1,7 @@
 import { StateToken, State, Selector, createSelector, Store, StateContext, Action } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { tap, switchMap, map } from 'rxjs/operators';
-import { combineLatest, Observable, zip } from 'rxjs';
+import { tap, switchMap, map, throttle, filter, throttleTime } from 'rxjs/operators';
+import { combineLatest, Observable, interval, of } from 'rxjs';
 
 import { GeolocationService } from 'src/app/shared/services/geolocation.service';
 
@@ -66,11 +66,12 @@ export class LocationDistancesState {
       ctx.patchState({ watching: true });
       return combineLatest([
         this.store.select(LocationsState.locations),
-        // geolocation observables will be synchronized
-        // so only fire once
-        zip(this.geolocationService.location, this.isInCBD$),
+        this.geolocationService.location,
+        this.isInCBD$,
       ]).pipe(
-        switchMap(([locations, [geolocation, isInCBD]]) =>
+        filter(([locations]) => locations.length > 0),
+        throttleTime(10000, undefined, { leading: true, trailing: true }),
+        switchMap(([locations, geolocation, isInCBD]) =>
           this.getDistanceMatrix({
             origins: [geolocation],
             destinations: locations.map((l) => l.position),
@@ -115,14 +116,17 @@ export class LocationDistancesState {
     request: google.maps.DistanceMatrixRequest
   ): Observable<google.maps.DistanceMatrixResponse> {
     return new Observable((subscriber) => {
-      this.distanceMatrixService.getDistanceMatrix(request, (response, status) => {
-        if (status === 'OK') {
-          subscriber.next(response);
-        } else {
-          subscriber.error(status);
+      this.distanceMatrixService.getDistanceMatrix(
+        request,
+        (response, status) => {
+          if (status === 'OK') {
+            subscriber.next(response);
+          } else {
+            subscriber.error(status);
+          }
+          subscriber.complete();
         }
-        subscriber.complete();
-      });
+      );
     });
   }
 }
