@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
 import { ApiService } from './services/api.service';
 import { MaterialModule } from './material.module';
-import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { LargeDistancePipe } from './pipes/large-distance.pipe';
@@ -22,7 +21,6 @@ import { GeolocationService } from './services/geolocation.service';
 
 @NgModule({
   declarations: [
-    NavTabsComponent,
     TruncatePipe,
     FilterPipe,
     LargeDistancePipe,
@@ -47,7 +45,6 @@ import { GeolocationService } from './services/geolocation.service';
     GeolocationService,
   ],
   exports: [
-    NavTabsComponent,
     TruncatePipe,
     FilterPipe,
     LargeDistancePipe,
