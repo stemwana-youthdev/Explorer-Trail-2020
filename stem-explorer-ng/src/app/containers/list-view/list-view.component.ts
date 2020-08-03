@@ -5,12 +5,18 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
+import { LocationsState } from 'src/app/store/locations/locations.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
+import { LoadLocationsData } from '../../store/locations/locations.actions';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 
 import { Challenge } from '../../shared/models/challenge';
+import { Location } from '../../shared/models/location';
 
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { Categories } from 'src/app/shared/enums/categories.enum';
+import { WatchLocationDistances } from 'src/app/store/location-distances/location-distances.actions';
+import { LocationDistance, LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
 
 /*
 * Component to show the challenges in a list view
@@ -23,6 +29,13 @@ import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.c
 export class ListViewComponent implements OnInit {
   @Select(ChallengesState.challenges) public challenges$: Observable<Challenge[]>;
   @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
+  @Select(LocationsState.locations) public locations$: Observable<Location[]>;
+  @Select(LocationDistancesState.locationDistances) public locationDistances$: Observable<LocationDistance[]>;
+
+  challenges: Challenge[] = [];
+  locations: Location[] = [];
+  Categories: any = Categories;
+  filter = [0, 1, 2, 3];
 
   constructor(
     private store: Store,
@@ -31,6 +44,8 @@ export class ListViewComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadChallengesData());
+    this.store.dispatch(new LoadLocationsData());
+    this.store.dispatch(new WatchLocationDistances());
     this.store.dispatch(new VisitedHomepage());
   }
 

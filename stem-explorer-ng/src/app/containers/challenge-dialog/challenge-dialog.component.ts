@@ -3,17 +3,19 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LocationsState } from '../../store/locations/locations.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadLocationsData } from '../../store/locations/locations.actions';
+import { WatchLocationDistances } from '../../store/location-distances/location-distances.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
 
 import { Categories } from '../../shared/enums/categories.enum';
+import { LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
 
 
 interface ChallengeDialogData {
@@ -41,6 +43,7 @@ export class ChallengeDialogComponent implements OnInit {
   ngOnInit()  {
     this.store.dispatch(new LoadChallengesData());
     this.store.dispatch(new LoadLocationsData());
+    this.store.dispatch(new WatchLocationDistances());
   }
 
   get challenge$(): Observable<Challenge> {
@@ -58,6 +61,16 @@ export class ChallengeDialogComponent implements OnInit {
   get location$(): Observable<Location> {
     return this.store.select(LocationsState.challengeLocation).pipe(
       map((fn) => fn(this.data.challengeId)),
+    );
+  }
+
+  get locationDistance$(): Observable<number> {
+    return this.location$.pipe(
+      switchMap((location) =>
+        this.store
+          .select(LocationDistancesState.locationDistance)
+          .pipe(map((fn) => fn(location.uid)))
+      )
     );
   }
 

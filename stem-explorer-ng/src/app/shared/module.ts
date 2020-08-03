@@ -7,6 +7,7 @@ import { ApiService } from './services/api.service';
 import { MaterialModule } from './material.module';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { LargeDistancePipe } from './pipes/large-distance.pipe';
 import { FabComponent } from './components/fab/fab.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ChallengeTitleComponent } from './components/challenge-title/challenge-title.component';
@@ -16,11 +17,13 @@ import { InputComponent } from './components/input/input.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { StemColorsService } from './services/stem-colors.service';
 import { CardComponent } from './components/card/card.component';
+import { GeolocationService } from './services/geolocation.service';
 
 @NgModule({
   declarations: [
     TruncatePipe,
     FilterPipe,
+    LargeDistancePipe,
     FabComponent,
     ButtonComponent,
     CardComponent,
@@ -39,10 +42,12 @@ import { CardComponent } from './components/card/card.component';
   providers: [
     ApiService,
     StemColorsService,
+    GeolocationService,
   ],
   exports: [
     TruncatePipe,
     FilterPipe,
+    LargeDistancePipe,
     FabComponent,
     ButtonComponent,
     CardComponent,
