@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Categories } from '../../enums/categories.enum';
+import { StemColorsService } from '../../services/stem-colors.service';
 
 @Component({
   selector: 'app-challenge-title',
@@ -8,18 +9,14 @@ import { Categories } from '../../enums/categories.enum';
 })
 export class ChallengeTitleComponent {
 
-  @Input() category: number;
-  colors = [
-    {category: Categories.Science, color: 'green'},
-    {category: Categories.Technology, color: 'blue'},
-    {category: Categories.Engineering, color: 'orange'},
-    {category: Categories.Maths, color: 'purple'}
-  ];
+  @Input() category: Categories;
 
-  constructor() { }
+  constructor(
+    private stemColors: StemColorsService,
+  ) { }
 
   get color() {
-    return this.colors.find(l => l.category === this.category)?.color;
+    return this.stemColors.getColor(this.category);
   }
 
 }

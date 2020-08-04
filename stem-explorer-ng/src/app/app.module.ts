@@ -1,28 +1,27 @@
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { FormsModule } from '@angular/forms';
+
 import { AppRoutingModule } from './app-routing.module';
+import { ConfigModule } from './config/config.module';
+import { StoreModule } from './store/store.module';
+import { SharedModule } from './shared/module';
+import { MaterialModule } from './shared/material.module';
+
 import { AppComponent } from './app.component';
 import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
-import { ListViewDialogComponent } from './components/list-view-dialog/list-view-dialog.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
-import { ConfigModule } from './config/config.module';
 import { HomePageComponent } from './containers/home-page/home-page.component';
 import { ListViewComponent } from './containers/list-view/list-view.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { MapComponent } from './containers/map/map.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
-import { AuthModule } from './shared/auth/auth.module';
-import { NavTabsComponent } from './shared/components/nav-tabs/nav-tabs.component';
-import { MaterialModule } from './shared/material.module';
-import { FilterPipe } from './shared/pipes/filter.pipe';
-import { TruncatePipe } from './shared/pipes/truncate.pipe';
-import { ApiService } from './shared/services/api.service';
-import { ChallengeViewComponent } from './components/challenge-view/challenge-view.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChallengeDialogComponent } from './containers/challenge-dialog/challenge-dialog.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
+import { ToolbarComponent } from './containers/toolbar/toolbar.component';
 import { CameraComponent } from './containers/camera/camera.component';
 import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -30,17 +29,11 @@ import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
-import { FabComponent } from './shared/components/fab/fab.component';
-import { FabContainerComponent } from './shared/components/fab-container/fab-container.component';
-import { ButtonComponent } from './shared/components/button/button.component';
-import { CategoryButtonComponent } from './shared/components/category-button/category-button.component';
-import { CategoryCardComponent } from './shared/components/category-card/category-card.component';
-import { ChallengeTitleComponent } from './shared/components/challenge-title/challenge-title.component';
-import { DialogComponent } from './shared/components/dialog/dialog.component';
-import { CategoryDialogComponent } from './shared/components/category-dialog/category-dialog.component';
-import { ContactInfoComponent } from './shared/components/contact-info/contact-info.component';
-import { FormFieldComponent } from './shared/components/form-field/form-field.component';
-import { CategoryFormFieldComponent } from './shared/components/category-form-field/category-form-field.component';
+import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
+import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
+import { ChallengeListComponent } from './components/challenge-list/challenge-list.component';
+import { ChallengeFilterComponent } from './containers/challenge-filter/challenge-filter.component';
+import { ChallengeMapComponent } from './components/challenge-map/challenge-map.component';
 
 @NgModule({
   declarations: [
@@ -50,12 +43,9 @@ import { CategoryFormFieldComponent } from './shared/components/category-form-fi
     MapComponent,
     RegisterPageComponent,
     ListViewComponent,
-    NavTabsComponent,
-    ListViewDialogComponent,
-    TruncatePipe,
+    ChallengeDialogComponent,
     SplashScreenComponent,
     FilterButtonsComponent,
-    FilterPipe,
     ChallengeViewComponent,
     ToolbarComponent,
     CameraComponent,
@@ -63,36 +53,30 @@ import { CategoryFormFieldComponent } from './shared/components/category-form-fi
     DrawerComponent,
     HintDialogComponent,
     AnswerDialogComponent,
-    FabComponent,
-    FabContainerComponent,
-    ButtonComponent,
-    CategoryButtonComponent,
-    CategoryCardComponent,
-    ChallengeTitleComponent,
-    DialogComponent,
-    CategoryDialogComponent,
-    ContactInfoComponent,
-    FormFieldComponent,
-    CategoryFormFieldComponent,
+    ResultDialogComponent,
+    ChallengeDetailsComponent,
+    ChallengeListComponent,
+    ChallengeFilterComponent,
+    ChallengeMapComponent,
   ],
   imports: [
     GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
-    AuthModule,
     ConfigModule,
-    HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule,
     ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    FormsModule,
+    StoreModule,
+    SharedModule,
+    MaterialModule,
   ],
   entryComponents: [
-    ListViewDialogComponent,
+    ChallengeDialogComponent,
     SplashScreenComponent,
     HintDialogComponent
   ],
-  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

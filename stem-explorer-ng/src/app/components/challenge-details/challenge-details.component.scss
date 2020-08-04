@@ -1,0 +1,28 @@
+@use 'src/app/variables' as *;
+
+.challenge-details {
+  padding: 20px;
+  position: relative;
+}
+
+.challenge-header {
+  background-color: white;
+  border-bottom: solid;
+  border-color: tint(10%, $primary-black);
+  margin-left: -20px;
+  padding: 22px 0px 10px 20px;
+  position: fixed;
+  top: 56px;
+  width: 100%;
+}
+
+#top-element {
+  margin-top: 55px;
+}
+
+.arrow {
+  position: relative;
+  float: right;
+  top: -25px;
+  font-size: 2rem;
+}

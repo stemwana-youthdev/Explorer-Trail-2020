@@ -41,6 +41,13 @@ h1, h2 {
 }
 h3, h4, h5, h6, b, strong {
   @include typeface-sub-heading;
+  margin-bottom: 0.2rem;
+}
+h3 {
+  margin-top: 0;
+}
+h4, p{
+  margin-top: 0.5rem;
 }
 i, em {
   @include typeface-accent;
@@ -80,11 +87,15 @@ i, em {
 }
 
 .mat-toolbar {
-  position: fixed;
-  top: 0px;
-  z-index: 99;
+  background-color: white;
+  border-bottom: solid;
+  border-color: tint(20%, $primary-black);
 }
 
-body {
-  padding-top: 57px;
+.mat-drawer-container {
+  background-color: white;
+}
+
+.app-dialog .mat-dialog-content {
+  max-height: none;
 }

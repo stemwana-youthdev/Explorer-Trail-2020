@@ -11,8 +11,8 @@
 .close-button {
     position: absolute;
     display: block;
-    right: -17px;
-    top: 5px;
+    right: -12px;
+    top: 12px;
 }
 
 .mat-icon-button ::ng-deep .mat-button-focus-overlay {
@@ -23,8 +23,17 @@
     position: relative;
 }
 
+.close-button.inverted {
+    visibility: hidden;
+}
+
 @mixin coloured-dialog($color) {
     border-color: $color;
+
+    &.inverted {
+        background-color: $color;
+        color: white;
+    }
 }
 
 .mat-dialog-content.green {

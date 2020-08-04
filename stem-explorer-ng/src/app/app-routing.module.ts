@@ -4,7 +4,7 @@ import { HomePageComponent } from './containers/home-page/home-page.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
 import { ListViewComponent } from './containers/list-view/list-view.component';
-import { ChallengeViewComponent } from './components/challenge-view/challenge-view.component';
+import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
 
 
 const routes: Routes = [

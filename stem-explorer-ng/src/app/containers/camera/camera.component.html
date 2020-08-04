@@ -1,2 +1,9 @@
-<zxing-scanner></zxing-scanner>
-<button mat-button mat-dialog-close>Close Camera</button>
+<p *ngIf="isLoading">Loading camera...</p>
+<p *ngIf="error">{{ error.message }}</p>
+
+<zxing-scanner (scanSuccess)="scanSuccess($event)" (permissionResponse)="permissionResponse($event)" (camerasFound)="camerasFound()"
+  (camerasNotFound)="camerasNotFound()"></zxing-scanner>
+
+<button mat-icon-button mat-dialog-close>
+  <mat-icon>close</mat-icon>
+</button>

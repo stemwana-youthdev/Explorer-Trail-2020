@@ -2,14 +2,21 @@
 
 :host {
   display: block;
-  padding: 0;
+  padding-bottom: 1rem;
 }
 
 :host > div {
   color: white;
   background-color: tint(80%, $primary-black);
   padding: 1rem;
-  font-weight: bold;
+}
+
+::ng-deep .mat-select-arrow {
+  visibility: hidden;
+}
+
+::ng-deep .mat-select {
+  font-weight: 100;
 }
 
 @mixin coloured-field($color) {

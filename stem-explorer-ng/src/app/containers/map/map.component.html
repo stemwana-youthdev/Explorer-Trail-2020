@@ -1,24 +1,9 @@
-<app-filter-buttons (data)="this.filter=$event"></app-filter-buttons>
-
-<google-map
-  [center]="center"
-  [zoom]="zoom"
-  height="100%"
-  width="100%"
-  [options]="options">
-  <span *ngIf="locations">
-    
-    <map-marker
-      #markerElem
-      *ngFor="let marker of (locations | filter:this.filter)"
-      [position]="marker.position"
-      [title]="marker.name"
-      (mapClick)="openInfo(markerElem, marker)">
-    </map-marker>
-  </span>
-  <!-- [options]="{ icon: getIconForMarker(marker) }" -->
-
-    <map-info-window>
-        <h2>{{ locationName }}</h2>
-    </map-info-window>
-</google-map>
+<app-challenge-map
+  class="challenge-map"
+  [locations]="locations$ | async"
+  [filter]="filter$ | async"
+  watchGeolocation="true"
+  (challengeLocationClick)="onChallengeLocationClick($event)"
+  (infoLocationClick)="onInfoLocationClick($event)"
+>
+</app-challenge-map>
