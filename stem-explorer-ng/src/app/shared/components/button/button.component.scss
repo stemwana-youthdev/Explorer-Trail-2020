@@ -9,6 +9,11 @@ button.mat-flat-button {
     font-weight: bold;
 }
 
+button {
+    max-width: 768px !important;
+    text-align: center;
+}
+
 @mixin coloured-button($color) {
     color: white;
     border-radius: 0;

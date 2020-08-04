@@ -26,3 +26,21 @@
   top: -25px;
   font-size: 2rem;
 }
+
+app-form-field {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+  max-width: 768px;
+  z-index: -1;
+}
+
+@media only screen and (min-width: 768px) {
+  * {
+    text-align: center;
+  }
+}
+
+.antiOverlay {
+  width: 100%;
+}
