@@ -31,15 +31,4 @@ export class GeolocationService {
       }
     );
   }
-
-  distanceTo(location: LatLng) {
-    return this.location.pipe(
-      map((geolocation) =>
-        google.maps.geometry.spherical.computeDistanceBetween(
-          new google.maps.LatLng(geolocation),
-          new google.maps.LatLng(location)
-        )
-      )
-    );
-  }
 }

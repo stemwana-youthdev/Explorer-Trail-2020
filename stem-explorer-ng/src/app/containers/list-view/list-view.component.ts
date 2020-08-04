@@ -8,6 +8,7 @@ import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LocationsState } from 'src/app/store/locations/locations.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadLocationsData } from '../../store/locations/locations.actions';
+import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
@@ -45,6 +46,7 @@ export class ListViewComponent implements OnInit {
     this.store.dispatch(new LoadChallengesData());
     this.store.dispatch(new LoadLocationsData());
     this.store.dispatch(new WatchLocationDistances());
+    this.store.dispatch(new VisitedHomepage());
   }
 
   get sortedChallenges$(): Observable<Challenge[]> {

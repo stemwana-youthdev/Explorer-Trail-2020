@@ -3,7 +3,16 @@
   flex-direction: column;
   height: 100%;
 
-  mat-drawer-container {
+  app-drawer {
     flex: 1;
+    min-height: 0;
   }
+}
+
+.padding {
+  padding-bottom: 72px;
+}
+
+.full-height {
+  height: 100%;
 }
