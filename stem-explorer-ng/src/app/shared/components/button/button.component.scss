@@ -14,12 +14,6 @@ button {
     text-align: center;
 }
 
-@media only screen and (min-width: 768px) {
-    button {
-        text-align: center;
-    }
-}
-
 @mixin coloured-button($color) {
     color: white;
     border-radius: 0;
