@@ -5,11 +5,12 @@ import { Location } from '../../shared/models/location';
 import { Categories } from '../../shared/enums/categories.enum';
 import { LocationDistance } from '../../store/location-distances/location-distances.state';
 
+type ChallengeWithDistance = Challenge & { locationDistance: number };
 
 @Component({
   selector: 'app-challenge-list',
   templateUrl: './challenge-list.component.html',
-  styleUrls: ['./challenge-list.component.scss']
+  styleUrls: ['./challenge-list.component.scss'],
 })
 export class ChallengeListComponent implements OnInit {
   @Input() challenges: Challenge[];
@@ -28,10 +29,9 @@ export class ChallengeListComponent implements OnInit {
     [Categories.Maths]: '/assets/icons/purple point.svg',
   };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onItemClick(challenge: Challenge) {
     this.itemClick.emit(challenge);
@@ -41,17 +41,16 @@ export class ChallengeListComponent implements OnInit {
     return this.icons[category];
   }
 
-  getLocationIdForChallenge(challenge: Challenge) {
-    return this.locations.find(
-      (location) => location.challengeid === challenge.uid
-    )?.uid;
-  }
-
   getLocationDistance(challenge: Challenge) {
-    const locationId = this.getLocationIdForChallenge(challenge);
     return this.locationDistances.find(
-      (distance) => distance.locationId === locationId
+      (distance) => distance.locationId === challenge.locationId
     )?.distance;
   }
 
+  get challengesWithDistances(): ChallengeWithDistance[] {
+    return this.challenges.map((challenge) => ({
+      ...challenge,
+      locationDistance: this.getLocationDistance(challenge),
+    }));
+  }
 }
