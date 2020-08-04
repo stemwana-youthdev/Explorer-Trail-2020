@@ -1,6 +1,7 @@
 <app-card
   *ngFor="let challenge of (challenges | filter:this.filter)"
   [category]="challenge.category"
+  (click)="onItemClick(challenge)"
 >
   <app-challenge-title [category]="challenge.category">
     <img class="marker-icon" [src]="getMarkerIconForCategory(challenge.category)">
@@ -9,7 +10,4 @@
   </app-challenge-title>
   <h4>{{Categories[challenge.category]}}</h4>
   <p>{{challenge.description | truncate:50}}</p>
-  <span class="material-icons open-challenge-dialogue" (click)="onItemClick(challenge)">
-      open_in_new
-  </span>
 </app-card>
