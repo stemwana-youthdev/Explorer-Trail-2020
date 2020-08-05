@@ -59,13 +59,16 @@ export class ChallengeDialogComponent implements OnInit {
   }
 
   get location$(): Observable<Location> {
-    return this.challenge$.pipe(
-      switchMap((challenge) =>
-        this.store
-          .select(LocationsState.location)
-          .pipe(map((fn) => fn(challenge.locationId)))
-      )
+    return this.store.select(LocationsState.challengeLocation).pipe(
+      map((fn) => fn(this.data.challengeId)),
     );
+    // return this.challenge$.pipe(
+    //   switchMap((challenge) =>
+    //     this.store
+    //       .select(LocationsState.location)
+    //       .pipe(map((fn) => fn(challenge.locationId)))
+    //   )
+    // );
   }
 
   get locationDistance$(): Observable<number> {
