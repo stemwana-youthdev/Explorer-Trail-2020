@@ -1,6 +1,6 @@
 export enum Levels {
-    'Level One' = 1,
-    'Level Two' = 2,
-    'Level Three' = 3,
-    'Level Four' = 4
+    'Level 1' = 1,
+    'Level 2' = 2,
+    'Level 3' = 3,
+    'Level 4' = 4
 }
