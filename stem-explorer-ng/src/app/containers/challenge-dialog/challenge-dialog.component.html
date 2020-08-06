@@ -19,6 +19,7 @@
       [category]="category$ | async"
       icon="language"
       label="View Website"
+      aria-label="Website"
     ></app-contact-info>
     <br><br>
 
@@ -26,6 +27,7 @@
       mat-dialog-close
       [category]="category$ | async"
       (click)="goToChallenge()"
+      aria-label="Start challenge"
     >
       Start Challenge
     </app-button>

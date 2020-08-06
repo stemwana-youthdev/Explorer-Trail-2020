@@ -1,11 +1,11 @@
 <mat-toolbar>
-  <button mat-icon-button (click)="drawer.toggle()">
+  <button mat-icon-button (click)="drawer.toggle()" aria-label="Navigation">
     <mat-icon>more_vert</mat-icon>
   </button>
   
-  <span class="fill-remaining-space"><img src="../../../assets/logo.png" class="logo" (click)="navigateToHome()"/></span>
+  <span class="fill-remaining-space"><img src="../../../assets/logo.png" aria-label="Home" class="logo" (click)="navigateToHome()"/></span>
   
-  <button mat-button *ngIf="!(isLoggedIn | async); else loggedInBlock" (click)="navigateToLogin()">Log In</button>
+  <button mat-button *ngIf="!(isLoggedIn | async); else loggedInBlock" (click)="navigateToLogin()" aria-label="Log in">Log In</button>
   
   <ng-template #loggedInBlock>
     <button mat-icon-button [matMenuTriggerFor]="profileMenu">
@@ -13,7 +13,7 @@
     </button>
   
     <mat-menu #profileMenu="matMenu">
-      <button mat-menu-item (click)="logout()">Log Out</button>
+      <button mat-menu-item (click)="logout()" aria-label="Log out">Log Out</button>
     </mat-menu>
   </ng-template>
 </mat-toolbar>
