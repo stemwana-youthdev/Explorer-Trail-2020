@@ -1,3 +1,4 @@
+using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,38 @@ namespace StemExplorerAPI.Controllers
 {
     [Route("api/User")]
     [ApiController]
-    [Authorize]
     public class UserContoller : ControllerBase
     {
-        [HttpGet("GetTokenInfo")]
-        public async Task<string> GetTokenInfo()
+        private IUserService _userService;
+
+        private string userId
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            return String.Join(',', identity.Claims);
+            get
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                return identity.FindFirst("user_id").Value;
+            }
+        }
+
+        public UserContoller(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [HttpGet("GetCurrentUser")]
+        [Authorize]
+        public async Task<UserDto> GetCurrentUser()
+        {
+            return await _userService.GetUser(userId);
+        }
+
+        [HttpPost("RegisterUser")]
+        [Authorize]
+        public async Task<UserDto> RegisterUser(UserDto userInfo)
+        {
+            // Use the user's actual userId
+            userInfo.Id = userId;
+            return await _userService.CreateUser(userInfo);
         }
     }
 }
