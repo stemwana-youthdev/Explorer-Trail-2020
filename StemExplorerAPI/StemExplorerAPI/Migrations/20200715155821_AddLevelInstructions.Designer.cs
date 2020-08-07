@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StemExplorerAPI.Models;
@@ -9,9 +10,10 @@ using StemExplorerAPI.Models;
 namespace StemExplorerAPI.Migrations
 {
     [DbContext(typeof(StemExplorerContext))]
-    partial class StemExplorerContextModelSnapshot : ModelSnapshot
+    [Migration("20200715155821_AddLevelInstructions")]
+    partial class AddLevelInstructions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,9 +85,6 @@ namespace StemExplorerAPI.Migrations
 
                     b.Property<int>("Difficulty")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Hint")
-                        .HasColumnType("text");
 
                     b.Property<string>("Instructions")
                         .HasColumnType("text");

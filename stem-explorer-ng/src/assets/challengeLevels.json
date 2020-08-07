@@ -19,7 +19,7 @@
           }
         ],
         "challengeId": 1,
-        "hint": "hint for days of the week level 1"
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 2,
@@ -40,7 +40,7 @@
           }
         ],
         "challengeId": 1,
-        "hint": "hint for days of the week level 2"
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 3,
@@ -61,7 +61,7 @@
           }
         ],
         "challengeId": 1,
-        "hint": ""
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 4,
@@ -82,7 +82,7 @@
           }
         ],
         "challengeId": 1,
-        "hint": "hint for days of the week level 4"
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 5,
@@ -98,7 +98,7 @@
           }
         ],
         "challengeId": 2,
-        "hint": ""
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 6,
@@ -129,7 +129,7 @@
           }
         ],
         "challengeId": 3,
-        "hint": "Hint for biscuits biscuits biscuits level 4"
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 7,
@@ -145,7 +145,7 @@
           }
         ],
         "challengeId": 4,
-        "hint": "Hint for what does STEM level 1"
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 8,
@@ -166,7 +166,7 @@
           }
         ],
         "challengeId": 4,
-        "hint": ""
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 9,
@@ -182,7 +182,7 @@
           }
         ],
         "challengeId": 4,
-        "hint": "Hint for STEM level 3"
+        "hint": "Hint goes here testing..."
       },
       {
         "uid": 10,
@@ -208,9 +208,7 @@
           }
         ],
         "challengeId": 4,
-        "hint": "Hint for STEM level 4"
+        "hint": "Hint goes here testing..."
       }
-      
-      
     ]
-  }
+}

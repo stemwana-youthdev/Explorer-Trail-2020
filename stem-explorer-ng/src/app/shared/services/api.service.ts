@@ -37,31 +37,28 @@ export class ApiService {
     );
   }
 
-  getChallenge(uid) {
-    return this.http.get('assets/locations.json');
+  getChallenge(uid: number) {
+    // TODO: replace with own endpoint
+    return this.getChallenges().pipe(
+      map(({ challenges }) => challenges.find((c) => c.uid === uid))
+    );
   }
 
   getChallengeLevels() {
-    return this.http.get<ChallengeLevels>('assets/challengeLevels.json');
+    return this.http.get<ChallengeLevels>(
+      `${this.apiEndpoint}/ChallengeLevel/GetLevels`
+    );
   }
 
   validateAnswer(levelUid: number, answer: string) {
-    // TODO: replace with dedicated API call
-    return this.getChallengeLevels().pipe(
-      map((levels) => {
-        const level = levels.challengeLevels.find((l) => l.uid === levelUid);
-        if (!level) {
-          return false;
-        }
-
-        for (const possibleAnswer of level.possibleAnswers) {
-          if (possibleAnswer.answerText.toLowerCase().trim() === answer.toLowerCase().trim()) {
-            return possibleAnswer.isCorrect;
-          }
-        }
-
-        return false;
-      }),
+    return this.http.post(
+      `${this.apiEndpoint}/ChallengeLevel/ValidateAnswer/${levelUid}`,
+      JSON.stringify(answer),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
     );
   }
 
