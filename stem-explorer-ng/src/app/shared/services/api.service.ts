@@ -44,16 +44,16 @@ export class ApiService {
     );
   }
 
-  getChallengeLevels(challengeId: number) {
+  getChallengeLevels() {
     return this.http.get<ChallengeLevels>(
-      `${this.apiEndpoint}/ChallengeLevel/GetLevels/${challengeId}`
+      `${this.apiEndpoint}/ChallengeLevel/GetLevels`
     );
   }
 
   validateAnswer(levelUid: number, answer: string) {
     return this.http.post(
       `${this.apiEndpoint}/ChallengeLevel/ValidateAnswer/${levelUid}`,
-      `"${answer}"`,
+      JSON.stringify(answer),
       {
         headers: {
           'Content-Type': 'application/json',
