@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-filter-buttons',
@@ -6,6 +6,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./filter-buttons.component.scss']
 })
 export class FilterButtonsComponent implements OnInit {
+  @Input() filter: number[];
 
   @Output() data: EventEmitter<string[]> = new EventEmitter<string[]>();
 
@@ -14,7 +15,7 @@ export class FilterButtonsComponent implements OnInit {
     {category: 'T', value: 1, colorClass: 'blue'},
     {category: 'E', value: 2, colorClass: 'orange'},
     {category: 'M', value: 3, colorClass: 'purple'}
-    ];
+  ];
 
   change(value) {
     this.data.emit(value);

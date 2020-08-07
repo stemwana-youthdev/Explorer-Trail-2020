@@ -1,10 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/shared/services/api.service';
-import { Categories } from '../../shared/enums/categories.enum';
-import { Challenge } from '../../shared/models/challenge';
 import { MatDialog } from '@angular/material/dialog';
-import { ListViewDialogComponent } from '../../components/list-view-dialog/list-view-dialog.component';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+import { ChallengesState } from '../../store/challenges/challenges.state';
+import { LocationsState } from 'src/app/store/locations/locations.state';
+import { LoadChallengesData } from '../../store/challenges/challenges.actions';
+import { LoadLocationsData } from '../../store/locations/locations.actions';
+import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
+
+import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
+
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { Categories } from 'src/app/shared/enums/categories.enum';
+import { WatchLocationDistances } from 'src/app/store/location-distances/location-distances.actions';
+import { LocationDistance, LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
 
 /*
 * Component to show the challenges in a list view
@@ -15,53 +27,49 @@ import { Location } from '../../shared/models/location';
   styleUrls: ['./list-view.component.scss']
 })
 export class ListViewComponent implements OnInit {
+  @Select(ChallengesState.challenges) public challenges$: Observable<Challenge[]>;
+  @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
+  @Select(LocationsState.locations) public locations$: Observable<Location[]>;
+  @Select(LocationDistancesState.locationDistances) public locationDistances$: Observable<LocationDistance[]>;
 
   challenges: Challenge[] = [];
   locations: Location[] = [];
   Categories: any = Categories;
   filter = [0, 1, 2, 3];
 
-  constructor(private service: ApiService, public dialog: MatDialog) {
-   }
+  constructor(
+    private store: Store,
+    public dialog: MatDialog,
+  ) { }
 
-  /*
-  * Gets an array of challenges in alphabetical order from the API service
-  */
-  getChallenges() {
-    this.service.getChallenges().subscribe((res) => {
-      this.challenges = res.challenges;
-      this.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1);
-      });
+  ngOnInit() {
+    this.store.dispatch(new LoadChallengesData());
+    this.store.dispatch(new LoadLocationsData());
+    this.store.dispatch(new WatchLocationDistances());
+    this.store.dispatch(new VisitedHomepage());
   }
 
-  /*
-  * Gets an array of locations from the API service
-  */
-  getLocations() {
-    this.service.getLocations().subscribe((res) => {
-      this.locations = res.location;
-    });
+  get sortedChallenges$(): Observable<Challenge[]> {
+    return this.challenges$.pipe(
+      startWith([]),
+      map((challenges) => challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)),
+    );
   }
 
+  onItemClick(challenge: Challenge) {
+    this.openChallengeDialog(challenge);
+  }
 
   /*
   * Opens the dialog for the given challenge
   */
-  openDialog(challenge: Challenge) {
-    const location: Location | undefined = this.locations.find(l => l.uid === challenge.uid);
-    this.dialog.open(ListViewDialogComponent, {
+  private openChallengeDialog(challenge: Challenge) {
+    this.dialog.open(ChallengeDialogComponent, {
       data: {
-        challenge,
-        name: location?.name,
-        link: location?.link
+        challengeId: challenge.uid,
       },
       panelClass: 'app-dialog',
     });
-  }
-
-  ngOnInit() {
-    this.getChallenges();
-    this.getLocations();
   }
 
 }
