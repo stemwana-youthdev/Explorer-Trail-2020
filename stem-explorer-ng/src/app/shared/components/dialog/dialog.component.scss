@@ -1,0 +1,58 @@
+@use 'src/app/variables' as *;
+
+.mat-dialog-content {
+    border-radius: 0;
+    border-width: 3px;
+    border-style: solid;
+    padding: 20px;
+    border-color: white;
+}
+
+.close-button {
+    position: absolute;
+    display: block;
+    right: -12px;
+    top: 12px;
+}
+
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+}
+
+.dialog-position {
+    position: relative;
+}
+
+.close-button.inverted {
+    visibility: hidden;
+}
+
+@mixin coloured-dialog($color) {
+    border-color: $color;
+
+    &.inverted {
+        background-color: $color;
+        color: white;
+    }
+}
+
+.mat-dialog-content.green {
+    @include coloured-dialog($primary-green)
+}
+
+.mat-dialog-content.blue {
+    @include coloured-dialog($primary-blue)
+}
+
+.mat-dialog-content.orange {
+    @include coloured-dialog($primary-orange)
+}
+
+.mat-dialog-content.purple {
+    @include coloured-dialog($primary-purple)
+}
+
+.mat-dialog-content.pink {
+    @include coloured-dialog($secondary-pink)
+}
+

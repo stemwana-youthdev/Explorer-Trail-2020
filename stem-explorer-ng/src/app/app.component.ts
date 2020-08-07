@@ -24,10 +24,18 @@ export class AppComponent {
     );
   }
 
-  get isHomePage() {
+  get isMap() {
     return this.currentUrl.pipe(
-      map((url) => url === '/' || url === '/list-view'),
+      map((url) => url === '/'),
     );
+  }
+
+  navigateToList() {
+    this.router.navigateByUrl('/list-view');
+  }
+
+  navigateToMap() {
+    this.router.navigateByUrl('/');
   }
 
 }

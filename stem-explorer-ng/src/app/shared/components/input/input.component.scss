@@ -1,0 +1,19 @@
+@use 'src/app/variables' as *;
+
+input {
+  @include typeface-body;
+  font-size: inherit;
+  line-height: 36px;
+
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+  padding: 0.5rem;
+
+  outline: none;
+  border: 3px solid $primary-black;
+
+  &.red {
+    border-color: $secondary-red;
+  }
+}

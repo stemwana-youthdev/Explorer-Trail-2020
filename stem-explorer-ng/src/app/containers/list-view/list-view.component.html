@@ -1,11 +1,13 @@
-<app-filter-buttons (data)="this.filter=$event"></app-filter-buttons>
+<app-challenge-filter></app-challenge-filter>
+<app-challenge-list
+  [challenges]="challenges$ | async"
+  [locations]="locations$ | async"
+  [locationDistances]="locationDistances$ | async"
+  [filter]="filter$ | async"
+  (itemClick)="onItemClick($event)"
+>
+</app-challenge-list>
 
-<mat-list *ngFor="let challenge of (challenges | filter:this.filter)">
-    <h3>{{challenge.title}}</h3>
-    <h4>{{Categories[challenge.category]}}</h4>
-    <p>{{challenge.description | truncate:50}}</p>
-    <span class="material-icons open-challenge-dialogue" (click) = "openDialog(challenge)">
-        open_in_new 
-    </span>
-    <mat-divider></mat-divider>
-</mat-list>
+<!-- Required by https://developers.google.com/maps/documentation/distance-matrix/policies#powered -->
+<img class="powered-by-google" src="/assets/powered_by_google_on_white.png" alt="powered by Google"
+  title="Distances calculated using Google Maps Platform">

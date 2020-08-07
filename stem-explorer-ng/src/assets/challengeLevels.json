@@ -5,80 +5,210 @@
         "questionText": "Is Monday a day of the week?",
         "difficulty": 1,
         "instructions": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-        "answer": "Yes",
-        "challengeId": 1
+        "answerType": 0,
+        "possibleAnswers": [
+          {
+            "uid": 12,
+            "answerText": "Yes",
+            "isCorrect": true
+          },
+          {
+            "uid": 13,
+            "answerText": "No",
+            "isCorrect": false
+          }
+        ],
+        "challengeId": 1,
+        "hint": "hint for days of the week level 1"
       },
       {
         "uid": 2,
         "questionText": "Is Tuesday a day of the week?",
         "difficulty": 2,
         "instructions": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-        "answer": "Yes",
-        "challengeId": 1
+        "answerType": 0,
+        "possibleAnswers": [
+          {
+            "uid": 14,
+            "answerText": "Yes",
+            "isCorrect": true
+          },
+          {
+            "uid": 15,
+            "answerText": "No",
+            "isCorrect": false
+          }
+        ],
+        "challengeId": 1,
+        "hint": "hint for days of the week level 2"
       },
       {
         "uid": 3,
         "questionText": "Is Wednesday a day of the week?",
         "difficulty": 3,
         "instructions": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        "answer": "Yes",
-        "challengeId": 1
+        "answerType": 0,
+        "possibleAnswers": [
+          {
+            "uid": 16,
+            "answerText": "Yes",
+            "isCorrect": true
+          },
+          {
+            "uid": 17,
+            "answerText": "No",
+            "isCorrect": false
+          }
+        ],
+        "challengeId": 1,
+        "hint": ""
       },
       {
         "uid": 4,
         "questionText": "Is Thursday a day of the week?",
         "difficulty": 4,
         "instructions": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-        "answer": "Yes",
-        "challengeId": 1
+        "answerType": 0,
+        "possibleAnswers": [
+          {
+            "uid": 18,
+            "answerText": "Yes",
+            "isCorrect": true
+          },
+          {
+            "uid": 19,
+            "answerText": "No",
+            "isCorrect": false
+          }
+        ],
+        "challengeId": 1,
+        "hint": "hint for days of the week level 4"
       },
       {
         "uid": 5,
         "questionText": "How many numbers are there before 10?",
         "difficulty": 1,
         "instructions": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
-        "answer": "10",
-        "challengeId": 2
+        "answerType": 1,
+        "possibleAnswers": [
+          {
+            "uid": 20,
+            "answerText": "10",
+            "isCorrect": true
+          }
+        ],
+        "challengeId": 2,
+        "hint": ""
       },
       {
         "uid": 6,
         "questionText": "What is the best type of biscuit?",
         "difficulty": 4,
         "instructions": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-        "answer": "Gingernuts",
-        "challengeId": 3
+        "answerType": 0,
+        "possibleAnswers": [
+          {
+            "uid": 1,
+            "answerText": "Shortbread",
+            "isCorrect": true
+          },
+          {
+            "uid": 2,
+            "answerText": "Gingernuts",
+            "isCorrect": false
+          },
+          {
+            "uid": 3,
+            "answerText": "Krispie",
+            "isCorrect": false
+          },
+          {
+            "uid": 4,
+            "answerText": "Wine",
+            "isCorrect": false
+          }
+        ],
+        "challengeId": 3,
+        "hint": "Hint for biscuits biscuits biscuits level 4"
       },
       {
         "uid": 7,
         "questionText": "What does S stand for in STEM?",
         "difficulty": 1,
         "instructions": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        "answer": "Science",
-        "challengeId": 4
+        "answerType": 2,
+        "possibleAnswers": [
+          {
+            "uid": 5,
+            "answerText": "Science",
+            "isCorrect": true
+          }
+        ],
+        "challengeId": 4,
+        "hint": "Hint for what does STEM level 1"
       },
       {
         "uid": 8,
         "questionText": "What does T stand for in STEM?",
         "difficulty": 2,
         "instructions": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-        "answer": "Technology",
-        "challengeId": 4
+        "answerType": 2,
+        "possibleAnswers": [
+          {
+            "uid": 6,
+            "answerText": "Technology",
+            "isCorrect": true
+          },
+          {
+            "uid": 7,
+            "answerText": "Tech",
+            "isCorrect": true
+          }
+        ],
+        "challengeId": 4,
+        "hint": ""
       },
       {
         "uid": 9,
         "questionText": "What does E stand for in STEM?",
         "difficulty": 3,
         "instructions": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-        "answer": "Engineering",
-        "challengeId": 4
+        "answerType": 2,
+        "possibleAnswers": [
+          {
+            "uid": 8,
+            "answerText": "Engineering",
+            "isCorrect": true
+          }
+        ],
+        "challengeId": 4,
+        "hint": "Hint for STEM level 3"
       },
       {
         "uid": 10,
         "questionText": "What does M stand for in STEM?",
         "difficulty": 4,
         "instructions": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        "answer": "Maths",
-        "challengeId": 4
+        "answerType": 2,
+        "possibleAnswers": [
+          {
+            "uid": 9,
+            "answerText": "Mathematics",
+            "isCorrect": true
+          },
+          {
+            "uid": 10,
+            "answerText": "Maths",
+            "isCorrect": true
+          },
+          {
+            "uid": 11,
+            "answerText": "Math",
+            "isCorrect": true
+          }
+        ],
+        "challengeId": 4,
+        "hint": "Hint for STEM level 4"
       }
       
       
