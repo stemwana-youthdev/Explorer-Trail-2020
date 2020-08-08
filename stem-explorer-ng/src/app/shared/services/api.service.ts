@@ -41,13 +41,6 @@ export class ApiService {
     );
   }
 
-  getChallenge(uid: number) {
-    // TODO: replace with own endpoint
-    return this.getChallenges().pipe(
-      map(({ challenges }) => challenges.find((c) => c.uid === uid))
-    );
-  }
-
   getChallengeLevels() {
     return this.http.get<ChallengeLevels>(
       `${this.apiEndpoint}/ChallengeLevel/GetLevels`
