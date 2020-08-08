@@ -26,22 +26,13 @@ namespace StemExplorerAPI
 
         public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
-    {
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     Configuration.Bind("JwtSettings", options);
-                    // options.Authority = "https://securetoken.google.com/explorer-trial";
-                    // options.TokenValidationParameters = new TokenValidationParameters
-                    // {
-                    //     ValidateIssuer = true,
-                    //     ValidIssuer = "https://securetoken.google.com/explorer-trial",
-                    //     ValidateAudience = true,
-                    //     ValidAudience = "explorer-trial",
-                    //     ValidateLifetime = true
-                    // };
                 });
 
             var connection = Configuration.GetConnectionString("StemExplorer");
