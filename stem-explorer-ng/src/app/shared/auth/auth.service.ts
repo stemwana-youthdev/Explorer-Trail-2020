@@ -27,7 +27,7 @@ export class AuthService {
         return;
       }
 
-      let user = await this.api.getCurrentUser(token).toPromise();
+      let user = await this.api.getCurrentUser().toPromise();
 
       if (!user) {
         // TODO: prompt user for registration info
@@ -37,7 +37,7 @@ export class AuthService {
           name: state.displayName,
         };
 
-        user = await this.api.registerUser(token, userInfo).toPromise();
+        user = await this.api.registerUser(userInfo).toPromise();
       }
 
       this.store.dispatch(new UpdateUser(user));

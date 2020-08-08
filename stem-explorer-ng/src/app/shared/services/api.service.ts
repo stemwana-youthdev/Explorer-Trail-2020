@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
@@ -8,6 +8,8 @@ import { Location } from '../models/location';
 import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
 import { User } from '../models/user';
+import { Store } from '@ngxs/store';
+import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
 
 @Injectable()
 export class ApiService {
@@ -18,6 +20,7 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
+    private store: Store
   ) {}
 
   getChallenges() {
@@ -63,26 +66,32 @@ export class ApiService {
     );
   }
 
-  getCurrentUser(token: string) {
-    return this.http.get<User>(`${this.apiEndpoint}/User/GetCurrentUser`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  private get authOptions(): { headers: { Authorization: string } } {
+    const token = this.store.selectSnapshot(CurrentUserState.token);
+
+    if (!token) {
+      throw new Error('This API requires that the user is logged in');
+    }
+
+    return {
+      headers: { Authorization: `Bearer ${token}` },
+    };
   }
 
-  registerUser(token: string, userInfo: User) {
-    return this.http.post<User>(
-      `${this.apiEndpoint}/User/RegisterUser`,
-      userInfo,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+  getCurrentUser() {
+    return this.http.get<User>(
+      `${this.apiEndpoint}/User/GetCurrentUser`,
+      this.authOptions
     );
   }
 
+  registerUser(userInfo: User) {
+    return this.http.post<User>(
+      `${this.apiEndpoint}/User/RegisterUser`,
+      userInfo,
+      this.authOptions
+    );
+  }
 }
 
 export interface Challenges {
