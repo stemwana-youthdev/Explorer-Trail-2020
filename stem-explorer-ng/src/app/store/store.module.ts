@@ -11,6 +11,7 @@ import { LocationsState } from './locations/locations.state';
 import { ChallengeLevelsState } from './challenge-levels/challenge-levels.state';
 import { LocationDistancesState } from './location-distances/location-distances.state';
 import { LastHomepageState } from './last-homepage/last-homepage.state';
+import { CurrentUserState } from './current-user/current-user.state';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { LastHomepageState } from './last-homepage/last-homepage.state';
         ChallengeLevelsState,
         LocationDistancesState,
         LastHomepageState,
+        CurrentUserState,
       ],
       { developmentMode: !environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot(),

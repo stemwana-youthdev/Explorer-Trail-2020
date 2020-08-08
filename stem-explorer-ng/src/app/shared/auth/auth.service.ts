@@ -1,38 +1,32 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from "@angular/fire/auth";
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Store } from '@ngxs/store';
 
 import { auth } from 'firebase/app';
 import 'firebase/auth';
+
 import { ApiService } from '../services/api.service';
 import { User } from '../models/user';
+import { UpdateToken, UpdateUser } from 'src/app/store/current-user/current-user.actions';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
-  public readonly isLoggedIn: Observable<boolean>;
-
   constructor(
     private afAuth: AngularFireAuth, // this injects firebase authentication
     private api: ApiService,
+    private store: Store,
   ) {
-    this.isLoggedIn = this.afAuth.authState.pipe(
-      map(state => {
-        if (state) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-    );
-
     this.afAuth.authState.subscribe(async (state) => {
-      if (!state) { return; }
+      const token = await state?.getIdToken();
+      this.store.dispatch(new UpdateToken(token));
 
-      const token = await state.getIdToken();
+      if (!token) {
+        this.store.dispatch(new UpdateUser(null));
+        return;
+      }
+
       let user = await this.api.getCurrentUser(token).toPromise();
 
       if (!user) {
@@ -45,6 +39,8 @@ export class AuthService {
 
         user = await this.api.registerUser(token, userInfo).toPromise();
       }
+
+      this.store.dispatch(new UpdateUser(user));
 
       console.log('User logged in with backend!', user);
     });
