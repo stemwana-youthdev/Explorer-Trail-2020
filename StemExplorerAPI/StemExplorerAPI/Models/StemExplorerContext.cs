@@ -41,6 +41,10 @@ namespace StemExplorerAPI.Models
                 .Property(c => c.Difficulty)
                 .HasConversion<int>();
             
+            modelBuilder.Entity<CompletedLevel>()
+                .HasIndex(c => new { c.UserId, c.ChallengeLevelId })
+                .IsUnique();
+            
             base.OnModelCreating(modelBuilder);
         }
     }
