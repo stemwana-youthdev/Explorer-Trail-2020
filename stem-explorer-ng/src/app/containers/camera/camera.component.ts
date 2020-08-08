@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChallengeDialogComponent } from 'src/app/containers/challenge-dialog/challenge-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { Router } from '@angular/router';
+import { database } from 'firebase';
 
 class CameraAccessError extends Error {
   constructor() {
@@ -28,7 +30,8 @@ export class CameraComponent {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private api: ApiService
+    private api: ApiService,
+    private router: Router,
   ) {}
 
   async scanSuccess(url: string) {
@@ -42,10 +45,7 @@ export class CameraComponent {
     const challengeId = parseInt(match[1], 10);
 
     this.dialog.closeAll();
-    this.dialog.open(ChallengeDialogComponent, {
-      data: { challengeId },
-      panelClass: 'app-dialog',
-    });
+    this.router.navigate(['challenge/' + challengeId]);
   }
 
   private qrCodeNotRecognized() {
