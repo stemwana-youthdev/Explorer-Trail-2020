@@ -10,6 +10,7 @@ import { ChallengeLevel } from '../models/challenge-level';
 import { User } from '../models/user';
 import { Store } from '@ngxs/store';
 import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
+import { Progress } from '../models/progress';
 
 @Injectable()
 export class ApiService {
@@ -82,6 +83,21 @@ export class ApiService {
     return this.http.post<User>(
       `${this.apiEndpoint}/User/RegisterUser`,
       userInfo,
+      this.authOptions
+    );
+  }
+
+  getProgress(challengeId: number) {
+    return this.http.get<Progress>(
+      `${this.apiEndpoint}/Progress/GetProgress/${challengeId}`,
+      this.authOptions
+    );
+  }
+
+  levelCompleted(levelId: number) {
+    return this.http.post(
+      `${this.apiEndpoint}/Progress/LevelCompleted/${levelId}`,
+      null,
       this.authOptions
     );
   }

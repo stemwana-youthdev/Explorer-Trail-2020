@@ -9,6 +9,7 @@ import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-lev
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
+import { LoadProgress } from '../../store/progress/progress.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 import { ChallengeLevel } from '../../shared/models/challenge-level';
@@ -18,6 +19,8 @@ import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dia
 import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
+import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 
 @Component({
@@ -34,6 +37,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store,
     public dialog: MatDialog,
+    private api: ApiService,
   ) {}
 
   ngOnInit(): void {
@@ -59,10 +63,26 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
       .subscribe((minLevel) => {
         this.selectedLevel = minLevel;
       });
+
+    const loadProgressSubscription = combineLatest([
+      this.challengeId$,
+      this.isLoggedIn$,
+    ]).subscribe({
+      next: ([challengeId, isLoggedIn]) => {
+        if (isLoggedIn) {
+          this.store.dispatch(new LoadProgress(challengeId));
+        }
+      },
+    });
+    this.challengesChangeSubscription.add(loadProgressSubscription);
   }
 
   get challengeId$(): Observable<number> {
     return this.route.params.pipe(map((routeParams) => +routeParams.id));
+  }
+
+  get isLoggedIn$(): Observable<boolean> {
+    return this.store.select(CurrentUserState.isLoggedIn);
   }
 
   get challenge$(): Observable<Challenge> {
@@ -128,6 +148,11 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     // Ignore if the user closed the dialog without selecting an answer
     if (typeof isCorrect !== 'boolean') {
       return;
+    }
+
+    // Tell the backend that the user completed the level
+    if (isCorrect) {
+      this.api.levelCompleted(currentLevel.uid);
     }
 
     // Open another dialog
