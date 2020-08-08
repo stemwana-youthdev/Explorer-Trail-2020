@@ -152,7 +152,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
 
     // Tell the backend that the user completed the level
     if (isCorrect) {
-      this.api.levelCompleted(currentLevel.uid);
+      await this.api.levelCompleted(currentLevel.uid).toPromise();
     }
 
     // Open another dialog
