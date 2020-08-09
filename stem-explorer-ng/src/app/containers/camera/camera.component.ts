@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChallengeDialogComponent } from 'src/app/containers/challenge-dialog/challenge-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { Router } from '@angular/router';
+import { database } from 'firebase';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 class CameraAccessError extends Error {
@@ -30,6 +32,7 @@ export class CameraComponent {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private api: ApiService,
+    private router: Router,
     private gtmService: GoogleTagManagerService,
   ) {}
 
@@ -49,10 +52,7 @@ export class CameraComponent {
     const challengeId = parseInt(match[1], 10);
 
     this.dialog.closeAll();
-    this.dialog.open(ChallengeDialogComponent, {
-      data: { challengeId },
-      panelClass: 'app-dialog',
-    });
+    this.router.navigate(['challenge/' + challengeId]);
   }
 
   private qrCodeNotRecognized() {
