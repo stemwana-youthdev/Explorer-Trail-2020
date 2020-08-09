@@ -19,7 +19,6 @@ import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dia
 import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
-import { ChallengeTitleComponent } from 'src/app/shared/components/challenge-title/challenge-title.component';
 
 
 @Component({
