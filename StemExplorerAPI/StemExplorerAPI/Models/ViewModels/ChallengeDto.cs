@@ -19,5 +19,6 @@ namespace StemExplorerAPI.Models.ViewModels
         public string Title { get; set; }
         public string Description { get; set; }
         public Enums.ChallengeCategories Category { get; set; }
+        public int LocationId { get; set; }
     }
 }

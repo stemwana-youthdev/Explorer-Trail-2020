@@ -46,18 +46,6 @@ export class LocationsState {
     );
   }
 
-  @Selector()
-  public static challengeLocation(state: LocationsStateModel) {
-    return createSelector(
-      [LocationsState],
-      (challengeId: number): Location => {
-        return state.locations.find(
-          (location) => location.challengeid === challengeId,
-        );
-      },
-    );
-  }
-
   @Action(LoadLocationsData)
   public loadData(ctx: StateContext<LocationsStateModel>) {
     const state = ctx.getState();
