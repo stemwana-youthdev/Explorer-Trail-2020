@@ -54,17 +54,16 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
   }
 
   private listenToChallengeLevelsChanges() {
-    this.challengesChangeSubscription = this.challengeLevels$
-      .pipe(
-        map((challengeLevels) => {
-          const difficulties = challengeLevels.map((level) => level.difficulty);
-          return Math.min(...difficulties);
-        }),
-        filter((minLevel) => minLevel < Infinity),
-      )
-      .subscribe((minLevel) => {
-        this.selectedLevel = minLevel;
-      });
+    this.challengesChangeSubscription = this.incompleteLevels$.pipe(
+      map((incompleteLevels) => {
+        const difficulties = incompleteLevels.map((level) => level.difficulty);
+        return Math.min(...difficulties);
+      }),
+      filter((minLevel) => minLevel < Infinity),
+    )
+    .subscribe((minLevel) => {
+      this.selectedLevel = minLevel;
+    });
 
     const loadProgressSubscription = combineLatest([
       this.challengeId$,
@@ -107,6 +106,19 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
 
   get completedLevels$(): Observable<CompletedLevel[]> {
     return this.store.select(ProgressState.completedLevels);
+  }
+
+  get incompleteLevels$(): Observable<ChallengeLevel[]> {
+    return combineLatest([this.challengeLevels$, this.completedLevels$]).pipe(
+      map(([challengeLevels, completedLevels]) =>
+        challengeLevels.filter(
+          (level) =>
+            !completedLevels.some(
+              (completedLevel) => completedLevel.challengeLevelId === level.uid
+            )
+        )
+      ),
+    );
   }
 
   onLevelChange(level: number) {
@@ -157,6 +169,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     }
 
     // Record that the user completed the level
+    const nextLevel = await this.getNextLevel();
     const isLoggedIn = await this.isLoggedIn$.pipe(take(1)).toPromise();
     const challengeId = await this.challengeId$.pipe(take(1)).toPromise();
     if (isCorrect && isLoggedIn) {
@@ -165,7 +178,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     }
 
     // Open another dialog
-    const hasNext = await this.getNextLevel() !== null;
+    const hasNext = nextLevel !== null;
     const resultDialog = this.dialog.open(ResultDialogComponent, {
       data: {
         level: currentLevel,
@@ -180,7 +193,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     const dialogResult = await resultDialog.afterClosed().toPromise();
     // If the user clicked next level, switch to the next level
     if (dialogResult === 'next-level') {
-      this.selectedLevel = (await this.getNextLevel()) ?? this.selectedLevel;
+      this.selectedLevel = nextLevel ?? this.selectedLevel;
     }
   }
 
