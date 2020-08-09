@@ -32,12 +32,15 @@ app-form-field {
   left: 50%;
   transform: translate(-50%, 0);
   max-width: 768px;
-  z-index: -1;
 }
 
 @media only screen and (min-width: 768px) {
   * {
     text-align: center;
+  }
+
+  app-form-field {
+    padding-left: 18px;
   }
 }
 
