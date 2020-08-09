@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Columns, Table } from '../models/table.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-table',
@@ -10,13 +12,22 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class TableComponent implements OnInit {
   displayedColumns: string[] = [];
   columns: Columns[] = [];
+  _dataSource = new MatTableDataSource();
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   /**
    * @description array of the data objects to show in the table.
    */
-  @Input() dataSource: any[];
+  // @Input() dataSource: any[];
+  @Input()
+  get dataSource(): MatTableDataSource<any> {
+    return this._dataSource;
+  }
+  set dataSource(value) {
+    this._dataSource = value;
+  }
   @Input() table: Table;
-
   /**
    * @description sets whether the rows have drag and drop. Defaults to false.
    */
@@ -28,6 +39,7 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     this.setColumns();
+    this.dataSource.paginator = this.paginator;
   }
 
   /**
@@ -55,7 +67,7 @@ export class TableComponent implements OnInit {
    * @param event the drag and drop event.
    */
   dropRow(event: CdkDragDrop<any>): void {
-    const dataList = [...this.dataSource];
+    const dataList = [...this.dataSource.data];
     moveItemInArray(dataList, event.previousIndex, event.currentIndex);
   }
 }

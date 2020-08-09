@@ -4,6 +4,7 @@ export interface Location {
   position: LocationCoords;
   contact: string;
   link: string;
+  placeId: string;
 }
 
 export interface LocationCoords {

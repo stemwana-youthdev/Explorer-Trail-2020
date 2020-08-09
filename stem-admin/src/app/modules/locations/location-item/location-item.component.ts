@@ -1,36 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormFactory } from 'src/app/shared/factories/form.factory';
 import { Location } from '../../../shared/models/location.model';
-import { FormGroup } from '@angular/forms';
-// import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-location-item',
   templateUrl: './location-item.component.html',
-  styleUrls: ['./location-item.component.scss']
+  styleUrls: ['./location-item.component.scss'],
+  providers: [FormFactory]
 })
-export class LocationItemComponent {
+export class LocationItemComponent implements OnInit {
   location: Location;
-  form = new FormGroup({});
-  model = {};
-  // fields: FormlyFieldConfig[];
-  fields = [];
 
-  constructor() {}
+  constructor(
+    readonly formFactory: FormFactory,
+    public dialogRef: MatDialogRef<LocationItemComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
-  getLocation() {
-    this.location = {
-      uid: 1,
-      name: 'Basestation',
-      position: {
-        lat: -37.6865807,
-        lng: 176.1649332,
-      },
-      link: 'https://www.basestation.nz/en',
-      contact: 'Pascale'
-    };
+  get pageTitle(): string {
+    return this.location ? `Edit ${this.location.name}` : `Create New Location`;
   }
 
-  constructForm() {
-    
+  ngOnInit() {
+    this.location = this.data;
+    this.formFactory.locationsForm(this.location);
+  }
+
+  cancelClick(): void {
+    this.dialogRef.close();
   }
 }

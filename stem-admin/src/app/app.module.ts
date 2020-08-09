@@ -18,6 +18,8 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { RouterState } from './shared/state/router.state';
 import { ContentDialogComponent } from './modules/content/content-dialog/content-dialog.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 
 @NgModule({
   declarations: [
@@ -38,10 +40,12 @@ import { ContentDialogComponent } from './modules/content/content-dialog/content
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    FormlyModule.forRoot(),
+    FormlyMaterialModule
   ],
   providers: [ApiService, UrlService],
   bootstrap: [AppComponent],
-  entryComponents: [ContentDialogComponent]
+  entryComponents: [ContentDialogComponent, LocationItemComponent]
 })
 export class AppModule { }

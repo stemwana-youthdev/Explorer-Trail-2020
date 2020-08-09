@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     DragDropModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    MatPaginatorModule
   ],
   exports: [
     MatSidenavModule,
@@ -33,7 +37,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     DragDropModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule {}

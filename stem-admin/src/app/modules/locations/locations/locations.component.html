@@ -1,3 +1,17 @@
-<h1>Locations</h1>
-
-<!-- <app-table [table]="table" [dataSource]="locations"></app-table> -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Locations</mat-card-title>
+    <mat-card-subtitle>Explorer locations on the map</mat-card-subtitle>
+    <!-- Add New here aligned right -->
+    <span fxFlex></span>
+    <div>
+      <button color="primary" mat-icon-button class="create-new-icon" aria-label="Create new location">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <app-table [table]="table" [dataSource]="locations" (selectRow)="openDialog($event)"></app-table>
+  </mat-card-content>
+</mat-card>
