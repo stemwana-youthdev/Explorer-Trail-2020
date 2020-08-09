@@ -116,14 +116,10 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
 
   getMarkerOptions(location: Location): google.maps.MarkerOptions {
     return {
-      icon: this.getIconForMarker(location),
-    };
-  }
-
-  private getIconForMarker(location: Location): google.maps.Icon {
-    return {
-      url: this.icons[location.category],
-      scaledSize: new google.maps.Size(30, 48),
+      icon: {
+        url: this.icons[location.category],
+        scaledSize: new google.maps.Size(30, 48),
+      }
     };
   }
 
