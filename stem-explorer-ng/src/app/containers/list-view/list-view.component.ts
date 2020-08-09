@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LocationsState } from 'src/app/store/locations/locations.state';
@@ -40,6 +41,7 @@ export class ListViewComponent implements OnInit {
   constructor(
     private store: Store,
     public dialog: MatDialog,
+    private gtmService: GoogleTagManagerService,
   ) { }
 
   ngOnInit() {
@@ -58,6 +60,12 @@ export class ListViewComponent implements OnInit {
 
   onItemClick(challenge: Challenge) {
     this.openChallengeDialog(challenge);
+    // push to dataLayer
+    const gtmTag = {
+      event: 'card click',
+      challengeTitle: challenge.title,
+  };
+    this.gtmService.pushTag(gtmTag);
   }
 
   /*

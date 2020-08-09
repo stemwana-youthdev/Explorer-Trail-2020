@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChallengeDialogComponent } from 'src/app/containers/challenge-dialog/challenge-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 class CameraAccessError extends Error {
   constructor() {
@@ -28,7 +29,8 @@ export class CameraComponent {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private api: ApiService
+    private api: ApiService,
+    private gtmService: GoogleTagManagerService,
   ) {}
 
   async scanSuccess(url: string) {
@@ -38,6 +40,11 @@ export class CameraComponent {
       this.qrCodeNotRecognized();
       return;
     }
+    // push to dataLayer
+    const gtmTag = {
+      event: 'successful QR scan',
+  };
+    this.gtmService.pushTag(gtmTag);
 
     const challengeId = parseInt(match[1], 10);
 
@@ -49,6 +56,11 @@ export class CameraComponent {
   }
 
   private qrCodeNotRecognized() {
+    // push to dataLayer
+    const gtmTag = {
+      event: 'unsuccessful QR scan',
+  };
+    this.gtmService.pushTag(gtmTag);
     this.snackBar.open('QR code not recognised', null, {
       duration: 5000,
     });
@@ -66,6 +78,11 @@ export class CameraComponent {
 
   camerasNotFound() {
     this.showError(new CameraNotFoundError());
+    // push to dataLayer
+    const gtmTag = {
+      event: 'camera not found',
+  };
+    this.gtmService.pushTag(gtmTag);
   }
 
   private showError(error: Error) {

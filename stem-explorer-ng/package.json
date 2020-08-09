@@ -28,6 +28,7 @@
     "@ngxs/logger-plugin": "3.6.2",
     "@ngxs/store": "3.6.2",
     "@zxing/ngx-scanner": "^3.0.0",
+    "angular-google-tag-manager": "^1.1.4",
     "firebase": "^7.15.1",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.5.5",
