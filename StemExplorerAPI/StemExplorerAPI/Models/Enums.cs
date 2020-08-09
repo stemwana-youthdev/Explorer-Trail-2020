@@ -15,7 +15,7 @@ namespace StemExplorerAPI.Models
             Mathematics
         }
 
-        public enum ChallengeLevel
+        public enum ChallengeDifficulty
         {
             Easy,
             Medium,
