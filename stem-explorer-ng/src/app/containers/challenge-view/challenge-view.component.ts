@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
 import { Observable, combineLatest, Subscription } from 'rxjs';
 import { map, filter, take } from 'rxjs/operators';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-levels.state';
 import { ChallengesState } from '../../store/challenges/challenges.state';
@@ -18,6 +19,7 @@ import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dia
 import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
+import { ChallengeTitleComponent } from 'src/app/shared/components/challenge-title/challenge-title.component';
 
 
 @Component({
@@ -34,6 +36,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store,
     public dialog: MatDialog,
+    private gtmService: GoogleTagManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -94,6 +97,13 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
       level.hint,
       challenge.category,
     );
+    // push to dataLayer
+    const gtmTag = {
+      event: 'get hint',
+      challengeTitle: challenge.title,
+      level: level.difficulty
+  };
+    this.gtmService.pushTag(gtmTag);
   }
 
   onAnswer({ challenge, level }: AnswerEvent) {
