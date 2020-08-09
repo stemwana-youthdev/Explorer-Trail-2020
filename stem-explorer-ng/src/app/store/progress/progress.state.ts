@@ -4,7 +4,7 @@ import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 import { LoadProgress } from './progress.actions';
-import { Progress } from 'src/app/shared/models/progress';
+import { Progress, CompletedLevel } from 'src/app/shared/models/progress';
 import { tap } from 'rxjs/operators';
 
 
@@ -25,8 +25,8 @@ export class ProgressState {
   ) { }
 
   @Selector()
-  public static progress(state: Progress): Progress {
-    return state;
+  public static completedLevels(state: Progress): CompletedLevel[] {
+    return state.completedLevels;
   }
 
   @Action(LoadProgress)

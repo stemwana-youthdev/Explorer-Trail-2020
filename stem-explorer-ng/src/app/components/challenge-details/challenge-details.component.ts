@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Challenge } from '../../shared/models/challenge';
 import { ChallengeLevel } from '../../shared/models/challenge-level';
+import { CompletedLevel } from '../../shared/models/progress';
 
 import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from '../../shared/enums/levels.enum';
@@ -21,11 +22,12 @@ export interface AnswerEvent {
 @Component({
   selector: 'app-challenge-details',
   templateUrl: './challenge-details.component.html',
-  styleUrls: ['./challenge-details.component.scss']
+  styleUrls: ['./challenge-details.component.scss'],
 })
 export class ChallengeDetailsComponent implements OnInit {
   @Input() challenge: Challenge;
   @Input() challengeLevels: ChallengeLevel[] = [];
+  @Input() completedLevels: CompletedLevel[] = [];
   @Input() selectedLevel: number;
 
   @Output() levelChange = new EventEmitter<number>();
@@ -35,10 +37,9 @@ export class ChallengeDetailsComponent implements OnInit {
   Categories: any = Categories;
   Levels: any = Levels;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get levels(): number[] {
     return this.challengeLevels.map((level) => level.difficulty);
@@ -47,6 +48,12 @@ export class ChallengeDetailsComponent implements OnInit {
   get currentLevel(): ChallengeLevel {
     return this.challengeLevels.find(
       (challenge) => challenge.difficulty === this.selectedLevel,
+    );
+  }
+
+  get currentLevelIsCompleted(): boolean {
+    return this.completedLevels.some(
+      (completedLevel) => completedLevel.challengeLevelId === this.currentLevel.uid,
     );
   }
 
@@ -67,5 +74,4 @@ export class ChallengeDetailsComponent implements OnInit {
       level: this.currentLevel,
     });
   }
-
 }

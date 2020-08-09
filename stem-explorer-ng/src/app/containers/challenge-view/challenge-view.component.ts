@@ -10,9 +10,11 @@ import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
 import { LoadProgress } from '../../store/progress/progress.actions';
+import { ProgressState } from '../../store/progress/progress.state';
 
 import { Challenge } from '../../shared/models/challenge';
 import { ChallengeLevel } from '../../shared/models/challenge-level';
+import { CompletedLevel } from '../../shared/models/progress';
 
 import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dialog.component';
 
@@ -101,6 +103,10 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     ]).pipe(
       map(([fn, challengeId]) => fn(challengeId)),
     );
+  }
+
+  get completedLevels$(): Observable<CompletedLevel[]> {
+    return this.store.select(ProgressState.completedLevels);
   }
 
   onLevelChange(level: number) {
