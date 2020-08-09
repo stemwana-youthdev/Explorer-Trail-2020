@@ -150,9 +150,12 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Tell the backend that the user completed the level
-    if (isCorrect) {
+    // Record that the user completed the level
+    const isLoggedIn = await this.isLoggedIn$.pipe(take(1)).toPromise();
+    const challengeId = await this.challengeId$.pipe(take(1)).toPromise();
+    if (isCorrect && isLoggedIn) {
       await this.api.levelCompleted(currentLevel.uid).toPromise();
+      this.store.dispatch(new LoadProgress(challengeId));
     }
 
     // Open another dialog
