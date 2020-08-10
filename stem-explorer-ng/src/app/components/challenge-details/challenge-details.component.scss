@@ -28,16 +28,8 @@
   font-size: 2rem;
 }
 
-app-form-field {
-  position: relative;
-}
-
 @media only screen and (min-width: 768px) {
   .challenge-header {
     text-align: center;
-  }
-
-  app-form-field {
-    padding-left: 18px;
   }
 }
