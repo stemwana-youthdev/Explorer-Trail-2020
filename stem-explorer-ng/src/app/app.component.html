@@ -1,18 +1,6 @@
 <app-toolbar [drawer]="drawer"></app-toolbar>
 
-<app-drawer #drawer>
-
-  <div [class]="(isMap | async) ? 'full-height' : 'padding'">
-    <router-outlet></router-outlet>
-  </div>
-  
-  <ng-container *ngIf="isMap | async; else genericFab">
-    <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
-    <app-camera-button></app-camera-button>
-  </ng-container>
-  <ng-template #genericFab>
-    <app-fab matIcon="location_on" (click)="navigateToMap()"></app-fab>
-    <span class="fill-remaining-space"></span>
-  </ng-template>
-
-</app-drawer>
+<mat-drawer-container class="app-view">
+  <app-drawer #drawer></app-drawer>
+  <router-outlet></router-outlet>
+</mat-drawer-container>

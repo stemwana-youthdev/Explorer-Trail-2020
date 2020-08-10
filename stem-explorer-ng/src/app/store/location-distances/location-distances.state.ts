@@ -18,7 +18,7 @@ import {
 } from 'rxjs/operators';
 import { combineLatest, Observable, from, zip } from 'rxjs';
 
-import { GeolocationService } from 'src/app/shared/services/geolocation.service';
+import { GeolocationService } from 'src/app/map/services/geolocation.service';
 
 import { LocationsState } from '../locations/locations.state';
 import { WatchLocationDistances } from './location-distances.actions';

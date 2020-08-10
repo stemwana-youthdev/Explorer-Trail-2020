@@ -1,0 +1,18 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="openDrawer()">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  
+  <span class="fill-remaining-space">
+    <img src="../../../assets/logo.png" class="logo" (click)="navigateToHome()"/>
+  </span>
+  
+  <button mat-mini-fab [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <button *ngIf="!isLoggedIn" mat-menu-item (click)="navigateToLogin()">Log In</button>
+  <button *ngIf="isLoggedIn" mat-menu-item (click)="logout()">Log Out</button>
+</mat-menu>

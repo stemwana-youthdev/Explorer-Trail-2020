@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
 import { Location } from '../models/location';
 import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
+import { ConfigService } from 'src/app/core/config/config.service';
 
 @Injectable()
 export class ApiService {

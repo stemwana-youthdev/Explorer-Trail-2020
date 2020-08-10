@@ -1,0 +1,9 @@
+<p *ngIf="isLoading">Loading camera...</p>
+<p *ngIf="error">{{ error.message }}</p>
+
+<zxing-scanner (scanSuccess)="scanSuccess($event)" (permissionResponse)="permissionResponse($event)" (camerasFound)="camerasFound()"
+  (camerasNotFound)="camerasNotFound()"></zxing-scanner>
+
+<button mat-icon-button>
+  <mat-icon>close</mat-icon>
+</button>
