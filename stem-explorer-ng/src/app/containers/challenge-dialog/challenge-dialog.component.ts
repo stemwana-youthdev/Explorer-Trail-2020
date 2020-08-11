@@ -11,16 +11,27 @@ import { LocationsState } from '../../store/locations/locations.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadLocationsData } from '../../store/locations/locations.actions';
 import { WatchLocationDistances } from '../../store/location-distances/location-distances.actions';
+import { LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
+import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
 
 import { Categories } from '../../shared/enums/categories.enum';
-import { LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
+import { Levels } from 'src/app/shared/enums/levels.enum';
+import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
+import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
 
 
-interface ChallengeDialogData {
+export enum ChallengeDialogType {
+  Preview,
+  Hint
+}
+
+export interface ChallengeDialogData {
   challengeId: number;
+  level: Levels;
+  dialogType: ChallengeDialogType;
 }
 
 /*
@@ -32,20 +43,26 @@ interface ChallengeDialogData {
   styleUrls: ['./challenge-dialog.component.scss'],
 })
 export class ChallengeDialogComponent implements OnInit {
-
   Categories: any = Categories;
+  DialogType: any = ChallengeDialogType;
+  Level: any = Levels;
 
   constructor(
     private store: Store,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private dialog: MatDialog,
-  ) { }
+  ) {
+    this.data.dialogType = this.data.dialogType ?? ChallengeDialogType.Preview;
+  }
 
-  ngOnInit()  {
+  ngOnInit() {
     this.store.dispatch(new LoadChallengesData());
     this.store.dispatch(new LoadLocationsData());
-    this.store.dispatch(new WatchLocationDistances());
+    if (this.data.dialogType === ChallengeDialogType.Preview) {
+      this.store.dispatch(new WatchLocationDistances());
+    }
+    this.store.dispatch(new LoadChallengeLevelsData());
   }
 
   get challenge$(): Observable<Challenge> {
@@ -57,6 +74,15 @@ export class ChallengeDialogComponent implements OnInit {
   get category$(): Observable<Categories> {
     return this.challenge$.pipe(
       map((challenge) => challenge?.category),
+    );
+  }
+
+  get challengeLevel$(): Observable<ChallengeLevel> {
+    return this.store.select(ChallengeLevelsState.challengeLevels).pipe(
+      map((fn) => fn(this.data.challengeId)),
+      map((levels) =>
+        levels.find((level) => level.difficulty === this.data.level)
+      ),
     );
   }
 
@@ -94,5 +120,4 @@ export class ChallengeDialogComponent implements OnInit {
       panelClass: 'fullscreen-dialog',
     });
   }
-
 }

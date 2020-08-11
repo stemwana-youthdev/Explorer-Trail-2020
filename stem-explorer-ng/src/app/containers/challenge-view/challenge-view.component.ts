@@ -16,9 +16,9 @@ import { ChallengeLevel } from '../../shared/models/challenge-level';
 
 import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dialog.component';
 
-import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
+import { ChallengeDialogComponent, ChallengeDialogType } from '../challenge-dialog/challenge-dialog.component';
 
 
 @Component({
@@ -109,13 +109,12 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     this.openAnswerDialog(challenge, level);
   }
 
-  openHintDialog(title, level, hint, category) {
-    this.dialog.open(HintDialogComponent, {
+  async openHintDialog(title, level, hint, category) {
+    this.dialog.open(ChallengeDialogComponent, {
       data: {
-        title,
-        level,
-        hint,
-        category,
+        challengeId: await this.challengeId$.pipe(take(1)).toPromise(),
+        level: this.selectedLevel,
+        dialogType: ChallengeDialogType.Hint,
       },
       panelClass: 'app-dialog',
     });
