@@ -51,12 +51,11 @@ export class ChallengeDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new LoadChallengesData());
-    this.store.dispatch(new LoadLocationsData());
     if (this.data.dialogType === ChallengeDialogType.Preview) {
+      // Map does not load these so we need to check that they're loaded.
+      this.store.dispatch(new LoadChallengesData());
       this.store.dispatch(new WatchLocationDistances());
     }
-    this.store.dispatch(new LoadChallengeLevelsData());
   }
 
   get challenge$(): Observable<Challenge> {
@@ -97,11 +96,8 @@ export class ChallengeDialogComponent implements OnInit {
   }
 
   get loaded$(): Observable<boolean> {
-    return combineLatest([
-      this.challenge$,
-      this.location$,
-    ]).pipe(
-      map(([challenge, location]) => Boolean(challenge && location)),
+    return this.challenge$.pipe(
+      map((challenge) => Boolean(challenge)),
     );
   }
 
