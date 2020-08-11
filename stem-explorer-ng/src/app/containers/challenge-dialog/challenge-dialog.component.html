@@ -1,7 +1,7 @@
 <ng-container *ngIf="loaded$ | async">
   <app-dialog [category]="category$ | async">
     <app-challenge-title [category]="category$ | async">
-      <span class="distance">{{ locationDistance$ | async | largeDistance }}</span>
+      <span class="distance" aria-label="Distance to challenge">{{ locationDistance$ | async | largeDistance }}</span>
       {{ (challenge$ | async)?.title }}
     </app-challenge-title>
     <h4>{{ Categories[category$ | async] }}</h4>
@@ -12,6 +12,7 @@
       [category]="category$ | async"
       icon="location_on"
       [label]="(location$ | async)?.name"
+      aria-label="Location address"
     ></app-contact-info>
     <br>
     <app-contact-info
@@ -19,7 +20,7 @@
       [category]="category$ | async"
       icon="language"
       label="View Website"
-      aria-label="Website"
+      aria-label="Location website"
     ></app-contact-info>
     <br><br>
 
