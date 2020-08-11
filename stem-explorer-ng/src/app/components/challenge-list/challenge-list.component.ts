@@ -23,10 +23,10 @@ export class ChallengeListComponent implements OnInit {
   Categories: any = Categories;
 
   icons = {
-    [Categories.Science]: '/assets/icons/light green point.svg',
-    [Categories.Technology]: '/assets/icons/light blue point.svg',
-    [Categories.Engineering]: '/assets/icons/light orange point.svg',
-    [Categories.Maths]: '/assets/icons/purple point.svg',
+    [Categories.Science]: '/assets/icons/MAP-light-green-point.svg',
+    [Categories.Technology]: '/assets/icons/MAP-light-blue-point.svg',
+    [Categories.Engineering]: '/assets/icons/MAP-light-orange-point.svg',
+    [Categories.Maths]: '/assets/icons/MAP-purple-point.svg',
   };
 
   constructor() {}
