@@ -2,17 +2,19 @@
 
 .challenge-details {
   padding: 20px;
-  position: relative;
+  margin: 0 auto;
+  max-width: 768px;
 }
 
 .challenge-header {
   background-color: white;
   border-bottom: solid;
   border-color: tint(10%, $primary-black);
-  margin-left: -20px;
-  padding: 22px 0px 10px 20px;
+  box-sizing: border-box;
+  padding: 22px 20px 10px;
   position: fixed;
   top: 56px;
+  left: 0;
   width: 100%;
 }
 
@@ -27,23 +29,8 @@
   font-size: 2rem;
 }
 
-app-form-field {
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0);
-  max-width: 768px;
-}
-
 @media only screen and (min-width: 768px) {
-  * {
+  .challenge-header {
     text-align: center;
   }
-
-  app-form-field {
-    padding-left: 18px;
-  }
-}
-
-.antiOverlay {
-  width: 100%;
 }
