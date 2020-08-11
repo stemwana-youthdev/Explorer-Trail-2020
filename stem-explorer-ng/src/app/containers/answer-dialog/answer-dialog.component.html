@@ -16,9 +16,9 @@
 
     <ul *ngSwitchCase="AnswerType.Multichoice" class="answer-list">
       <li *ngFor="let answer of data.level.possibleAnswers">
-        <app-button outlined [disabled]="checkingAnswer && answer.answerText !== selectedAnswer"
-          (click)="submitAnswer(answer.answerText)">
-          {{ answer.answerText }}
+        <app-button outlined [disabled]="checkingAnswer && answer !== selectedAnswer"
+          (click)="submitAnswer(answer)">
+          {{ answer }}
         </app-button>
       </li>
     </ul>

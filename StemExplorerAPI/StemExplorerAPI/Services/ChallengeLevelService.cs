@@ -28,41 +28,8 @@ namespace StemExplorerAPI.Services
                     Difficulty = l.Difficulty,
                     Instructions = l.Instructions,
                     AnswerType = l.AnswerType,
-                    PossibleAnswers = l.Answers
-                        .Select(a => new ChallengeAnswerDto
-                        {
-                            Id = a.Id,
-                            AnswerText = a.AnswerText,
-                            IsCorrect = a.IsCorrect,
-                        }).ToList(),
-                    ChallengeId = l.ChallengeId,
-                    Hint = l.Hint,
-                })
-                .ToListAsync();
-            return new ChallengeLevelsDto
-            {
-                ChallengeLevels = levels,
-            };
-        }
-
-        public async Task<ChallengeLevelsDto> GetLevelsForChallenge(int challengeId)
-        {
-            var levels = await _context.ChallengeLevels
-                .Where(l => l.ChallengeId == challengeId)
-                .Select(l => new ChallengeLevelDto
-                {
-                    Id = l.Id,
-                    QuestionText = l.QuestionText,
-                    Difficulty = l.Difficulty,
-                    Instructions = l.Instructions,
-                    AnswerType = l.AnswerType,
-                    PossibleAnswers = l.Answers
-                        .Select(a => new ChallengeAnswerDto
-                        {
-                            Id = a.Id,
-                            AnswerText = a.AnswerText,
-                            IsCorrect = a.IsCorrect,
-                        }).ToList(),
+                    PossibleAnswers = l.Answers.Select(a => a.AnswerText).ToList(),
+                    Answers = l.Answers.Where(a => a.IsCorrect).Select(a => a.AnswerText).ToList(),
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
                 })
