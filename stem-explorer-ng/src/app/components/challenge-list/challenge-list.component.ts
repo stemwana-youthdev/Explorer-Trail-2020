@@ -47,6 +47,10 @@ export class ChallengeListComponent implements OnInit {
     )?.distance;
   }
 
+  getId(_: number, challenge: Challenge) {
+    return challenge.uid;
+  }
+
   get challengesWithDistances(): ChallengeWithDistance[] {
     return this.challenges.map((challenge) => ({
       ...challenge,
