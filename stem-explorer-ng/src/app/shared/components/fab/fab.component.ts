@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-fab',
@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class FabComponent {
 
   @Input() matIcon?: string;
+  @Input() svgIcon?: string;
   @Input() position: 'right' | 'left' = 'left';
 
   constructor() { }

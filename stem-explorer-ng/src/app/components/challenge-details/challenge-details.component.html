@@ -8,15 +8,13 @@
   <h4>Duration: </h4>
   <p>{{ challenge.description }}</p>
 
-  <app-form-field *ngIf="levels.length > 1" [category]="challenge.category" (click)="select.open()">
-    <mat-select [value]="selectedLevel" (selectionChange)="onSelectionChange($event)" #select>
+  <app-form-field *ngIf="levels.length > 1" [category]="challenge.category">
+    <mat-select [value]="selectedLevel" (selectionChange)="onSelectionChange($event)">
       <mat-option *ngFor="let option of levels" [value]="option">
         {{ Levels[option] }}
       </mat-option>
     </mat-select>
-    <span class="material-icons arrow">
-      expand_more
-    </span>
+    <mat-icon class="arrow">expand_more</mat-icon>
   </app-form-field>
 
   <ng-container *ngIf="currentLevel">

@@ -10,7 +10,8 @@
   background-color: white;
   border-bottom: solid;
   border-color: tint(10%, $primary-black);
-  padding: 22px 0px 10px 20px;
+  box-sizing: border-box;
+  padding: 22px 20px 10px;
   position: fixed;
   top: 56px;
   left: 0;
@@ -26,15 +27,6 @@
   float: right;
   top: -25px;
   font-size: 2rem;
-}
-
-app-form-field {
-  position: relative;
-}
-
-app-button {
-  display: block;
-  margin-bottom: 1rem;
 }
 
 @media only screen and (min-width: 768px) {

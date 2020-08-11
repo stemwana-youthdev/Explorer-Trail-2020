@@ -4,6 +4,7 @@ import { GeolocationService } from 'src/app/shared/services/geolocation.service'
 import { Subscription } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LocationsState } from '../../store/locations/locations.state';
@@ -28,6 +29,7 @@ export class MapComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
+    private gtmService: GoogleTagManagerService,
   ) { }
 
   // separate property for the information for the map pop up
@@ -41,6 +43,12 @@ export class MapComponent implements OnInit {
 
   onChallengeLocationClick(location: Location) {
     this.openChallengeDialog(location);
+    // push to dataLayer
+    const gtmTag = {
+      event: 'map marker click',
+      challengeTitle: location.challengetitle,
+  };
+    this.gtmService.pushTag(gtmTag);
   }
 
   onInfoLocationClick({ location, marker }: InfoLocationClickEvent) {

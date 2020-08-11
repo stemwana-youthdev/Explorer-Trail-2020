@@ -7,13 +7,8 @@ export interface ChallengeLevel {
     difficulty: Levels;
     instructions: string;
     answerType: AnswerType;
-    possibleAnswers: ChallengeAnswer[];
+    possibleAnswers: string[];
+    answers: string[];
     challengeId: number;
     hint: string;
-}
-
-export interface ChallengeAnswer {
-    uid: number;
-    answerText: string;
-    isCorrect: boolean;
 }
