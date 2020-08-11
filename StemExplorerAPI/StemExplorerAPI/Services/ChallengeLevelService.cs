@@ -28,13 +28,8 @@ namespace StemExplorerAPI.Services
                     Difficulty = l.Difficulty,
                     Instructions = l.Instructions,
                     AnswerType = l.AnswerType,
-                    PossibleAnswers = l.Answers
-                        .Select(a => new ChallengeAnswerDto
-                        {
-                            Id = a.Id,
-                            AnswerText = a.AnswerText,
-                            IsCorrect = a.IsCorrect,
-                        }).ToList(),
+                    PossibleAnswers = l.Answers.Select(a => a.AnswerText).ToList(),
+                    Answers = l.Answers.Where(a => a.IsCorrect).Select(a => a.AnswerText).ToList(),
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
                 })

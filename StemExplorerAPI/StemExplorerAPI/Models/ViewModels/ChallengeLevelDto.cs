@@ -20,7 +20,8 @@ namespace StemExplorerAPI.Models.ViewModels
         public Enums.ChallengeDifficulty Difficulty { get; set; }
         public string Instructions { get; set; }
         public Enums.AnswerType AnswerType { get; set; }
-        public List<ChallengeAnswerDto> PossibleAnswers { get; set; }
+        public List<string> PossibleAnswers { get; set; }
+        public List<string> Answers { get; set; }
         public int ChallengeId { get; set; }
         public string Hint { get; set; }
     }
