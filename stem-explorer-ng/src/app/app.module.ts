@@ -78,5 +78,6 @@ import { ChallengeMapComponent } from './components/challenge-map/challenge-map.
     HintDialogComponent
   ],
   bootstrap: [AppComponent],
+  providers: [{provide: 'googleTagManagerId', useValue: 'GTM-W79HP9V'}]
 })
 export class AppModule { }
