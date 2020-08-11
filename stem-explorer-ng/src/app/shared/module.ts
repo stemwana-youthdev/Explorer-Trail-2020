@@ -18,6 +18,7 @@ import { FormFieldComponent } from './components/form-field/form-field.component
 import { StemColorsService } from './services/stem-colors.service';
 import { CardComponent } from './components/card/card.component';
 import { GeolocationService } from './services/geolocation.service';
+import { SortByPipe } from './pipes/sort-by.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { GeolocationService } from './services/geolocation.service';
     ContactInfoComponent,
     FormFieldComponent,
     InputComponent,
+    SortByPipe,
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { GeolocationService } from './services/geolocation.service';
     ContactInfoComponent,
     FormFieldComponent,
     InputComponent,
+    SortByPipe,
   ],
 })
 export class SharedModule { }

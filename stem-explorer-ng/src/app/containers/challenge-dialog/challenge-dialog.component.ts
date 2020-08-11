@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable, combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { CameraComponent } from '../camera/camera.component';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LocationsState } from '../../store/locations/locations.state';
@@ -38,6 +39,7 @@ export class ChallengeDialogComponent implements OnInit {
     private store: Store,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit()  {
@@ -85,6 +87,12 @@ export class ChallengeDialogComponent implements OnInit {
 
   goToChallenge() {
     this.router.navigate(['challenge/' + this.data.challengeId]);
+  }
+
+  cameraView() {
+    this.dialog.open(CameraComponent, {
+      panelClass: 'fullscreen-dialog',
+    });
   }
 
 }
