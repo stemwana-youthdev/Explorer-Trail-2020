@@ -8,7 +8,6 @@
 :host > div {
   color: white;
   background-color: tint(80%, $primary-black);
-  padding: 1rem;
 }
 
 ::ng-deep .mat-select-arrow {
@@ -17,6 +16,11 @@
 
 ::ng-deep .mat-select {
   font-weight: 100;
+}
+
+::ng-deep .mat-select-trigger {
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 @mixin coloured-field($color) {
