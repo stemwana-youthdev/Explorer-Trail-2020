@@ -52,9 +52,7 @@ export class ChallengeDialogComponent implements OnInit {
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private dialog: MatDialog,
-  ) {
-    this.data.dialogType = this.data.dialogType ?? ChallengeDialogType.Preview;
-  }
+  ) { }
 
   ngOnInit() {
     this.store.dispatch(new LoadChallengesData());

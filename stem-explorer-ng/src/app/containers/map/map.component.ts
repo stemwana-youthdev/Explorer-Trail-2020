@@ -12,7 +12,7 @@ import { LoadLocationsData } from '../../store/locations/locations.actions';
 
 import { Location } from '../../shared/models/location';
 
-import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogComponent, ChallengeDialogType } from '../challenge-dialog/challenge-dialog.component';
 import { InfoLocationClickEvent, ChallengeMapComponent } from '../../components/challenge-map/challenge-map.component';
 
 
@@ -60,6 +60,7 @@ export class MapComponent implements OnInit {
     this.dialog.open(ChallengeDialogComponent, {
       data: {
         challengeId: location.challengeid,
+        dialogType: ChallengeDialogType.Preview,
       },
       panelClass: 'app-dialog',
     });
