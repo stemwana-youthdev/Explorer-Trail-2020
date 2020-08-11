@@ -21,12 +21,8 @@ import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 
-
-export enum ChallengeDialogType {
-  Preview,
-  Hint
-}
 
 export interface ChallengeDialogData {
   challengeId: number;

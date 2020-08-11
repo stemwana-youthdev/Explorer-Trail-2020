@@ -12,8 +12,9 @@ import { LoadLocationsData } from '../../store/locations/locations.actions';
 
 import { Location } from '../../shared/models/location';
 
-import { ChallengeDialogComponent, ChallengeDialogType } from '../challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { InfoLocationClickEvent, ChallengeMapComponent } from '../../components/challenge-map/challenge-map.component';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 
 
 @Component({

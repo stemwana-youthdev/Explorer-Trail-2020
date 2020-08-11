@@ -18,7 +18,8 @@ import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dia
 
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
-import { ChallengeDialogComponent, ChallengeDialogType } from '../challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 
 
 @Component({

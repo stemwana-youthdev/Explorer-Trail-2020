@@ -14,10 +14,11 @@ import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actio
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
 
-import { ChallengeDialogComponent, ChallengeDialogType } from '../challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { WatchLocationDistances } from 'src/app/store/location-distances/location-distances.actions';
 import { LocationDistance, LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 
 /*
 * Component to show the challenges in a list view
