@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Models.Entities
 {
-    public class ChallengeDifficulty
+    public class ChallengeLevel
     {
         public int Id { get; set; }
         public string QuestionText { get; set; }
