@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { FilterChallenges } from '../../store/challenges/challenges.actions';
@@ -16,6 +17,7 @@ export class ChallengeFilterComponent implements OnInit {
 
   constructor(
     private store: Store,
+    private gtmService: GoogleTagManagerService,
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +25,12 @@ export class ChallengeFilterComponent implements OnInit {
 
   onFilter(filter: number[]): void {
     this.store.dispatch(new FilterChallenges(filter));
+    // push to dataLayer
+    const gtmTag = {
+      event: 'filters',
+      filters: filter
+  };
+    this.gtmService.pushTag(gtmTag);
   }
 
 }
