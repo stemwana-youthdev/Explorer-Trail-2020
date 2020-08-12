@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, ReplaySubject, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { CameraComponent } from '../camera/camera.component';
 
@@ -10,9 +10,6 @@ import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LocationsState } from '../../store/locations/locations.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadLocationsData } from '../../store/locations/locations.actions';
-import { WatchLocationDistances } from '../../store/location-distances/location-distances.actions';
-import { LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
-import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
@@ -22,6 +19,7 @@ import { Levels } from 'src/app/shared/enums/levels.enum';
 import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
+import { GeolocationService } from 'src/app/shared/services/geolocation.service';
 
 
 export interface ChallengeDialogData {
@@ -38,24 +36,35 @@ export interface ChallengeDialogData {
   templateUrl: './challenge-dialog.component.html',
   styleUrls: ['./challenge-dialog.component.scss'],
 })
-export class ChallengeDialogComponent implements OnInit {
+export class ChallengeDialogComponent implements OnInit, OnDestroy {
+
   Categories: any = Categories;
   DialogType: any = ChallengeDialogType;
   Level: any = Levels;
+
+  distance$: ReplaySubject<number>;
+  distanceSubscription: Subscription;
 
   constructor(
     private store: Store,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private dialog: MatDialog,
+    private geolocation: GeolocationService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit()  {
     if (this.data.dialogType === ChallengeDialogType.Preview) {
       // Map does not load these so we need to check that they're loaded.
       this.store.dispatch(new LoadChallengesData());
-      this.store.dispatch(new WatchLocationDistances());
     }
+
+    this.distance$ = new ReplaySubject();
+    this.distanceSubscription = this.getDistance().subscribe(this.distance$);
+  }
+
+  ngOnDestroy() {
+    this.distanceSubscription.unsubscribe();
   }
 
   get challenge$(): Observable<Challenge> {
@@ -85,13 +94,9 @@ export class ChallengeDialogComponent implements OnInit {
     );
   }
 
-  get locationDistance$(): Observable<number> {
+  getDistance(): Observable<number> {
     return this.location$.pipe(
-      switchMap((location) =>
-        this.store
-          .select(LocationDistancesState.locationDistance)
-          .pipe(map((fn) => fn(location.uid)))
-      )
+      switchMap((location) => this.geolocation.locationDistance(location))
     );
   }
 
