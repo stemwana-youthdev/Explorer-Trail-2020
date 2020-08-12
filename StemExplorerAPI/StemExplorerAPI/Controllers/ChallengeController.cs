@@ -29,9 +29,16 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/Challenge/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            var challenge = await _challengeService.GetChallengeById(id);
+
+            if (challenge == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(challenge);
         }
 
         // POST: api/Challenge

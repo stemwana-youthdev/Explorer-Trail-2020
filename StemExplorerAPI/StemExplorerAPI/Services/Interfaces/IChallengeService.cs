@@ -9,5 +9,6 @@ namespace StemExplorerAPI.Services.Interfaces
     public interface IChallengeService
     {
         Task<ChallengesDto> GetChallenges();
+        Task<ChallengeDto> GetChallengeById(int challengeId);
     }
 }

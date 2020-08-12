@@ -32,5 +32,19 @@ namespace StemExplorerAPI.Services
                 Challenges = challenges,
             };
         }
+
+        public async Task<ChallengeDto> GetChallengeById(int challengeId)
+        {
+            return await _context.Challenges
+                .AsNoTracking()
+                .Where(c => c.Id == challengeId)
+                .Select(challenge => new ChallengeDto
+                {
+                    Id = challenge.Id,
+                    Title = challenge.Title,
+                    Description = challenge.Description,
+                    Category = challenge.Category
+                }).SingleOrDefaultAsync();
+        }
     }
 }
