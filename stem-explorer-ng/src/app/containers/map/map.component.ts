@@ -47,7 +47,7 @@ export class MapComponent implements OnInit {
     // push to dataLayer
     const gtmTag = {
       event: 'map marker click',
-      challengeTitle: location.challengetitle,
+      challengeTitle: location.challengeTitle,
   };
     this.gtmService.pushTag(gtmTag);
   }
@@ -61,9 +61,9 @@ export class MapComponent implements OnInit {
     this.dialog.open(ChallengeDialogComponent, {
       data: {
         challenge: {
-          uid: location.challengeid,
-          title: location.challengetitle,
-          description: location.challengedescription,
+          uid: location.challengeId,
+          title: location.challengeTitle,
+          description: location.challengeDescription,
           category: location.category,
           locationId: location.uid,
         },
