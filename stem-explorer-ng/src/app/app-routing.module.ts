@@ -1,18 +1,28 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { MapComponent } from './map/components/map/map.component';
+import { RouterModule, Routes } from '@angular/router';
+import { CameraComponent } from './shared/camera/camera.component';
 import { LoginPageComponent } from './users/components/login-page/login-page.component';
 import { RegisterPageComponent } from './users/components/register-page/register-page.component';
-import { ListViewComponent } from './list/components/list-view/list-view.component';
-import { ChallengeViewComponent } from './challenges/components/challenge-view/challenge-view.component';
-import { CameraComponent } from './shared/camera/camera.component';
 
 const routes: Routes = [
-  { path: '', component: MapComponent },
-  { path: 'login', component: LoginPageComponent },
+  {
+    path: '',
+    pathMatch: 'full', // match without map in the url?
+    redirectTo: 'map'
+  },
+  /** the following routes are lazy loaded, so they will only load when the user
+   * goes to them.
+   */
+  {
+    path: 'list',
+    loadChildren: () => import('./list/list.module').then(m => m.ListModule)
+  },
+  { path: 'challenge/:id',
+    loadChildren: () => import('./challenges/challenges.module').then(m => m.ChallengesModule)
+  },
+  {
+    path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'list-view', component: ListViewComponent },
-  { path: 'challenge/:id', component: ChallengeViewComponent },
   {
     path: 'scan-code', component: CameraComponent
   }

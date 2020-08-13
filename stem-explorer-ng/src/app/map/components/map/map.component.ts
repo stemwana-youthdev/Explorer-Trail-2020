@@ -1,22 +1,19 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { LocationsState } from 'src/app/store/locations/locations.state';
-import { ChallengesState } from 'src/app/store/challenges/challenges.state';
-import { LoadLocationsData } from 'src/app/store/locations/locations.actions';
-import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
-import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { Location } from '../../../shared/models/location';
-import { Router } from '@angular/router';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { MapConfigService } from '../../services/map-config.service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { map } from 'rxjs/operators';
+import { ChallengesState } from 'src/app/store/challenges/challenges.state';
+import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
+import { LoadLocationsData } from 'src/app/store/locations/locations.actions';
+import { LocationsState } from 'src/app/store/locations/locations.state';
+import { Location } from '../../../shared/models/location';
+import { MapConfigService } from '../../services/map-config.service';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 
-
-export interface InfoLocationClickEvent {
+interface InfoLocationClickEvent {
   location: Location;
   marker: MapMarker;
 }
@@ -25,33 +22,22 @@ export interface InfoLocationClickEvent {
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  providers: [MapConfigService]
+  // providers: [MapConfigService]
 })
 export class MapComponent implements OnInit, OnDestroy {
-  // @Select(LocationsState.locations) public locations$: Observable<Location[]>;
-  // @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
-  // @ViewChild(ChallengeMapComponent, { static: false }) challengeMap: ChallengeMapComponent;
-
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
   locations: Location[] = [];
   filter: number[] = [];
-  // infoLocation = null as Location;
-  private taurangaLocation = {
+  taurangaLocation = {
     lat: -37.6854709,
     lng: 176.1673285,
   };
   private geolocationWatchId: number;
-  zoom = 15;
-  center: google.maps.LatLngLiteral = this.taurangaLocation;
-  options;
 
-  private icons = {
-    [Categories.Science]: '/assets/icons/MAP-light-green-point.svg',
-    [Categories.Technology]: '/assets/icons/MAP-light-blue-point.svg',
-    [Categories.Engineering]: '/assets/icons/MAP-light-orange-point.svg',
-    [Categories.Maths]: '/assets/icons/MAP-purple-point.svg',
-  };
+  zoom = 16;
+  center: google.maps.LatLngLiteral = this.taurangaLocation;
+  options: google.maps.MapOptions;
 
   // added a dependency injection in order to use the getLocations method without creating an instance of the object
   constructor(
@@ -75,12 +61,12 @@ export class MapComponent implements OnInit, OnDestroy {
     })).subscribe();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     navigator.geolocation?.clearWatch(this.geolocationWatchId);
   }
 
   navigateToList(): void {
-    this.router.navigateByUrl('/list-view');
+    this.router.navigateByUrl('/list');
   }
 
   scanCode(): void {
@@ -104,7 +90,7 @@ export class MapComponent implements OnInit, OnDestroy {
   markerOptions(location: Location): google.maps.MarkerOptions {
     return {
       icon: {
-        url: this.icons[location.category],
+        url: this.mapConfig.mapIcons()[location.category],
         scaledSize: new google.maps.Size(30, 48),
       }
     };
@@ -127,7 +113,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.infoWindow.open(marker);
   }
 
-  private loadGeolocation() {
+  private loadGeolocation(): void {
     if (!navigator.geolocation) {
       /** @todo need to tell the user that geolocation isn't supported */
       console.warn('Geolocation not supported');
@@ -136,14 +122,14 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
       const { latitude, longitude } = position.coords;
-      this.center = {
-        lat: latitude,
-        lng: longitude,
-      };
+      // this.center = {
+      //   lat: latitude,
+      //   lng: longitude,
+      // };
     });
   }
 
-  private gtmTag(title: string) {
+  private gtmTag(title: string): void {
     const tag = {
       event: 'map marker click',
       challengeTitle: title

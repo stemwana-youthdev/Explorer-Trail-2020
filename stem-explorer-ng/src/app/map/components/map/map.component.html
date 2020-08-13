@@ -1,15 +1,5 @@
 <app-challenge-filter></app-challenge-filter>
 
-<!-- <app-challenge-map
-  class="challenge-map"
-  [locations]="locations$ | async"
-  [filter]="filter$ | async"
-  watchGeolocation="true"
-  (challengeLocationClick)="onChallengeLocationClick($event)"
-  (infoLocationClick)="onInfoLocationClick($event)"
->
-</app-challenge-map> -->
-
 <google-map
   [center]="center"
   [zoom]="zoom"
@@ -17,10 +7,9 @@
   width="100%"
   [options]="options"
 >
-  <!-- Add the pipe:
-  *ngFor="let location of (locations | filter:this.filter)" -->
+
   <map-marker
-    *ngFor="let location of locations"
+    *ngFor="let location of (locations | filter:this.filter)"
     #markerElem
     [position]="location.position"
     [title]="location.name"
@@ -31,7 +20,6 @@
 
   <map-info-window></map-info-window>
 </google-map>
-
 
 <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
 <app-fab svgIcon='QR-Code' (click)="scanCode()" position="right"></app-fab>

@@ -7,19 +7,11 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AnswerDialogComponent } from './challenges/components/answer-dialog/answer-dialog.component';
-import { ChallengeDetailsComponent } from './challenges/components/challenge-details/challenge-details.component';
-import { ChallengeViewComponent } from './challenges/components/challenge-view/challenge-view.component';
-import { HintDialogComponent } from './challenges/components/hint-dialog/hint-dialog.component';
-import { ResultDialogComponent } from './challenges/components/result-dialog/result-dialog.component';
+import { ChallengesModule } from './challenges/challenges.module';
 import { ConfigModule } from './core/config/config.module';
-import { ChallengeListComponent } from './list/components/challenge-list/challenge-list.component';
-import { ListViewComponent } from './list/components/list-view/list-view.component';
-import { ChallengeDialogComponent } from './map/components/challenge-dialog/challenge-dialog.component';
+import { ListModule } from './list/list.module';
+import { MapModule } from './map/map.module';
 import { CameraComponent } from './shared/camera/camera.component';
-import { ChallengeFilterComponent } from './shared/challenge-filter/challenge-filter.component';
-import { FilterButtonsComponent } from './shared/filter-buttons/filter-buttons.component';
-import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { SplashScreenComponent } from './shared/splash-screen/splash-screen.component';
 import { StoreModule } from './store/store.module';
@@ -31,21 +23,10 @@ import { RegisterPageComponent } from './users/components/register-page/register
     AppComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    ListViewComponent,
-    ChallengeDialogComponent,
     SplashScreenComponent,
-    FilterButtonsComponent,
-    ChallengeViewComponent,
-    CameraComponent,
-    HintDialogComponent,
-    AnswerDialogComponent,
-    ResultDialogComponent,
-    ChallengeDetailsComponent,
-    ChallengeListComponent,
-    ChallengeFilterComponent,
+    CameraComponent
   ],
   imports: [
-    // GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
     ConfigModule,
@@ -58,12 +39,12 @@ import { RegisterPageComponent } from './users/components/register-page/register
     FormsModule,
     StoreModule,
     SharedModule,
-    MaterialModule,
+    MapModule,
+    ListModule,
+    ChallengesModule
   ],
   entryComponents: [
-    ChallengeDialogComponent,
-    SplashScreenComponent,
-    HintDialogComponent
+    SplashScreenComponent
   ],
   bootstrap: [AppComponent],
   providers: [{provide: 'googleTagManagerId', useValue: 'GTM-W79HP9V'}]

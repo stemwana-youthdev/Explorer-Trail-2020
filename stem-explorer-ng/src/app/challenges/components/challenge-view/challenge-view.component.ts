@@ -1,171 +1,154 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Observable, combineLatest, Subscription } from 'rxjs';
-import { map, filter, take } from 'rxjs/operators';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { map } from 'rxjs/operators';
+import { Categories } from 'src/app/shared/enums/categories.enum';
+import { Levels } from 'src/app/shared/enums/levels.enum';
+import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
+import { Challenge } from 'src/app/shared/models/challenge';
+import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
+import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
+import { LoadChallengesData } from 'src/app/store/challenges/challenges.actions';
+import { ChallengesState } from 'src/app/store/challenges/challenges.state';
 import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
-import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
-import { LoadChallengesData } from 'src/app/store/challenges/challenges.actions';
-import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
-import { Challenge } from 'src/app/shared/models/challenge';
-import { ChallengesState } from 'src/app/store/challenges/challenges.state';
-import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
-import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
 import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
-
 
 @Component({
   selector: 'app-challenge-view',
   templateUrl: './challenge-view.component.html',
   styleUrls: ['./challenge-view.component.scss'],
 })
-export class ChallengeViewComponent implements OnInit, OnDestroy {
-  selectedLevel: number;
+export class ChallengeViewComponent implements OnInit {
+  // private challengesChangeSubscription: Subscription;
 
-  private challengesChangeSubscription: Subscription;
+  challengeId: string;
+  challenge: Challenge;
+  levels: ChallengeLevel[] = [];
+  levelsDropdown: number[] = [];
+  selectedLevel: ChallengeLevel;
+
+  Colour = StemColours;
+  Categories = Categories;
+  Levels = Levels;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store,
     public dialog: MatDialog,
     private gtmService: GoogleTagManagerService,
-  ) {}
+    private api: ApiService
+  ) {
+    this.challengeId = this.route.snapshot.params['id'];
+  }
 
   ngOnInit(): void {
+    // @todo remove when API is working
     this.store.dispatch(new LoadChallengesData());
     this.store.dispatch(new LoadChallengeLevelsData());
 
-    this.listenToChallengeLevelsChanges();
+    this.getChallenge();
+    this.getChallengeLevels();
   }
 
-  ngOnDestroy(): void {
-    this.challengesChangeSubscription.unsubscribe();
+  levelChange(event): void {
+    this.selectedLevel = this.levels.find(l =>
+      l.difficulty === event.value);
   }
 
-  private listenToChallengeLevelsChanges() {
-    this.challengesChangeSubscription = this.challengeLevels$
-      .pipe(
-        map((challengeLevels) => {
-          const difficulties = challengeLevels.map((level) => level.difficulty);
-          return Math.min(...difficulties);
-        }),
-        filter((minLevel) => minLevel < Infinity),
-      )
-      .subscribe((minLevel) => {
-        this.selectedLevel = minLevel;
-      });
-  }
-
-  get challengeId$(): Observable<number> {
-    return this.route.params.pipe(map((routeParams) => +routeParams.id));
-  }
-
-  get challenge$(): Observable<Challenge> {
-    return combineLatest([
-      this.store.select(ChallengesState.challenge),
-      this.challengeId$,
-    ]).pipe(
-      map(([fn, challengeId]) => fn(challengeId)),
-    );
-  }
-
-  get challengeLevels$(): Observable<ChallengeLevel[]> {
-    return combineLatest([
-      this.store.select(ChallengeLevelsState.challengeLevels),
-      this.challengeId$,
-    ]).pipe(
-      map(([fn, challengeId]) => fn(challengeId)),
-    );
-  }
-
-  onLevelChange(level: number) {
-    this.selectedLevel = level;
-  }
-
-  onHint({ challenge, level }: HintEvent) {
-    this.openHintDialog(
-      challenge.title,
-      this.selectedLevel,
-      level.hint,
-      challenge.category,
-    );
-    // push to dataLayer
-    const gtmTag = {
-      event: 'get hint',
-      challengeTitle: challenge.title,
-      level: level.difficulty
-  };
-    this.gtmService.pushTag(gtmTag);
-  }
-
-  onAnswer({ challenge, level }: AnswerEvent) {
-    this.openAnswerDialog(challenge, level);
-  }
-
-  openHintDialog(title, level, hint, category) {
+  getHint() {
     this.dialog.open(HintDialogComponent, {
       data: {
-        title,
-        level,
-        hint,
-        category,
+        title: this.challenge.title,
+        level: this.selectedLevel.difficulty,
+        hint: this.selectedLevel.hint,
+        category: this.challenge.category,
       },
       panelClass: 'app-dialog',
     });
+    // push to dataLayer
+    this.gtmTag('get hint');
   }
 
-  // Async allows us to do this in an imperative style w/o blocking
-  async openAnswerDialog(challenge: Challenge, currentLevel: ChallengeLevel) {
-    // Open the answer dialog
+  onAnswer() {
     const answerDialog = this.dialog.open(AnswerDialogComponent, {
       data: {
-        level: currentLevel,
-        challenge,
+        level: this.selectedLevel,
+        challenge: this.challenge,
       },
       panelClass: 'app-dialog',
     });
+    this.gtmTag('answer attempt');
 
-    // Wait until the dialog is closed
-    const isCorrect = await answerDialog.afterClosed().toPromise();
-    // Ignore if the user closed the dialog without selecting an answer
-    if (typeof isCorrect !== 'boolean') {
-      return;
-    }
-
-    // Open another dialog
-    const hasNext = await this.getNextLevel() !== null;
-    const resultDialog = this.dialog.open(ResultDialogComponent, {
-      data: {
-        level: currentLevel,
-        challenge,
-        isCorrect,
-        hasNext,
-      },
-      panelClass: 'app-dialog',
+    answerDialog.afterClosed().subscribe(res => {
+      if (res !== undefined) {
+        this.resultsDialog(res);
+        this.gtmTag(res ? 'answer correct' : 'answer incorrect');
+      }
     });
-
-    // Wait until the dialog is closed
-    const dialogResult = await resultDialog.afterClosed().toPromise();
-    // If the user clicked next level, switch to the next level
-    if (dialogResult === 'next-level') {
-      this.selectedLevel = (await this.getNextLevel()) ?? this.selectedLevel;
-    }
   }
 
-  async getNextLevel() {
-    const challengeLevels = await this.challengeLevels$
-      .pipe(take(1))
-      .toPromise();
-    const difficulties = challengeLevels.map((level) => level.difficulty);
-    const higherLevels = difficulties.filter((d) => d > this.selectedLevel);
-    const nextLevel = Math.min(...higherLevels);
-    if (nextLevel < Infinity) {
-      return nextLevel;
-    } else {
-      return null;
-    }
+  private getChallenge(): void {
+    // remove this when api for single challenge is working
+    this.store.select(ChallengesState.challenge).pipe(map(
+      (fn) => fn(1)
+    )).pipe(map(res => {
+      this.challenge = res;
+    })).subscribe();
+
+    // code to get individual challenge from API
+    // this.api.getChallenge(this.challengeId)
+    //   .pipe(map(res => this.challenge = res)).subscribe();
+  }
+
+  private getChallengeLevels(): void {
+    // needs to be replaced with api endpoint to get specific levels
+    this.store.select(ChallengeLevelsState.challengeLevels).pipe(map(
+      (fn) => fn(1)
+    )).pipe(map(res => {
+      this.levels = res;
+      this.levels.forEach(l => {
+        this.levelsDropdown.push(l.difficulty);
+      });
+      this.levelsDropdown.sort((a, b) => a - b);
+      this.selectedLevel = this.levels[0];
+    })).subscribe();
+  }
+
+  private resultsDialog(success: boolean) {
+    const dialog = this.dialog.open(ResultDialogComponent, {
+      data: {
+        level: this.selectedLevel,
+        challenge: this.challenge,
+        isCorrect: success,
+      },
+      panelClass: 'app-dialog'
+    });
+    dialog.afterClosed().subscribe(res => {
+      if (res === 'next-level') {
+        this.changeLevel();
+      }
+      if (res === 'try-again') {
+        this.onAnswer();
+      }
+    });
+  }
+
+  private changeLevel() {
+    const idx = this.levels.indexOf(this.selectedLevel);
+    this.selectedLevel = this.levels[idx + 1];
+  }
+
+  private gtmTag(event: string): void {
+    const tag = {
+      event,
+      challengeTitle: this.challenge.title,
+      level: this.selectedLevel.difficulty
+    };
+    this.gtmService.pushTag(tag);
   }
 }

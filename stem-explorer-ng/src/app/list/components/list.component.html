@@ -1,0 +1,20 @@
+<app-challenge-filter></app-challenge-filter>
+
+<ng-container *ngFor="let location of locations">
+  <mat-card [class]="Colour[location.category]" (click)="openDialog(location)">
+      <h3 [class]="Colour[location.category]">
+        <img class="marker-icon" [src]="getMapMarker(location.category)">
+        <!-- <span class="distance">{{ challenge.locationDistance | largeDistance }}</span> -->
+        {{ location.challengetitle }}
+      </h3>
+      <h4>{{ Categories[location.category] }}</h4>
+  <p>{{ location.challengedescription | truncate: 50 }}</p>
+</mat-card>
+</ng-container>
+
+<!-- Required by https://developers.google.com/maps/documentation/distance-matrix/policies#powered -->
+<img class="powered-by-google" src="/assets/powered_by_google_on_white.png" alt="powered by Google"
+  title="Distances calculated using Google Maps Platform">
+
+<app-fab matIcon="location_on" (click)="navigateToMap()"></app-fab>
+<span class="fill-remaining-space"></span>

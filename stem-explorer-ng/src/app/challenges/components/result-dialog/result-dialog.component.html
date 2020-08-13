@@ -22,12 +22,13 @@
   </ng-template>
 
   <ng-container *ngIf="data.isCorrect; else incorrectButtons">
-    <ng-container *ngIf="(auth.isLoggedIn | async); else loginOrRegister">
-      <app-button *ngIf="data.hasNext" inverted mat-dialog-close [category]="category" (click)="nextLevel()">
+    <!-- <ng-container *ngIf="(auth.isLoggedIn | async); else loginOrRegister"> -->
+      <!-- <app-button *ngIf="data.hasNext" inverted mat-dialog-close [category]="category" (click)="nextLevel()"> -->
+      <app-button inverted mat-dialog-close [category]="category" (click)="nextLevel()">
         Next level
       </app-button>
-    </ng-container>
-  
+    <!-- </ng-container> -->
+<!--   
     <ng-template #loginOrRegister>
       <h4>Register or Login to track your progress</h4>
   
@@ -37,11 +38,11 @@
       <app-button inverted mat-dialog-close [category]="category" (click)="navigateToLogin()">
         Login
       </app-button>
-    </ng-template>
+    </ng-template> -->
   </ng-container>
 
   <ng-template #incorrectButtons>
-    <app-button inverted mat-dialog-close>Try again</app-button>
+    <app-button inverted mat-dialog-close (click)="tryAgain()">Try again</app-button>
   </ng-template>
 
   <app-button inverted mat-dialog-close [category]="category" (click)="navigateToHomepage()">Back to home</app-button>

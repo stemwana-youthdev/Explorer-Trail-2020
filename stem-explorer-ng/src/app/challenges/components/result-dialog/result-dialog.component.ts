@@ -56,4 +56,8 @@ export class ResultDialogComponent {
     this.dialogRef.close('next-level');
   }
 
+  tryAgain() {
+    this.dialogRef.close('try-again');
+  }
+
 }

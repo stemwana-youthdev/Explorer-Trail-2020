@@ -50,7 +50,7 @@ export class DrawerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getExternalContent();
+    // this.getExternalContent();
   }
 
   toggle() {
@@ -64,11 +64,11 @@ export class DrawerComponent implements OnInit {
     this.drawer.close();
   }
 
-  private getExternalContent() {
-    this.api.getExternalContent().pipe(
-      map(content => {
-        this.externalContent = content.sort((a, b) => a.order - b.order);
-      })
-    ).subscribe();
-  }
+  // private getExternalContent() {
+  //   this.api.getExternalContent().pipe(
+  //     map(content => {
+  //       this.externalContent = content.sort((a, b) => a.order - b.order);
+  //     })
+  //   ).subscribe();
+  // }
 }

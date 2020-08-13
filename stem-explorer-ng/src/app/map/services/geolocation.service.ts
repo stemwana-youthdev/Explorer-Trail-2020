@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-export const google = window.google;
-export type LatLng = google.maps.LatLngLiteral;
+type LatLng = google.maps.LatLngLiteral;
 
 @Injectable({
   providedIn: 'root',

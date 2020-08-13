@@ -1,22 +1,21 @@
-<ng-container *ngIf="loaded$ | async">
-  <app-dialog [category]="category$ | async">
-    <app-challenge-title [category]="category$ | async">
-      <span class="distance">{{ locationDistance$ | async | largeDistance }}</span>
-      {{ (challenge$ | async)?.title }}
+  <app-dialog [category]="location.category">
+    <app-challenge-title [category]="location.category">
+      <!-- <span class="distance">{{ locationDistance$ | async | largeDistance }}</span> -->
+      {{ location.challengetitle }}
     </app-challenge-title>
-    <h4>{{ Categories[category$ | async] }}</h4>
+    <h4>{{ Categories[location.category] }}</h4>
     <h4>Duration: </h4>
-    <p>{{ (challenge$ | async)?.description }}</p>
+    <p>{{ location.challengedescription }}</p>
 
     <app-contact-info
-      [category]="category$ | async"
+      [category]="location.category"
       icon="location_on"
-      [label]="(location$ | async)?.name"
+      [label]="location.name"
     ></app-contact-info>
     <br>
     <app-contact-info
-      [link]="(location$ | async)?.link"
-      [category]="category$ | async"
+      [link]="location.link"
+      [category]="location.category"
       icon="language"
       label="View Website"
     ></app-contact-info>
@@ -24,12 +23,12 @@
 
     <app-button
       mat-dialog-close
-      [category]="category$ | async"
-      (click)="cameraView()"
+      [category]="location.category"
+      (click)="scanCode()"
     >
       Scan QR Code
     </app-button>
   </app-dialog>
-</ng-container>
 
-<mat-spinner *ngIf="!(loaded$ | async)"></mat-spinner>
+<!-- Is this needed? -->
+<!-- <mat-spinner *ngIf="!(loaded$ | async)"></mat-spinner> -->

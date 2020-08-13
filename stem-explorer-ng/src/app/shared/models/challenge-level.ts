@@ -4,16 +4,11 @@ import { Levels } from '../enums/levels.enum';
 export interface ChallengeLevel {
     uid: number;
     questionText: string;
-    difficulty: Levels;
+    difficulty: number;
     instructions: string;
     answerType: AnswerType;
-    possibleAnswers: ChallengeAnswer[];
+    possibleAnswers: string[];
+    answer: string[];
     challengeId: number;
     hint: string;
-}
-
-export interface ChallengeAnswer {
-    uid: number;
-    answerText: string;
-    isCorrect: boolean;
 }

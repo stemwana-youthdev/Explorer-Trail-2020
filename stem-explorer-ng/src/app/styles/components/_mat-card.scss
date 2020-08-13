@@ -1,0 +1,27 @@
+@import './../variables';
+@import './../mixins';
+
+.mat-card {
+  box-shadow: none;
+  border-radius: 0;
+  border-width: 3px;
+  border-style: solid;
+  padding: 15px;
+  margin: 15px;
+}
+
+.mat-card.green {
+  @include coloured-card($primary-green)
+}
+
+.mat-card.blue {
+  @include coloured-card($primary-blue)
+}
+
+.mat-card.orange {
+  @include coloured-card($primary-orange)
+}
+
+.mat-card.purple {
+  @include coloured-card($primary-purple)
+}
