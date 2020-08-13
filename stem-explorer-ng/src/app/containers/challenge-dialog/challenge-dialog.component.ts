@@ -21,6 +21,7 @@ import { LocationDistancesState } from 'src/app/store/location-distances/locatio
 
 interface ChallengeDialogData {
   challengeId: number;
+  location: Location;
 }
 
 /*
@@ -93,6 +94,10 @@ export class ChallengeDialogComponent implements OnInit {
     this.dialog.open(CameraComponent, {
       panelClass: 'fullscreen-dialog',
     });
+  }
+
+  mapDirections() {
+    (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
   }
 
 }

@@ -22,13 +22,24 @@
     ></app-contact-info>
     <br><br>
 
-    <app-button
-      mat-dialog-close
-      [category]="category$ | async"
-      (click)="cameraView()"
-    >
-      Scan QR Code
-    </app-button>
+    <div style="display: flex;">
+      <app-button
+        mat-dialog-close
+        [category]="category$ | async"
+        [outlined]="true"
+        style="flex: 1;"
+        (click)="mapDirections($event)">
+        Get Directions
+      </app-button>
+      <app-button
+        class="challengeActions"
+        mat-dialog-close
+        [category]="category$ | async"
+        style="flex: 1;"
+        (click)="cameraView()">
+        Scan QR Code
+      </app-button>
+    </div>
   </app-dialog>
 </ng-container>
 
