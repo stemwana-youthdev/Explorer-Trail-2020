@@ -9,21 +9,18 @@
   <p>{{ challenge.description }}</p>
 
   <app-form-field *ngIf="levels.length > 1" [class]="Colour[challenge.category]">
-    <mat-select [value]="selectedLevel.difficulty" (selectionChange)="levelChange($event)" #select>
+    <mat-select [value]="selectedLevel.difficulty" (selectionChange)="levelChange($event)" aria-label="Level selector">
       <mat-option *ngFor="let option of levelsDropdown" [value]="option">
         {{ Levels[option] }}
       </mat-option>
     </mat-select>
-    <span class="material-icons arrow" (click)="select.open()">
-      expand_more
-    </span>
+    <mat-icon class="arrow">expand_more</mat-icon>
   </app-form-field>
 
   <ng-container *ngIf="selectedLevel">
     <h3 [class]="Colour[challenge.category]">Instructions</h3>
     <p>{{ selectedLevel.instructions }}</p>
 
-    <div class="antiOverlay">
       <app-button
         *ngIf="selectedLevel.hint"
         color="pink"
@@ -31,13 +28,13 @@
       >
         Get Hint
       </app-button>
-    </div>  
   </ng-container>
 
   <app-button
     [category]="challenge.category"
     (click)="onAnswer()"
     style="position: relative; top: 10px;"
+    aria-label="Answer here"
   >
     Enter Answer
   </app-button>

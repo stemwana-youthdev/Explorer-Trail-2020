@@ -7,7 +7,6 @@ import { environment } from '../../environments/environment';
 import { ChallengeLevelsState } from './challenge-levels/challenge-levels.state';
 import { ChallengesState } from './challenges/challenges.state';
 import { LastHomepageState } from './last-homepage/last-homepage.state';
-// import { LocationDistancesState } from './location-distances/location-distances.state';
 import { LocationsState } from './locations/locations.state';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { LocationsState } from './locations/locations.state';
         ChallengesState,
         LocationsState,
         ChallengeLevelsState,
-        // LocationDistancesState,
         LastHomepageState,
       ],
       { developmentMode: !environment.production }),

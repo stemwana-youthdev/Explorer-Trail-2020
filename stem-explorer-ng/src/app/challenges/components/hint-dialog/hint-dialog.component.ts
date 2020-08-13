@@ -10,7 +10,6 @@ interface HintDialogData {
   category: Categories;
 }
 
-
 @Component({
   selector: 'app-hint-dialog',
   templateUrl: './hint-dialog.component.html',
