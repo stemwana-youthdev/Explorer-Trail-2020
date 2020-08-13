@@ -14,6 +14,7 @@ import { Location } from '../../shared/models/location';
 
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { InfoLocationClickEvent, ChallengeMapComponent } from '../../components/challenge-map/challenge-map.component';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 
 
 @Component({
@@ -46,7 +47,7 @@ export class MapComponent implements OnInit {
     // push to dataLayer
     const gtmTag = {
       event: 'map marker click',
-      challengeTitle: location.challengetitle,
+      challengeTitle: location.challengeTitle,
   };
     this.gtmService.pushTag(gtmTag);
   }
@@ -59,8 +60,15 @@ export class MapComponent implements OnInit {
   private openChallengeDialog(location: Location) {
     this.dialog.open(ChallengeDialogComponent, {
       data: {
-        challengeId: location.challengeid,
+        challenge: {
+          uid: location.challengeId,
+          title: location.challengeTitle,
+          description: location.challengeDescription,
+          category: location.category,
+          locationId: location.uid,
+        },
         location,
+        dialogType: ChallengeDialogType.Preview,
       },
       panelClass: 'app-dialog',
     });

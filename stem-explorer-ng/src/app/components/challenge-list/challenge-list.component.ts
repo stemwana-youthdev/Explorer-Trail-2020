@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 import { Challenge } from '../../shared/models/challenge';
-import { Location } from '../../shared/models/location';
 import { Categories } from '../../shared/enums/categories.enum';
-import { LocationDistance } from '../../store/location-distances/location-distances.state';
 
-type ChallengeWithDistance = Challenge & { locationDistance: number };
+export interface ChallengeWithDistance extends Challenge {
+  distance: number;
+}
 
 @Component({
   selector: 'app-challenge-list',
@@ -13,9 +13,7 @@ type ChallengeWithDistance = Challenge & { locationDistance: number };
   styleUrls: ['./challenge-list.component.scss'],
 })
 export class ChallengeListComponent implements OnInit {
-  @Input() challenges: Challenge[];
-  @Input() locations: Location[];
-  @Input() locationDistances: LocationDistance[];
+  @Input() challenges: ChallengeWithDistance[];
   @Input() filter: number[];
 
   @Output() itemClick = new EventEmitter<Challenge>();
@@ -39,18 +37,5 @@ export class ChallengeListComponent implements OnInit {
 
   getMarkerIconForCategory(category: Categories) {
     return this.icons[category];
-  }
-
-  getLocationDistance(challenge: Challenge) {
-    return this.locationDistances.find(
-      (distance) => distance.locationId === challenge.locationId
-    )?.distance;
-  }
-
-  get challengesWithDistances(): ChallengeWithDistance[] {
-    return this.challenges.map((challenge) => ({
-      ...challenge,
-      locationDistance: this.getLocationDistance(challenge),
-    }));
   }
 }

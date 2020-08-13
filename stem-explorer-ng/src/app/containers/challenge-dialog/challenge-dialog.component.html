@@ -1,46 +1,53 @@
-<ng-container *ngIf="loaded$ | async">
-  <app-dialog [category]="category$ | async">
-    <app-challenge-title [category]="category$ | async">
-      <span class="distance">{{ locationDistance$ | async | largeDistance }}</span>
-      {{ (challenge$ | async)?.title }}
-    </app-challenge-title>
-    <h4>{{ Categories[category$ | async] }}</h4>
-    <h4>Duration: </h4>
-    <p>{{ (challenge$ | async)?.description }}</p>
+<app-dialog [category]="data.challenge.category">
+  <app-challenge-title [category]="data.challenge.category">
+    <span *ngIf="data.dialogType === DialogType.Preview"
+      class="distance" aria-label="Distance to challenge">{{ distance$ | async | largeDistance }}</span>
+    {{ data.challenge?.title }}
+  </app-challenge-title>
 
+  <ng-container *ngIf="data.dialogType === DialogType.Preview">
+    <h4>{{ Categories[data.challenge.category] }}</h4>
+    <h4>Duration: </h4>
+    <p>{{ data.location?.challengeDescription }}</p>
+    
     <app-contact-info
-      [category]="category$ | async"
+      [category]="data.challenge.category"
       icon="location_on"
-      [label]="(location$ | async)?.name"
+      [label]="data.location?.name"
+      aria-label="Location address"
     ></app-contact-info>
     <br>
     <app-contact-info
-      [link]="(location$ | async)?.link"
-      [category]="category$ | async"
+      [link]="data.location?.link"
+      [category]="data.challenge.category"
       icon="language"
       label="View Website"
+      aria-label="Location website"
     ></app-contact-info>
+    
     <br><br>
 
     <div style="display: flex;">
       <app-button
         mat-dialog-close
-        [category]="category$ | async"
+        class="challengeActions"
+        [category]="data.challenge.category"
         [outlined]="true"
-        style="flex: 1;"
         (click)="mapDirections($event)">
         Get Directions
       </app-button>
       <app-button
-        class="challengeActions"
         mat-dialog-close
-        [category]="category$ | async"
-        style="flex: 1;"
-        (click)="cameraView()">
+        class="challengeActions"
+        [category]="data.challenge.category"
+        (click)="cameraView()"
+        aria-label="Start challenge">
         Scan QR Code
       </app-button>
     </div>
-  </app-dialog>
-</ng-container>
-
-<mat-spinner *ngIf="!(loaded$ | async)"></mat-spinner>
+  </ng-container>
+  <ng-container *ngIf="data.dialogType === DialogType.Hint">
+    <h4>{{ Level[data.level?.difficulty] }}</h4>
+    <p>{{ data.level?.hint }}</p>
+  </ng-container>
+</app-dialog>
