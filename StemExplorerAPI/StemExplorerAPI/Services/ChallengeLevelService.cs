@@ -28,8 +28,8 @@ namespace StemExplorerAPI.Services
                     Difficulty = l.Difficulty,
                     Instructions = l.Instructions,
                     AnswerType = l.AnswerType,
-                    PossibleAnswers = l.Answers.Select(a => a.AnswerText).ToList(),
-                    Answers = l.Answers.Where(a => a.IsCorrect).Select(a => a.AnswerText).ToList(),
+                    PossibleAnswers = l.PossibleAnswers,
+                    Answers = l.Answers,
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
                 })
@@ -47,8 +47,8 @@ namespace StemExplorerAPI.Services
                     Difficulty = l.Difficulty,
                     Instructions = l.Instructions,
                     AnswerType = l.AnswerType,
-                    PossibleAnswers = l.Answers.Select(a => a.AnswerText).ToList(),
-                    Answers = l.Answers.Where(a => a.IsCorrect).Select(a => a.AnswerText).ToList(),
+                    PossibleAnswers = l.PossibleAnswers,
+                    Answers = l.Answers,
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
                 })
@@ -57,21 +57,12 @@ namespace StemExplorerAPI.Services
 
         public async Task<bool> ValidateAnswer(int levelId, string givenAnswer)
         {
-            var level = await _context.ChallengeLevels
-                .Include(l => l.Answers)
-                .SingleAsync(l => l.Id == levelId);
-            foreach (var possibleAnswer in level.Answers)
-            {
-                if (AnswerMatches(givenAnswer, possibleAnswer))
-                {
-                    return possibleAnswer.IsCorrect;
-                }
-            }
-            return false;
+            var level = await _context.ChallengeLevels.SingleAsync(l => l.Id == levelId);
+            return level.Answers.Any(a => AnswerMatches(givenAnswer, a));
         }
 
-        private bool AnswerMatches(string givenAnswer, ChallengeAnswer possibleAnswer)
-            => NormalizeAnswer(givenAnswer) == NormalizeAnswer(possibleAnswer.AnswerText);
+        private bool AnswerMatches(string givenAnswer, string possibleAnswer)
+            => NormalizeAnswer(givenAnswer) == NormalizeAnswer(possibleAnswer);
 
         private string NormalizeAnswer(string answer)
             => answer.Trim().ToLowerInvariant();

@@ -22,7 +22,6 @@ namespace StemExplorerAPI.Models
         internal DbSet<Challenge> Challenges { get; set; }
         internal DbSet<Location> Locations { get; set; }
         internal DbSet<ChallengeLevel> ChallengeLevels { get; set; }
-        internal DbSet<ChallengeAnswer> ChallengeAnswers { get; set; }
         internal DbSet<ExternalContent> ExternalContent { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
