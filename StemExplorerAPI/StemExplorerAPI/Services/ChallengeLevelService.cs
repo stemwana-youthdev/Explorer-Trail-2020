@@ -18,9 +18,9 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public async Task<ChallengeLevelsDto> GetLevels()
+        public async Task<List<ChallengeLevelDto>> GetLevels()
         {
-            var levels = await _context.ChallengeLevels
+            return await _context.ChallengeLevels
                 .Select(l => new ChallengeLevelDto
                 {
                     Id = l.Id,
@@ -34,15 +34,11 @@ namespace StemExplorerAPI.Services
                     Hint = l.Hint,
                 })
                 .ToListAsync();
-            return new ChallengeLevelsDto
-            {
-                ChallengeLevels = levels,
-            };
         }
 
-        public async Task<ChallengeLevelsDto> GetLevelsForChallenge(int challengeId)
+        public async Task<List<ChallengeLevelDto>> GetLevelsForChallenge(int challengeId)
         {
-            var levels = await _context.ChallengeLevels
+            return await _context.ChallengeLevels
                 .Where(l => l.ChallengeId == challengeId)
                 .Select(l => new ChallengeLevelDto
                 {
@@ -57,10 +53,6 @@ namespace StemExplorerAPI.Services
                     Hint = l.Hint,
                 })
                 .ToListAsync();
-            return new ChallengeLevelsDto
-            {
-                ChallengeLevels = levels,
-            };
         }
 
         public async Task<bool> ValidateAnswer(int levelId, string givenAnswer)

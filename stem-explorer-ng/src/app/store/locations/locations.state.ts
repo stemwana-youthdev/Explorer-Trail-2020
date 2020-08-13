@@ -63,8 +63,8 @@ export class LocationsState {
     const state = ctx.getState();
     if (!state.fetched) {
       return this.apiService.getLocations().pipe(
-        tap((data) => ctx.patchState({
-          locations: data.location,
+        tap((locations) => ctx.patchState({
+          locations,
           fetched: true,
         })),
       );
