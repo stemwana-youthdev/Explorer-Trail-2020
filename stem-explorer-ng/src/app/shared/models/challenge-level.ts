@@ -7,7 +7,7 @@ export interface ChallengeLevel {
     difficulty: Levels;
     instructions: string;
     answerType: AnswerType;
-    possibleAnswers: string[];
+    possibleAnswers: string[] | null;
     answers: string[];
     challengeId: number;
     hint: string;
