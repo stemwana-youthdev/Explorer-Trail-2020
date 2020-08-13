@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { Observable, from, ReplaySubject, Subscription, combineLatest, of } from 'rxjs';
-import { map, startWith, switchMap, mergeAll, tap, scan } from 'rxjs/operators';
+import { map, startWith, switchMap, mergeAll, tap, scan, take } from 'rxjs/operators';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
@@ -16,6 +16,7 @@ import { Location } from '../../shared/models/location';
 
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { Categories } from 'src/app/shared/enums/categories.enum';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { GeolocationService } from 'src/app/shared/services/geolocation.service';
 import { ChallengeWithDistance } from 'src/app/components/challenge-list/challenge-list.component';
 
@@ -99,8 +100,10 @@ export class ListViewComponent implements OnInit, OnDestroy {
     )).pipe(mergeAll());
   }
 
-  onItemClick(challenge: Challenge) {
-    this.openChallengeDialog(challenge);
+  async onItemClick(challenge: Challenge) {
+    const locations = await this.locations$.pipe(take(1)).toPromise();
+    const location = locations.find((l) => l.uid === challenge.locationId);
+    this.openChallengeDialog(challenge, location);
     // push to dataLayer
     const gtmTag = {
       event: 'card click',
@@ -112,10 +115,12 @@ export class ListViewComponent implements OnInit, OnDestroy {
   /*
   * Opens the dialog for the given challenge
   */
-  private openChallengeDialog(challenge: Challenge) {
+  private openChallengeDialog(challenge: Challenge, location: Location) {
     this.dialog.open(ChallengeDialogComponent, {
       data: {
-        challengeId: challenge.uid,
+        challenge,
+        location,
+        dialogType: ChallengeDialogType.Preview,
       },
       panelClass: 'app-dialog',
     });

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ChallengeDialogComponent } from 'src/app/containers/challenge-dialog/challenge-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Router } from '@angular/router';
-import { database } from 'firebase';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 class CameraAccessError extends Error {
