@@ -8,7 +8,7 @@
   <ng-container *ngIf="data.dialogType === DialogType.Preview">
     <h4>{{ Categories[data.challenge.category] }}</h4>
     <h4>Duration: </h4>
-    <p>{{ data.location?.description }}</p>
+    <p>{{ data.location?.challengedescription }}</p>
   
     <app-contact-info
       [category]="data.challenge.category"
