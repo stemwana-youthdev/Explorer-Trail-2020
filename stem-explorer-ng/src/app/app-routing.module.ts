@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CameraComponent } from './shared/camera/camera.component';
-import { LoginPageComponent } from './users/components/login-page/login-page.component';
-import { RegisterPageComponent } from './users/components/register-page/register-page.component';
+import { LoginPageComponent } from './users/login-page/login-page.component';
+import { RegisterPageComponent } from './users/register-page/register-page.component';
 
 const routes: Routes = [
   {

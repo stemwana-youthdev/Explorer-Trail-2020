@@ -15,8 +15,8 @@ import { CameraComponent } from './shared/camera/camera.component';
 import { SharedModule } from './shared/shared.module';
 import { SplashScreenComponent } from './shared/splash-screen/splash-screen.component';
 import { StoreModule } from './store/store.module';
-import { LoginPageComponent } from './users/components/login-page/login-page.component';
-import { RegisterPageComponent } from './users/components/register-page/register-page.component';
+import { LoginPageComponent } from './users/login-page/login-page.component';
+import { RegisterPageComponent } from './users/register-page/register-page.component';
 
 @NgModule({
   declarations: [
