@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,7 @@
     "@angular/fire": "^6.0.0",
     "@angular/forms": "~9.1.9",
     "@angular/google-maps": "^9.2.4",
+    "@angular/localize": "^9.1.12",
     "@angular/material": "~8.2.3",
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
