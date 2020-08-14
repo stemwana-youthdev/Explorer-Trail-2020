@@ -22,5 +22,11 @@ input {
     background-color: tint(5%, $primary-black);
     border-radius: 0.5rem;
     color: tint(50%, $primary-black);
+
+    &.error {
+      border-color: tint(40%, $secondary-red);
+      background-color: tint(10%, $secondary-red);
+      color: tint(80%, $secondary-red);
+    }
   }
 }

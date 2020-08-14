@@ -1,9 +1,19 @@
 <div class="email-register-fields">
 
-<app-input placeholder="Email" type="email" color="profile"></app-input>
-<app-input placeholder="Password" type="password" color="profile"></app-input>
-<app-input placeholder="Password confirmation" type="password" color="profile"></app-input>
+<form (submit)='register(emailValue, passwordValue, confirmPasswordValue)'>
+    <app-input placeholder="Email" type="email" [color]="emailField" 
+    aria-label='email'
+    name='email' [(ngModel)]='emailValue' (ngModelChange)='checkEmailFormat(emailValue)'></app-input>
 
-<app-button color="pink">Register</app-button>
+    <app-input placeholder="Password" type="password" [color]="passwordField" 
+    aria-label="password"
+    name='password' [(ngModel)]='passwordValue' (ngModelChange)='checkPasswordFormat(passwordValue)'></app-input>
+
+    <app-input placeholder="Password confirmation" type="password" [color]="confirmField" 
+    aria-label='confirm password'
+    name='confirmPassword' [(ngModel)]='confirmPasswordValue' (ngModelChange)='checkPasswordMatch(passwordValue, confirmPasswordValue)'></app-input>
+
+    <app-button color="pink">Register</app-button>
+</form>
 
 </div>
