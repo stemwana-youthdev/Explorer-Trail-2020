@@ -39,6 +39,8 @@ export class AuthService {
           id: null,
           firstName,
           lastName,
+          contactNumber: '',
+          homeTown: '',
         };
 
         user = await this.api.registerUser(userInfo).toPromise();
