@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
@@ -10,6 +10,7 @@ import { ChallengeLevel } from '../models/challenge-level';
 import { User } from '../models/user';
 import { Store } from '@ngxs/store';
 import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
+import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
 
 @Injectable()
 export class ApiService {
@@ -83,6 +84,20 @@ export class ApiService {
       `${this.apiEndpoint}/User/RegisterUser`,
       userInfo,
       this.authOptions
+    );
+  }
+
+  // userInfo needs to have all of its properties set,
+  // or they will be set to null in the DB.
+  // Usually this will be a copy of CurrentUser.user with
+  // the properties you want to update
+  updateCurrentUser(userInfo: User) {
+    return this.http.put<User>(
+      `${this.apiEndpoint}/User/UpdateUser`,
+      userInfo,
+      this.authOptions,
+    ).pipe(
+      tap((user) => this.store.dispatch(new UpdateUser(user))),
     );
   }
 }

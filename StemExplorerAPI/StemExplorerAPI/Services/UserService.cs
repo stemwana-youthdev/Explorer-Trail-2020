@@ -60,6 +60,21 @@ namespace StemExplorerAPI.Services
                 HomeTown = user.HomeTown,
             };
         }
+
+        public async Task UpdateUser(UserDto userInfo)
+        {
+            var user = await _context.Users.FindAsync(userInfo.Id);
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.FirstName = userInfo.FirstName;
+            user.LastName = userInfo.LastName;
+            user.ContactNumber = userInfo.ContactNumber;
+            user.HomeTown = userInfo.HomeTown;
+        }
     }
 }
 

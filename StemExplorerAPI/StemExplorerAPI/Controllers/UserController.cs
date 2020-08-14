@@ -47,5 +47,15 @@ namespace StemExplorerAPI.Controllers
             userInfo.Id = userId;
             return await _userService.CreateUser(userInfo);
         }
+
+        [HttpPut("UpdateCurrentUser")]
+        [Authorize]
+        public async Task<UserDto> UpdateCurrentUser(UserDto userInfo)
+        {
+            // Use the user's actual userId
+            userInfo.Id = userId;
+            await _userService.UpdateUser(userInfo);
+            return await _userService.GetUser(userInfo.Id);
+        }
     }
 }
