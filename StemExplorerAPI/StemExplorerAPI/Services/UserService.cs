@@ -30,7 +30,10 @@ namespace StemExplorerAPI.Services
             return new UserDto
             {
                 Id = user.Id,
-                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                ContactNumber = user.ContactNumber,
+                HomeTown = user.HomeTown,
             };
         }
 
@@ -39,7 +42,10 @@ namespace StemExplorerAPI.Services
             var user = new User
             {
                 Id = userInfo.Id,
-                Name = userInfo.Name,
+                FirstName = userInfo.FirstName,
+                LastName = userInfo.LastName,
+                ContactNumber = userInfo.ContactNumber,
+                HomeTown = userInfo.HomeTown,
             };
 
             _context.Users.Add(user);
@@ -48,7 +54,10 @@ namespace StemExplorerAPI.Services
             return new UserDto
             {
                 Id = user.Id,
-                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                ContactNumber = user.ContactNumber,
+                HomeTown = user.HomeTown,
             };
         }
     }
