@@ -58,9 +58,9 @@ export class ChallengesState {
     const state = ctx.getState();
     if (!state.fetched) {
       return this.apiService.getChallenges().pipe(
-        map((data) => data.challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)),
-        tap((data) => ctx.patchState({
-          challenges: data,
+        map((challenges) => challenges.sort((a, b) => (a.title > b.title) ? 1 : -1)),
+        tap((challenges) => ctx.patchState({
+          challenges,
           fetched: true,
         })),
       );

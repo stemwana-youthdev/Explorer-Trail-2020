@@ -14,8 +14,8 @@ namespace StemExplorerAPI.Models.Entities
         public Enums.AnswerType AnswerType { get; set; }
         public string Hint { get; set; }
 
-        // EF relationship definition
-        public ICollection<ChallengeAnswer> Answers { get; set; }
+        public List<string> PossibleAnswers { get; set; }
+        public List<string> Answers { get; set; }
 
         // EF relationship definition
         public int ChallengeId { get; set; }

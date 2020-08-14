@@ -8,7 +8,8 @@ namespace StemExplorerAPI.Services.Interfaces
 {
     public interface IChallengeLevelService
     {
-        Task<ChallengeLevelsDto> GetLevels();
+        Task<List<ChallengeLevelDto>> GetLevels();
+        Task<List<ChallengeLevelDto>> GetLevelsForChallenge(int challengeId);
         Task<bool> ValidateAnswer(int levelId, string givenAnswer);
     }
 }

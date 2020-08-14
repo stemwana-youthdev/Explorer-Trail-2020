@@ -17,9 +17,9 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public async Task<ChallengesDto> GetChallenges()
+        public async Task<List<ChallengeDto>> GetChallenges()
         {
-            var challenges = await _context.Challenges.Select(c => new ChallengeDto
+            return await _context.Challenges.Select(c => new ChallengeDto
             {
                 Id = c.Id,
                 Title = c.Title,
@@ -27,10 +27,6 @@ namespace StemExplorerAPI.Services
                 Category = c.Category,
                 LocationId = c.LocationId,
             }).ToListAsync();
-            return new ChallengesDto
-            {
-                Challenges = challenges,
-            };
         }
     }
 }

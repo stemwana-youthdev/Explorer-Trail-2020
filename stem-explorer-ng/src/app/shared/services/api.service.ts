@@ -24,13 +24,13 @@ export class ApiService {
   ) {}
 
   getChallenges() {
-    return this.http.get<Challenges>(
+    return this.http.get<Challenge[]>(
       `${this.apiEndpoint}/Challenge/GetChallenges`
     );
   }
 
   getLocations() {
-    return this.http.get<Locations>(
+    return this.http.get<Location[]>(
       `${this.apiEndpoint}/Location/GetLocations`
     );
   }
@@ -42,7 +42,7 @@ export class ApiService {
   }
 
   getChallengeLevels() {
-    return this.http.get<ChallengeLevels>(
+    return this.http.get<ChallengeLevel[]>(
       `${this.apiEndpoint}/ChallengeLevel/GetLevels`
     );
   }
@@ -85,16 +85,4 @@ export class ApiService {
       this.authOptions
     );
   }
-}
-
-export interface Challenges {
-  challenges: Challenge[];
-}
-
-export interface Locations {
-  location: Location[];
-}
-
-export interface ChallengeLevels {
-  challengeLevels: ChallengeLevel[];
 }
