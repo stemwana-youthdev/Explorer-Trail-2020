@@ -1,0 +1,43 @@
+@import './../mixins';
+@import './../variables';
+
+button.green {
+  @include coloured-button($primary-green)
+}
+
+button.blue {
+  @include coloured-button($primary-blue)
+}
+
+button.orange {
+  @include coloured-button($primary-orange)
+}
+
+button.purple {
+  @include coloured-button($primary-purple)
+}
+
+button.mat-flat-button {
+  color: white;
+  border-radius: 0;
+  width: 100%;
+  background-color: tint(80%, $primary-black);
+  padding: 5px;
+  font-weight: bold;
+}
+
+button {
+  max-width: 768px !important;
+  text-align: center;
+}
+
+button.outlined {
+  background: white;
+  color: $primary-black;
+  border: 3px solid $primary-black;
+  font-size: 1rem;
+}
+
+button.pink {
+  @include coloured-button($secondary-pink)
+}

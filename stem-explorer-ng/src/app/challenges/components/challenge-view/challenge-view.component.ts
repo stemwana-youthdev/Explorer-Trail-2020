@@ -95,7 +95,7 @@ export class ChallengeViewComponent implements OnInit {
   private getChallenge(): void {
     // remove this when api for single challenge is working
     this.store.select(ChallengesState.challenge).pipe(map(
-      (fn) => fn(1)
+      (fn) => fn(2)
     )).pipe(map(res => {
       this.challenge = res;
     })).subscribe();
@@ -108,7 +108,7 @@ export class ChallengeViewComponent implements OnInit {
   private getChallengeLevels(): void {
     // needs to be replaced with api endpoint to get specific levels
     this.store.select(ChallengeLevelsState.challengeLevels).pipe(map(
-      (fn) => fn(1)
+      (fn) => fn(2)
     )).pipe(map(res => {
       this.levels = res;
       this.levels.forEach(l => {

@@ -54,6 +54,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSidenavModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatInputModule
   ],
 })
 export class MaterialModule { }

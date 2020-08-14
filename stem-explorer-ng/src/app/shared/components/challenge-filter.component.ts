@@ -17,7 +17,8 @@ import { ChallengesState } from '../../store/challenges/challenges.state';
       <mat-button-toggle *ngFor='let button of buttons'
         [value]="button.value"
         [class]="button.colorClass"
-        (change)="change(group.value)"
+        (change)="onFilter(group.value)"
+        aria-label="Filter by {{button.category}}"
       >
         {{button.category}}
       </mat-button-toggle>

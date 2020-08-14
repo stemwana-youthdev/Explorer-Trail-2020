@@ -5,6 +5,7 @@ import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { Challenge } from 'src/app/shared/models/challenge';
 import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 
 export interface AnswerDialogData {
   level: ChallengeLevel;
@@ -23,6 +24,7 @@ export class AnswerDialogComponent {
 
   Levels: any = Levels;
   AnswerType: any = AnswerType;
+  Colour = StemColours;
 
   validationError?: string;
   checkingAnswer = false;

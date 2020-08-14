@@ -37,3 +37,14 @@
   color: white;
   background-color: $color;
 }
+
+@mixin coloured-button($color) {
+  color: white;
+  border-radius: 0;
+  width: 100%;
+  background-color: $color !important;
+  &.inverted {
+      background-color: white;
+      color: $color;
+  }
+}

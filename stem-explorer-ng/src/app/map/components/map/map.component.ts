@@ -80,7 +80,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   markerClick(marker: MapMarker, location: Location): void {
-    if (location.challengeid) {
+    if (location.challengeId) {
       this.challengeLocation(location);
     } else {
       this.infoLocation({ location, marker });
@@ -102,7 +102,7 @@ export class MapComponent implements OnInit, OnDestroy {
       panelClass: 'app-dialog',
     });
     // push to dataLayer
-    this.gtmTag(location.challengetitle);
+    this.gtmTag(location.challengeTitle);
   }
 
   /**

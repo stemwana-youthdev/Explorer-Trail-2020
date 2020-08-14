@@ -23,6 +23,10 @@ export class ChallengeDialogComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   _locationDistance: number;
 
+  // distance$: ReplaySubject<number>;
+  // distanceSubscription: Subscription;
+
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private router: Router,
@@ -33,7 +37,17 @@ export class ChallengeDialogComponent implements OnInit {
 
   ngOnInit()  {
     this.getLocationDistance();
+
+    // if (this.data.dialogType === ChallengeDialogType.Preview) {
+    //   this.distance$ = new ReplaySubject();
+    //   this.distanceSubscription = this.getDistance().subscribe(this.distance$);
+    // }
+
   }
+
+  // ngOnDestroy() {
+  //   this.distanceSubscription?.unsubscribe();
+  // }
 
   get locationDistance(): number {
     return this._locationDistance;
@@ -44,6 +58,8 @@ export class ChallengeDialogComponent implements OnInit {
    */
   getLocationDistance() {
     this._locationDistance = 1;
+
+    // return this.geolocation.locationDistance(this.data.location);
   }
 
   scanCode() {
@@ -54,7 +70,7 @@ export class ChallengeDialogComponent implements OnInit {
   private gtmTag(): void {
     const tag = {
       event: 'map challenge scan QR code',
-      challengeTitle: this.location.challengetitle
+      challengeTitle: this.location.challengeTitle
     };
     this.gtmService.pushTag(tag);
   }

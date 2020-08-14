@@ -1,11 +1,11 @@
   <app-dialog [category]="location.category">
     <app-challenge-title [category]="location.category">
       <!-- <span class="distance">{{ locationDistance$ | async | largeDistance }}</span> -->
-      {{ location.challengetitle }}
+      {{ location.challengeTitle }}
     </app-challenge-title>
     <h4>{{ Categories[location.category] }}</h4>
     <h4>Duration: </h4>
-    <p>{{ location.challengedescription }}</p>
+    <p>{{ location.challengeDescription }}</p>
 
     <app-contact-info
       [category]="location.category"

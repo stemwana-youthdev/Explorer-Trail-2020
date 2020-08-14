@@ -60,7 +60,7 @@ export class ListComponent implements OnInit {
       panelClass: 'app-dialog',
     });
     // push to dataLayer
-    this.gtmTag(location.challengetitle);
+    this.gtmTag(location.challengeTitle);
   }
 
   private loadLocations(): void {
@@ -80,3 +80,52 @@ export class ListComponent implements OnInit {
     this.gtmService.pushTag(tag);
   }
 }
+
+// export class ListViewComponent implements OnInit, OnDestroy {
+//   public challengesWithDistances$: ReplaySubject<ChallengeWithDistance[]>;
+
+//   distancesSubscription: Subscription;
+
+//   ngOnInit() {
+
+//     this.challengesWithDistances$ = new ReplaySubject(1);
+//     this.distancesSubscription = this.watchChallengesWithDistances().subscribe(this.challengesWithDistances$);
+//   }
+
+//   ngOnDestroy() {
+//     this.distancesSubscription.unsubscribe();
+//   }
+
+//   watchChallengesWithDistances(): Observable<ChallengeWithDistance[]> {
+//     return combineLatest([this.challenges$, this.locations$]).pipe(
+//       switchMap(([challenges, locations]) => {
+//         if (challenges.length <= 0) {
+//           return of([]);
+//         }
+
+//         return this.watchLocations(locations).pipe(
+//           scan((acc, [locationId, distance]) => {
+//             const newChallenges = [...acc];
+//             const changedIndex = newChallenges.findIndex(
+//               (challenge) => challenge.locationId === locationId
+//             );
+//             const changedChallenge = newChallenges[changedIndex];
+//             const newChallenge = { ...changedChallenge, distance };
+//             newChallenges.splice(changedIndex, 1, newChallenge);
+//             return newChallenges;
+//           }, challenges as ChallengeWithDistance[]),
+//           startWith(challenges)
+//         );
+//       })
+//     );
+//   }
+
+//   watchLocations(locations: Location[]) {
+//     return from(locations.map((location) =>
+//       this.geolocation
+//         .locationDistance(location)
+//         .pipe(map((distance) => [location.uid, distance]))
+//     )).pipe(mergeAll());
+//   }
+// }
+

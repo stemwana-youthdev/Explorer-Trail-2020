@@ -7,9 +7,9 @@
         "lat": -37.6865807,
         "lng": 176.1649332
       },
-      "challengetitle": "Day of The Week",
-      "challengedescription": "Do you know what day of the week this is?",
-      "challengeid": 1,
+      "challengeTitle": "Day of The Week",
+      "challengeDescription": "Do you know what day of the week this is?",
+      "challengeId": 1,
       "category": 0,
       "link": "https://www.basestation.nz/en"
     },
@@ -20,9 +20,9 @@
         "lat": -37.6857656,
         "lng": 176.1679695
       },
-      "challengetitle": "How many numbers",
-      "challengedescription": "We need to know how many numbers there are before 10, can you count them?",
-      "challengeid": 2,
+      "challengeTitle": "How many numbers",
+      "challengeDescription": "We need to know how many numbers there are before 10, can you count them?",
+      "challengeId": 2,
       "category": 1,
       "link": "https://www.trustpower.co.nz/"
     },
@@ -33,9 +33,9 @@
         "lat": -37.6855958,
         "lng": 176.1690853
       },
-      "challengetitle": "Biscuits, biscuits, biscuits!",
-      "challengedescription": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
-      "challengeid": 3,
+      "challengeTitle": "Biscuits, biscuits, biscuits!",
+      "challengeDescription": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
+      "challengeId": 3,
       "category": 2,
       "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/"
     },
@@ -46,9 +46,9 @@
         "lat": -37.6845175,
         "lng": 176.1678085
       },
-      "challengetitle": "Do you know your STEM",
-      "challengedescription": "Do you know what this letter in STEM stands for?",
-      "challengeid": 4,
+      "challengeTitle": "Do you know your STEM",
+      "challengeDescription": "Do you know what this letter in STEM stands for?",
+      "challengeId": 4,
       "category": 3,
       "link": "https://library.tauranga.govt.nz/"
     }

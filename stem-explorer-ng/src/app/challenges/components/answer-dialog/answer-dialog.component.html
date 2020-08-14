@@ -16,16 +16,21 @@
 
     <ul *ngSwitchCase="AnswerType.Multichoice" class="answer-list">
       <li *ngFor="let answer of data.level.possibleAnswers">
-        <app-button outlined [disabled]="checkingAnswer && answer.answerText !== selectedAnswer"
+        <button mat-flat-button mat-dialog-close outlined [disabled]="checkingAnswer && answer.answerText !== selectedAnswer"
           (click)="submitAnswer(answer.answerText)">
           {{ answer.answerText }}
-        </app-button>
+        </button>
       </li>
     </ul>
 
     <form *ngSwitchDefault (submit)="$event.preventDefault(); submitAnswer(answerValue)">
-      <app-input placeholder="Type answer here" [disabled]="checkingAnswer" name="answer" [color]="validationError ? 'red' : ''" [(ngModel)]="answerValue"></app-input>
-      <app-button [disabled]="checkingAnswer || (answerValue.trim().length === 0)" [category]="data.challenge.category">Enter Answer</app-button>
+      <input
+        placeholder="Type answer here"
+        [disabled]="checkingAnswer"
+        name="answer"
+        [class]="validationError ? 'red' : ''"
+      ></input>
+      <button mat-flat-button [disabled]="checkingAnswer || (answerValue.trim().length === 0)" [category]="Colour[data.challenge.category]">Enter Answer</button>
     </form>
 
   </ng-container>
