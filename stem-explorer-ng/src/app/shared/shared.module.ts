@@ -20,6 +20,7 @@ import { CardComponent } from './components/card/card.component';
 import { GeolocationService } from '../../locations/services/geolocation.service';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    ProfilePictureComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     InputComponent,
     SortByPipe,
     MaterialModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    ProfilePictureComponent,
   ],
 })
 export class SharedModule { }
