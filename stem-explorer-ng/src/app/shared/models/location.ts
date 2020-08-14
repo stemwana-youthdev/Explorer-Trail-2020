@@ -2,9 +2,9 @@ export interface Location {
   uid: number;
   name: string;
   position: Position;
-  challengetitle: string;
-  challengedescription: string;
-  challengeid: number;
+  challengeTitle: string;
+  challengeDescription: string;
+  challengeId: number;
   category: number;
   link: string;
 }

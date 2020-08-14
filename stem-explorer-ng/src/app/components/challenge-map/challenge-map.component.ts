@@ -107,7 +107,7 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
   }
 
   onLocationClick(marker: MapMarker, location: Location) {
-    if (location.challengeid) {
+    if (location.challengeId) {
       this.challengeLocationClick.emit(location);
     } else {
       this.infoLocationClick.emit({ location, marker });

@@ -35,7 +35,7 @@ export class LocationsState {
       [LocationsState],
       (challengeId: number): Location => {
         return state.locations.find(
-          (location) => location.challengeid === challengeId,
+          (location) => location.challengeId === challengeId,
         );
       },
     );

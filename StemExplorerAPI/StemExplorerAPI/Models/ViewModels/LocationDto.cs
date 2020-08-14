@@ -13,14 +13,14 @@ namespace StemExplorerAPI.Models.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public LocationPositionDto Position { get; set; }
-        [JsonPropertyName("challengetitle")]
+        [JsonPropertyName("challengeTitle")]
         public string ChallengeTitle { get; set; }
-        [JsonPropertyName("challengedescription")]
+        [JsonPropertyName("challengeDescription")]
         public string ChallengeDescription { get; set; }
         [JsonPropertyName("category")]
         public Enums.ChallengeCategories ChallengeCategory { get; set; }
         public string Link { get; set; }
-        [JsonPropertyName("challengeid")]
+        [JsonPropertyName("challengeId")]
         public int ChallengeId { get; set; }
     }
 
