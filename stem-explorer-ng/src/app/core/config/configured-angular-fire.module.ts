@@ -13,7 +13,7 @@ export const firebaseOptions: Provider = {
   deps: [ FirebaseConfigService ]
 };
 
-export const ConfiguredAngularFireModule: ModuleWithProviders = {
+export const ConfiguredAngularFireModule: ModuleWithProviders<AngularFireModule> = {
   ngModule: AngularFireModule,
   providers: [ firebaseOptions ]
 };
