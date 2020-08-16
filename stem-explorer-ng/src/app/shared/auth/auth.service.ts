@@ -90,16 +90,12 @@ export class AuthService {
     firstName: string,
     lastName: string,
   ) {
-    try {
-      this.specifiedName = [firstName, lastName];
-      const res = await this.afAuth.createUserWithEmailAndPassword(
+    this.specifiedName = [firstName, lastName];
+    const res = await this.afAuth.createUserWithEmailAndPassword(
         email,
         password,
-      );
-      console.log('Registers! Yay!', res);
-    } catch (error) {
-      console.warn(error);
-    }
+    );
+    console.log('Registers! Yay!', res);
   }
 
   async passwordLogin(

@@ -21,6 +21,8 @@
     aria-label='confirm password'
     name='confirmPassword' [(ngModel)]='confirmPasswordValue' (ngModelChange)='checkPasswordMatch(passwordValue, confirmPasswordValue)'></app-input>
 
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
     <app-button color="pink">Register</app-button>
 </form>
 

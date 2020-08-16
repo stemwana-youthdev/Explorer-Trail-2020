@@ -21,6 +21,8 @@ export class RegisterEmailComponent implements OnInit {
   passwordField = 'profile';
   confirmField = 'profile';
 
+  errorMessage = '';
+
   tests = [/(?=.*\d)/, /(?=.*[a-z])/, /(?=.*[A-Z])/, /(?=.*[!@#$%^&;*()_+}{:'"?/.,])/];
   passCounter = 0;
 
@@ -39,12 +41,25 @@ export class RegisterEmailComponent implements OnInit {
 
   async register(email: string, password: string, confirmPassword: string) {
     if (this.checkEmailFormat(email) && this.checkPasswordFormat(password) && this.checkPasswordMatch(password, confirmPassword)
-     && email !== '' && password !== '' && confirmPassword !== '') {
-       await this.auth.passwordRegister(email, password, this.firstNameValue, this.lastNameValue);
-       console.log('successful register');
-       this.router.navigateByUrl(this.lastHomepage);
+     && email !== '' && password !== '' && confirmPassword !== '' && this.firstNameValue !== '' && this.lastNameValue !== '') {
+      try {
+        await this.auth.passwordRegister(email, password, this.firstNameValue, this.lastNameValue);
+      } catch (error) {
+        console.log(error.code);
+        if (error.code === 'auth/email-already-in-use') {
+          this.errorMessage = 'Email already in use. Please try again.';
+          this.emailValue = '';
+        } else {
+          console.warn(error);
+          this.errorMessage = error.message;
+        }
+        return;
+      }
+      console.log('successful register');
+      this.router.navigateByUrl(this.lastHomepage);
      } else {
-       console.log('error');
+      this.errorMessage = `Please ensure all fields are filled in and
+       your password contains at least 2 of upper case, lower case, number or special character.`;
      }
   }
 

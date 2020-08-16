@@ -1,5 +1,11 @@
+@use 'src/app/variables' as *;
+
 .email-register-fields {
     padding: 20px;
     margin: 0 auto;
     max-width: 768px;
   }
+
+.error-message {
+  color: $secondary-red;
+}
