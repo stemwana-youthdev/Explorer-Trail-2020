@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { Store } from '@ngxs/store';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-email',
@@ -18,7 +21,15 @@ export class RegisterEmailComponent implements OnInit {
   passwordField = 'profile';
   confirmField = 'profile';
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private store: Store
+    ) { }
+
+  get lastHomepage() {
+    return this.store.selectSnapshot(LastHomepageState.lastHomepage);
+  }
 
   ngOnInit(): void {
   }
@@ -28,6 +39,7 @@ export class RegisterEmailComponent implements OnInit {
      && email !== '' && password !== '' && confirmPassword !== '') {
        await this.auth.passwordRegister(email, password, this.firstNameValue, this.lastNameValue);
        console.log('successful register');
+       this.router.navigateByUrl(this.lastHomepage);
      } else {
        console.log('error');
      }
