@@ -7,26 +7,42 @@
 
   <ng-container *ngIf="data.dialogType === DialogType.Preview">
     <h4>{{ Categories[data.challenge.category] }}</h4>
-    <h4>Duration: </h4>
+
+    <!-- <h5 style="text-decoration: underline;">Description</h5> -->
     <p>{{ data.location?.challengeDescription }}</p>
-    
-    <app-contact-info
+    <div class=contactInfo>
+      <app-contact-info
       [category]="data.challenge.category"
       icon="location_on"
       [label]="data.location?.name"
+      (click)="viewOnMap()"
       aria-label="Location address"
-    ></app-contact-info>
-    <br>
-    <app-contact-info
-      [link]="data.location?.link"
+      ></app-contact-info>
+      <app-contact-info
+        [link]="data.location?.link"
+        [category]="data.challenge.category"
+        icon="language"
+        label="View Website"
+        aria-label="Location website"
+      ></app-contact-info>
+      <app-contact-info
+      link="tel:0800838383"
       [category]="data.challenge.category"
-      icon="language"
-      label="View Website"
-      aria-label="Location website"
-    ></app-contact-info>
+      icon="phone"
+      label="Phone"
+      aria-label="Location Phone Number"
+      ></app-contact-info>
+      <app-contact-info
+      link="mailto:contact@whitehouse.gov"
+      [category]="data.challenge.category"
+      icon="mail"
+      label="Send Email"
+      aria-label="Location Email"
+      ></app-contact-info>
+  </div>
     
     <br><br>
-
+    
     <div style="display: flex;">
       <app-button
         mat-dialog-close
@@ -45,6 +61,7 @@
         Scan QR Code
       </app-button>
     </div>
+  
   </ng-container>
   <ng-container *ngIf="data.dialogType === DialogType.Hint">
     <h4>{{ Level[data.level?.difficulty] }}</h4>

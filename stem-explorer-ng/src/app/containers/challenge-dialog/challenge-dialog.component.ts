@@ -70,6 +70,9 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
   }
 
   mapDirections() {
+    (window as any).open('https://www.google.com/maps/dir/' + `${this.geolocation}/` + `${this.data.location.name}`, '_blank');
+  }
+  viewOnMap() {
     (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
   }
 
