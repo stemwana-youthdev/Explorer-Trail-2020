@@ -7,11 +7,6 @@ using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Models.ViewModels
 {
-    public class ChallengesDto
-    {
-        public List<ChallengeDto> Challenges { get; set; }
-    }
-
     public class ChallengeDto
     {
         [JsonPropertyName("uid")]

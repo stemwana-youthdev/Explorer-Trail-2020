@@ -9,6 +9,8 @@ module.exports = {
           return '/assets/challenges.json';
         case '/api/Location/GetLocations':
           return '/assets/locations.json';
+        case '/api/ChallengeLevel/GetLevels':
+          return '/assets/challengeLevels.json';
       }
     },
   },

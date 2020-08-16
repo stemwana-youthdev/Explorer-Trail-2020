@@ -22,7 +22,7 @@
   </ng-template>
 
   <ng-container *ngIf="data.isCorrect; else incorrectButtons">
-    <ng-container *ngIf="(auth.isLoggedIn | async); else loginOrRegister">
+    <ng-container *ngIf="(isLoggedIn$ | async); else loginOrRegister">
       <app-button *ngIf="data.hasNext" inverted mat-dialog-close [category]="category" (click)="nextLevel()">
         Next level
       </app-button>

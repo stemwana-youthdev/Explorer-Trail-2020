@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
 import { Location } from '../models/location';
 import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
+import { User } from '../models/user';
+import { Store } from '@ngxs/store';
+import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
+import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
 
 @Injectable()
 export class ApiService {
@@ -17,16 +21,17 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
+    private store: Store
   ) {}
 
   getChallenges() {
-    return this.http.get<Challenges>(
+    return this.http.get<Challenge[]>(
       `${this.apiEndpoint}/Challenge/GetChallenges`
     );
   }
 
   getLocations() {
-    return this.http.get<Locations>(
+    return this.http.get<Location[]>(
       `${this.apiEndpoint}/Location/GetLocations`
     );
   }
@@ -37,44 +42,62 @@ export class ApiService {
     );
   }
 
-  getChallenge(uid) {
-    return this.http.get('assets/locations.json');
-  }
-
   getChallengeLevels() {
-    return this.http.get<ChallengeLevels>('assets/challengeLevels.json');
-  }
-
-  validateAnswer(levelUid: number, answer: string) {
-    // TODO: replace with dedicated API call
-    return this.getChallengeLevels().pipe(
-      map((levels) => {
-        const level = levels.challengeLevels.find((l) => l.uid === levelUid);
-        if (!level) {
-          return false;
-        }
-
-        for (const possibleAnswer of level.possibleAnswers) {
-          if (possibleAnswer.answerText.toLowerCase().trim() === answer.toLowerCase().trim()) {
-            return possibleAnswer.isCorrect;
-          }
-        }
-
-        return false;
-      }),
+    return this.http.get<ChallengeLevel[]>(
+      `${this.apiEndpoint}/ChallengeLevel/GetLevels`
     );
   }
 
-}
+  validateAnswer(levelUid: number, answer: string) {
+    return this.http.post(
+      `${this.apiEndpoint}/ChallengeLevel/ValidateAnswer/${levelUid}`,
+      JSON.stringify(answer),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
 
-export interface Challenges {
-  challenges: Challenge[];
-}
+  private get authOptions(): { headers: { Authorization: string } } {
+    const token = this.store.selectSnapshot(CurrentUserState.token);
 
-export interface Locations {
-  location: Location[];
-}
+    if (!token) {
+      throw new Error('This API requires that the user is logged in');
+    }
 
-export interface ChallengeLevels {
-  challengeLevels: ChallengeLevel[];
+    return {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+  }
+
+  getCurrentUser() {
+    return this.http.get<User>(
+      `${this.apiEndpoint}/User/GetCurrentUser`,
+      this.authOptions
+    );
+  }
+
+  registerUser(userInfo: User) {
+    return this.http.post<User>(
+      `${this.apiEndpoint}/User/RegisterUser`,
+      userInfo,
+      this.authOptions
+    );
+  }
+
+  // userInfo needs to have all of its properties set,
+  // or they will be set to null in the DB.
+  // Usually this will be a copy of CurrentUser.user with
+  // the properties you want to update
+  updateCurrentUser(userInfo: User) {
+    return this.http.put<User>(
+      `${this.apiEndpoint}/User/UpdateUser`,
+      userInfo,
+      this.authOptions,
+    ).pipe(
+      tap((user) => this.store.dispatch(new UpdateUser(user))),
+    );
+  }
 }

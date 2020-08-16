@@ -1,29 +1,73 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from "@angular/fire/auth";
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Store } from '@ngxs/store';
 
 import { auth } from 'firebase/app';
 import 'firebase/auth';
 
+import { ApiService } from '../services/api.service';
+import { User } from '../models/user';
+import { UpdateToken, UpdateUser } from 'src/app/store/current-user/current-user.actions';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
-  public readonly isLoggedIn: Observable<boolean>;
-
   constructor(
-    private afAuth: AngularFireAuth, //this injects firebase authentication
+    private afAuth: AngularFireAuth, // this injects firebase authentication
+    private api: ApiService,
+    private store: Store,
   ) {
-    this.isLoggedIn = this.afAuth.authState.pipe(
-      map(state => {
-        if (state)
-          return true;
-        else
-          return false;
-      })
-    );
+    this.afAuth.authState.subscribe(async (state) => {
+      const token = await state?.getIdToken();
+      this.store.dispatch(new UpdateToken(token));
+
+      if (!token) {
+        this.store.dispatch(new UpdateUser(null));
+        return;
+      }
+
+      let user = await this.api.getCurrentUser().toPromise();
+
+      if (!user) {
+        // TODO: prompt user for registration info
+
+        const [firstName, lastName] = this.splitName(state.displayName);
+
+        const userInfo: User = {
+          // id will be ignored
+          id: null,
+          firstName,
+          lastName,
+          contactNumber: '',
+          homeTown: '',
+        };
+
+        user = await this.api.registerUser(userInfo).toPromise();
+      }
+
+      this.store.dispatch(new UpdateUser(user));
+
+      console.log('User logged in with backend!', user);
+    });
+  }
+
+  // Split first and last name
+  splitName(displayName: string): [string, string] {
+    if (typeof displayName !== 'string') {
+      return ['', ''];
+    }
+    const parts = displayName.split(' ');
+    if (parts.length <= 1) {
+      // Just one word is normally a first name
+      return [displayName, ''];
+    } else {
+      // Otherwise one last name and the rest are first names
+      return [
+        parts.slice(0, parts.length - 1).join(' '),
+        parts[parts.length - 1],
+      ];
+    }
   }
 
   // google signin
