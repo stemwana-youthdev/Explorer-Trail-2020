@@ -13,6 +13,8 @@ import { UpdateToken, UpdateUser } from 'src/app/store/current-user/current-user
   providedIn: 'root',
 })
 export class AuthService {
+  specifiedName?: [string, string];
+
   constructor(
     private afAuth: AngularFireAuth, // this injects firebase authentication
     private api: ApiService,
@@ -30,10 +32,8 @@ export class AuthService {
       let user = await this.api.getCurrentUser().toPromise();
 
       if (!user) {
-        // TODO: prompt user for registration info
-
-        const [firstName, lastName] = this.splitName(state.displayName);
-
+        const [firstName, lastName] =
+          this.specifiedName ?? this.splitName(state.displayName);
         const userInfo: User = {
           // id will be ignored
           id: null,
@@ -78,6 +78,36 @@ export class AuthService {
   async authLogin(provider: auth.AuthProvider) {
     try {
       const res = await this.afAuth.signInWithPopup(provider);
+      console.log('You have been succesfully logged in! woohoo', res);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+  async passwordRegister(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+  ) {
+    try {
+      this.specifiedName = [firstName, lastName];
+      const res = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      console.log('Registers! Yay!', res);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+  async passwordLogin(
+    email: string,
+    password: string,
+  ) {
+    try {
+      const res = await this.afAuth.signInWithEmailAndPassword(email, password);
       console.log('You have been succesfully logged in! woohoo', res);
     } catch (error) {
       console.warn(error);
