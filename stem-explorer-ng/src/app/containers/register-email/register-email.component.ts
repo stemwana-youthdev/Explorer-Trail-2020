@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-register-email',
@@ -17,14 +18,15 @@ export class RegisterEmailComponent implements OnInit {
   passwordField = 'profile';
   confirmField = 'profile';
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  register(email: string, password: string, confirmPassword: string) {
+  async register(email: string, password: string, confirmPassword: string) {
     if (this.checkEmailFormat(email) && this.checkPasswordFormat(password) && this.checkPasswordMatch(password, confirmPassword)
      && email !== '' && password !== '' && confirmPassword !== '') {
+       await this.auth.passwordRegister(email, password, this.firstNameValue, this.lastNameValue);
        console.log('successful register');
      } else {
        console.log('error');
@@ -32,7 +34,7 @@ export class RegisterEmailComponent implements OnInit {
   }
 
   checkEmailFormat(email: string) {
-    if (/.+@+.+\.+./.test(email) || email === '') {
+    if (/^.+@+.+\.+.+$/.test(email) || email === '') {
       this.emailField = 'profile';
       return true;
     } else {
