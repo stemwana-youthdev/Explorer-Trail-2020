@@ -1,19 +1,6 @@
-<form>
-    <div class="image-container">
-        <!--Image will go here--><mat-icon class="profile-image">person</mat-icon>
-        <h4 class="blue">Edit Profile Image</h4>
-    </div>
-    <div class="body-container">
-        <div class="profile-container">
-            <h4>First Name:</h4><input>
-            <h4>Last Name:</h4><input>
-            <h4>Email:</h4><input>
-            <h4>Region:</h4><input>
-            <h4>Home Town:</h4><input>
-        </div>
-
-        <h4 class="blue terms">Terms of Use and Privacy Policy</h4>
-
-        <app-button color="pink">Update Profile</app-button>
-    </div>
-</form>
+<div class="image-container">
+    <!--Image will go here-->
+    <mat-icon class="profile-image">person</mat-icon>
+    <h4 class="blue">Edit Profile Image</h4>
+</div>
+<app-profile-form [user]="user$ | async"></app-profile-form>
