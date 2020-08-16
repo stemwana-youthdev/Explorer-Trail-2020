@@ -6,7 +6,6 @@ import { User } from 'src/app/shared/models/user';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
 import { AuthService } from 'src/app/shared/auth/auth.service';
-import { getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-profile',
