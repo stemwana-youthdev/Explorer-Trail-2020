@@ -39,7 +39,7 @@ export class AuthService {
           id: null,
           firstName,
           lastName,
-          contactNumber: '',
+          region: '',
           homeTown: '',
         };
 

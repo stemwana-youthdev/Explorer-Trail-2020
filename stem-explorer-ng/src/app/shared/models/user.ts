@@ -2,6 +2,6 @@ export interface User {
   id: string;
   firstName: string;
   lastName: string;
-  contactNumber: string;
+  region: string;
   homeTown: string;
 }
