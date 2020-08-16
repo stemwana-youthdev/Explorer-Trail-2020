@@ -21,6 +21,9 @@ export class RegisterEmailComponent implements OnInit {
   passwordField = 'profile';
   confirmField = 'profile';
 
+  tests = [/(?=.*\d)/, /(?=.*[a-z])/, /(?=.*[A-Z])/, /(?=.*[!@#$%^&;*()_+}{:'"?/.,])/];
+  passCounter = 0;
+
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -56,8 +59,14 @@ export class RegisterEmailComponent implements OnInit {
   }
 
   checkPasswordFormat(password: string) {
-    // tslint:disable-next-line: max-line-length
-    if (/^(?=^.{8,}$)(?=.*?\d.*\d)(?=.*?[A-Z].*[A-Z])(?=.*?[a-z].*[a-z])(?=.*?[!@#$%^&;*()_+}{:'"?/.,].*[!@#$%^&;*()_+}{:'"?/.,])(?!.*\s).*/.test(password)
+    this.passCounter = 0;
+    this.tests.forEach(test => {
+      if (test.test(password)) {
+        this.passCounter++;
+      }
+    });
+
+    if ((this.passCounter >= 2 && /.{8,}/.test(password))
      || password === '') {
       this.passwordField = 'profile';
       return true;
