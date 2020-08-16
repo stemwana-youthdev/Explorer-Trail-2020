@@ -21,7 +21,7 @@ export class ToolbarComponent {
     private auth: AuthService,
     private store: Store,
   ) {
-    this.auth.isLoggedIn.pipe(map(res => this.isLoggedIn = res));
+    // this.auth.isLoggedIn.pipe(map(res => this.isLoggedIn = res));
   }
 
   navigateToLogin() {
@@ -29,7 +29,7 @@ export class ToolbarComponent {
   }
 
   logout() {
-    this.auth.logout();
+    this.auth.signOut();
   }
 
   navigateToHome() {

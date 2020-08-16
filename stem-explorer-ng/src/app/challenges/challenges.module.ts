@@ -8,7 +8,11 @@ import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, ChallengesRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ChallengesRoutingModule
+  ],
   declarations: [
     ChallengeViewComponent,
     HintDialogComponent,

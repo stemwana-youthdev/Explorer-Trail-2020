@@ -17,27 +17,24 @@ button.purple {
   @include coloured-button($primary-purple)
 }
 
+button.pink {
+  @include coloured-button($secondary-pink)
+}
+
 button.mat-flat-button {
   color: white;
   border-radius: 0;
   width: 100%;
-  background-color: tint(80%, $primary-black);
+  // background-color: tint(80%, $primary-black); @todo do we need this
   padding: 5px;
   font-weight: bold;
-}
-
-button {
   max-width: 768px !important;
   text-align: center;
-}
 
-button.outlined {
-  background: white;
-  color: $primary-black;
-  border: 3px solid $primary-black;
-  font-size: 1rem;
-}
-
-button.pink {
-  @include coloured-button($secondary-pink)
+  &.outlined {
+    background: white;
+    color: $primary-black;
+    border: 3px solid $primary-black;
+    font-size: 1rem;
+  }
 }

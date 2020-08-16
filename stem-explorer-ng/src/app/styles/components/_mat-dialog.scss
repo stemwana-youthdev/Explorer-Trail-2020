@@ -1,0 +1,25 @@
+@import '../mixins';
+@import '../variables';
+
+.mat-dialog-content.green {
+  @include coloured-dialog($primary-green)
+}
+
+.mat-dialog-content.blue {
+  @include coloured-dialog($primary-blue)
+}
+
+.mat-dialog-content.orange {
+  @include coloured-dialog($primary-orange)
+}
+
+.mat-dialog-content.purple {
+  @include coloured-dialog($primary-purple)
+}
+
+.mat-dialog-content.pink {
+  // @include coloured-dialog($secondary-pink)
+  background-color: $secondary-pink;
+  border-color: $secondary-pink;
+  color: #fff;
+}

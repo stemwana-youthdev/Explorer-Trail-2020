@@ -84,10 +84,11 @@ export class ChallengeViewComponent implements OnInit {
     });
     this.gtmTag('answer attempt');
 
-    answerDialog.afterClosed().subscribe(res => {
-      if (res !== undefined) {
-        this.resultsDialog(res);
-        this.gtmTag(res ? 'answer correct' : 'answer incorrect');
+    answerDialog.afterClosed().subscribe(response => {
+      if (response !== undefined && response.length) {
+        const result = this.api.validateAnswer(this.selectedLevel, response);
+        this.resultsDialog(result);
+        this.gtmTag(result ? 'answer correct' : 'answer incorrect');
       }
     });
   }
@@ -95,7 +96,7 @@ export class ChallengeViewComponent implements OnInit {
   private getChallenge(): void {
     // remove this when api for single challenge is working
     this.store.select(ChallengesState.challenge).pipe(map(
-      (fn) => fn(2)
+      (fn) => fn(1)
     )).pipe(map(res => {
       this.challenge = res;
     })).subscribe();
@@ -108,7 +109,7 @@ export class ChallengeViewComponent implements OnInit {
   private getChallengeLevels(): void {
     // needs to be replaced with api endpoint to get specific levels
     this.store.select(ChallengeLevelsState.challengeLevels).pipe(map(
-      (fn) => fn(2)
+      (fn) => fn(1)
     )).pipe(map(res => {
       this.levels = res;
       this.levels.forEach(l => {
@@ -122,8 +123,9 @@ export class ChallengeViewComponent implements OnInit {
   private resultsDialog(success: boolean) {
     const dialog = this.dialog.open(ResultDialogComponent, {
       data: {
-        level: this.selectedLevel,
-        challenge: this.challenge,
+        level: this.selectedLevel.difficulty,
+        title: this.challenge.title,
+        category: this.challenge.category,
         isCorrect: success,
       },
       panelClass: 'app-dialog'

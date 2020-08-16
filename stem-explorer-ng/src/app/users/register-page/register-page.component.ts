@@ -16,7 +16,7 @@ export class RegisterPageComponent {
   ) { }
 
   async registerWithGoogle() {
-    await this.auth.googleAuthLogin();
+    // await this.auth.googleAuthLogin();
     this.router.navigateByUrl('');
   }
 

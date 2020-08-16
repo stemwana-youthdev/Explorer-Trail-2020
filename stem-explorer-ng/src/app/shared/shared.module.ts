@@ -8,7 +8,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { ChallengeFilterComponent } from './components/challenge-filter.component';
 import { ChallengeTitleComponent } from './components/challenge-title/challenge-title.component';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
-import { DialogComponent } from './components/dialog/dialog.component';
+import { BaseDialogComponent } from './components/base-dialog/base-dialog.component';
 import { DrawerComponent } from './components/drawer/drawer.component';
 import { FabComponent } from './components/fab/fab.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
@@ -21,6 +21,7 @@ import { SortByPipe } from './pipes/sort-by.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ApiService } from './services/api.service';
 import { StemColoursService } from './services/stem-colors.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { StemColoursService } from './services/stem-colors.service';
     HttpClientModule,
     MaterialModule,
     GoogleMapsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
     TruncatePipe,
@@ -41,14 +43,15 @@ import { StemColoursService } from './services/stem-colors.service';
     FabComponent,
     ButtonComponent,
     ChallengeTitleComponent,
-    DialogComponent,
+    BaseDialogComponent,
     ContactInfoComponent,
     FormFieldComponent,
     InputComponent,
     ToolbarComponent,
     DrawerComponent,
     ChallengeFilterComponent,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     TruncatePipe,
@@ -58,7 +61,7 @@ import { StemColoursService } from './services/stem-colors.service';
     FabComponent,
     ButtonComponent,
     ChallengeTitleComponent,
-    DialogComponent,
+    BaseDialogComponent,
     ContactInfoComponent,
     FormFieldComponent,
     InputComponent,

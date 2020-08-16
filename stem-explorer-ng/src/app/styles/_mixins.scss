@@ -42,9 +42,19 @@
   color: white;
   border-radius: 0;
   width: 100%;
-  background-color: $color !important;
+  background-color: $color;
   &.inverted {
-      background-color: white;
-      color: $color;
+    background-color: white;
+    color: $color;
+    border: none;
+  }
+}
+
+@mixin coloured-dialog($color) {
+  border-color: $color;
+
+  &.inverted {
+      background-color: $color;
+      color: white;
   }
 }

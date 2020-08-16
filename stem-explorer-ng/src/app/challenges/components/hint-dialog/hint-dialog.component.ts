@@ -1,27 +1,21 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
-
-interface HintDialogData {
-  title: string;
-  hint: string;
-  level: number;
-  category: Categories;
-}
+import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 
 @Component({
   selector: 'app-hint-dialog',
-  templateUrl: './hint-dialog.component.html',
-  styleUrls: ['./hint-dialog.component.scss']
+  template: `
+    <app-base-dialog [class]="Colour[data.category]">
+      <h3 [class]="Colour[data.category]">{{data.title}}</h3>
+      <p>{{Level[data.level]}}</p>
+      <p>{{data.hint}}</p>
+    </app-base-dialog>
+  `
 })
-export class HintDialogComponent implements OnInit {
-
+export class HintDialogComponent {
   Level: any = Levels;
+  Colour = StemColours;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: HintDialogData) { }
-
-  ngOnInit() {
-  }
-
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 }

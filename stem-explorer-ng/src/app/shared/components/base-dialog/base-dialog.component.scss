@@ -1,0 +1,30 @@
+@import 'src/app/styles/variables';
+@import './../../../styles/mixins';
+
+.mat-dialog-content {
+    border-radius: 0;
+    border-width: 3px;
+    border-style: solid;
+    padding: 20px;
+}
+
+.close-button {
+    position: absolute;
+    display: block;
+    right: -12px;
+    top: 12px;
+    z-index: 99; /* fixes close button on ios */
+    
+}
+
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+}
+
+.dialog-position {
+    position: relative;
+}
+
+.close-button.pink {
+    color: #fff;
+}

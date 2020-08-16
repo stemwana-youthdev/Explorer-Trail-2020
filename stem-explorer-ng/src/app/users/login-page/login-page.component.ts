@@ -15,7 +15,7 @@ export class LoginPageComponent {
   ) { }
 
   async loginWithGoogle() {
-    await this.auth.googleAuthLogin();
+    await this.auth.googleSignin();
     this.router.navigateByUrl('');
   }
 

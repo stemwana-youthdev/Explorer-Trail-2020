@@ -17,6 +17,7 @@ import { SplashScreenComponent } from './shared/splash-screen/splash-screen.comp
 import { StoreModule } from './store/store.module';
 import { LoginPageComponent } from './users/login-page/login-page.component';
 import { RegisterPageComponent } from './users/register-page/register-page.component';
+import { ChallengeTallyComponent } from './users/challenge-tally/challenge-tally.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RegisterPageComponent } from './users/register-page/register-page.compo
     LoginPageComponent,
     RegisterPageComponent,
     SplashScreenComponent,
-    CameraComponent
+    CameraComponent,
+    ChallengeTallyComponent
   ],
   imports: [
     BrowserModule,

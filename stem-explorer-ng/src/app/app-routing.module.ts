@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CameraComponent } from './shared/camera/camera.component';
 import { LoginPageComponent } from './users/login-page/login-page.component';
 import { RegisterPageComponent } from './users/register-page/register-page.component';
+import { ChallengeTallyComponent } from './users/challenge-tally/challenge-tally.component';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -25,6 +27,10 @@ const routes: Routes = [
   { path: 'register', component: RegisterPageComponent },
   {
     path: 'scan-code', component: CameraComponent
+  },
+  // test component for the guard
+  {
+    path: 'user/challenges', component: ChallengeTallyComponent, canActivate: [AuthGuard]
   }
 ];
 

@@ -27,6 +27,7 @@
     "@angular/platform-browser-dynamic": "~10.0.9",
     "@angular/router": "~10.0.9",
     "@angular/service-worker": "~10.0.9",
+    "@firebase/app": "^0.6.10",
     "@ngxs/logger-plugin": "3.6.2",
     "@ngxs/store": "3.6.2",
     "@zxing/ngx-scanner": "^3.0.0",

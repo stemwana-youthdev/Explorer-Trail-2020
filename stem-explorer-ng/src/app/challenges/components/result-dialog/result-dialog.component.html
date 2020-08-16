@@ -1,49 +1,48 @@
-<app-dialog inverted [category]="category">
-  <h3>{{ data.challenge.title }}</h3>
-  <h4>{{ Levels[data.level.difficulty] }}</h4>
+<app-base-dialog [class]="cssClass">
+  <h3>{{ data.title }}</h3>
+  <h4>{{ Levels[data.level] }}</h4>
 
   <div class="message" *ngIf="data.isCorrect; else incorrectMessage">
-    <span class="material-icons graphic">
+    <mat-icon class="graphic">
       done_outline
-    </span>
+    </mat-icon>
     <h3 class="text">
       Well done! Correct Answer!
     </h3>
   </div>
   <ng-template #incorrectMessage>
     <div class="message">
-      <span class="material-icons graphic">
-        close
-      </span>
+      <mat-icon class="graphic">
+        mood_bad
+      </mat-icon>
       <h3 class="text">
         Oops! Wrong Answer
       </h3>
     </div>
   </ng-template>
 
-  <ng-container *ngIf="data.isCorrect; else incorrectButtons">
-    <!-- <ng-container *ngIf="(auth.isLoggedIn | async); else loginOrRegister"> -->
-      <!-- <app-button *ngIf="data.hasNext" inverted mat-dialog-close [category]="category" (click)="nextLevel()"> -->
-      <app-button inverted mat-dialog-close [category]="category" (click)="nextLevel()">
-        Next level
-      </app-button>
-    <!-- </ng-container> -->
-<!--   
-    <ng-template #loginOrRegister>
-      <h4>Register or Login to track your progress</h4>
+    <ng-container *ngIf="auth.user$ | async; else guest">
+      <button mat-flat-button
+        mat-dialog-close="next-level"
+        [class]="cssClass">
+        Next Level
+      </button>
+    </ng-container>
   
-      <app-button inverted mat-dialog-close [category]="category" (click)="navigateToRegister()">
-        Register
-      </app-button>
-      <app-button inverted mat-dialog-close [category]="category" (click)="navigateToLogin()">
-        Login
-      </app-button>
-    </ng-template> -->
-  </ng-container>
-
-  <ng-template #incorrectButtons>
-    <app-button inverted mat-dialog-close (click)="tryAgain()">Try again</app-button>
+  <ng-template #guest>
+    <button mat-flat-button
+      mat-dialog-close [class]="cssClass" (click)="toLogin()">
+      Register or Login to track your progress
+    </button>
   </ng-template>
 
-  <app-button inverted mat-dialog-close [category]="category" (click)="navigateToHomepage()">Back to home</app-button>
-</app-dialog>
+  <button mat-flat-button
+    *ngIf="!data.isCorrect"
+    mat-dialog-close="try-again"
+    [class]="cssClass"
+    >Try again</button>
+  <button mat-flat-button
+    mat-dialog-close
+    [class]="cssClass"
+    (click)="toHome()">Back to home</button>
+</app-base-dialog>

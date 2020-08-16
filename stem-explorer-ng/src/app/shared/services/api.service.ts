@@ -56,13 +56,13 @@ export class ApiService {
     return this.http.get<ChallengeLevels>('assets/challengeLevels.json');
   }
 
-  validateAnswer(level: ChallengeLevel, answer: string): boolean {
-    let res: boolean;
-    level.possibleAnswers.forEach((a: string) => {
-      res = a.toLowerCase().trim() === answer.toLowerCase().trim();
+  validateAnswer(level: ChallengeLevel, response: string): boolean {
+    let result: boolean;
+    level.answer.forEach((a: string) => {
+      result = a.toLowerCase().trim() === response.toLowerCase().trim();
     });
 
-    return res;
+    return result;
     // TODO: replace with dedicated API call
     // return this.getChallengeLevels().pipe(
     //   map((levels) => {
