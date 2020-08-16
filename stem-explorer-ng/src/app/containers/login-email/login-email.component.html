@@ -1,0 +1,16 @@
+<div class="email-login-fields">
+
+<form (submit)='login(emailValue, passwordValue)'>
+    <app-input placeholder="Email" type="email" [color]="emailField" 
+    aria-label='email'
+    name='email' [(ngModel)]='emailValue'></app-input>
+
+    <app-input placeholder="Password" type="password" [color]="passwordField" 
+    aria-label="password"
+    name='password' [(ngModel)]='passwordValue'></app-input>
+
+    <app-button color="pink">Login</app-button>
+</form>
+
+</div>
+

@@ -27,4 +27,8 @@ export class LoginPageComponent {
     this.router.navigateByUrl('');
   }
 
+  navigateToEmailLogin() {
+    this.router.navigateByUrl('email-login');
+  }
+
 }
