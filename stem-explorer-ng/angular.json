@@ -32,7 +32,14 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "hammerjs",
+              "@zxing/library",
+              "firebase/app",
+              "@firebase/app",
+              "@firebase/auth"
+            ]
           },
           "configurations": {
             "production": {
