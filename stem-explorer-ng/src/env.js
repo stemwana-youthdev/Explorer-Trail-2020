@@ -15,6 +15,6 @@
     API_ENDPOINT: '/api',
     // If you are afraid that you might accidentally commit this, run:
     // git update-index --skip-worktree src/env.js
-    AUTH_API: 'AIzaSyAdlcKOJpmnJlm1XAJhhhsAU2ElSJjkyYM',
+    AUTH_API: '',
   };
 });

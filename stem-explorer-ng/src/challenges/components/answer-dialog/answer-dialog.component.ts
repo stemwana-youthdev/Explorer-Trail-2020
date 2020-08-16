@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { Levels } from '../../../shared/enums/levels.enum';
+import { Levels } from 'src/app/shared/enums/levels.enum';
 
 /*
 * Component for the list view dialog for more information

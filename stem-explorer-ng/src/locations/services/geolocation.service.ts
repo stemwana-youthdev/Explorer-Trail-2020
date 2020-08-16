@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject, zip, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Location } from '../../shared/models/location';
+import { Location } from '../../app/shared/models/location';
 
 type LatLng = google.maps.LatLngLiteral;
 

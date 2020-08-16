@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext, StateToken, createSelector } from '@ngxs/store';
+import { Action, createSelector, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-
+import { Location } from 'src/app/shared/models/location';
 import { ApiService } from 'src/app/shared/services/api.service';
-
 import { LoadLocationsData } from './locations.actions';
-import { Location } from '../../shared/models/location';
-
 
 export interface LocationsStateModel {
   locations: Location[];
@@ -63,7 +60,7 @@ export class LocationsState {
     const state = ctx.getState();
     if (!state.fetched) {
       return this.apiService.getLocations().pipe(
-        tap((data) => ctx.patchState({
+        tap((data) => ctx.setState({
           locations: data.location,
           fetched: true,
         })),

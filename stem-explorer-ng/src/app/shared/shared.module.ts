@@ -22,6 +22,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ApiService } from './services/api.service';
 import { StemColoursService } from './services/stem-colors.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChallengeDialogComponent } from './components/challenge-dialog/challenge-dialog.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ChallengeFilterComponent,
     RouterModule,
     ReactiveFormsModule,
+    ChallengeDialogComponent
   ],
   declarations: [
     TruncatePipe,
@@ -67,7 +69,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     InputComponent,
     ToolbarComponent,
     DrawerComponent,
-    ChallengeFilterComponent
+    ChallengeFilterComponent,
+    ChallengeDialogComponent
   ],
   providers: [
     ApiService,

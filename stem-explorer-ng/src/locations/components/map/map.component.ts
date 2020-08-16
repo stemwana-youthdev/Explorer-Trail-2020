@@ -7,11 +7,11 @@ import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { map } from 'rxjs/operators';
 import { ChallengesState } from 'src/app/store/challenges/challenges.state';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
-import { LoadLocationsData } from 'src/app/store/locations/locations.actions';
-import { LocationsState } from 'src/app/store/locations/locations.state';
-import { Location } from '../../../shared/models/location';
-import { MapConfigService } from '../../services/map-config.service';
-import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { LoadLocationsData } from 'src/locations/store/locations.actions';
+import { MapConfigService } from 'src/locations/services/map-config.service';
+import { ChallengeDialogComponent } from 'src/app/shared/components/challenge-dialog/challenge-dialog.component';
+import { Location } from 'src/app/shared/models/location';
+import { LocationsState } from 'src/locations/store/locations.state';
 
 interface InfoLocationClickEvent {
   location: Location;

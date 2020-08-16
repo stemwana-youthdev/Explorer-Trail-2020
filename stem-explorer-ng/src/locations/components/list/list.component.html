@@ -3,12 +3,11 @@
 <ng-container *ngFor="let location of locations">
   <mat-card [class]="Colour[location.category]" (click)="openDialog(location)">
       <h3 [class]="Colour[location.category]">
-        <img class="marker-icon" [src]="getMapMarker(location.category)">
         <!-- <span class="distance">{{ challenge.locationDistance | largeDistance }}</span> -->
-        {{ location.challengetitle }}
+        {{ location.challengeTitle }}
       </h3>
       <h4>{{ Categories[location.category] }}</h4>
-  <p>{{ location.challengedescription | truncate: 50 }}</p>
+  <p>{{ location.challengeDescription | truncate: 50 }}</p>
 </mat-card>
 </ng-container>
 

@@ -5,7 +5,7 @@ import { Store } from '@ngxs/store';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-import { AuthService } from '../../../shared/auth/auth.service';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-result-dialog',

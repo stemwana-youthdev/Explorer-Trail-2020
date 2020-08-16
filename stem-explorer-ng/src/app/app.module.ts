@@ -7,10 +7,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChallengesModule } from './challenges/challenges.module';
 import { ConfigModule } from './core/config/config.module';
-import { ListModule } from './list/list.module';
-import { MapModule } from './map/map.module';
 import { CameraComponent } from './shared/camera/camera.component';
 import { SharedModule } from './shared/shared.module';
 import { SplashScreenComponent } from './shared/splash-screen/splash-screen.component';
@@ -18,6 +15,8 @@ import { StoreModule } from './store/store.module';
 import { LoginPageComponent } from './users/login-page/login-page.component';
 import { RegisterPageComponent } from './users/register-page/register-page.component';
 import { ChallengeTallyComponent } from './users/challenge-tally/challenge-tally.component';
+import { ChallengesModule } from 'src/challenges/challenges.module';
+import { LocationsModule } from 'src/locations/locations.module';
 
 @NgModule({
   declarations: [
@@ -41,8 +40,7 @@ import { ChallengeTallyComponent } from './users/challenge-tally/challenge-tally
     FormsModule,
     StoreModule,
     SharedModule,
-    MapModule,
-    ListModule,
+    LocationsModule,
     ChallengesModule
   ],
   entryComponents: [

@@ -7,7 +7,6 @@ import { environment } from '../../environments/environment';
 import { ChallengeLevelsState } from './challenge-levels/challenge-levels.state';
 import { ChallengesState } from './challenges/challenges.state';
 import { LastHomepageState } from './last-homepage/last-homepage.state';
-import { LocationsState } from './locations/locations.state';
 
 @NgModule({
   declarations: [],
@@ -16,7 +15,6 @@ import { LocationsState } from './locations/locations.state';
     NgxsModule.forRoot(
       [
         ChallengesState,
-        LocationsState,
         ChallengeLevelsState,
         LastHomepageState,
       ],

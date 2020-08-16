@@ -7,10 +7,10 @@ import { map } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { MapIcons } from 'src/app/shared/enums/map-icons.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { LoadLocationsData } from 'src/app/store/locations/locations.actions';
-import { LocationsState } from 'src/app/store/locations/locations.state';
-import { Location } from '../../shared/models/location';
-import { ChallengeDialogComponent } from 'src/app/map/components/challenge-dialog/challenge-dialog.component';
+import { LoadLocationsData } from 'src/locations/store/locations.actions';
+import { Location } from 'src/app/shared/models/location';
+import { ChallengeDialogComponent } from 'src/app/shared/components/challenge-dialog/challenge-dialog.component';
+import { LocationsState } from 'src/locations/store/locations.state';
 
 /*
 * Component to show the challenges in a list view
