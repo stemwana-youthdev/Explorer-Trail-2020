@@ -13,6 +13,7 @@ export class LoginEmailComponent implements OnInit {
 
   emailValue = '';
   passwordValue = '';
+  errorMessage = '';
 
   emailField = 'profile';
   passwordField = 'profile';
@@ -27,7 +28,18 @@ export class LoginEmailComponent implements OnInit {
   }
 
   async login(email: string, password: string) {
-    await this.auth.passwordLogin(email, password);
+    try {
+      await this.auth.passwordLogin(email, password);
+    } catch (error) {
+      if (error.code === 'auth/wrong-password') {
+        this.errorMessage = 'You have entered an invalid email or password. Please try again.';
+        this.passwordValue = '';
+      } else {
+        console.warn(error);
+        this.errorMessage = error.message;
+      }
+      return;
+    }
     console.log('successful login');
     this.router.navigateByUrl(
       this.store.selectSnapshot(LastHomepageState.lastHomepage)

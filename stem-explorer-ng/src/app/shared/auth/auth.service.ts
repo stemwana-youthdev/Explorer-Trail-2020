@@ -106,12 +106,8 @@ export class AuthService {
     email: string,
     password: string,
   ) {
-    try {
-      const res = await this.afAuth.signInWithEmailAndPassword(email, password);
-      console.log('You have been succesfully logged in! woohoo', res);
-    } catch (error) {
-      console.warn(error);
-    }
+    const res = await this.afAuth.signInWithEmailAndPassword(email, password);
+    console.log('You have been succesfully logged in! woohoo', res);
   }
 
   async logout() {

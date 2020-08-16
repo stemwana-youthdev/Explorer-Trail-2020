@@ -8,6 +8,8 @@
     <app-input placeholder="Password" type="password" [color]="passwordField" 
     aria-label="password"
     name='password' [(ngModel)]='passwordValue'></app-input>
+    
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
     <app-button color="pink">Login</app-button>
 </form>
