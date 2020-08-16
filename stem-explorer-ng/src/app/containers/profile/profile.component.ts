@@ -5,6 +5,8 @@ import { CurrentUserState } from 'src/app/store/current-user/current-user.state'
 import { User } from 'src/app/shared/models/user';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
+import { AuthService } from 'src/app/shared/auth/auth.service';
+import { getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-profile',
@@ -14,18 +16,26 @@ import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
 export class ProfileComponent implements OnInit {
   @Select(CurrentUserState.user) public user$: Observable<User>;
 
+  currentUserEmail: string;
+
   constructor(
     private api: ApiService,
     private store: Store,
+    private auth: AuthService,
   ) { }
 
   ngOnInit(): void {
+    this.getEmail();
   }
 
   updateUser(user: User) {
-    console.log(user);
     this.store.dispatch(new UpdateUser(user));
     this.api.updateCurrentUser(user);
+  }
+
+  async getEmail() {
+    const email = await this.auth.currentUserEmail();
+    this.currentUserEmail = email;
   }
 
 }

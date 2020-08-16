@@ -8,6 +8,7 @@ import 'firebase/auth';
 import { ApiService } from '../services/api.service';
 import { User } from '../models/user';
 import { UpdateToken, UpdateUser } from 'src/app/store/current-user/current-user.actions';
+import { EmailValidator } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -112,5 +113,12 @@ export class AuthService {
 
   async logout() {
     await this.afAuth.signOut();
+  }
+
+  async currentUserEmail() {
+    const user = await this.afAuth.currentUser;
+    if (user != null) {
+      return user.email;
+    }
   }
 }

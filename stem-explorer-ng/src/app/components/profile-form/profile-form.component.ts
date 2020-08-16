@@ -9,6 +9,7 @@ import { User } from 'src/app/shared/models/user';
 export class ProfileFormComponent implements OnInit {
 
   @Input() user: User;
+  @Input() email: string;
 
   @Output() updateUser = new EventEmitter<User>();
 
