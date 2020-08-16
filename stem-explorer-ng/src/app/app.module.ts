@@ -34,6 +34,7 @@ import { ChallengeListComponent } from './components/challenge-list/challenge-li
 import { ChallengeFilterComponent } from './containers/challenge-filter/challenge-filter.component';
 import { ChallengeMapComponent } from './components/challenge-map/challenge-map.component';
 import { RegisterEmailComponent } from './containers/register-email/register-email.component';
+import { ProfileComponent } from './containers/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { RegisterEmailComponent } from './containers/register-email/register-ema
     ChallengeFilterComponent,
     ChallengeMapComponent,
     RegisterEmailComponent,
+    ProfileComponent,
   ],
   imports: [
     GoogleMapsModule,

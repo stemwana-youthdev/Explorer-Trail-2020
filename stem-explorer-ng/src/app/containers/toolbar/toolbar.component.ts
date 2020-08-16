@@ -42,4 +42,8 @@ export class ToolbarComponent {
     this.router.navigateByUrl(this.lastHomepage);
   }
 
+  navigateToProfile() {
+    this.router.navigateByUrl('profile');
+  }
+
 }
