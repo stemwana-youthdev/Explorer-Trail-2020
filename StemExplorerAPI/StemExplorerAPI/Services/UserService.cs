@@ -32,7 +32,7 @@ namespace StemExplorerAPI.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                ContactNumber = user.ContactNumber,
+                Region = user.Region,
                 HomeTown = user.HomeTown,
             };
         }
@@ -44,7 +44,7 @@ namespace StemExplorerAPI.Services
                 Id = userInfo.Id,
                 FirstName = userInfo.FirstName,
                 LastName = userInfo.LastName,
-                ContactNumber = userInfo.ContactNumber,
+                Region = userInfo.Region,
                 HomeTown = userInfo.HomeTown,
             };
 
@@ -56,7 +56,7 @@ namespace StemExplorerAPI.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                ContactNumber = user.ContactNumber,
+                Region = user.Region,
                 HomeTown = user.HomeTown,
             };
         }
@@ -72,7 +72,7 @@ namespace StemExplorerAPI.Services
 
             user.FirstName = userInfo.FirstName;
             user.LastName = userInfo.LastName;
-            user.ContactNumber = userInfo.ContactNumber;
+            user.Region = userInfo.Region;
             user.HomeTown = userInfo.HomeTown;
         }
     }
