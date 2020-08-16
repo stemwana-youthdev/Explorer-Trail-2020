@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/shared/models/user';
-import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
 
 @Component({
   selector: 'app-profile-form',
@@ -11,11 +10,28 @@ export class ProfileFormComponent implements OnInit {
 
   @Input() user: User;
 
-  // @Output() updateUser = new EventEmitter<UpdateUser>();
+  @Output() updateUser = new EventEmitter<User>();
+
+  firstNameValue;
+  lastNameValue;
+  regionValue;
+  homeTownValue;
+
+  updatedUser: User;
+
 
   constructor() { }
 
   ngOnInit(): void {
+    this.firstNameValue = this.user.firstName;
+    this.lastNameValue = this.user.lastName;
+    this.regionValue = this.user.region;
+    this.homeTownValue = this.user.homeTown;
+  }
+
+  updateProfile(uid, firstname, lastname, r, town) {
+    this.updatedUser = {id: uid, firstName: firstname, lastName: lastname, region: r, homeTown: town};
+    this.updateUser.emit(this.updatedUser);
   }
 
 }

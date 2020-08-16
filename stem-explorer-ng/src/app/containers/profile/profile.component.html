@@ -3,4 +3,4 @@
     <mat-icon class="profile-image">person</mat-icon>
     <h4 class="blue">Edit Profile Image</h4>
 </div>
-<app-profile-form [user]="user$ | async"></app-profile-form>
+<app-profile-form [user]="user$ | async" (updateUser)="updateUser($event)"></app-profile-form>
