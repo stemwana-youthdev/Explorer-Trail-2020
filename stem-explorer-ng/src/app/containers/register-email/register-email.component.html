@@ -5,6 +5,14 @@
     aria-label='email'
     name='email' [(ngModel)]='emailValue' (ngModelChange)='checkEmailFormat(emailValue)'></app-input>
 
+    <app-input placeholder="First Name" type="text" color="profile" 
+    aria-label='first name'
+    name='firstName' [(ngModel)]='firstNameValue'></app-input>
+
+    <app-input placeholder="Last Name" type="text" color="profile" 
+    aria-label='last name'
+    name='lastName' [(ngModel)]='lastNameValue'></app-input>
+
     <app-input placeholder="Password" type="password" [color]="passwordField" 
     aria-label="password"
     name='password' [(ngModel)]='passwordValue' (ngModelChange)='checkPasswordFormat(passwordValue)'></app-input>

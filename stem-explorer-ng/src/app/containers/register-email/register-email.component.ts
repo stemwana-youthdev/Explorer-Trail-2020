@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterEmailComponent implements OnInit {
 
   emailValue = '';
+  firstNameValue = '';
+  lastNameValue = '';
   passwordValue = '';
   confirmPasswordValue = '';
 
