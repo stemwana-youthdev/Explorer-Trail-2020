@@ -93,7 +93,7 @@ export class ApiService {
   // the properties you want to update
   updateCurrentUser(userInfo: User) {
     return this.http.put<User>(
-      `${this.apiEndpoint}/User/UpdateUser`,
+      `${this.apiEndpoint}/User/UpdateCurrentUser`,
       userInfo,
       this.authOptions,
     ).pipe(

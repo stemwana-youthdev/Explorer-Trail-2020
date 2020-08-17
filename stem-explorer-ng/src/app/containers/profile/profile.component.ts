@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
 import { User } from 'src/app/shared/models/user';
@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private store: Store,
     private auth: AuthService,
   ) { }
 
@@ -28,8 +27,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser(user: User) {
-    this.store.dispatch(new UpdateUser(user));
-    this.api.updateCurrentUser(user);
+    this.api.updateCurrentUser(user).toPromise();
   }
 
   async getEmail() {
