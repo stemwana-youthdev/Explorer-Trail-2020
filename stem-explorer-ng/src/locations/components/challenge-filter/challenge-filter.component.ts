@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-
-import { ChallengesState } from '../../store/challenges/challenges.state';
-import { FilterChallenges } from '../../store/challenges/challenges.actions';
-
+import { LocationsState } from 'src/locations/store/locations.state';
+import { FilterLocations } from 'src/locations/store/locations.actions';
 
 @Component({
   selector: 'app-challenge-filter',
@@ -13,7 +11,7 @@ import { FilterChallenges } from '../../store/challenges/challenges.actions';
   styleUrls: ['./challenge-filter.component.scss']
 })
 export class ChallengeFilterComponent implements OnInit {
-  @Select(ChallengesState.challengeFilter) public filter$: Observable<number[]>;
+  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
 
   constructor(
     private store: Store,
@@ -24,7 +22,7 @@ export class ChallengeFilterComponent implements OnInit {
   }
 
   onFilter(filter: number[]): void {
-    this.store.dispatch(new FilterChallenges(filter));
+    this.store.dispatch(new FilterLocations(filter));
     // push to dataLayer
     const gtmTag = {
       event: 'filters',

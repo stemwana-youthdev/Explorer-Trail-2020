@@ -2,19 +2,15 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
-import { CameraComponent } from '../camera/camera.component';
-
-import { Challenge } from '../../shared/models/challenge';
-import { Location } from '../../shared/models/location';
-
-import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { GeolocationService } from 'src/app/shared/services/geolocation.service';
+import { GeolocationService } from 'src/locations/services/geolocation.service';
+import { CameraComponent } from 'src/app/containers/camera/camera.component';
+import { Location } from 'src/app/shared/models/location';
+import { Categories } from 'src/app/shared/enums/categories.enum';
 
 export interface ChallengeDialogData {
-  challenge: Challenge;
   location: Location;
   level: ChallengeLevel;
   dialogType: ChallengeDialogType;
@@ -29,39 +25,37 @@ export interface ChallengeDialogData {
   styleUrls: ['./challenge-dialog.component.scss'],
 })
 export class ChallengeDialogComponent implements OnInit, OnDestroy {
-
   Categories: any = Categories;
   DialogType: any = ChallengeDialogType;
   Level: any = Levels;
 
-  distance$: ReplaySubject<number>;
-  distanceSubscription: Subscription;
+  location: Location;
+
+  // distance$: ReplaySubject<number>;
+  // distanceSubscription: Subscription;
 
   constructor(
-    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private dialog: MatDialog,
     private geolocation: GeolocationService,
-  ) { }
+  ) {
+    this.location = this.data.location;
+  }
 
   ngOnInit()  {
-    if (this.data.dialogType === ChallengeDialogType.Preview) {
-      this.distance$ = new ReplaySubject();
-      this.distanceSubscription = this.getDistance().subscribe(this.distance$);
-    }
+    // if (this.data.dialogType === ChallengeDialogType.Preview) {
+    //   this.distance$ = new ReplaySubject();
+    //   this.distanceSubscription = this.getDistance().subscribe(this.distance$);
+    // }
   }
 
   ngOnDestroy() {
-    this.distanceSubscription?.unsubscribe();
+    // this.distanceSubscription?.unsubscribe();
   }
 
-  getDistance(): Observable<number> {
-    return this.geolocation.locationDistance(this.data.location);
-  }
-
-  goToChallenge() {
-    this.router.navigate(['challenge/' + this.data.challenge.uid]);
-  }
+  // getDistance(): Observable<number> {
+  //   return this.geolocation.locationDistance(this.data.location);
+  // }
 
   cameraView() {
     this.dialog.open(CameraComponent, {

@@ -1,21 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith, distinct } from 'rxjs/operators';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SvgIcon } from './shared/enums/icons.constants';
+import { MatDialog } from '@angular/material/dialog';
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
+import { Store } from '@ngxs/store';
+import { VisitedHomepage } from './store/last-homepage/last-homepage.actions';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'STEMFest Explorer Trail';
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
+    private store: Store,
     matIconRegistry: MatIconRegistry,
     domSanitizer: DomSanitizer
   ) {
@@ -35,6 +41,16 @@ export class AppComponent {
     return this.currentUrl.pipe(
       map((url) => url === '/'),
     );
+  }
+
+  ngOnInit(): void {
+    const visited = localStorage.getItem('visited');
+    if (visited == null) {
+      this.dialog.open(SplashScreenComponent, {panelClass: 'app-dialog'});
+      localStorage.setItem('visited', 'true');
+    }
+
+    this.store.dispatch(new VisitedHomepage());
   }
 
   navigateToList() {

@@ -1,6 +1,8 @@
+<app-challenge-filter></app-challenge-filter>
+
 <app-challenge-map
   class="challenge-map"
-  [locations]="locations$ | async"
+  [locations]="locations"
   [filter]="filter$ | async"
   watchGeolocation="true"
   (challengeLocationClick)="onChallengeLocationClick($event)"

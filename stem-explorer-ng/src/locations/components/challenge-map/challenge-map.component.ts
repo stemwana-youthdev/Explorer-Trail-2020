@@ -1,14 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ViewChild } from '@angular/core';
-import { MapMarker, MapInfoWindow } from '@angular/google-maps';
-
-import { Location } from '../../shared/models/location';
-import { Categories } from '../../shared/enums/categories.enum';
-
-export interface InfoLocationClickEvent {
-  location: Location;
-  marker: MapMarker;
-}
-
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { Categories } from 'src/app/shared/enums/categories.enum';
+import { Location } from 'src/app/shared/models/location';
 
 @Component({
   selector: 'app-challenge-map',
@@ -19,9 +12,9 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
   @Input() locations: Location[] = [];
   @Input() filter: number[];
   @Input() watchGeolocation = false;
-
   @Output() challengeLocationClick = new EventEmitter<Location>();
-  @Output() infoLocationClick = new EventEmitter<InfoLocationClickEvent>();
+  @Output() infoLocationClick = new EventEmitter<any>();
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
   private TaurangaLocation = {
     lat: -37.6854709,
@@ -44,10 +37,6 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
       {
         featureType: 'poi',
         stylers: [{ visibility: 'off' }],
-      },
-      {
-        featureType: 'road',
-        stylers: [{ visibility: 'simplified' }],
       },
       {
         featureType: 'landscape',
@@ -76,8 +65,6 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
     [Categories.Engineering]: '/assets/icons/MAP-light-orange-point.svg',
     [Categories.Maths]: '/assets/icons/MAP-purple-point.svg',
   };
-
-  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
   constructor() { }
 
@@ -122,9 +109,4 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
       }
     };
   }
-
-  public openInfoLocation(marker: MapMarker) {
-    this.infoWindow.open(marker);
-  }
-
 }

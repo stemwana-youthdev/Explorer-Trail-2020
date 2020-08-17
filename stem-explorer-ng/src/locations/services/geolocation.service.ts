@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, zip, Observable } from 'rxjs';
+import { Observable, ReplaySubject, zip } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { Location } from '../../app/shared/models/location';
 
-import { Location } from '../models/location';
-
-export const google = window.google;
 export type LatLng = google.maps.LatLngLiteral;
 
 @Injectable({
