@@ -74,6 +74,7 @@ namespace StemExplorerAPI.Services
             user.LastName = userInfo.LastName;
             user.Region = userInfo.Region;
             user.HomeTown = userInfo.HomeTown;
+            await _context.SaveChangesAsync();
         }
     }
 }
