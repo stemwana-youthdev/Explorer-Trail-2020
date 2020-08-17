@@ -1,7 +1,9 @@
 <div class="image-container">
-    <!--Image will go here-->
+  <app-profile-picture *ngIf="photoURL$ | async; else noPhoto" [photoURL]="photoURL$ | async"></app-profile-picture>
+  <ng-template #noPhoto>
     <mat-icon class="profile-image">person</mat-icon>
-    <h4 class="blue">Edit Profile Image</h4>
+  </ng-template>
+  <h4 class="blue">Edit Profile Image</h4>
 </div>
 <form [formGroup]='profileForm' (ngSubmit)="onSubmit()">
     <input type="text" placeholder="First Name" name="firstName" formControlName="firstName">
