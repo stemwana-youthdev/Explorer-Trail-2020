@@ -1,25 +1,26 @@
-<app-challenge-filter></app-challenge-filter>
+<app-filter></app-filter>
 
-<google-map
+<span class="challenge-map">
+  <google-map
   [center]="center"
   [zoom]="zoom"
   height="100%"
   width="100%"
-  [options]="options"
->
-
-  <map-marker
+  [options]="options">
+  
+    <map-marker
     *ngFor="let location of (locations | filter:this.filter)"
     #markerElem
     [position]="location.position"
     [title]="location.name"
     [options]="markerOptions(location)"
     (mapClick)="markerClick(markerElem, location)"
-  >
+    >
   </map-marker>
 
   <map-info-window></map-info-window>
-</google-map>
+  </google-map>
+</span>
 
 <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
 <app-fab svgIcon='QR-Code' (click)="scanCode()" position="right"></app-fab>

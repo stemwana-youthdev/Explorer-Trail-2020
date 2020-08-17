@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { MapIcons } from 'src/app/shared/enums/map-icons.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { Location } from 'src/app/shared/models/location';
-import { ChallengeDialogComponent } from 'src/app/shared/components/challenge-dialog/challenge-dialog.component';
+import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
+import { ReplaySubject, Subscription, Observable } from 'rxjs';
+import { GeolocationService } from 'src/locations/services/geolocation.service';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 
 /*
 * Component to show the challenges in a list view
@@ -23,36 +24,53 @@ import { LocationsState } from 'src/locations/store/locations.state';
 export class ListComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   private _locations: Location[] = [];
+  @Select(LocationsState.locationFilter) public filters$: Observable<number[]>;
+
+  distance$: ReplaySubject<number>;
+  distanceSubscription: Subscription;
 
   Categories: any = Categories;
-  filter = [0, 1, 2, 3];
+  filter: number[];
   Colour = StemColours;
 
   constructor(
     private store: Store,
     public dialog: MatDialog,
     private gtmService: GoogleTagManagerService,
-    private router: Router
+    private router: Router,
+    private geolocation: GeolocationService
   ) { }
 
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
     this.loadLocations();
+
+    this.filters$.pipe(tap(res => this.filter = res)).subscribe();
   }
 
   get locations(): Location[] {
     return this._locations;
   }
 
+  /**
+   * Go to map
+   */
   navigateToMap(): void {
-    this.router.navigateByUrl('/');
+    this.router.navigate(['']);
   }
 
-  getMapMarker(category: Categories): string {
-    return `/assets/icons/${MapIcons[category]}`;
-  }
-
+  /**
+   * Open the dialog of the challenge info
+   * @param location data object to send through to the dialog
+   */
   openDialog(location: Location) {
+    this.distance$ = new ReplaySubject();
+    this.distanceSubscription = this.getDistance(location).subscribe(this.distance$);
+
+    this.distance$.pipe(tap(distance => {
+      location.distance = distance;
+    }));
+
     this.dialog.open(ChallengeDialogComponent, {
       data: {
         location,
@@ -63,6 +81,9 @@ export class ListComponent implements OnInit {
     this.gtmTag(location.challengeTitle);
   }
 
+  /**
+   * loads all the locations
+   */
   private loadLocations(): void {
     /**
      * @todo sort alphabetically
@@ -72,6 +93,14 @@ export class ListComponent implements OnInit {
     })).subscribe();
   }
 
+  getDistance(location: Location): Observable<number> {
+    return this.geolocation.locationDistance(location);
+  }
+
+  /**
+   * google tag manager logging
+   * @param title challenge title
+   */
   private gtmTag(title: string): void {
     const tag = {
       event: 'card click',
@@ -80,52 +109,3 @@ export class ListComponent implements OnInit {
     this.gtmService.pushTag(tag);
   }
 }
-
-// export class ListViewComponent implements OnInit, OnDestroy {
-//   public challengesWithDistances$: ReplaySubject<ChallengeWithDistance[]>;
-
-//   distancesSubscription: Subscription;
-
-//   ngOnInit() {
-
-//     this.challengesWithDistances$ = new ReplaySubject(1);
-//     this.distancesSubscription = this.watchChallengesWithDistances().subscribe(this.challengesWithDistances$);
-//   }
-
-//   ngOnDestroy() {
-//     this.distancesSubscription.unsubscribe();
-//   }
-
-//   watchChallengesWithDistances(): Observable<ChallengeWithDistance[]> {
-//     return combineLatest([this.challenges$, this.locations$]).pipe(
-//       switchMap(([challenges, locations]) => {
-//         if (challenges.length <= 0) {
-//           return of([]);
-//         }
-
-//         return this.watchLocations(locations).pipe(
-//           scan((acc, [locationId, distance]) => {
-//             const newChallenges = [...acc];
-//             const changedIndex = newChallenges.findIndex(
-//               (challenge) => challenge.locationId === locationId
-//             );
-//             const changedChallenge = newChallenges[changedIndex];
-//             const newChallenge = { ...changedChallenge, distance };
-//             newChallenges.splice(changedIndex, 1, newChallenge);
-//             return newChallenges;
-//           }, challenges as ChallengeWithDistance[]),
-//           startWith(challenges)
-//         );
-//       })
-//     );
-//   }
-
-//   watchLocations(locations: Location[]) {
-//     return from(locations.map((location) =>
-//       this.geolocation
-//         .locationDistance(location)
-//         .pipe(map((distance) => [location.uid, distance]))
-//     )).pipe(mergeAll());
-//   }
-// }
-

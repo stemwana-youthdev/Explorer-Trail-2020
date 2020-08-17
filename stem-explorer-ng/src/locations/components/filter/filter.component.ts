@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { Store, Select } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { map } from 'rxjs/operators';
-import { FilterChallenges } from '../../store/challenges/challenges.actions';
-import { ChallengesState } from '../../store/challenges/challenges.state';
+import { map, tap } from 'rxjs/operators';
+import { FilterLocations } from 'src/locations/store/locations.actions';
+import { LocationsState } from 'src/locations/store/locations.state';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-challenge-filter',
+  selector: 'app-filter',
   template: `
     <mat-button-toggle-group
       #group="matButtonToggleGroup"
       [value]="filter"
       multiple
     >
-      <mat-icon>tune</mat-icon>
+      <span>
+        <mat-icon aria-label="Extra filters">tune</mat-icon>
+      </span>
       <mat-button-toggle *ngFor='let button of buttons'
         [value]="button.value"
         [class]="button.colorClass"
@@ -24,10 +27,11 @@ import { ChallengesState } from '../../store/challenges/challenges.state';
       </mat-button-toggle>
     </mat-button-toggle-group>
   `,
+  styleUrls: ['./filter.component.scss']
 })
-export class ChallengeFilterComponent {
-  filter: any[];
-
+export class FilterComponent {
+  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
+  filter: number[];
   buttons = [
     {category: 'S', value: 0, colorClass: 'green'},
     {category: 'T', value: 1, colorClass: 'blue'},
@@ -39,13 +43,11 @@ export class ChallengeFilterComponent {
     private store: Store,
     private gtmService: GoogleTagManagerService,
   ) {
-    this.store.select(ChallengesState.challengeFilter).pipe(map(res => {
-      this.filter = res;
-    })).subscribe();
+    this.filter$.pipe(tap(res => this.filter = res)).subscribe();
   }
 
   onFilter(filter: number[]): void {
-    this.store.dispatch(new FilterChallenges(filter));
+    this.store.dispatch(new FilterLocations(filter));
     this.gtmTag(filter);
   }
 

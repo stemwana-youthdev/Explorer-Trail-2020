@@ -2,16 +2,16 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { map } from 'rxjs/operators';
-import { ChallengesState } from 'src/app/store/challenges/challenges.state';
+import { map, tap } from 'rxjs/operators';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { MapConfigService } from 'src/locations/services/map-config.service';
-import { ChallengeDialogComponent } from 'src/app/shared/components/challenge-dialog/challenge-dialog.component';
 import { Location } from 'src/app/shared/models/location';
 import { LocationsState } from 'src/locations/store/locations.state';
+import { Observable } from 'rxjs';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 
 interface InfoLocationClickEvent {
   location: Location;
@@ -21,15 +21,15 @@ interface InfoLocationClickEvent {
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
-  // providers: [MapConfigService]
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
+  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
 
   locations: Location[] = [];
-  filter: number[] = [];
-  taurangaLocation = {
+  filter: number[];
+  private taurangaLocation = {
     lat: -37.6854709,
     lng: 176.1673285,
   };
@@ -56,29 +56,44 @@ export class MapComponent implements OnInit, OnDestroy {
     this.loadGeolocation();
     this.getLocations();
 
-    this.store.select(ChallengesState.challengeFilter).pipe(map(res => {
-      this.filter = res;
-    })).subscribe();
+    this.filter$.pipe(tap(res => this.filter = res)).subscribe();
   }
 
+  /**
+   * when the user leaves this view, then stop watching the geolocation the clear this data
+   */
   ngOnDestroy(): void {
     navigator.geolocation?.clearWatch(this.geolocationWatchId);
   }
 
+  /**
+   * go to the list view
+   */
   navigateToList(): void {
-    this.router.navigateByUrl('/list');
+    this.router.navigate(['list']);
   }
 
+  /**
+   * scan the qr code
+   */
   scanCode(): void {
-    this.router.navigate(['/scan-code']);
+    this.router.navigate(['scan-code']);
   }
 
+  /**
+   * method to tell the store to load the locations
+   */
   getLocations(): void {
     this.store.select(LocationsState.locations).pipe(map(res => {
       this.locations = res;
     })).subscribe();
   }
 
+  /**
+   * method hit when one of the map markers are clicked on
+   * @param marker object of the marker data
+   * @param location object of the location data
+   */
   markerClick(marker: MapMarker, location: Location): void {
     if (location.challengeId) {
       this.challengeLocation(location);
@@ -87,6 +102,10 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * gets the custom marker data, like the icon
+   * @param location data from the location for the map marker to get the category
+   */
   markerOptions(location: Location): google.maps.MarkerOptions {
     return {
       icon: {
@@ -96,6 +115,14 @@ export class MapComponent implements OnInit, OnDestroy {
     };
   }
 
+  // onFilter(filters: number[]) {
+  //   this.locations.
+  // }
+
+  /**
+   * opens the dialog of the challenge info
+   * @param location data object to pass through all the location details to the dialog
+   */
   private challengeLocation(location: Location): void {
     this.dialog.open(ChallengeDialogComponent, {
       data: { location },
@@ -113,6 +140,9 @@ export class MapComponent implements OnInit, OnDestroy {
     this.infoWindow.open(marker);
   }
 
+  /**
+   * loads the user's location
+   */
   private loadGeolocation(): void {
     if (!navigator.geolocation) {
       /** @todo need to tell the user that geolocation isn't supported */
@@ -129,6 +159,10 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * google tag manager logging
+   * @param title challenge title
+   */
   private gtmTag(title: string): void {
     const tag = {
       event: 'map marker click',

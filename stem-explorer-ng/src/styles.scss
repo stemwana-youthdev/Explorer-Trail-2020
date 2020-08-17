@@ -106,3 +106,8 @@ i, em {
 .app-dialog .mat-dialog-content {
   max-height: none;
 }
+
+.mat-select,
+.mat-flat-button {
+  @include typeface-sub-heading;
+}

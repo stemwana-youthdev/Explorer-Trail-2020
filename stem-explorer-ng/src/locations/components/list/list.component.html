@@ -1,6 +1,6 @@
-<app-challenge-filter></app-challenge-filter>
+<app-filter></app-filter>
 
-<ng-container *ngFor="let location of locations">
+<ng-container *ngFor="let location of (locations | filter:this.filter)">
   <mat-card [class]="Colour[location.category]" (click)="openDialog(location)">
       <h3 [class]="Colour[location.category]">
         <!-- <span class="distance">{{ challenge.locationDistance | largeDistance }}</span> -->

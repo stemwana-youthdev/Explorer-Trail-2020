@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Categories } from '../enums/categories.enum';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StemColoursService {
   colours = [
     { category: Categories.Science, colour: 'green' },

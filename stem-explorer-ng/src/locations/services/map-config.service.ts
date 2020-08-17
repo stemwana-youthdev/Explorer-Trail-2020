@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MapConfigService {
 
   /**
@@ -19,10 +19,6 @@ export class MapConfigService {
         {
           featureType: 'poi',
           stylers: [{ visibility: 'off' }],
-        },
-        {
-          featureType: 'road',
-          stylers: [{ visibility: 'simplified' }],
         },
         {
           featureType: 'landscape',

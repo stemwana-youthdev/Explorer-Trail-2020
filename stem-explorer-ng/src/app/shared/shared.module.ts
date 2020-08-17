@@ -5,8 +5,6 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 import { ButtonComponent } from './components/button/button.component';
-import { ChallengeFilterComponent } from './components/challenge-filter.component';
-import { ChallengeTitleComponent } from './components/challenge-title/challenge-title.component';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
 import { BaseDialogComponent } from './components/base-dialog/base-dialog.component';
 import { DrawerComponent } from './components/drawer/drawer.component';
@@ -22,7 +20,6 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ApiService } from './services/api.service';
 import { StemColoursService } from './services/stem-colors.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ChallengeDialogComponent } from './components/challenge-dialog/challenge-dialog.component';
 
 @NgModule({
   imports: [
@@ -43,17 +40,14 @@ import { ChallengeDialogComponent } from './components/challenge-dialog/challeng
     SortByPipe,
     FabComponent,
     ButtonComponent,
-    ChallengeTitleComponent,
     BaseDialogComponent,
     ContactInfoComponent,
     FormFieldComponent,
     InputComponent,
     ToolbarComponent,
     DrawerComponent,
-    ChallengeFilterComponent,
     RouterModule,
     ReactiveFormsModule,
-    ChallengeDialogComponent
   ],
   declarations: [
     TruncatePipe,
@@ -62,15 +56,12 @@ import { ChallengeDialogComponent } from './components/challenge-dialog/challeng
     SortByPipe,
     FabComponent,
     ButtonComponent,
-    ChallengeTitleComponent,
     BaseDialogComponent,
     ContactInfoComponent,
     FormFieldComponent,
     InputComponent,
     ToolbarComponent,
     DrawerComponent,
-    ChallengeFilterComponent,
-    ChallengeDialogComponent
   ],
   providers: [
     ApiService,

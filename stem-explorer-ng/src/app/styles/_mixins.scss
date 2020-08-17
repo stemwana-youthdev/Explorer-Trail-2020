@@ -34,7 +34,7 @@
 }
 
 @mixin coloured-select-field($color) {
-  color: white;
+  color: #fff !important;
   background-color: $color;
 }
 

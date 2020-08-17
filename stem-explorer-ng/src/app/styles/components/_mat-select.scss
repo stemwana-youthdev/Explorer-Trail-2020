@@ -1,41 +1,52 @@
 @import './../variables';
 @import './../mixins';
 
-::ng-deep mat-form-field {
-  display: block;
-  padding-bottom: 1rem;
-}
-
-::ng-deep mat-form-field {
-  color: white;
+mat-select {
+  color: #fff;
   background-color: tint(80%, $primary-black);
   padding: 1rem;
-}
-
-::ng-deep  .mat-select-arrow {
-  visibility: hidden;
-}
-
-::ng-deep  .mat-select {
   font-weight: 100;
+
+  .mat-select-arrow-wrapper {
+    visibility: hidden;
+  }
 }
 
-mat-form-field.green {
+// ::ng-deep mat-form-field {
+//   display: block;
+//   padding-bottom: 1rem;
+// }
+
+// ::ng-deep mat-form-field {
+//   color: white;
+//   background-color: tint(80%, $primary-black);
+//   padding: 1rem;
+// }
+
+// ::ng-deep  .mat-select-arrow {
+//   visibility: hidden;
+// }
+
+// ::ng-deep  .mat-select {
+//   font-weight: 100;
+// }
+
+mat-select.green {
   @include coloured-select-field($primary-green);
 }
 
-mat-form-field.blue {
+mat-select.blue {
   @include coloured-select-field($primary-blue);
 }
 
-mat-form-field.orange {
+mat-select.orange {
   @include coloured-select-field($primary-orange);
 }
 
-mat-form-field.purple {
+mat-select.purple {
   @include coloured-select-field($primary-purple);
 }
 
-mat-form-field.pink {
+mat-select.pink {
   @include coloured-select-field($secondary-pink);
 }

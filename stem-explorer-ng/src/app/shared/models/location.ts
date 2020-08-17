@@ -1,5 +1,5 @@
 export interface Location {
-  uid: number;
+  uid: string;
   name: string;
   position: Position;
   challengeTitle: string;
@@ -7,6 +7,7 @@ export interface Location {
   challengeId: number;
   category: number;
   link: string;
+  distance?: number;
 }
 
 export interface Position {

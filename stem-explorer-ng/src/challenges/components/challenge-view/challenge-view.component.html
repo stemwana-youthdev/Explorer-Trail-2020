@@ -4,19 +4,20 @@
       {{ challenge.title }}
     </h3>
   </div>
-  <h4 id="top-element">{{ Categories[challenge.category] }}</h4>
-  <h4>Duration: </h4>
+
+  <h4 class="top-element">{{ Categories[challenge.category] }}</h4>
   <p>{{ challenge.description }}</p>
 
-  <app-form-field *ngIf="levels.length > 1" [class]="Colour[challenge.category]">
-    <mat-select [value]="selectedLevel.difficulty" (selectionChange)="levelChange($event)" aria-label="Level selector">
-      <mat-option *ngFor="let option of levelsDropdown" [value]="option">
-        {{ Levels[option] }}
+  <div *ngIf="levels.length > 1" class="levels-wrapper">
+    <mat-select [value]="selectedLevel.difficulty" [class]="Colour[challenge.category]"
+      (selectionChange)="levelChange($event)" aria-label="Level selector">
+      <mat-option *ngFor="let option of levels" [value]="option.difficulty">
+        {{ Levels[option.difficulty] }}
       </mat-option>
     </mat-select>
     <mat-icon class="arrow">expand_more</mat-icon>
-  </app-form-field>
-
+  </div>
+<!-- 
   <ng-container *ngIf="selectedLevel">
     <h3 [class]="Colour[challenge.category]">Instructions</h3>
     <p>{{ selectedLevel.instructions }}</p>
@@ -37,5 +38,5 @@
     aria-label="Answer here"
   >
     Enter Answer
-  </app-button>
+  </app-button> -->
 </div>

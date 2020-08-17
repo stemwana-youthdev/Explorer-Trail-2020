@@ -1,0 +1,33 @@
+<app-base-dialog [class]="Colour[location.category]">
+  <h3 [class]="Colour[location.category]">
+    <span class="distance">{{ location.distance | largeDistance }}</span>
+    {{ location.challengeTitle }}
+  </h3>
+  <h4>{{ Categories[location.category] }}</h4>
+  <p>{{ location.challengeDescription }}</p>
+
+  <app-contact-info
+    [category]="location.category"
+    icon="location_on"
+    [label]="location.name"
+  ></app-contact-info>
+  <br>
+  <app-contact-info
+    [link]="location.link"
+    [category]="location.category"
+    icon="language"
+    label="View Website"
+  ></app-contact-info>
+  <br><br>
+
+  <app-button
+    mat-dialog-close
+    [category]="location.category"
+    (click)="scanCode()"
+  >
+    Scan QR Code
+  </app-button>
+</app-base-dialog>
+
+<!-- Is this needed? -->
+<!-- <mat-spinner *ngIf="!(loaded$ | async)"></mat-spinner> -->

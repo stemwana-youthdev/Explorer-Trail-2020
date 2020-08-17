@@ -9,9 +9,8 @@ type LatLng = google.maps.LatLngLiteral;
   providedIn: 'root',
 })
 export class GeolocationService {
-  geolocation$ = new ReplaySubject<LatLng>(1);
-
   private directionsService: google.maps.DirectionsService;
+  geolocation$ = new ReplaySubject<LatLng>(1);
 
   constructor() {
     if (!navigator.geolocation) {
@@ -36,24 +35,6 @@ export class GeolocationService {
     this.directionsService = new google.maps.DirectionsService();
   }
 
-  locationDistance(location: Location): Observable<number> {
-    return zip(this.geolocation$, this.isInCBD$).pipe(
-      switchMap(([geolocation, isInCBD]) =>
-        this.getRoute({
-          origin: geolocation,
-          destination: location.position,
-          // Get the walking distance if the user is in the CBD
-          travelMode: isInCBD
-            ? google.maps.TravelMode.WALKING
-            : google.maps.TravelMode.DRIVING,
-        })
-      ),
-      map(
-        (directionsResult) => directionsResult.routes[0].legs[0].distance.value
-      )
-    );
-  }
-
   // CBD boundary according to
   // https://www.tauranga.govt.nz/Portals/0/data/council/roads/files/tcc_road_categories_map.pdf
   get isInCBD$() {
@@ -70,6 +51,28 @@ export class GeolocationService {
 
     return this.geolocation$.pipe(
       map((geolocation) => cbd.contains(geolocation))
+    );
+  }
+
+  /**
+   * returns the distance to the location
+   * @param location data object
+   */
+  locationDistance(location: Location): Observable<number> {
+    return zip(this.geolocation$, this.isInCBD$).pipe(
+      switchMap(([geolocation, isInCBD]) =>
+        this.getRoute({
+          origin: geolocation,
+          destination: location.position,
+          // Get the walking distance if the user is in the CBD
+          travelMode: isInCBD
+            ? google.maps.TravelMode.WALKING
+            : google.maps.TravelMode.DRIVING,
+        })
+      ),
+      map(
+        (directionsResult) => directionsResult.routes[0].legs[0].distance.value
+      )
     );
   }
 

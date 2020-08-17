@@ -3,7 +3,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { Location } from '../../../shared/models/location';
+import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
+import { Location } from 'src/app/shared/models/location';
 
 interface ChallengeDialogData {
   location: Location;
@@ -22,6 +23,7 @@ export class ChallengeDialogComponent implements OnInit {
   location: Location;
   // tslint:disable-next-line: variable-name
   _locationDistance: number;
+  Colour = StemColours;
 
   // distance$: ReplaySubject<number>;
   // distanceSubscription: Subscription;

@@ -9,7 +9,7 @@ import { ChallengeLevel } from '../models/challenge-level';
 import { ConfigService } from 'src/app/core/config/config.service';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ApiService {
   get apiEndpoint() {
     return this.config.get('API_ENDPOINT') as string;
@@ -21,7 +21,7 @@ export class ApiService {
   ) {}
 
   getChallenges() {
-    return this.http.get<Challenges>(
+    return this.http.get<Challenge[]>(
       `${this.apiEndpoint}/Challenge/GetChallenges`
     );
   }
@@ -37,7 +37,7 @@ export class ApiService {
   }
 
   getLocations() {
-    return this.http.get<Locations>(
+    return this.http.get<Location[]>(
       `${this.apiEndpoint}/Location/GetLocations`
     );
   }
@@ -53,7 +53,7 @@ export class ApiService {
   // }
 
   getChallengeLevels() {
-    return this.http.get<ChallengeLevels>('assets/challengeLevels.json');
+    return this.http.get<ChallengeLevel[]>('assets/challengeLevels.json');
   }
 
   validateAnswer(level: ChallengeLevel, response: string): boolean {
@@ -82,16 +82,4 @@ export class ApiService {
     // );
   }
 
-}
-
-export interface Challenges {
-  challenges: Challenge[];
-}
-
-export interface Locations {
-  location: Location[];
-}
-
-export interface ChallengeLevels {
-  challengeLevels: ChallengeLevel[];
 }

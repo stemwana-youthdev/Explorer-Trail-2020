@@ -9,5 +9,4 @@ export class FilterPipe implements PipeTransform {
     filter = filter.map(Number);
     return value.filter(item => filter.includes(item.category));
   }
-
 }
