@@ -1,10 +1,10 @@
-<form (submit)="updateProfile(user.id, firstNameValue, lastNameValue, regionValue, homeTownValue)">
+<form (submit)="updateProfile(user.id, firstName.value, lastName.value, region.value, town.value)">
     <div class="profile-container">
-        <h4>First Name:</h4><input type="text" name='firstName' [(ngModel)]='firstNameValue'>
-        <h4>Last Name:</h4><input type="text" name='lastName' [(ngModel)]='lastNameValue'>
+        <h4>First Name:</h4><input type="text" [value]='user.firstName' #firstName>
+        <h4>Last Name:</h4><input type="text" [value]='user.lastName' #lastName>
         <h4>Email:</h4><input type="email" [value]='email' disabled>
-        <h4>Region:</h4><input type="text" name='region' [(ngModel)]='regionValue'>
-        <h4>Home Town:</h4><input type="text" name='homeTown' [(ngModel)]='homeTownValue'>
+        <h4>Region:</h4><input type="text" [value]='user.region' #region>
+        <h4>Home Town:</h4><input type="text" [value]='user.homeTown' #town>
     </div>
 
     <h4 class="blue terms">Terms of Use and Privacy Policy</h4>

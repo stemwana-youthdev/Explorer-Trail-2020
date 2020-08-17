@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
 import { User } from 'src/app/shared/models/user';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
@@ -15,7 +14,7 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 export class ProfileComponent implements OnInit {
   @Select(CurrentUserState.user) public user$: Observable<User>;
 
-  currentUserEmail: string;
+  currentUserEmail = '';
 
   constructor(
     private api: ApiService,
@@ -23,7 +22,9 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getEmail();
+    this.user$.subscribe( data => {
+      this.getEmail();
+    });
   }
 
   updateUser(user: User) {
@@ -32,7 +33,9 @@ export class ProfileComponent implements OnInit {
 
   async getEmail() {
     const email = await this.auth.currentUserEmail();
-    this.currentUserEmail = email;
+    if (email !== undefined) {
+      this.currentUserEmail = email;
+    }
   }
 
 }

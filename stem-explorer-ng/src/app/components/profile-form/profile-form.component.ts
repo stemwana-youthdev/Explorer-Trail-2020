@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/shared/models/user';
+import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-form',
@@ -8,15 +11,12 @@ import { User } from 'src/app/shared/models/user';
 })
 export class ProfileFormComponent implements OnInit {
 
+  @Select(CurrentUserState.isLoggedIn) public isLoggedIn$: Observable<boolean>;
+
   @Input() user: User;
   @Input() email: string;
 
   @Output() updateUser = new EventEmitter<User>();
-
-  firstNameValue;
-  lastNameValue;
-  regionValue;
-  homeTownValue;
 
   updatedUser: User;
 
@@ -24,10 +24,6 @@ export class ProfileFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.firstNameValue = this.user.firstName;
-    this.lastNameValue = this.user.lastName;
-    this.regionValue = this.user.region;
-    this.homeTownValue = this.user.homeTown;
   }
 
   updateProfile(uid, firstname, lastname, r, town) {
