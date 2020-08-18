@@ -1,4 +1,4 @@
-<div class="image-container">
+<div class="image-container" (click)="editPhoto()">
   <app-profile-picture *ngIf="photoURL$ | async; else noPhoto" [photoURL]="photoURL$ | async"></app-profile-picture>
   <ng-template #noPhoto>
     <mat-icon class="profile-image">person</mat-icon>

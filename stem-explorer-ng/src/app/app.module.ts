@@ -27,6 +27,7 @@ import { LocationsModule } from 'src/locations/locations.module';
 import { ProfileComponent } from './containers/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HintDialogComponent } from './containers/hint-dialog/hint-dialog.component';
+import { ProfilePhotoDialogComponent } from './containers/profile-photo-dialog/profile-photo-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { HintDialogComponent } from './containers/hint-dialog/hint-dialog.compon
     ChallengeDetailsComponent,
     ProfileComponent,
     HintDialogComponent
+    ProfilePhotoDialogComponent,
   ],
   imports: [
     GoogleMapsModule,

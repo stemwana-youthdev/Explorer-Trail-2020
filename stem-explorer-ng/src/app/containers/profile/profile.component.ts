@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 import { User } from 'src/app/shared/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ProfilePhotoDialogComponent } from '../profile-photo-dialog/profile-photo-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +28,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private snackbar: MatSnackBar,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +46,12 @@ export class ProfileComponent implements OnInit {
 
     const email = await this.auth.currentUserEmail();
     this.profileForm.get('email').setValue(email);
+  }
+
+  editPhoto() {
+    this.dialog.open(ProfilePhotoDialogComponent, {
+      panelClass: 'app-dialog',
+    });
   }
 
   async onSubmit() {

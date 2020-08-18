@@ -21,6 +21,7 @@ import { GeolocationService } from '../../locations/services/geolocation.service
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
+import { ImageService } from './services/image.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ProfilePictureComponent } from './components/profile-picture/profile-pi
     ApiService,
     StemColorsService,
     GeolocationService,
+    ImageService,
   ],
   exports: [
     TruncatePipe,
