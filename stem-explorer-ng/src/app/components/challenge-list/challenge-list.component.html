@@ -1,11 +1,11 @@
 <app-card
-  *ngFor="let challenge of (challengesWithDistances | filter:this.filter | sortBy:'locationDistance'); trackBy:getId"
+  *ngFor="let challenge of (challenges | filter:this.filter | sortBy:'distance'); trackBy:getId"
   [category]="challenge.category"
   (click)="onItemClick(challenge)"
 >
   <app-challenge-title [category]="challenge.category">
     <img class="marker-icon" [src]="getMarkerIconForCategory(challenge.category)">
-    <span class="distance">{{ challenge.locationDistance | largeDistance }}</span>
+    <span class="distance">{{ challenge.distance | largeDistance }}</span>
     {{challenge.title}}
   </app-challenge-title>
   <h4>{{Categories[challenge.category]}}</h4>

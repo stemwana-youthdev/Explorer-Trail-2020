@@ -58,10 +58,6 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
         stylers: [{ visibility: 'off' }],
       },
       {
-        elementType: 'labels',
-        stylers: [{ visibility: 'off' }],
-      },
-      {
         featureType: 'transit',
         stylers: [{ visibility: 'off' }],
       },
@@ -107,7 +103,7 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
   }
 
   onLocationClick(marker: MapMarker, location: Location) {
-    if (location.challengeid) {
+    if (location.challengeId) {
       this.challengeLocationClick.emit(location);
     } else {
       this.infoLocationClick.emit({ location, marker });
