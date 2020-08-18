@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext, StateToken, createSelector } from '@ngxs/store';
-import { tap, map } from 'rxjs/operators';
-
+import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
+import { map, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/shared/services/api.service';
-
-import { LoadLocationsData, FilterLocations } from './locations.actions';
 import { Location } from '../../app/shared/models/location';
-
+import { FilterLocations, LoadLocationsData } from './locations.actions';
 
 export interface LocationsStateModel {
   locations: Location[];
@@ -27,9 +24,7 @@ const LOCATIONS_TOKEN: StateToken<LocationsStateModel> = new StateToken('locatio
 })
 @Injectable()
 export class LocationsState {
-  constructor(
-    private apiService: ApiService,
-  ) { }
+  constructor(private apiService: ApiService) { }
 
   @Selector()
   public static locations(state: LocationsStateModel): Location[] {

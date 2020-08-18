@@ -1,7 +1,7 @@
 <app-dialog [category]="location.category">
   <app-challenge-title [category]="location.category">
     <span *ngIf="data.dialogType === DialogType.Preview"
-      class="distance" aria-label="Distance to challenge">{{ location.distance }}</span>
+      class="distance" aria-label="Distance to challenge">{{ distance$ | async | largeDistance }}</span>
     {{ location.challengeTitle }}
   </app-challenge-title>
 
@@ -33,7 +33,7 @@
         class="challengeActions"
         [category]="location.category"
         [outlined]="true"
-        (click)="mapDirections($event)">
+        (click)="mapDirections()">
         Get Directions
       </app-button>
       <app-button

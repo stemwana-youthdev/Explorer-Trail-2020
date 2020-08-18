@@ -17,7 +17,6 @@ import { CameraButtonComponent } from './containers/camera-button/camera-button.
 import { CameraComponent } from './containers/camera/camera.component';
 import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
 import { DrawerComponent } from './containers/drawer/drawer.component';
-import { HomePageComponent } from './containers/home-page/home-page.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
 import { ToolbarComponent } from './containers/toolbar/toolbar.component';
@@ -30,7 +29,6 @@ import { LocationsModule } from 'src/locations/locations.module';
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent,
     RegisterPageComponent,
     SplashScreenComponent,
     ChallengeViewComponent,

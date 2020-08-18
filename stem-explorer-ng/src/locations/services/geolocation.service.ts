@@ -56,7 +56,7 @@ export class GeolocationService {
 
   // CBD boundary according to
   // https://www.tauranga.govt.nz/Portals/0/data/council/roads/files/tcc_road_categories_map.pdf
-  get isInCBD$() {
+  get isInCBD$(): Observable<boolean> {
     const cbd = new google.maps.LatLngBounds(
       {
         lat: -37.689038,
