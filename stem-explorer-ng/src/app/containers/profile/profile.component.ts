@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
 import { User } from 'src/app/shared/models/user';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { Router } from '@angular/router';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +21,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private api: ApiService,
     private auth: AuthService,
+    private router: Router,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +32,9 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser(user: User) {
+    this.router.navigateByUrl(
+      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    );
     this.api.updateCurrentUser(user).toPromise();
   }
 
