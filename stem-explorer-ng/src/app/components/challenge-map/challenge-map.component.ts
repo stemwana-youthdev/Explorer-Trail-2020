@@ -58,10 +58,6 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
         stylers: [{ visibility: 'off' }],
       },
       {
-        elementType: 'labels',
-        stylers: [{ visibility: 'off' }],
-      },
-      {
         featureType: 'transit',
         stylers: [{ visibility: 'off' }],
       },
