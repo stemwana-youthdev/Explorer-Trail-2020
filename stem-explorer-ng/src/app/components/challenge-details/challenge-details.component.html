@@ -8,8 +8,8 @@
   <h4>Duration: </h4>
   <p>{{ challenge.description }}</p>
 
-  <app-form-field *ngIf="levels.length > 1" [category]="challenge.category" aria-label="Level selector">
-    <mat-select [value]="selectedLevel" (selectionChange)="onSelectionChange($event)">
+  <app-form-field *ngIf="levels.length > 1" [category]="challenge.category">
+    <mat-select [value]="selectedLevel" (selectionChange)="onSelectionChange($event)" aria-label="Level selector">
       <mat-option *ngFor="let option of levels" [value]="option">
         {{ Levels[option] }}
       </mat-option>
