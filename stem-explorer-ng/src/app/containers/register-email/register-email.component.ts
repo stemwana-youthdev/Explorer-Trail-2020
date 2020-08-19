@@ -42,6 +42,7 @@ export class RegisterEmailComponent implements OnInit {
   async register(email: string, password: string, confirmPassword: string) {
     if (this.checkEmailFormat(email) && this.checkPasswordFormat(password) && this.checkPasswordMatch(password, confirmPassword)
      && email !== '' && password !== '' && confirmPassword !== '' && this.firstNameValue !== '' && this.lastNameValue !== '') {
+      /*
       try {
         await this.auth.passwordRegister(email, password, this.firstNameValue, this.lastNameValue);
       } catch (error) {
@@ -55,6 +56,7 @@ export class RegisterEmailComponent implements OnInit {
         }
         return;
       }
+      */
       console.log('successful register');
       this.router.navigateByUrl(this.lastHomepage);
      } else {
