@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
 import { Observable, combineLatest, Subscription } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, take } from 'rxjs/operators';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-levels.state';
 import { ChallengesState } from '../../store/challenges/challenges.state';
@@ -15,9 +16,10 @@ import { ChallengeLevel } from '../../shared/models/challenge-level';
 
 import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dialog.component';
 
-import { HintDialogComponent } from '../../components/hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 
 
 @Component({
@@ -34,6 +36,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store,
     public dialog: MatDialog,
+    private gtmService: GoogleTagManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -88,37 +91,38 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
   }
 
   onHint({ challenge, level }: HintEvent) {
-    this.openHintDialog(
-      challenge.title,
-      this.selectedLevel,
-      level.hint,
-      challenge.category,
-    );
+    this.openHintDialog(challenge, level);
+    // push to dataLayer
+    const gtmTag = {
+      event: 'get hint',
+      challengeTitle: challenge.title,
+      level: level.difficulty
+  };
+    this.gtmService.pushTag(gtmTag);
   }
 
   onAnswer({ challenge, level }: AnswerEvent) {
     this.openAnswerDialog(challenge, level);
   }
 
-  openHintDialog(title, level, hint, category) {
-    this.dialog.open(HintDialogComponent, {
+  async openHintDialog(challenge: Challenge, level: ChallengeLevel) {
+    this.dialog.open(ChallengeDialogComponent, {
       data: {
-        title,
+        challenge,
         level,
-        hint,
-        category,
+        dialogType: ChallengeDialogType.Hint,
       },
       panelClass: 'app-dialog',
     });
   }
 
   // Async allows us to do this in an imperative style w/o blocking
-  async openAnswerDialog(challenge: Challenge, currentLevel: ChallengeLevel) {
+  async openAnswerDialog(challenge: Challenge, level: ChallengeLevel) {
     // Open the answer dialog
     const answerDialog = this.dialog.open(AnswerDialogComponent, {
       data: {
-        level: currentLevel,
         challenge,
+        level,
       },
       panelClass: 'app-dialog',
     });
@@ -131,11 +135,13 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     }
 
     // Open another dialog
+    const hasNext = await this.getNextLevel() !== null;
     const resultDialog = this.dialog.open(ResultDialogComponent, {
       data: {
-        level: currentLevel,
+        level,
         challenge,
         isCorrect,
+        hasNext,
       },
       panelClass: 'app-dialog',
     });
@@ -144,17 +150,21 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     const dialogResult = await resultDialog.afterClosed().toPromise();
     // If the user clicked next level, switch to the next level
     if (dialogResult === 'next-level') {
-      this.nextLevel();
+      this.selectedLevel = (await this.getNextLevel()) ?? this.selectedLevel;
     }
   }
 
-  async nextLevel() {
-    const challengeLevels = await this.challengeLevels$.toPromise();
+  async getNextLevel() {
+    const challengeLevels = await this.challengeLevels$
+      .pipe(take(1))
+      .toPromise();
     const difficulties = challengeLevels.map((level) => level.difficulty);
     const higherLevels = difficulties.filter((d) => d > this.selectedLevel);
     const nextLevel = Math.min(...higherLevels);
     if (nextLevel < Infinity) {
-      this.selectedLevel = nextLevel;
+      return nextLevel;
+    } else {
+      return null;
     }
   }
 }

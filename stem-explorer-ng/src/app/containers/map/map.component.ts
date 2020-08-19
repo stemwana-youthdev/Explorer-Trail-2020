@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { GeolocationService } from 'src/app/shared/services/geolocation.service';
+import { Subscription } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LocationsState } from '../../store/locations/locations.state';
@@ -11,6 +14,7 @@ import { Location } from '../../shared/models/location';
 
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { InfoLocationClickEvent, ChallengeMapComponent } from '../../components/challenge-map/challenge-map.component';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 
 
 @Component({
@@ -26,6 +30,7 @@ export class MapComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
+    private gtmService: GoogleTagManagerService,
   ) { }
 
   // separate property for the information for the map pop up
@@ -39,6 +44,12 @@ export class MapComponent implements OnInit {
 
   onChallengeLocationClick(location: Location) {
     this.openChallengeDialog(location);
+    // push to dataLayer
+    const gtmTag = {
+      event: 'map marker click',
+      challengeTitle: location.challengeTitle,
+  };
+    this.gtmService.pushTag(gtmTag);
   }
 
   onInfoLocationClick({ location, marker }: InfoLocationClickEvent) {
@@ -49,7 +60,15 @@ export class MapComponent implements OnInit {
   private openChallengeDialog(location: Location) {
     this.dialog.open(ChallengeDialogComponent, {
       data: {
-        challengeId: location.challengeid,
+        challenge: {
+          uid: location.challengeId,
+          title: location.challengeTitle,
+          description: location.challengeDescription,
+          category: location.category,
+          locationId: location.uid,
+        },
+        location,
+        dialogType: ChallengeDialogType.Preview,
       },
       panelClass: 'app-dialog',
     });

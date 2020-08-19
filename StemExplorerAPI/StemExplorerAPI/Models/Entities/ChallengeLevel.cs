@@ -9,7 +9,7 @@ namespace StemExplorerAPI.Models.Entities
     {
         public int Id { get; set; }
         public string QuestionText { get; set; }
-        public Enums.ChallengeLevel Difficulty { get; set; }
+        public Enums.ChallengeDifficulty Difficulty { get; set; }
         public Enums.AnswerType AnswerType { get; set; }
         public string Answer { get; set; }
 

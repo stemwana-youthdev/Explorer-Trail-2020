@@ -30,6 +30,18 @@ export class LocationsState {
   ) { }
 
   @Selector()
+  public static challengeLocation(state: LocationsStateModel) {
+    return createSelector(
+      [LocationsState],
+      (challengeId: number): Location => {
+        return state.locations.find(
+          (location) => location.challengeId === challengeId,
+        );
+      },
+    );
+  }
+
+  @Selector()
   public static locations(state: LocationsStateModel): Location[] {
     return state.locations;
   }
@@ -41,18 +53,6 @@ export class LocationsState {
       (uid: number): Location => {
         return state.locations.find(
           (location) => location.uid === uid,
-        );
-      },
-    );
-  }
-
-  @Selector()
-  public static challengeLocation(state: LocationsStateModel) {
-    return createSelector(
-      [LocationsState],
-      (challengeId: number): Location => {
-        return state.locations.find(
-          (location) => location.challengeid === challengeId,
         );
       },
     );

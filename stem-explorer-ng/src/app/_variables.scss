@@ -12,13 +12,11 @@ $secondary-light-orange: #FCEAD7;
 @mixin typeface-display {
   font-family: 'Lato', sans-serif;
   font-weight: 900;
-  text-transform: uppercase;
 }
 
 @mixin typeface-heading {
   font-family: 'Lato', sans-serif;
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 @mixin typeface-sub-heading {

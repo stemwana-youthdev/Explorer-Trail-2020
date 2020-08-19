@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SplashScreenComponent } from '../../components/splash-screen/splash-screen.component';
+import { Store } from '@ngxs/store';
+import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 
 @Component({
   selector: 'app-home-page',
@@ -9,7 +11,10 @@ import { SplashScreenComponent } from '../../components/splash-screen/splash-scr
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private store: Store,
+  ) { }
 
   ngOnInit() {
     /*
@@ -21,6 +26,8 @@ export class HomePageComponent implements OnInit {
      this.dialog.open(SplashScreenComponent, {panelClass: 'app-dialog'});
      localStorage.setItem('visited', 'true');
    }
+
+   this.store.dispatch(new VisitedHomepage());
   }
 
 }

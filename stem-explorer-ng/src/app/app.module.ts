@@ -27,7 +27,6 @@ import { CameraButtonComponent } from './containers/camera-button/camera-button.
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DrawerComponent } from './containers/drawer/drawer.component';
-import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
 import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
@@ -51,7 +50,6 @@ import { ChallengeMapComponent } from './components/challenge-map/challenge-map.
     CameraComponent,
     CameraButtonComponent,
     DrawerComponent,
-    HintDialogComponent,
     AnswerDialogComponent,
     ResultDialogComponent,
     ChallengeDetailsComponent,
@@ -75,8 +73,8 @@ import { ChallengeMapComponent } from './components/challenge-map/challenge-map.
   entryComponents: [
     ChallengeDialogComponent,
     SplashScreenComponent,
-    HintDialogComponent
   ],
   bootstrap: [AppComponent],
+  providers: [{provide: 'googleTagManagerId', useValue: 'GTM-W79HP9V'}]
 })
 export class AppModule { }

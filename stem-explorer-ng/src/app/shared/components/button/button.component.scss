@@ -9,13 +9,24 @@ button.mat-flat-button {
     font-weight: bold;
 }
 
+button {
+    max-width: 768px !important;
+    text-align: center;
+}
+
 @mixin coloured-button($color) {
     color: white;
     border-radius: 0;
     width: 100%;
     background-color: $color;
+    border: 3px solid $color;
     &.inverted {
         background-color: white;
+        color: $color;
+    }
+    &.outlined {
+        background-color: white;
+        border: 3px solid $color;
         color: $color;
     }
 }
@@ -44,4 +55,5 @@ button.outlined {
     background: white;
     color: $primary-black;
     border: 3px solid $primary-black;
+    font-size: 1rem;
 }

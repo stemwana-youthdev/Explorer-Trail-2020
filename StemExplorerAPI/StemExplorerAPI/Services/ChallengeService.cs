@@ -25,6 +25,7 @@ namespace StemExplorerAPI.Services
                 Title = c.Title,
                 Description = c.Description,
                 Category = c.Category,
+                LocationId = c.LocationId,
             }).ToListAsync();
             return new ChallengesDto
             {

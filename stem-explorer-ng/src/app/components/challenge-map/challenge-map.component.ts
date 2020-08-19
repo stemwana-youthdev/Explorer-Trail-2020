@@ -58,10 +58,6 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
         stylers: [{ visibility: 'off' }],
       },
       {
-        elementType: 'labels',
-        stylers: [{ visibility: 'off' }],
-      },
-      {
         featureType: 'transit',
         stylers: [{ visibility: 'off' }],
       },
@@ -71,10 +67,10 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
   private geolocationWatchId: number;
 
   private icons = {
-    [Categories.Science]: '/assets/icons/light green point.svg',
-    [Categories.Technology]: '/assets/icons/light blue point.svg',
-    [Categories.Engineering]: '/assets/icons/light orange point.svg',
-    [Categories.Maths]: '/assets/icons/purple point.svg',
+    [Categories.Science]: '/assets/icons/MAP-light-green-point.svg',
+    [Categories.Technology]: '/assets/icons/MAP-light-blue-point.svg',
+    [Categories.Engineering]: '/assets/icons/MAP-light-orange-point.svg',
+    [Categories.Maths]: '/assets/icons/MAP-purple-point.svg',
   };
 
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
@@ -107,7 +103,7 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
   }
 
   onLocationClick(marker: MapMarker, location: Location) {
-    if (location.challengeid) {
+    if (location.challengeId) {
       this.challengeLocationClick.emit(location);
     } else {
       this.infoLocationClick.emit({ location, marker });
@@ -116,14 +112,10 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
 
   getMarkerOptions(location: Location): google.maps.MarkerOptions {
     return {
-      icon: this.getIconForMarker(location),
-    };
-  }
-
-  private getIconForMarker(location: Location): google.maps.Icon {
-    return {
-      url: this.icons[location.category],
-      scaledSize: new google.maps.Size(30, 48),
+      icon: {
+        url: this.icons[location.category],
+        scaledSize: new google.maps.Size(30, 48),
+      }
     };
   }
 
