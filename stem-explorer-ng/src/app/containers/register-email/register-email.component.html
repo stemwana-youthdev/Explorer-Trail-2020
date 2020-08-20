@@ -1,1 +1,29 @@
-<p>register-email works!</p>
+<div class="email-register-fields">
+
+    <form (submit)='register(emailValue, passwordValue, confirmPasswordValue)'>
+        <app-input placeholder="Email" type="email" [color]="emailField" 
+        aria-label='email'
+        name='email' [(ngModel)]='emailValue' (ngModelChange)='checkEmailFormat(emailValue)'></app-input>
+    
+        <app-input placeholder="First Name" type="text" color="profile" 
+        aria-label='first name'
+        name='firstName' [(ngModel)]='firstNameValue'></app-input>
+    
+        <app-input placeholder="Last Name" type="text" color="profile" 
+        aria-label='last name'
+        name='lastName' [(ngModel)]='lastNameValue'></app-input>
+    
+        <app-input placeholder="Password" type="password" [color]="passwordField" 
+        aria-label="password"
+        name='password' [(ngModel)]='passwordValue' (ngModelChange)='checkPasswordFormat(passwordValue)'></app-input>
+    
+        <app-input placeholder="Password confirmation" type="password" [color]="confirmField" 
+        aria-label='confirm password'
+        name='confirmPassword' [(ngModel)]='confirmPasswordValue' (ngModelChange)='checkPasswordMatch(passwordValue, confirmPasswordValue)'></app-input>
+    
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    
+        <app-button color="pink">Register</app-button>
+    </form>
+    
+    </div>
