@@ -74,7 +74,7 @@ export class ApiService {
 
   getCurrentUser() {
     return this.http.get<User>(
-      `${this.apiEndpoint}/User/GetCurrentUser`,
+      `${this.apiEndpoint}/User/CurrentUser`,
       this.authOptions
     );
   }
@@ -93,7 +93,7 @@ export class ApiService {
   // the properties you want to update
   updateCurrentUser(userInfo: User) {
     return this.http.put<User>(
-      `${this.apiEndpoint}/User/UpdateUser`,
+      `${this.apiEndpoint}/User/CurrentUser`,
       userInfo,
       this.authOptions,
     ).pipe(
