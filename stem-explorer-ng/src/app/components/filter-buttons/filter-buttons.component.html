@@ -3,13 +3,14 @@
   [value]="filter"
   multiple
 >
-  <span class="material-icons">
+  <span class="material-icons" aria-label="Extra filters">
     tune
   </span>
   <mat-button-toggle *ngFor='let button of buttons'
     [value]="button.value"
     [class]="button.colorClass"
     (change)="change(group.value)"
+    aria-label="Filter by {{button.category}}"
   >
     {{button.category}}
   </mat-button-toggle>

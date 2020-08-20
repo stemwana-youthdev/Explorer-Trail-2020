@@ -32,7 +32,7 @@ namespace StemExplorerAPI.Controllers
             _userService = userService;
         }
 
-        [HttpGet("GetCurrentUser")]
+        [HttpGet("CurrentUser")]
         [Authorize]
         public async Task<UserDto> GetCurrentUser()
         {
@@ -46,6 +46,16 @@ namespace StemExplorerAPI.Controllers
             // Use the user's actual userId
             userInfo.Id = userId;
             return await _userService.CreateUser(userInfo);
+        }
+
+        [HttpPut("CurrentUser")]
+        [Authorize]
+        public async Task<UserDto> PutCurrentUser(UserDto userInfo)
+        {
+            // Use the user's actual userId
+            userInfo.Id = userId;
+            await _userService.UpdateUser(userInfo);
+            return await _userService.GetUser(userInfo.Id);
         }
     }
 }

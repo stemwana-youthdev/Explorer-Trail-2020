@@ -35,7 +35,7 @@ export class LocationsState {
       [LocationsState],
       (challengeId: number): Location => {
         return state.locations.find(
-          (location) => location.challengeid === challengeId,
+          (location) => location.challengeId === challengeId,
         );
       },
     );
@@ -63,8 +63,8 @@ export class LocationsState {
     const state = ctx.getState();
     if (!state.fetched) {
       return this.apiService.getLocations().pipe(
-        tap((data) => ctx.patchState({
-          locations: data.location,
+        tap((locations) => ctx.patchState({
+          locations,
           fetched: true,
         })),
       );

@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
@@ -11,6 +11,7 @@ import { User } from '../models/user';
 import { Store } from '@ngxs/store';
 import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
 import { Progress } from '../models/progress';
+import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
 
 @Injectable()
 export class ApiService {
@@ -25,13 +26,13 @@ export class ApiService {
   ) {}
 
   getChallenges() {
-    return this.http.get<Challenges>(
+    return this.http.get<Challenge[]>(
       `${this.apiEndpoint}/Challenge/GetChallenges`
     );
   }
 
   getLocations() {
-    return this.http.get<Locations>(
+    return this.http.get<Location[]>(
       `${this.apiEndpoint}/Location/GetLocations`
     );
   }
@@ -43,7 +44,7 @@ export class ApiService {
   }
 
   getChallengeLevels() {
-    return this.http.get<ChallengeLevels>(
+    return this.http.get<ChallengeLevel[]>(
       `${this.apiEndpoint}/ChallengeLevel/GetLevels`
     );
   }
@@ -74,7 +75,7 @@ export class ApiService {
 
   getCurrentUser() {
     return this.http.get<User>(
-      `${this.apiEndpoint}/User/GetCurrentUser`,
+      `${this.apiEndpoint}/User/CurrentUser`,
       this.authOptions
     );
   }
@@ -84,6 +85,20 @@ export class ApiService {
       `${this.apiEndpoint}/User/RegisterUser`,
       userInfo,
       this.authOptions
+    );
+  }
+
+  // userInfo needs to have all of its properties set,
+  // or they will be set to null in the DB.
+  // Usually this will be a copy of CurrentUser.user with
+  // the properties you want to update
+  updateCurrentUser(userInfo: User) {
+    return this.http.put<User>(
+      `${this.apiEndpoint}/User/CurrentUser`,
+      userInfo,
+      this.authOptions,
+    ).pipe(
+      tap((user) => this.store.dispatch(new UpdateUser(user))),
     );
   }
 
@@ -101,16 +116,4 @@ export class ApiService {
       this.authOptions
     );
   }
-}
-
-export interface Challenges {
-  challenges: Challenge[];
-}
-
-export interface Locations {
-  location: Location[];
-}
-
-export interface ChallengeLevels {
-  challengeLevels: ChallengeLevel[];
 }

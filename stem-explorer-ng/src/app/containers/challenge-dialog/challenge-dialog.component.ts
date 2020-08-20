@@ -1,26 +1,23 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { CameraComponent } from '../camera/camera.component';
-
-import { ChallengesState } from '../../store/challenges/challenges.state';
-import { LocationsState } from '../../store/locations/locations.state';
-import { LoadChallengesData } from '../../store/challenges/challenges.actions';
-import { LoadLocationsData } from '../../store/locations/locations.actions';
-import { WatchLocationDistances } from '../../store/location-distances/location-distances.actions';
 
 import { Challenge } from '../../shared/models/challenge';
 import { Location } from '../../shared/models/location';
 
 import { Categories } from '../../shared/enums/categories.enum';
-import { LocationDistancesState } from 'src/app/store/location-distances/location-distances.state';
+import { Levels } from 'src/app/shared/enums/levels.enum';
+import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
+import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
+import { GeolocationService } from 'src/app/shared/services/geolocation.service';
 
-
-interface ChallengeDialogData {
-  challengeId: number;
+export interface ChallengeDialogData {
+  challenge: Challenge;
+  location: Location;
+  level: ChallengeLevel;
+  dialogType: ChallengeDialogType;
 }
 
 /*
@@ -31,68 +28,49 @@ interface ChallengeDialogData {
   templateUrl: './challenge-dialog.component.html',
   styleUrls: ['./challenge-dialog.component.scss'],
 })
-export class ChallengeDialogComponent implements OnInit {
+export class ChallengeDialogComponent implements OnInit, OnDestroy {
 
   Categories: any = Categories;
+  DialogType: any = ChallengeDialogType;
+  Level: any = Levels;
+
+  distance$: ReplaySubject<number>;
+  distanceSubscription: Subscription;
 
   constructor(
-    private store: Store,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private dialog: MatDialog,
+    private geolocation: GeolocationService,
   ) { }
 
   ngOnInit()  {
-    this.store.dispatch(new LoadChallengesData());
-    this.store.dispatch(new LoadLocationsData());
-    this.store.dispatch(new WatchLocationDistances());
+    if (this.data.dialogType === ChallengeDialogType.Preview) {
+      this.distance$ = new ReplaySubject();
+      this.distanceSubscription = this.getDistance().subscribe(this.distance$);
+    }
   }
 
-  get challenge$(): Observable<Challenge> {
-    return this.store.select(ChallengesState.challenge).pipe(
-      map((fn) => fn(this.data.challengeId)),
-    );
+  ngOnDestroy() {
+    this.distanceSubscription?.unsubscribe();
   }
 
-  get category$(): Observable<Categories> {
-    return this.challenge$.pipe(
-      map((challenge) => challenge?.category),
-    );
-  }
-
-  get location$(): Observable<Location> {
-    return this.store.select(LocationsState.challengeLocation).pipe(
-      map((fn) => fn(this.data.challengeId)),
-    );
-  }
-
-  get locationDistance$(): Observable<number> {
-    return this.location$.pipe(
-      switchMap((location) =>
-        this.store
-          .select(LocationDistancesState.locationDistance)
-          .pipe(map((fn) => fn(location.uid)))
-      )
-    );
-  }
-
-  get loaded$(): Observable<boolean> {
-    return combineLatest([
-      this.challenge$,
-      this.location$,
-    ]).pipe(
-      map(([challenge, location]) => Boolean(challenge && location)),
-    );
+  getDistance(): Observable<number> {
+    return this.geolocation.locationDistance(this.data.location);
   }
 
   goToChallenge() {
-    this.router.navigate(['challenge/' + this.data.challengeId]);
+    this.router.navigate(['challenge/' + this.data.challenge.uid]);
   }
 
   cameraView() {
     this.dialog.open(CameraComponent, {
       panelClass: 'fullscreen-dialog',
     });
+  }
+
+  mapDirections() {
+    (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
   }
 
 }

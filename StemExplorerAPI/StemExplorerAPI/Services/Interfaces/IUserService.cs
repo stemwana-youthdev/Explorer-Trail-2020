@@ -7,5 +7,6 @@ namespace StemExplorerAPI.Services.Interfaces
     {
         Task<UserDto> GetUser(string userId);
         Task<UserDto> CreateUser(UserDto userInfo);
+        Task UpdateUser(UserDto userInfo);
     }
 }

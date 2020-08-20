@@ -31,10 +31,16 @@ export class AuthService {
 
       if (!user) {
         // TODO: prompt user for registration info
+
+        const [firstName, lastName] = this.splitName(state.displayName);
+
         const userInfo: User = {
           // id will be ignored
           id: null,
-          name: state.displayName,
+          firstName,
+          lastName,
+          region: '',
+          homeTown: '',
         };
 
         user = await this.api.registerUser(userInfo).toPromise();
@@ -44,6 +50,24 @@ export class AuthService {
 
       console.log('User logged in with backend!', user);
     });
+  }
+
+  // Split first and last name
+  splitName(displayName: string): [string, string] {
+    if (typeof displayName !== 'string') {
+      return ['', ''];
+    }
+    const parts = displayName.split(' ');
+    if (parts.length <= 1) {
+      // Just one word is normally a first name
+      return [displayName, ''];
+    } else {
+      // Otherwise one last name and the rest are first names
+      return [
+        parts.slice(0, parts.length - 1).join(' '),
+        parts[parts.length - 1],
+      ];
+    }
   }
 
   // google signin

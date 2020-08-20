@@ -30,7 +30,10 @@ namespace StemExplorerAPI.Services
             return new UserDto
             {
                 Id = user.Id,
-                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Region = user.Region,
+                HomeTown = user.HomeTown,
             };
         }
 
@@ -39,7 +42,10 @@ namespace StemExplorerAPI.Services
             var user = new User
             {
                 Id = userInfo.Id,
-                Name = userInfo.Name,
+                FirstName = userInfo.FirstName,
+                LastName = userInfo.LastName,
+                Region = userInfo.Region,
+                HomeTown = userInfo.HomeTown,
             };
 
             _context.Users.Add(user);
@@ -48,8 +54,27 @@ namespace StemExplorerAPI.Services
             return new UserDto
             {
                 Id = user.Id,
-                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Region = user.Region,
+                HomeTown = user.HomeTown,
             };
+        }
+
+        public async Task UpdateUser(UserDto userInfo)
+        {
+            var user = await _context.Users.FindAsync(userInfo.Id);
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.FirstName = userInfo.FirstName;
+            user.LastName = userInfo.LastName;
+            user.Region = userInfo.Region;
+            user.HomeTown = userInfo.HomeTown;
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,9 +1,13 @@
 app-challenge-title {
   display: block;
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 
 .distance {
   float: right;
-  margin: 0 1rem;
+  margin-left: 1rem;
+}
+.challengeActions {
+  width: 50%;
+  flex: 1;
 }

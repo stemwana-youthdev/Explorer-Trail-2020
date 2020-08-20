@@ -21,9 +21,15 @@ namespace StemExplorerAPI.Controllers
         }
 
         [HttpGet("GetLevels")]
-        public async Task<ChallengeLevelsDto> GetLevels()
+        public async Task<List<ChallengeLevelDto>> GetLevels()
         {
             return await _challengeLevelService.GetLevels();
+        }
+
+        [HttpGet("GetLevelsForChallenge/{challengeId}")]
+        public async Task<List<ChallengeLevelDto>> GetLevelsForChallenge(int challengeId)
+        {
+            return await _challengeLevelService.GetLevelsForChallenge(challengeId);
         }
 
         [HttpPost("ValidateAnswer/{levelId}")]
