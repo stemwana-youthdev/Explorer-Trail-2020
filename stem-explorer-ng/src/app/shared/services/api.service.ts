@@ -20,13 +20,13 @@ export class ApiService {
   ) {}
 
   getChallenges() {
-    return this.http.get<Challenges>(
+    return this.http.get<Challenge[]>(
       `${this.apiEndpoint}/Challenge/GetChallenges`
     );
   }
 
   getLocations() {
-    return this.http.get<Locations>(
+    return this.http.get<Location[]>(
       `${this.apiEndpoint}/Location/GetLocations`
     );
   }
@@ -37,44 +37,22 @@ export class ApiService {
     );
   }
 
-  getChallenge(uid) {
-    return this.http.get('assets/locations.json');
-  }
-
   getChallengeLevels() {
-    return this.http.get<ChallengeLevels>('assets/challengeLevels.json');
-  }
-
-  validateAnswer(levelUid: number, answer: string) {
-    // TODO: replace with dedicated API call
-    return this.getChallengeLevels().pipe(
-      map((levels) => {
-        const level = levels.challengeLevels.find((l) => l.uid === levelUid);
-        if (!level) {
-          return false;
-        }
-
-        for (const possibleAnswer of level.possibleAnswers) {
-          if (possibleAnswer.answerText.toLowerCase().trim() === answer.toLowerCase().trim()) {
-            return possibleAnswer.isCorrect;
-          }
-        }
-
-        return false;
-      }),
+    return this.http.get<ChallengeLevel[]>(
+      `${this.apiEndpoint}/ChallengeLevel/GetLevels`
     );
   }
 
-}
+  validateAnswer(levelUid: number, answer: string) {
+    return this.http.post(
+      `${this.apiEndpoint}/ChallengeLevel/ValidateAnswer/${levelUid}`,
+      JSON.stringify(answer),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
 
-export interface Challenges {
-  challenges: Challenge[];
-}
-
-export interface Locations {
-  location: Location[];
-}
-
-export interface ChallengeLevels {
-  challengeLevels: ChallengeLevel[];
 }

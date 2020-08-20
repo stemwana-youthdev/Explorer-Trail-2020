@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Models.ViewModels
 {
-    public class LocationsDto
-    {
-        [JsonPropertyName("location")]
-        public List<LocationDto> Locations { get; set; }
-    }
-
     public class LocationDto
     {
         [JsonPropertyName("uid")]
