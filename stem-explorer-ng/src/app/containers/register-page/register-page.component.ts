@@ -28,4 +28,8 @@ export class RegisterPageComponent {
     this.router.navigateByUrl('');
   }
 
+  navigateToEmailRegister() {
+    this.router.navigateByUrl('email-register');
+  }
+
 }
