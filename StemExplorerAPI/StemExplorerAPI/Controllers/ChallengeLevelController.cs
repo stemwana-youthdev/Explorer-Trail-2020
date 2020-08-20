@@ -9,7 +9,7 @@ using StemExplorerAPI.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {
-    [Route("api/ChallengeLevel")]
+    [Route("api/ChallengeLevels")]
     [ApiController]
     public class ChallengeLevelController : ControllerBase
     {
@@ -20,14 +20,14 @@ namespace StemExplorerAPI.Controllers
             _challengeLevelService = challengeLevelService;
         }
 
-        [HttpGet("GetLevels")]
-        public async Task<List<ChallengeLevelDto>> GetLevels()
+        [HttpGet]
+        public async Task<List<ChallengeLevelDto>> Get()
         {
             return await _challengeLevelService.GetLevels();
         }
 
-        [HttpGet("GetLevelsForChallenge/{challengeId}")]
-        public async Task<List<ChallengeLevelDto>> GetLevelsForChallenge(int challengeId)
+        [HttpGet("ForChallenge/{challengeId}")]
+        public async Task<List<ChallengeLevelDto>> GetForChallenge(int challengeId)
         {
             return await _challengeLevelService.GetLevelsForChallenge(challengeId);
         }

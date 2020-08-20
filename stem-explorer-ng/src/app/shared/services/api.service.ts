@@ -21,31 +21,31 @@ export class ApiService {
 
   getChallenges() {
     return this.http.get<Challenge[]>(
-      `${this.apiEndpoint}/Challenge/GetChallenges`
+      `${this.apiEndpoint}/Challenges`
     );
   }
 
   getLocations() {
     return this.http.get<Location[]>(
-      `${this.apiEndpoint}/Location/GetLocations`
+      `${this.apiEndpoint}/Locations`
     );
   }
 
   getExternalContent() {
     return this.http.get<ExternalContent[]>(
-      `${this.apiEndpoint}/ExternalContent/GetContent`
+      `${this.apiEndpoint}/ExternalContent`
     );
   }
 
   getChallengeLevels() {
     return this.http.get<ChallengeLevel[]>(
-      `${this.apiEndpoint}/ChallengeLevel/GetLevels`
+      `${this.apiEndpoint}/ChallengeLevels`
     );
   }
 
   validateAnswer(levelUid: number, answer: string) {
     return this.http.post(
-      `${this.apiEndpoint}/ChallengeLevel/ValidateAnswer/${levelUid}`,
+      `${this.apiEndpoint}/ChallengeLevels/ValidateAnswer/${levelUid}`,
       JSON.stringify(answer),
       {
         headers: {

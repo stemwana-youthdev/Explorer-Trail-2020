@@ -20,8 +20,8 @@ namespace StemExplorerAPI.Controllers
             _externalContentService = externalContentService;
         }
 
-        [HttpGet("GetContent")]
-        public async Task<List<ExternalContentDto>> GetAllContent()
+        [HttpGet]
+        public async Task<List<ExternalContentDto>> Get()
         {
             return await _externalContentService.GetContent();
         }
