@@ -45,7 +45,7 @@ export class ApiService {
 
   validateAnswer(levelUid: number, answer: string) {
     return this.http.post(
-      `${this.apiEndpoint}/ChallengeLevels/ValidateAnswer/${levelUid}`,
+      `${this.apiEndpoint}/ChallengeLevels/${levelUid}/ValidateAnswer`,
       JSON.stringify(answer),
       {
         headers: {

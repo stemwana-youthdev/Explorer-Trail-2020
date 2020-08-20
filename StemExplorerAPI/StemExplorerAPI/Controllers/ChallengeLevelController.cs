@@ -33,10 +33,10 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
-        [HttpPost("ValidateAnswer")]
-        public async Task<bool> ValidateAnswer(int levelId, [FromBody] string givenAnswer)
+        [HttpPost("{id}/ValidateAnswer")]
+        public async Task<bool> ValidateAnswer(int id, [FromBody] string givenAnswer)
         {
-            return await _challengeLevelService.ValidateAnswer(levelId, givenAnswer);
+            return await _challengeLevelService.ValidateAnswer(id, givenAnswer);
         }
     }
 }
