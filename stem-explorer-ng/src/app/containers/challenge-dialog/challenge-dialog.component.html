@@ -9,7 +9,7 @@
     <h4>{{ Categories[data.challenge.category] }}</h4>
     <h4>Duration: </h4>
     <p>{{ data.location?.challengeDescription }}</p>
-  
+    
     <app-contact-info
       [category]="data.challenge.category"
       icon="location_on"
@@ -24,21 +24,30 @@
       label="View Website"
       aria-label="Location website"
     ></app-contact-info>
+    
     <br><br>
-  
-    <app-button
-      mat-dialog-close
-      [category]="data.challenge.category"
-      (click)="cameraView()"
-      aria-label="Start challenge"
-    >
-      Scan QR Code
-    </app-button>
-  </ng-container>
 
+    <div style="display: flex;">
+      <app-button
+        mat-dialog-close
+        class="challengeActions"
+        [category]="data.challenge.category"
+        [outlined]="true"
+        (click)="mapDirections()">
+        Get Directions
+      </app-button>
+      <app-button
+        mat-dialog-close
+        class="challengeActions"
+        [category]="data.challenge.category"
+        (click)="cameraView()"
+        aria-label="Start challenge">
+        Scan QR Code
+      </app-button>
+    </div>
+  </ng-container>
   <ng-container *ngIf="data.dialogType === DialogType.Hint">
     <h4>{{ Level[data.level?.difficulty] }}</h4>
     <p>{{ data.level?.hint }}</p>
   </ng-container>
-
 </app-dialog>
