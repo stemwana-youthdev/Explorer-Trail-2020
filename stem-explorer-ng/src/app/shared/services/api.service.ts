@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
@@ -8,6 +7,9 @@ import { Location } from '../models/location';
 import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
 
+// With the api server running, go to
+// http://localhost:5000/swagger
+// to view the basic swagger api docs.
 @Injectable()
 export class ApiService {
   get apiEndpoint() {
@@ -21,31 +23,31 @@ export class ApiService {
 
   getChallenges() {
     return this.http.get<Challenge[]>(
-      `${this.apiEndpoint}/Challenge/GetChallenges`
+      `${this.apiEndpoint}/Challenges`
     );
   }
 
   getLocations() {
     return this.http.get<Location[]>(
-      `${this.apiEndpoint}/Location/GetLocations`
+      `${this.apiEndpoint}/Locations`
     );
   }
 
   getExternalContent() {
     return this.http.get<ExternalContent[]>(
-      `${this.apiEndpoint}/ExternalContent/GetContent`
+      `${this.apiEndpoint}/ExternalContent`
     );
   }
 
   getChallengeLevels() {
     return this.http.get<ChallengeLevel[]>(
-      `${this.apiEndpoint}/ChallengeLevel/GetLevels`
+      `${this.apiEndpoint}/ChallengeLevels`
     );
   }
 
   validateAnswer(levelUid: number, answer: string) {
     return this.http.post(
-      `${this.apiEndpoint}/ChallengeLevel/ValidateAnswer/${levelUid}`,
+      `${this.apiEndpoint}/ChallengeLevels/${levelUid}/ValidateAnswer`,
       JSON.stringify(answer),
       {
         headers: {
