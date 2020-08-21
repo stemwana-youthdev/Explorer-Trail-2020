@@ -7,6 +7,7 @@ export interface Location {
   challengeId: number;
   category: number;
   link: string;
+  distance?: string;
 }
 
 export interface Position {

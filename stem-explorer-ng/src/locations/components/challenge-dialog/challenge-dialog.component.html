@@ -1,25 +1,25 @@
-<app-dialog [category]="data.challenge.category">
-  <app-challenge-title [category]="data.challenge.category">
+<app-dialog [category]="location.category">
+  <app-challenge-title [category]="location.category">
     <span *ngIf="data.dialogType === DialogType.Preview"
       class="distance" aria-label="Distance to challenge">{{ distance$ | async | largeDistance }}</span>
-    {{ data.challenge?.title }}
+    {{ location.challengeTitle }}
   </app-challenge-title>
 
   <ng-container *ngIf="data.dialogType === DialogType.Preview">
-    <h4>{{ Categories[data.challenge.category] }}</h4>
+    <h4>{{ Categories[location.category] }}</h4>
     <h4>Duration: </h4>
-    <p>{{ data.location?.challengeDescription }}</p>
+    <p>{{ location.challengeDescription }}</p>
     
     <app-contact-info
-      [category]="data.challenge.category"
+      [category]="location.category"
       icon="location_on"
-      [label]="data.location?.name"
+      [label]="location.name"
       aria-label="Location address"
     ></app-contact-info>
     <br>
     <app-contact-info
-      [link]="data.location?.link"
-      [category]="data.challenge.category"
+      [link]="location.link"
+      [category]="location.category"
       icon="language"
       label="View Website"
       aria-label="Location website"
@@ -31,7 +31,7 @@
       <app-button
         mat-dialog-close
         class="challengeActions"
-        [category]="data.challenge.category"
+        [category]="location.category"
         [outlined]="true"
         (click)="mapDirections()">
         Get Directions
@@ -39,7 +39,7 @@
       <app-button
         mat-dialog-close
         class="challengeActions"
-        [category]="data.challenge.category"
+        [category]="location.category"
         (click)="cameraView()"
         aria-label="Start challenge">
         Scan QR Code

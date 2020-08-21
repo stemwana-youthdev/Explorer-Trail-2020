@@ -17,8 +17,9 @@ import { InputComponent } from './components/input/input.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { StemColorsService } from './services/stem-colors.service';
 import { CardComponent } from './components/card/card.component';
-import { GeolocationService } from './services/geolocation.service';
+import { GeolocationService } from '../../locations/services/geolocation.service';
 import { SortByPipe } from './pipes/sort-by.pipe';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SortByPipe } from './pipes/sort-by.pipe';
     AuthModule,
     HttpClientModule,
     MaterialModule,
+    GoogleMapsModule
   ],
   providers: [
     ApiService,
@@ -59,6 +61,8 @@ import { SortByPipe } from './pipes/sort-by.pipe';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    MaterialModule,
+    GoogleMapsModule
   ],
 })
 export class SharedModule { }

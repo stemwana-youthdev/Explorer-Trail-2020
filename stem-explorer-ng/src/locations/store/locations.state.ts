@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext, StateToken, createSelector } from '@ngxs/store';
-import { tap } from 'rxjs/operators';
-
+import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
+import { map, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/shared/services/api.service';
-
-import { LoadLocationsData } from './locations.actions';
-import { Location } from '../../shared/models/location';
-
+import { Location } from '../../app/shared/models/location';
+import { FilterLocations, LoadLocationsData } from './locations.actions';
 
 export interface LocationsStateModel {
   locations: Location[];
   fetched: boolean;
+  filter: number[];
 }
 
 const LOCATIONS_TOKEN: StateToken<LocationsStateModel> = new StateToken('locations');
@@ -20,26 +18,13 @@ const LOCATIONS_TOKEN: StateToken<LocationsStateModel> = new StateToken('locatio
   defaults: {
     locations: [],
     fetched: false,
+    filter: [0, 1, 2, 3]
   },
   children: [],
 })
 @Injectable()
 export class LocationsState {
-  constructor(
-    private apiService: ApiService,
-  ) { }
-
-  @Selector()
-  public static challengeLocation(state: LocationsStateModel) {
-    return createSelector(
-      [LocationsState],
-      (challengeId: number): Location => {
-        return state.locations.find(
-          (location) => location.challengeId === challengeId,
-        );
-      },
-    );
-  }
+  constructor(private apiService: ApiService) { }
 
   @Selector()
   public static locations(state: LocationsStateModel): Location[] {
@@ -47,15 +32,8 @@ export class LocationsState {
   }
 
   @Selector()
-  public static location(state: LocationsStateModel) {
-    return createSelector(
-      [LocationsState],
-      (uid: number): Location => {
-        return state.locations.find(
-          (location) => location.uid === uid,
-        );
-      },
-    );
+  public static locationFilter(state: LocationsStateModel): number[] {
+    return state.filter;
   }
 
   @Action(LoadLocationsData)
@@ -69,5 +47,15 @@ export class LocationsState {
         })),
       );
     }
+  }
+
+  @Action(FilterLocations)
+  public filterLocations(
+    { patchState }: StateContext<LocationsStateModel>,
+    action: FilterLocations
+  ) {
+    patchState({
+      filter: action.filter
+    });
   }
 }

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, zip, Observable } from 'rxjs';
+import { Observable, ReplaySubject, zip } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { Location } from '../../app/shared/models/location';
 
-import { Location } from '../models/location';
-
-export const google = window.google;
 export type LatLng = google.maps.LatLngLiteral;
 
 @Injectable({
@@ -58,7 +56,7 @@ export class GeolocationService {
 
   // CBD boundary according to
   // https://www.tauranga.govt.nz/Portals/0/data/council/roads/files/tcc_road_categories_map.pdf
-  get isInCBD$() {
+  get isInCBD$(): Observable<boolean> {
     const cbd = new google.maps.LatLngBounds(
       {
         lat: -37.689038,
