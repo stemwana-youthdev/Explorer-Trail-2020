@@ -41,10 +41,8 @@ export class LocationsState {
     const state = ctx.getState();
     if (!state.fetched) {
       return this.apiService.getLocations().pipe(
-        map((data) => data.location.sort((a, b) =>
-          (a.challengeTitle > b.challengeTitle) ? 1 : -1)),
-        tap((data) => ctx.patchState({
-          locations: data,
+        tap((locations) => ctx.patchState({
+          locations,
           fetched: true,
         })),
       );

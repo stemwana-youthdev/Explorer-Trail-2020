@@ -9,7 +9,7 @@ using StemExplorerAPI.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {
-    [Route("api/Location")]
+    [Route("api/Locations")]
     [ApiController]
     public class LocationController : ControllerBase
     {
@@ -20,9 +20,9 @@ namespace StemExplorerAPI.Controllers
             _locationService = locationService;
         }
 
-        // GET: api/GetLocations
-        [HttpGet("GetLocations")]
-        public async Task<LocationsDto> GetAllLocations()
+        // GET: api/Location
+        [HttpGet]
+        public async Task<List<LocationDto>> Get()
         {
             return await _locationService.GetLocations();
         }

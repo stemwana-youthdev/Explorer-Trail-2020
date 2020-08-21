@@ -17,9 +17,9 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public async Task<LocationsDto> GetLocations()
+        public async Task<List<LocationDto>> GetLocations()
         {
-            var locations = await _context.Locations.Select(l => new LocationDto
+            return await _context.Locations.Select(l => new LocationDto
             {
                 Id = l.LocationId,
                 Name = l.Name,
@@ -34,11 +34,6 @@ namespace StemExplorerAPI.Services
                 Link = l.Url,
                 ChallengeId = l.Challenges.Any() ? l.Challenges.First().Id : 0,
             }).ToListAsync();
-
-            return new LocationsDto
-            {
-                Locations = locations,
-            };
         }
     }
 }
