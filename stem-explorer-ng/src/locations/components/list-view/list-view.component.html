@@ -1,6 +1,7 @@
 <app-challenge-filter></app-challenge-filter>
+
 <app-challenge-list
-  [challenges]="challengesWithDistances$ | async"
+  [locations]="locations"
   [filter]="filter$ | async"
   (itemClick)="onItemClick($event)"
 >

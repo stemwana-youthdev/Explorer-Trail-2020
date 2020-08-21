@@ -1,51 +1,37 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { FormsModule } from '@angular/forms';
-
-import { AppRoutingModule } from './app-routing.module';
-import { ConfigModule } from './config/config.module';
-import { StoreModule } from './store/store.module';
-import { SharedModule } from './shared/module';
-import { MaterialModule } from './shared/material.module';
-
-import { AppComponent } from './app.component';
-import { LoginPageComponent } from './containers/login-page/login-page.component';
-import { HomePageComponent } from './containers/home-page/home-page.component';
-import { MapComponent } from './containers/map/map.component';
-import { RegisterPageComponent } from './containers/register-page/register-page.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ListViewComponent } from './containers/list-view/list-view.component';
-import { ChallengeDialogComponent } from './containers/challenge-dialog/challenge-dialog.component';
-import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
-import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
-import { ToolbarComponent } from './containers/toolbar/toolbar.component';
-import { CameraComponent } from './containers/camera/camera.component';
-import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { environment } from '../environments/environment';
-import { DrawerComponent } from './containers/drawer/drawer.component';
-import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
-import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
-import { ChallengeListComponent } from './components/challenge-list/challenge-list.component';
-import { ChallengeFilterComponent } from './containers/challenge-filter/challenge-filter.component';
-import { ChallengeMapComponent } from './components/challenge-map/challenge-map.component';
+import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
+import { ConfigModule } from './config/config.module';
+import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
+import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
+import { CameraComponent } from './containers/camera/camera.component';
+import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
+import { DrawerComponent } from './containers/drawer/drawer.component';
+import { LoginPageComponent } from './containers/login-page/login-page.component';
+import { RegisterPageComponent } from './containers/register-page/register-page.component';
+import { ToolbarComponent } from './containers/toolbar/toolbar.component';
+import { MaterialModule } from './shared/material.module';
+import { SharedModule } from './shared/shared.module';
+import { StoreModule } from './store/store.module';
+import { LocationsModule } from 'src/locations/locations.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent,
-    MapComponent,
     RegisterPageComponent,
-    ListViewComponent,
-    ChallengeDialogComponent,
     SplashScreenComponent,
-    FilterButtonsComponent,
     ChallengeViewComponent,
     ToolbarComponent,
     CameraComponent,
@@ -54,9 +40,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     AnswerDialogComponent,
     ResultDialogComponent,
     ChallengeDetailsComponent,
-    ChallengeListComponent,
-    ChallengeFilterComponent,
-    ChallengeMapComponent,
   ],
   imports: [
     GoogleMapsModule,
@@ -71,9 +54,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
+    LocationsModule
   ],
   entryComponents: [
-    ChallengeDialogComponent,
     SplashScreenComponent,
   ],
   bootstrap: [AppComponent],

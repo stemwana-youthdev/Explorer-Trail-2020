@@ -1,14 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ViewChild } from '@angular/core';
-import { MapMarker, MapInfoWindow } from '@angular/google-maps';
-
-import { Location } from '../../shared/models/location';
-import { Categories } from '../../shared/enums/categories.enum';
-
-export interface InfoLocationClickEvent {
-  location: Location;
-  marker: MapMarker;
-}
-
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { Categories } from 'src/app/shared/enums/categories.enum';
+import { Location } from 'src/app/shared/models/location';
 
 @Component({
   selector: 'app-challenge-map',
@@ -19,14 +12,17 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
   @Input() locations: Location[] = [];
   @Input() filter: number[];
   @Input() watchGeolocation = false;
-
   @Output() challengeLocationClick = new EventEmitter<Location>();
-  @Output() infoLocationClick = new EventEmitter<InfoLocationClickEvent>();
+  @Output() infoLocationClick = new EventEmitter<any>();
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
   private TaurangaLocation = {
     lat: -37.6854709,
     lng: 176.1673285,
   };
+
+
+  locationAccess = false;
 
   zoom = 15;
   // Tauranga
@@ -67,13 +63,12 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
   private geolocationWatchId: number;
 
   private icons = {
+    userLocationMarker:  '/assets/icons/personMarker.png',
     [Categories.Science]: '/assets/icons/map-marker-green.svg',
     [Categories.Technology]: '/assets/icons/map-marker-blue.svg',
     [Categories.Engineering]: '/assets/icons/map-marker-orange.svg',
     [Categories.Maths]: '/assets/icons/map-marker-purple.svg',
   };
-
-  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
   constructor() { }
 
@@ -92,6 +87,8 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
       console.warn('Geolocation not supported');
       return;
     }
+
+    this.locationAccess = true;
 
     this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
       const { latitude, longitude } = position.coords;
@@ -119,8 +116,16 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
     };
   }
 
+  userMarkerPoint() {
+    return {
+      icon: {
+        url: '/assets/icons/personMarker.png',
+        position: this.center,
+      }
+    };
+  }
+
   public openInfoLocation(marker: MapMarker) {
     this.infoWindow.open(marker);
   }
-
 }

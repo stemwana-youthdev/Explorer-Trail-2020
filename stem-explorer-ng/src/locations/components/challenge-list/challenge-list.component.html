@@ -1,0 +1,12 @@
+<app-card
+  *ngFor="let location of (locations | filter:this.filter | sortBy:'distance')"
+  [category]="location.category"
+  (click)="onItemClick(location)"
+>
+  <app-challenge-title [category]="location.category">
+    <!-- <span class="distance">{{ location.distance | largeDistance }}</span> -->
+    {{location.challengeTitle}}
+  </app-challenge-title>
+  <h4>{{Categories[location.category]}}</h4>
+  <p>{{location.challengeDescription | truncate:50}}</p>
+</app-card>

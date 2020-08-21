@@ -1,11 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-
-import { Challenge } from '../../shared/models/challenge';
-import { Categories } from '../../shared/enums/categories.enum';
-
-export interface ChallengeWithDistance extends Challenge {
-  distance: number;
-}
+import { Location } from 'src/app/shared/models/location';
+import { Categories } from 'src/app/shared/enums/categories.enum';
 
 @Component({
   selector: 'app-challenge-list',
@@ -13,10 +8,9 @@ export interface ChallengeWithDistance extends Challenge {
   styleUrls: ['./challenge-list.component.scss'],
 })
 export class ChallengeListComponent implements OnInit {
-  @Input() challenges: ChallengeWithDistance[];
+  @Input() locations: Location[];
   @Input() filter: number[];
-
-  @Output() itemClick = new EventEmitter<Challenge>();
+  @Output() itemClick = new EventEmitter<Location>();
 
   Categories: any = Categories;
 
@@ -31,8 +25,8 @@ export class ChallengeListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onItemClick(challenge: Challenge) {
-    this.itemClick.emit(challenge);
+  onItemClick(location: Location) {
+    this.itemClick.emit(location);
   }
 
   getMarkerIconForCategory(category: Categories) {
