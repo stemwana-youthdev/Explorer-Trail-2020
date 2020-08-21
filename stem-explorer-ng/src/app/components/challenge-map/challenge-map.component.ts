@@ -28,6 +28,9 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
     lng: 176.1673285,
   };
 
+
+  locationAccess = false;
+
   zoom = 15;
   // Tauranga
   center: google.maps.LatLngLiteral = this.TaurangaLocation;
@@ -67,6 +70,7 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
   private geolocationWatchId: number;
 
   private icons = {
+    userLocationMarker:  '/assets/icons/personMarker.png',
     [Categories.Science]: '/assets/icons/map-marker-green.svg',
     [Categories.Technology]: '/assets/icons/map-marker-blue.svg',
     [Categories.Engineering]: '/assets/icons/map-marker-orange.svg',
@@ -93,6 +97,8 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.locationAccess = true;
+
     this.geolocationWatchId = navigator.geolocation.watchPosition((position) => {
       const { latitude, longitude } = position.coords;
       this.center = {
@@ -118,6 +124,17 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
       }
     };
   }
+
+  userMarkerPoint() {
+    return {
+      icon: {
+        url: '/assets/icons/personMarker.png',
+        position: this.center,
+      }
+    }
+  }
+
+
 
   public openInfoLocation(marker: MapMarker) {
     this.infoWindow.open(marker);

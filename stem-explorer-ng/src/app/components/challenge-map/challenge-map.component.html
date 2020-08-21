@@ -15,5 +15,13 @@
   >
   </map-marker>
 
+  <map-marker
+    [position]="center"
+    *ngIf="locationAccess"
+    [options]="userMarkerPoint()"
+  >
+    
+  </map-marker>
+
   <map-info-window></map-info-window>
 </google-map>
