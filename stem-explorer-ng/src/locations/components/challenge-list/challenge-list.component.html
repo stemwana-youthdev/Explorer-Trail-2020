@@ -10,3 +10,5 @@
   <h4>{{Categories[location.category]}}</h4>
   <p>{{location.challengeDescription | truncate:50}}</p>
 </app-card>
+
+<div class="bouncer centered" *ngIf="!locations?.length"></div>

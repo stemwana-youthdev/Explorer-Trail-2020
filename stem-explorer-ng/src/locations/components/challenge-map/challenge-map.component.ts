@@ -23,6 +23,7 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
 
 
   locationAccess = false;
+  loaded = false;
 
   zoom = 15;
   // Tauranga
@@ -127,5 +128,9 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
 
   public openInfoLocation(marker: MapMarker) {
     this.infoWindow.open(marker);
+  }
+
+  tilesLoaded() {
+    this.loaded = true;
   }
 }

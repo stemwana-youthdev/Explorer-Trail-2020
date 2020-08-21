@@ -1,5 +1,5 @@
 <app-challenge-details
-  *ngIf="challenge$ | async"
+  *ngIf="challenge$ | async; else loading"
   [challenge]="challenge$ | async"
   [challengeLevels]="challengeLevels$ | async"
   [selectedLevel]="selectedLevel"
@@ -8,3 +8,7 @@
   (answer)="onAnswer($event)"
 >
 </app-challenge-details>
+
+<ng-template #loading>
+  <div class="bouncer centered"></div>
+</ng-template>

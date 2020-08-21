@@ -30,11 +30,63 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
+
+  <!--
+    Styles for bouncer
+    Needs to be loaded before the JS otherwise it won't show on page load
+  -->
+  <style>
+    .bouncer {
+      width: 70px;
+      height: 200px;
+      border-bottom: 1px solid #CCC;
+      animation: 1s fade-in;
+    }
+    .bouncer.centered {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .bouncer::before {
+      content: '';
+      display: block;
+      height: 40px;
+      margin: 0 15px;
+      border-radius: 50%;
+      background: #99CC33;
+      animation: 0.75s cubic-bezier(1, 0, 1, 1) infinite alternate bounce,
+                 6s linear infinite colors;
+    }
+
+    @keyframes fade-in {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes bounce {
+      0% { transform: none; }
+      90% { transform: translateY(160px); }
+      100% { transform: translateY(176px) scale(1.5, 0.4); }
+    }
+    @keyframes colors {
+      12% { background: #99CC33; }
+      13% { background: #3BABE2; }
+      37% { background: #3BABE2; }
+      38% { background: #F9B335; }
+      62% { background: #F9B335; }
+      63% { background: #672784; }
+      87% { background: #672784; }
+      88% { background: #99CC33; }
+    }
+  </style>
+
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W79HP9V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-  <app-root></app-root>
+  <app-root>
+    <div class="bouncer centered"></div>
+  </app-root>
 </body>
 </html>

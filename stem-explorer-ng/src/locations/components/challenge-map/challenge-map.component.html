@@ -4,6 +4,7 @@
   height="100%"
   width="100%"
   [options]="options"
+  (tilesloaded)="tilesLoaded()"
 >
   <map-marker
     *ngFor="let location of (locations | filter:this.filter)"
@@ -25,3 +26,5 @@
 
   <map-info-window></map-info-window>
 </google-map>
+
+<div class="bouncer centered" *ngIf="!loaded || !locations?.length"></div>
