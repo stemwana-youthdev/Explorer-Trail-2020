@@ -34,6 +34,7 @@ import { ChallengeListComponent } from './components/challenge-list/challenge-li
 import { ChallengeFilterComponent } from './containers/challenge-filter/challenge-filter.component';
 import { ChallengeMapComponent } from './components/challenge-map/challenge-map.component';
 import { RegisterEmailComponent } from './containers/register-email/register-email.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { RegisterEmailComponent } from './containers/register-email/register-ema
     StoreModule,
     SharedModule,
     MaterialModule,
+    ReactiveFormsModule,
   ],
   entryComponents: [
     ChallengeDialogComponent,

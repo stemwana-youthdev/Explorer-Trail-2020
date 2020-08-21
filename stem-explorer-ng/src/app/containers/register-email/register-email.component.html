@@ -1,29 +1,36 @@
 <div class="email-register-fields">
 
-    <form (submit)='register(emailValue, passwordValue, confirmPasswordValue)'>
-        <app-input placeholder="Email" type="email" [color]="emailField" 
-        aria-label='email'
-        name='email' [(ngModel)]='emailValue' (ngModelChange)='checkEmailFormat(emailValue)'></app-input>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <input placeholder="Email" type="email" required
+        formControlName="email">
+        <p class="error-message"
+        *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched">
+        Enter a valid email address
+        </p>
     
-        <app-input placeholder="First Name" type="text" color="profile" 
-        aria-label='first name'
-        name='firstName' [(ngModel)]='firstNameValue'></app-input>
+        <input placeholder="First Name" type="text" required
+        formControlName="firstName">
     
-        <app-input placeholder="Last Name" type="text" color="profile" 
-        aria-label='last name'
-        name='lastName' [(ngModel)]='lastNameValue'></app-input>
+        <input placeholder="Last Name" type="text" required
+        formControlName="lastName">
     
-        <app-input placeholder="Password" type="password" [color]="passwordField" 
-        aria-label="password"
-        name='password' [(ngModel)]='passwordValue' (ngModelChange)='checkPasswordFormat(passwordValue)'></app-input>
+        <input placeholder="Password" type="password" required
+        formControlName="password">
+        <p class="error-message"
+        *ngIf="registerForm.get('password').hasError('pattern') && registerForm.get('password').touched">
+        Password must have a minimum of 8 characters and at least two of upper case, lower case, numbers or special characters
+        </p>
     
-        <app-input placeholder="Password confirmation" type="password" [color]="confirmField" 
-        aria-label='confirm password'
-        name='confirmPassword' [(ngModel)]='confirmPasswordValue' (ngModelChange)='checkPasswordMatch(passwordValue, confirmPasswordValue)'></app-input>
+        <input placeholder="Password confirmation" type="password" required
+        formControlName="confirmPassword">
+        <p class="error-message"
+        *ngIf="registerForm.get('confirmPassword').hasError('passwordMismatch') && registerForm.get('confirmPassword').touched">
+        Passwords do not match
+        </p>
     
         <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
     
-        <app-button color="pink">Register</app-button>
+        <app-button color="pink" type="submit" [disabled]="!registerForm.valid">Register</app-button>
     </form>
     
 </div>

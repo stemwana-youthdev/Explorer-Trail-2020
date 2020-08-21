@@ -16,17 +16,4 @@ input {
   &.red {
     border-color: $secondary-red;
   }
-
-  &.profile {
-    border: 2px solid tint(10%, $primary-black);
-    background-color: tint(5%, $primary-black);
-    border-radius: 0.5rem;
-    color: tint(80%, $primary-black);
-
-    &.error {
-      border-color: tint(40%, $secondary-red);
-      background-color: tint(10%, $secondary-red);
-      color: tint(80%, $secondary-red);
-    }
-  }
 }
