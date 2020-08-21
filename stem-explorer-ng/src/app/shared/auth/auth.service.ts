@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Observable } from 'rxjs';
 
 import { auth } from 'firebase/app';
 import 'firebase/auth';
@@ -10,27 +10,29 @@ import { User } from '../models/user';
 import { map, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  currentUser$ = new ReplaySubject<User>();
-
-  get isLoggedIn$() {
-    return this.currentUser$.pipe(
-      map((user) => !!user),
-    );
-  }
+  public readonly isLoggedIn: Observable<boolean>;
 
   constructor(
     private afAuth: AngularFireAuth, // this injects firebase authentication
     private api: ApiService,
   ) {
+    this.isLoggedIn = this.afAuth.authState.pipe(
+      map(state => {
+        if (state)
+          return true;
+        else
+          return false;
+      })
+    );
+
     this.afAuth.authState.subscribe(async (state) => {
       const token = await state?.getIdToken();
       this.api.token = token;
 
       if (!token) {
-        this.currentUser$.next(null);
         return;
       }
 
@@ -53,8 +55,6 @@ export class AuthService {
         user = await this.api.registerUser(userInfo).toPromise();
       }
 
-      this.currentUser$.next(user);
-
       console.log('User logged in with backend!', user);
     });
   }
@@ -75,16 +75,6 @@ export class AuthService {
         parts[parts.length - 1],
       ];
     }
-  }
-
-  async updateCurrentUser(user: Partial<User>) {
-    const userInfo = {
-      ...await this.currentUser$.pipe(take(1)).toPromise(),
-      ...user,
-    };
-    const newUser = await this.api.updateCurrentUser(userInfo).toPromise();
-    this.currentUser$.next(newUser);
-    return newUser;
   }
 
   // google signin
