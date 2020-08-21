@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
 
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
@@ -8,13 +7,12 @@ import { Location } from '../models/location';
 import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
 import { User } from '../models/user';
-import { Store } from '@ngxs/store';
-import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
 import { Progress } from '../models/progress';
-import { UpdateUser } from 'src/app/store/current-user/current-user.actions';
 
 @Injectable()
 export class ApiService {
+  token: string | null = null;
+
   get apiEndpoint() {
     return this.config.get('API_ENDPOINT') as string;
   }
@@ -22,7 +20,6 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-    private store: Store
   ) {}
 
   getChallenges() {
@@ -62,7 +59,7 @@ export class ApiService {
   }
 
   private get authOptions(): { headers: { Authorization: string } } {
-    const token = this.store.selectSnapshot(CurrentUserState.token);
+    const token = this.token;
 
     if (!token) {
       throw new Error('This API requires that the user is logged in');
@@ -97,8 +94,6 @@ export class ApiService {
       `${this.apiEndpoint}/User/CurrentUser`,
       userInfo,
       this.authOptions,
-    ).pipe(
-      tap((user) => this.store.dispatch(new UpdateUser(user))),
     );
   }
 

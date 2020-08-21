@@ -25,6 +25,7 @@ import { CurrentUserState } from 'src/app/store/current-user/current-user.state'
 import { ApiService } from 'src/app/shared/services/api.service';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 
 @Component({

@@ -6,7 +6,6 @@ import { Store, Select } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 
 import { AuthService } from '../../shared/auth/auth.service';
-import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
 
 @Component({
   selector: 'app-toolbar',
@@ -18,7 +17,9 @@ export class ToolbarComponent {
   @Input()
   drawer: MatDrawer;
 
-  @Select(CurrentUserState.isLoggedIn) isLoggedIn$: Observable<boolean>;
+  get isLoggedIn() {
+    return this.auth.isLoggedIn$;
+  }
 
   constructor(
     private router: Router,

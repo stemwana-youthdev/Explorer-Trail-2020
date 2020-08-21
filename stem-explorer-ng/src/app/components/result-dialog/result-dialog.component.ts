@@ -5,10 +5,8 @@ import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { Challenge } from 'src/app/shared/models/challenge';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
-import { Store, Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
-import { Observable } from 'rxjs';
 
 export interface ResultDialogData {
   level: ChallengeLevel;
@@ -26,13 +24,16 @@ export class ResultDialogComponent {
 
   Levels: any = Levels;
 
-  @Select(CurrentUserState.isLoggedIn) isLoggedIn$: Observable<boolean>;
+  get isLoggedIn$() {
+    return this.auth.isLoggedIn$;
+  }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ResultDialogData,
     private router: Router,
     private dialogRef: MatDialogRef<ResultDialogComponent>,
     private store: Store,
+    private auth: AuthService,
   ) { }
 
   get category() {
