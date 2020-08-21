@@ -13,7 +13,6 @@ import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { GeolocationService } from 'src/app/shared/services/geolocation.service';
 
-
 export interface ChallengeDialogData {
   challenge: Challenge;
   location: Location;
@@ -69,4 +68,9 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
       panelClass: 'fullscreen-dialog',
     });
   }
+
+  mapDirections() {
+    (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
+  }
+
 }
