@@ -20,6 +20,7 @@ import { ResultDialogComponent } from '../../components/result-dialog/result-dia
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 
 @Component({
