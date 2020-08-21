@@ -33,10 +33,6 @@ export class RegisterPageComponent {
     private store: Store,
   ) { }
 
-  get lastHomepage() {
-    return this.store.selectSnapshot(LastHomepageState.lastHomepage);
-  }
-
   async registerWithGoogle() {
     await this.auth.googleAuthLogin();
     this.router.navigateByUrl('');
@@ -56,23 +52,18 @@ export class RegisterPageComponent {
 
   async onSubmit() {
     if (this.registerForm.valid) {
-      /*
       try {
-        await this.auth.passwordRegister(email, password, this.firstNameValue, this.lastNameValue);
+        await this.auth.emailRegister(
+          this.registerForm.get('email').value,
+          this.registerForm.get('password').value
+        );
       } catch (error) {
-        console.log(error.code);
-        if (error.code === 'auth/email-already-in-use') {
-          this.errorMessage = 'Email already in use. Please try again.';
-          this.emailValue = '';
-        } else {
-          console.warn(error);
-          this.errorMessage = error.message;
-        }
+        this.errorMessage = error.message;
         return;
       }
-      */
-      console.log('successful register');
-      this.router.navigateByUrl(this.lastHomepage);
+      this.router.navigateByUrl(
+      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+      );
      }
   }
 
