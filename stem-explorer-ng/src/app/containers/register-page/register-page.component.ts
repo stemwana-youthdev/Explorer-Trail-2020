@@ -14,17 +14,17 @@ import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.sta
 })
 export class RegisterPageComponent {
 
+  errorMessage = '';
+
+  passwordRegex = /(?=.*\d)(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])|(?=.*\d)(?=.*[!@#$%^&;*()_+}{:'"?/.,])|(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[!@#$%^&;*()_+}{:'"?/.,])|(?=.*[A-Z])(?=.*[!@#$%^&;*()_+}{:'"?/.,])/;
+
   registerForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    // tslint:disable-next-line: max-line-length
-    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*\d)(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])|(?=.*\d)(?=.*[!@#$%^&;*()_+}{:'"?/.,])|(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[!@#$%^&;*()_+}{:'"?/.,])|(?=.*[A-Z])(?=.*[!@#$%^&;*()_+}{:'"?/.,])/)]),
+    password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex)]),
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: this.customValidator.matchPassword('password', 'confirmPassword') });
-
-  errorMessage = '';
-
 
   constructor(
     private auth: AuthService,
