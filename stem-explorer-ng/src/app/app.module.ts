@@ -24,6 +24,7 @@ import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
 import { LocationsModule } from 'src/locations/locations.module';
+import { ProfileComponent } from './containers/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { LocationsModule } from 'src/locations/locations.module';
     AnswerDialogComponent,
     ResultDialogComponent,
     ChallengeDetailsComponent,
+    ProfileComponent,
   ],
   imports: [
     GoogleMapsModule,
