@@ -43,4 +43,11 @@ export class AuthService {
   async logout() {
     await this.afAuth.signOut();
   }
+
+  async currentUserEmail() {
+    const user = await this.afAuth.currentUser;
+    if (user != null) {
+      return user.email;
+    }
+  }
 }

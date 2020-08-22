@@ -25,6 +25,7 @@ import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
 import { LocationsModule } from 'src/locations/locations.module';
 import { ProfileComponent } from './containers/profile/profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ProfileComponent } from './containers/profile/profile.component';
     StoreModule,
     SharedModule,
     MaterialModule,
-    LocationsModule
+    LocationsModule,
+    ReactiveFormsModule,
   ],
   entryComponents: [
     SplashScreenComponent,

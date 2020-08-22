@@ -3,16 +3,16 @@
     <mat-icon class="profile-image">person</mat-icon>
     <h4 class="blue">Edit Profile Image</h4>
 </div>
-<form>
+<form [formGroup]='profileForm' (ngSubmit)="onSubmit()">
     <div class="profile-container">
-        <h4>First Name:</h4><input type="text">
-        <h4>Last Name:</h4><input type="text">
-        <h4>Email:</h4><input type="email" disabled>
-        <h4>Region:</h4><input type="text" name="region">
-        <h4>Home Town:</h4><input type="text" name="homeTown">
+        <h4>First Name:</h4><input type="text" name="firstName" formControlName="firstName">
+        <h4>Last Name:</h4><input type="text" name="lastName" formControlName="lastName">
+        <h4>Email:</h4><input type="email" formControlName="email">
+        <h4>Region:</h4><input type="text" name="region" formControlName="region">
+        <h4>Home Town:</h4><input type="text" name="homeTown" formControlName="homeTown">
     </div>
 
     <h4 class="blue terms">Terms of Use and Privacy Policy</h4>
 
-    <app-button color="pink">Update Profile</app-button>
+    <app-button color="pink" type="submit">Update Profile</app-button>
 </form>
