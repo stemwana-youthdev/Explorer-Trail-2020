@@ -1,10 +1,45 @@
-<p>
-  <button mat-raised-button (click)="registerWithGoogle()">Register with Google</button>
-</p>
-<mat-divider></mat-divider>
-<p>
-  <button mat-button (click)="navigateToLogin()">Return to Login</button>
-</p>
-<p>
-  <button mat-button (click)="navigateToHomepage()">Return to Homepage</button>
-</p>
+<div class="email-register-fields">
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <input placeholder="Email" type="email" required
+      formControlName="email">
+      <p class="error-message"
+      *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched">
+      Enter a valid email address
+      </p>
+  
+      <input placeholder="First Name" type="text" required
+      formControlName="firstName">
+  
+      <input placeholder="Last Name" type="text" required
+      formControlName="lastName">
+  
+      <input placeholder="Password" type="password" required
+      formControlName="password">
+      <p class="error-message"
+      *ngIf="registerForm.get('password').hasError('pattern') && registerForm.get('password').touched">
+      Password must have a minimum of 8 characters and at least two of upper case, lower case, numbers or special characters
+      </p>
+  
+      <input placeholder="Password confirmation" type="password" required
+      formControlName="confirmPassword">
+      <p class="error-message"
+      *ngIf="registerForm.get('confirmPassword').hasError('passwordMismatch') && registerForm.get('confirmPassword').touched">
+      Passwords do not match
+      </p>
+  
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  
+      <app-button color="pink" type="submit" [disabled]="!registerForm.valid">Register</app-button>
+  </form>
+
+  <button mat-raised-button (click)="registerWithGoogle()" class="googleButton">Register with Google</button>
+
+  <button mat-raised-button (click)="navigateToLogin()">Return to Login</button>
+  
+</div>
+
+
+
+
+

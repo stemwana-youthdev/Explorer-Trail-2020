@@ -55,8 +55,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     StoreModule,
     SharedModule,
     MaterialModule,
-    LocationsModule,
     ReactiveFormsModule,
+    LocationsModule
   ],
   entryComponents: [
     SplashScreenComponent,

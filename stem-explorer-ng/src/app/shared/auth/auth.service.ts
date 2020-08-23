@@ -44,10 +44,19 @@ export class AuthService {
     await this.afAuth.signOut();
   }
 
-  async currentUserEmail() {
-    const user = await this.afAuth.currentUser;
-    if (user != null) {
-      return user.email;
+  async emailRegister(
+    email: string,
+    password: string
+  ) {
+    try {
+      const res = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      console.log('Successful register!', res);
+    } catch (error) {
+      console.warn(error);
+      throw error;
     }
   }
 }
