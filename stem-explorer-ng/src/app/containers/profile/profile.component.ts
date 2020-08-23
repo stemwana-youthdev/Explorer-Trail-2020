@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { User } from 'src/app/shared/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProfileComponent implements OnInit {
 
   user: User;
+  loggedIn: boolean;
 
   profileForm = new FormGroup({
     firstName: new FormControl(''),
@@ -27,8 +29,11 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getUserInfo();
-    this.getEmail();
+    this.auth.isLoggedIn.subscribe(state => {
+      if (state) {
+        this.getUserInfo();
+      }
+    });
   }
 
   async getUserInfo() {
@@ -39,9 +44,7 @@ export class ProfileComponent implements OnInit {
     this.profileForm.get('lastName').setValue(this.user.lastName);
     this.profileForm.get('region').setValue(this.user.region);
     this.profileForm.get('homeTown').setValue(this.user.homeTown);
-  }
 
-  async getEmail() {
     const email = await this.auth.currentUserEmail();
     this.profileForm.get('email').setValue(email);
   }

@@ -21,10 +21,12 @@ export class AuthService {
   ) {
     this.isLoggedIn = this.afAuth.authState.pipe(
       map(state => {
-        if (state)
+        if (state) {
           return true;
-        else
+        }
+        else {
           return false;
+        }
       })
     );
   }
