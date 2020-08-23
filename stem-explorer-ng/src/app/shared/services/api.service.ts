@@ -88,18 +88,22 @@ export class ApiService {
     );
   }
 
-  getProgress(challengeId: number) {
+  getProgress(token: string, challengeId: number) {
     return this.http.get<Progress>(
       `${this.apiEndpoint}/Progress/GetProgress/${challengeId}`,
-      this.authOptions
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
   }
 
-  levelCompleted(levelId: number) {
+  levelCompleted(token: string, levelId: number) {
     return this.http.post(
       `${this.apiEndpoint}/Progress/LevelCompleted/${levelId}`,
       null,
-      this.authOptions
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
   }
 }

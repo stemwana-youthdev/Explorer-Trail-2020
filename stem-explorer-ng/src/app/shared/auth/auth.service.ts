@@ -100,4 +100,12 @@ export class AuthService {
   async updateCurrentUser(userInfo: User) {
     return await this.api.updateUser(await this.getToken(), userInfo).toPromise();
   }
+
+  async getProgress(challengeId: number) {
+    return await this.api.getProgress(await this.getToken(), challengeId).toPromise();
+  }
+
+  async levelCompleted(levelId: number) {
+    return await this.api.levelCompleted(await this.getToken(), levelId).toPromise();
+  }
 }

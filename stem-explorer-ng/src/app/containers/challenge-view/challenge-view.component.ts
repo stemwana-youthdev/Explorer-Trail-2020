@@ -23,6 +23,8 @@ import { ResultDialogComponent } from '../../components/result-dialog/result-dia
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { ChallengeDialogComponent } from 'src/locations/components/challenge-dialog/challenge-dialog.component';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 
 @Component({
@@ -40,6 +42,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     private store: Store,
     public dialog: MatDialog,
     private api: ApiService,
+    private auth: AuthService,
     private gtmService: GoogleTagManagerService,
   ) {}
 
@@ -84,7 +87,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
   }
 
   get isLoggedIn$(): Observable<boolean> {
-    return this.store.select(CurrentUserState.isLoggedIn);
+    return this.auth.isLoggedIn;
   }
 
   get challenge$(): Observable<Challenge> {
@@ -175,7 +178,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     const isLoggedIn = await this.isLoggedIn$.pipe(take(1)).toPromise();
     const challengeId = await this.challengeId$.pipe(take(1)).toPromise();
     if (isCorrect && isLoggedIn) {
-      await this.api.levelCompleted(level.uid).toPromise();
+      await this.auth.levelCompleted(level.uid);
       this.store.dispatch(new LoadProgress(challengeId));
     }
 

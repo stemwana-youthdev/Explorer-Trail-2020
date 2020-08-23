@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 
-import { ApiService } from 'src/app/shared/services/api.service';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 import { LoadProgress } from './progress.actions';
 import { Progress, CompletedLevel } from 'src/app/shared/models/progress';
 import { tap } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 
 const PROGRESS_TOKEN: StateToken<Progress> = new StateToken('progress');
@@ -21,7 +22,7 @@ const PROGRESS_TOKEN: StateToken<Progress> = new StateToken('progress');
 @Injectable()
 export class ProgressState {
   constructor(
-    private apiService: ApiService,
+    private authService: AuthService,
   ) { }
 
   @Selector()
@@ -30,8 +31,8 @@ export class ProgressState {
   }
 
   @Action(LoadProgress)
-  public updateUser(ctx: StateContext<Progress>, action: LoadProgress) {
-    return this.apiService.getProgress(action.challengeId).pipe(
+  public loadProgress(ctx: StateContext<Progress>, action: LoadProgress) {
+    return from(this.authService.getProgress(action.challengeId)).pipe(
       tap((progress) => ctx.setState(progress)),
     );
   }
