@@ -6,6 +6,7 @@ import { Challenge } from '../models/challenge';
 import { Location } from '../models/location';
 import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
+import { User } from '../models/user';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -53,6 +54,35 @@ export class ApiService {
         headers: {
           'Content-Type': 'application/json',
         },
+      }
+    );
+  }
+
+  getCurrentUser(token: string) {
+    return this.http.get<User>(
+      `${this.apiEndpoint}/User/CurrentUser`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+
+  registerUser(token: string, userInfo: User) {
+    return this.http.post<User>(
+      `${this.apiEndpoint}/User/RegisterUser`,
+      userInfo,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+
+  updateUser(token: string, userInfo: User) {
+    return this.http.put<User>(
+      `${this.apiEndpoint}/User/CurrentUser`,
+      userInfo,
+      {
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
   }
