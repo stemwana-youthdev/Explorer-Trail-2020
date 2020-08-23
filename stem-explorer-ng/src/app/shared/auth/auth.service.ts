@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { auth } from 'firebase/app';
 
-import { AuthApiService } from './auth-api.service';
+import { ApiService } from '../services/api.service';
 import { User } from '../models/user';
 
 @Injectable({
@@ -16,7 +17,8 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth, // this injects firebase authentication
-    private authApi: AuthApiService,
+    private api: ApiService,
+    private http: HttpClient,
   ) {
     this.isLoggedIn = this.afAuth.authState.pipe(
       map(state => {
@@ -28,6 +30,12 @@ export class AuthService {
     );
   }
 
+  private async getToken() {
+    const user = await this.afAuth.currentUser;
+    const token = await user.getIdToken();
+    return token;
+  }
+
   // google signin
   googleAuthLogin() {
     return this.authLogin(new auth.GoogleAuthProvider());
@@ -37,7 +45,7 @@ export class AuthService {
     try {
       const res = await this.afAuth.signInWithPopup(provider);
 
-      let user = await this.authApi.getCurrentUser();
+      let user = await this.getCurrentUser();
       if (!user) {
         const userInfo: User = {
           // id will be ignored
@@ -47,7 +55,7 @@ export class AuthService {
           region: '',
           homeTown: '',
         };
-        user = await this.authApi.registerUser(userInfo);
+        user = await this.registerUser(userInfo);
       }
 
       console.log('You have been succesfully logged in! woohoo', res, user);
@@ -58,5 +66,23 @@ export class AuthService {
 
   async logout() {
     await this.afAuth.signOut();
+  }
+
+  // These methods return promises instead of Observables
+  // so that we can await this.getToken()
+  async getCurrentUser() {
+    return await this.api.getCurrentUser(await this.getToken()).toPromise();
+  }
+
+  async registerUser(userInfo: User) {
+    return await this.api.registerUser(await this.getToken(), userInfo).toPromise();
+  }
+
+  // userInfo needs to have all of its properties set,
+  // or they will be set to null in the DB.
+  // Usually this will be a copy of CurrentUser.user with
+  // the properties you want to update
+  async updateCurrentUser(userInfo: User) {
+    return await this.api.updateUser(await this.getToken(), userInfo).toPromise();
   }
 }
