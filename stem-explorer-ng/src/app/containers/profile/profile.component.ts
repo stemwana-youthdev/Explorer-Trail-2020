@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
+    this.getEmail();
   }
 
   async getUser() {
@@ -34,6 +35,11 @@ export class ProfileComponent implements OnInit {
     this.profileForm.get('lastName').setValue(this.user.lastName);
     this.profileForm.get('region').setValue(this.user.region);
     this.profileForm.get('homeTown').setValue(this.user.homeTown);
+  }
+
+  async getEmail() {
+    const email = await this.auth.currentUserEmail();
+    this.profileForm.get('email').setValue(email);
   }
 
   async onSubmit() {
