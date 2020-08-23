@@ -90,7 +90,7 @@ export class ApiService {
 
   getProgress(token: string, challengeId: number) {
     return this.http.get<Progress>(
-      `${this.apiEndpoint}/Progress/GetProgress/${challengeId}`,
+      `${this.apiEndpoint}/Progress/${challengeId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

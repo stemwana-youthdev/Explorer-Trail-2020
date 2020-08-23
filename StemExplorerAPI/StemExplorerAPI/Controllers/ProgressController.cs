@@ -33,7 +33,7 @@ namespace StemExplorerAPI.Controllers
             _progressService = progressService;
         }
 
-        [HttpGet("GetProgress/{challengeId}")]
+        [HttpGet("{challengeId}")]
         public async Task<ProgressDto> GetProgressForChallenge(int challengeId)
         {
             return await _progressService.GetProgressForChallenge(userId, challengeId);
