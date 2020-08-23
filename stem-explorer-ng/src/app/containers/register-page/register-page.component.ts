@@ -62,7 +62,8 @@ export class RegisterPageComponent {
         this.user = {
           id: '',
           firstName: this.registerForm.get('firstName').value,
-          lastName: this.registerForm.get('lastName').value, region: '',
+          lastName: this.registerForm.get('lastName').value,
+          region: '',
           homeTown: ''
         };
         await this.auth.registerUser(this.user);
