@@ -5,15 +5,15 @@
 docker exec -i explorer-trail-2020_explorer_trail_db_1 \
 psql -d StemExplorer -U stem << EOF
 
-INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "Url")
+INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "Url", "Phone", "Email")
 VALUES (1, 'Basestation', -37.6865807, 176.1649332,
-        'https://www.basestation.nz/en'),
+        'https://www.basestation.nz/en', "0800000577", "info@basestation.nz"),
        (2, 'Trustpower', -37.6857656, 176.1679695,
-        'https://www.trustpower.co.nz/'),
+        'https://www.trustpower.co.nz/', "0800878787", "info@trustpower.co.nz"),
        (3, 'i-SITE', -37.6855958, 176.1690853,
-        'https://www.newzealand.com/in/plan/business/tauranga-i-size-visitor-information-centre/'),
+        'https://www.newzealand.com/in/plan/business/tauranga-i-size-visitor-information-centre/', "075788103", "tauranga@newzealand.com"),
        (4, 'Tauranga City Library', -37.6845175, 176.1678085,
-        'https://library.tauranga.govt.nz/');
+        'https://library.tauranga.govt.nz/', "075777177", "library@tauranga.govt.nz");
 
 INSERT INTO "Challenges" ("Id", "Title", "Description", "Category", "LocationId")
 VALUES (1, 'Day of the Week',

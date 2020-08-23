@@ -12,32 +12,32 @@
     <p>{{ data.location?.challengeDescription }}</p>
     <div class=contactInfo>
       <app-contact-info
-      [category]="data.challenge.category"
-      icon="location_on"
-      [label]="data.location?.name"
-      (click)="viewOnMap()"
-      aria-label="Location address"
+        [category]="data.challenge.category"
+        icon="location_on"
+        [label]="data.location?.name"
+        (click)="viewOnMap()"
+        aria-label="Location address"
       ></app-contact-info>
       <app-contact-info
         [link]="data.location?.link"
         [category]="data.challenge.category"
-        icon="language"
-        label="View Website"
+        icon="launch"
+        [label]="data.location?.link"
         aria-label="Location website"
       ></app-contact-info>
       <app-contact-info
-      link="tel:0800838383"
-      [category]="data.challenge.category"
-      icon="phone"
-      label="Phone"
-      aria-label="Location Phone Number"
+        [link]="data.location?.Phone"
+        [category]="data.challenge.category"
+        icon="phone"
+        [label]="data.location?.phone"
+        aria-label="Location Phone Number"
       ></app-contact-info>
       <app-contact-info
-      link="mailto:contact@whitehouse.gov"
-      [category]="data.challenge.category"
-      icon="mail"
-      label="Send Email"
-      aria-label="Location Email"
+        [link]="data.location?.Email"
+        [category]="data.challenge.category"
+        icon="mail_outline"
+        [label]="data.location?.Email"
+        aria-label="Location Email"
       ></app-contact-info>
   </div>
     

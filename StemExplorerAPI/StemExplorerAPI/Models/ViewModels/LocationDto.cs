@@ -28,6 +28,8 @@ namespace StemExplorerAPI.Models.ViewModels
         public string Link { get; set; }
         [JsonPropertyName("challengeId")]
         public int ChallengeId { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
     }
 
     public class LocationPositionDto

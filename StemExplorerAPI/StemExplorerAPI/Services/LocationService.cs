@@ -33,6 +33,8 @@ namespace StemExplorerAPI.Services
                 ChallengeCategory = l.Challenges.Any() ? l.Challenges.First().Category : 0,
                 Link = l.Url,
                 ChallengeId = l.Challenges.Any() ? l.Challenges.First().Id : 0,
+                Phone = l.Phone,
+                Email = l.Email,
             }).ToListAsync();
 
             return new LocationsDto

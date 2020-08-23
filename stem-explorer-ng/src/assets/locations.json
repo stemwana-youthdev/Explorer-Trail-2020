@@ -11,7 +11,9 @@
       "challengedescription": "Do you know what day of the week this is?",
       "challengeid": 1,
       "category": 0,
-      "link": "https://www.basestation.nz/en"
+      "link": "https://www.basestation.nz/en",
+      "phone": "0800000577",
+      "email": "info@basestation.nz"
     },
     {
       "uid": 2,
@@ -24,7 +26,9 @@
       "challengedescription": "We need to know how many numbers there are before 10, can you count them?",
       "challengeid": 2,
       "category": 1,
-      "link": "https://www.trustpower.co.nz/"
+      "link": "https://www.trustpower.co.nz/",
+      "phone": "0800878787",
+      "email": "info@trustpower.co.nz"
     },
     {
       "uid": 3,
@@ -37,7 +41,10 @@
       "challengedescription": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
       "challengeid": 3,
       "category": 2,
-      "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/"
+      "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/",
+      "phone": "075788103",
+      "email": "tauranga@newzealand.com"
+
     },
     {
       "uid": 4,
@@ -50,7 +57,9 @@
       "challengedescription": "Do you know what this letter in STEM stands for?",
       "challengeid": 4,
       "category": 3,
-      "link": "https://library.tauranga.govt.nz/"
+      "link": "https://library.tauranga.govt.nz/",
+      "phone": "075777177",
+      "email": "library@tauranga.govt.nz"
     }
   ]
 }
