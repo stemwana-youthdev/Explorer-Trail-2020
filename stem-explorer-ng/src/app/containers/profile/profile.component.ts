@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { User } from 'src/app/shared/models/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -20,14 +21,17 @@ export class ProfileComponent implements OnInit {
     homeTown: new FormControl(''),
   });
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    private snackbar: MatSnackBar,
+  ) { }
 
   ngOnInit(): void {
-    this.getUser();
+    this.getUserInfo();
     this.getEmail();
   }
 
-  async getUser() {
+  async getUserInfo() {
     await this.auth.getCurrentUser().then(value =>
       this.user = value
     );
@@ -47,7 +51,15 @@ export class ProfileComponent implements OnInit {
     this.user.lastName = this.profileForm.get('lastName').value;
     this.user.region = this.profileForm.get('region').value;
     this.user.homeTown = this.profileForm.get('homeTown').value;
-    await this.auth.updateCurrentUser(this.user);
+    try {
+      await this.auth.updateCurrentUser(this.user);
+    }catch (error) {
+      console.warn(error);
+      return;
+    }
+    this.snackbar.open('Profile successfully updated', 'Close', {
+      duration: 3000
+    });
   }
 
 }
