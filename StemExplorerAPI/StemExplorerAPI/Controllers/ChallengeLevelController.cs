@@ -9,7 +9,7 @@ using StemExplorerAPI.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {
-    [Route("api/ChallengeLevel")]
+    [Route("api/ChallengeLevels")]
     [ApiController]
     public class ChallengeLevelController : ControllerBase
     {
@@ -20,22 +20,23 @@ namespace StemExplorerAPI.Controllers
             _challengeLevelService = challengeLevelService;
         }
 
-        [HttpGet("GetLevels")]
-        public async Task<List<ChallengeLevelDto>> GetLevels()
+        [HttpGet]
+        public async Task<List<ChallengeLevelDto>> Get(int? challengeId)
         {
-            return await _challengeLevelService.GetLevels();
+            if (challengeId is int id)
+            {
+                return await _challengeLevelService.GetLevelsForChallenge(id);
+            }
+            else
+            {
+                return await _challengeLevelService.GetLevels();
+            }
         }
 
-        [HttpGet("GetLevelsForChallenge/{challengeId}")]
-        public async Task<List<ChallengeLevelDto>> GetLevelsForChallenge(int challengeId)
+        [HttpPost("{id}/ValidateAnswer")]
+        public async Task<bool> ValidateAnswer(int id, [FromBody] string givenAnswer)
         {
-            return await _challengeLevelService.GetLevelsForChallenge(challengeId);
-        }
-
-        [HttpPost("ValidateAnswer/{levelId}")]
-        public async Task<bool> ValidateAnswer(int levelId, [FromBody] string givenAnswer)
-        {
-            return await _challengeLevelService.ValidateAnswer(levelId, givenAnswer);
+            return await _challengeLevelService.ValidateAnswer(id, givenAnswer);
         }
     }
 }

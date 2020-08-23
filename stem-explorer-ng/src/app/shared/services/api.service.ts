@@ -9,10 +9,11 @@ import { ChallengeLevel } from '../models/challenge-level';
 import { User } from '../models/user';
 import { Progress } from '../models/progress';
 
+// With the api server running, go to
+// http://localhost:5000/swagger
+// to view the basic swagger api docs.
 @Injectable()
 export class ApiService {
-  token: string | null = null;
-
   get apiEndpoint() {
     return this.config.get('API_ENDPOINT') as string;
   }
@@ -24,31 +25,31 @@ export class ApiService {
 
   getChallenges() {
     return this.http.get<Challenge[]>(
-      `${this.apiEndpoint}/Challenge/GetChallenges`
+      `${this.apiEndpoint}/Challenges`
     );
   }
 
   getLocations() {
     return this.http.get<Location[]>(
-      `${this.apiEndpoint}/Location/GetLocations`
+      `${this.apiEndpoint}/Locations`
     );
   }
 
   getExternalContent() {
     return this.http.get<ExternalContent[]>(
-      `${this.apiEndpoint}/ExternalContent/GetContent`
+      `${this.apiEndpoint}/ExternalContent`
     );
   }
 
   getChallengeLevels() {
     return this.http.get<ChallengeLevel[]>(
-      `${this.apiEndpoint}/ChallengeLevel/GetLevels`
+      `${this.apiEndpoint}/ChallengeLevels`
     );
   }
 
   validateAnswer(levelUid: number, answer: string) {
     return this.http.post(
-      `${this.apiEndpoint}/ChallengeLevel/ValidateAnswer/${levelUid}`,
+      `${this.apiEndpoint}/ChallengeLevels/${levelUid}/ValidateAnswer`,
       JSON.stringify(answer),
       {
         headers: {
@@ -58,42 +59,32 @@ export class ApiService {
     );
   }
 
-  private get authOptions(): { headers: { Authorization: string } } {
-    const token = this.token;
-
-    if (!token) {
-      throw new Error('This API requires that the user is logged in');
-    }
-
-    return {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-  }
-
-  getCurrentUser() {
+  getCurrentUser(token: string) {
     return this.http.get<User>(
       `${this.apiEndpoint}/User/CurrentUser`,
-      this.authOptions
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
   }
 
-  registerUser(userInfo: User) {
+  registerUser(token: string, userInfo: User) {
     return this.http.post<User>(
       `${this.apiEndpoint}/User/RegisterUser`,
       userInfo,
-      this.authOptions
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
   }
 
-  // userInfo needs to have all of its properties set,
-  // or they will be set to null in the DB.
-  // Usually this will be a copy of CurrentUser.user with
-  // the properties you want to update
-  updateCurrentUser(userInfo: User) {
+  updateUser(token: string, userInfo: User) {
     return this.http.put<User>(
       `${this.apiEndpoint}/User/CurrentUser`,
       userInfo,
-      this.authOptions,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
   }
 

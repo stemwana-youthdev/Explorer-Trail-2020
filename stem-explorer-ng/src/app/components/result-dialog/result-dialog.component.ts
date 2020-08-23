@@ -24,16 +24,12 @@ export class ResultDialogComponent {
 
   Levels: any = Levels;
 
-  get isLoggedIn$() {
-    return this.auth.isLoggedIn$;
-  }
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ResultDialogData,
+    public auth: AuthService,
     private router: Router,
     private dialogRef: MatDialogRef<ResultDialogComponent>,
     private store: Store,
-    private auth: AuthService,
   ) { }
 
   get category() {

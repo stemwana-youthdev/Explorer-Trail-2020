@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
-import { Store, Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 
 import { AuthService } from '../../shared/auth/auth.service';
@@ -17,15 +17,15 @@ export class ToolbarComponent {
   @Input()
   drawer: MatDrawer;
 
-  get isLoggedIn() {
-    return this.auth.isLoggedIn$;
-  }
-
   constructor(
     private router: Router,
     private auth: AuthService,
     private store: Store,
   ) { }
+
+  get isLoggedIn(): Observable<boolean> {
+    return this.auth.isLoggedIn;
+  }
 
   get lastHomepage() {
     return this.store.selectSnapshot(LastHomepageState.lastHomepage);
@@ -41,6 +41,10 @@ export class ToolbarComponent {
 
   navigateToHome() {
     this.router.navigateByUrl(this.lastHomepage);
+  }
+
+  navigateToProfile() {
+    this.router.navigateByUrl('profile');
   }
 
 }

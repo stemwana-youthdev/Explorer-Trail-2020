@@ -42,6 +42,8 @@ namespace StemExplorerAPI
             
             services.AddControllers();
 
+            services.AddSwaggerGen();
+
             services.RegisterServices();
         }
 
@@ -52,6 +54,12 @@ namespace StemExplorerAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "STEM Explorer API");
+            });
 
             app.UseRouting();
 

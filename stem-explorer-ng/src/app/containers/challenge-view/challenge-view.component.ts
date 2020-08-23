@@ -21,11 +21,8 @@ import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dia
 
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
-import { CurrentUserState } from 'src/app/store/current-user/current-user.state';
-import { ApiService } from 'src/app/shared/services/api.service';
-import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { AuthService } from 'src/app/shared/auth/auth.service';
+import { ChallengeDialogComponent } from 'src/locations/components/challenge-dialog/challenge-dialog.component';
 
 
 @Component({
