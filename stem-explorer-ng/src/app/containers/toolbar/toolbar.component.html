@@ -13,6 +13,7 @@
     </button>
   
     <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="navigateToProfile()" aria-label="Edit Profile">Edit Profile</button>
       <button mat-menu-item (click)="logout()" aria-label="Log out">Log Out</button>
     </mat-menu>
   </ng-template>

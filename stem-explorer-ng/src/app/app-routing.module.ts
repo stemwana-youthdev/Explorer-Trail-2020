@@ -4,12 +4,14 @@ import { MapComponent } from 'src/locations/components/map/map.component';
 import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
+import { ProfileComponent } from './containers/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'challenge/:id', component: ChallengeViewComponent },
+  { path: 'profile', component: ProfileComponent },
   // lazy loading
   {
     path: 'list-view',
