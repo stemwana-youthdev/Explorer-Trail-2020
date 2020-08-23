@@ -16,7 +16,6 @@ namespace StemExplorerAPI.Models
 
         public StemExplorerContext(DbContextOptions<StemExplorerContext> options) : base(options)
         {
-            
         }
 
         internal DbSet<Challenge> Challenges { get; set; }

@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   // lazy loading
   {
-    path: 'list-view',
+    path: 'list',
     loadChildren: () => import('../locations/locations.module').then(m => m.LocationsModule)
   },
 ];

@@ -1,5 +1,17 @@
-<app-filter-buttons
-  [filter]="filter$ | async"
-  (data)="onFilter($event)"
+<mat-button-toggle-group
+  #group="matButtonToggleGroup"
+  [value]="filter$ | async"
+  multiple
 >
-</app-filter-buttons>
+  <span class="material-icons" aria-label="Extra filters">
+    tune
+  </span>
+  <mat-button-toggle *ngFor='let button of buttons'
+    [value]="button.value"
+    [class]="button.colorClass"
+    (change)="change(group.value)"
+    aria-label="Filter by {{button.category}}"
+  >
+    {{button.category}}
+  </mat-button-toggle>
+</mat-button-toggle-group>

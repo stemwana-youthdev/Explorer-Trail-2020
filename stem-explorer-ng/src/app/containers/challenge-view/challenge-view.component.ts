@@ -20,6 +20,7 @@ import { ResultDialogComponent } from '../../components/result-dialog/result-dia
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { ChallengeDialogComponent } from 'src/locations/components/challenge-dialog/challenge-dialog.component';
+import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 
 
 @Component({
@@ -106,11 +107,10 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
   }
 
   async openHintDialog(challenge: Challenge, level: ChallengeLevel) {
-    this.dialog.open(ChallengeDialogComponent, {
+    this.dialog.open(HintDialogComponent, {
       data: {
         challenge,
         level,
-        dialogType: ChallengeDialogType.Hint,
       },
       panelClass: 'app-dialog',
     });

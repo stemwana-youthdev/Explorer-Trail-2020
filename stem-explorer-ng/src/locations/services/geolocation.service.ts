@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, zip } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Location } from '../../app/shared/models/location';
+import { Location } from '../models/location';
 
 export type LatLng = google.maps.LatLngLiteral;
 
@@ -14,26 +14,40 @@ export class GeolocationService {
   private directionsService: google.maps.DirectionsService;
 
   constructor() {
-    if (!navigator.geolocation) {
-      console.warn('Geolocation not supported');
-      this.geolocation$.complete();
-      return;
+    this.directionsService = new google.maps.DirectionsService();
+  }
+
+  getCurrentLocation(): google.maps.LatLngLiteral {
+    let loc: google.maps.LatLngLiteral;
+    const tgaCentre: google.maps.LatLngLiteral = {
+      lat: -37.6854709,
+      lng: 176.1673285
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        loc = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+      });
     }
 
-    navigator.geolocation.watchPosition(
-      (position) => {
-        this.geolocation$.next({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+    return loc && this.isInCBD(loc) ? loc : tgaCentre;
+  }
+
+  isInCBD(geolocation): boolean {
+    const cbd = new google.maps.LatLngBounds(
+      {
+        lat: -37.689038,
+        lng: 176.161683,
       },
-      (error) => {
-        console.warn(error);
-        this.geolocation$.complete();
+      {
+        lat: -37.676751,
+        lng: 176.172378,
       }
     );
-
-    this.directionsService = new google.maps.DirectionsService();
+    return geolocation ? cbd.contains(geolocation) : false;
   }
 
   locationDistance(location: Location): Observable<number> {

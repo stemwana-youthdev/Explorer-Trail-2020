@@ -3,16 +3,12 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { CameraComponent } from 'src/app/containers/camera/camera.component';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { Levels } from 'src/app/shared/enums/levels.enum';
-import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
-import { Location } from 'src/app/shared/models/location';
+import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 
 export interface ChallengeDialogData {
+  challenge: LocationChallenge;
   location: Location;
-  level: ChallengeLevel;
-  dialogType: ChallengeDialogType;
 }
 
 /*
@@ -25,9 +21,7 @@ export interface ChallengeDialogData {
 })
 export class ChallengeDialogComponent implements OnInit, OnDestroy {
   Categories: any = Categories;
-  DialogType: any = ChallengeDialogType;
-  Level: any = Levels;
-  location: Location;
+  challenge: LocationChallenge;
   distance$: ReplaySubject<number>;
   distanceSubscription: Subscription;
 
@@ -36,12 +30,12 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private geolocation: GeolocationService,
   ) {
-    this.location = this.data.location;
+    this.challenge = this.data.challenge;
   }
 
   ngOnInit(): void  {
     this.distance$ = new ReplaySubject();
-    this.distanceSubscription = this.getDistance(this.location).subscribe(this.distance$);
+    // this.distanceSubscription = this.getDistance(this.location).subscribe(this.distance$);
   }
 
   ngOnDestroy(): void {
@@ -55,7 +49,7 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
   }
 
   mapDirections(): void {
-    window.open('https://www.google.com/maps/search/' + `${this.location.name}` + `/@${this.location.position.lat},${this.location.position.lng}`, '_blank');
+    window.open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
   }
 
   private getDistance(location: Location): Observable<number> {

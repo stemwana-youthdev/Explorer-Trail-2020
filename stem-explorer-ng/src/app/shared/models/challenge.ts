@@ -1,4 +1,4 @@
-import { Location } from './location';
+import { Location } from '../../../locations/models/location';
 
 export interface Challenge {
     uid: number;
