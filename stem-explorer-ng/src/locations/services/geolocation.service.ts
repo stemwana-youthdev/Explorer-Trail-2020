@@ -17,6 +17,11 @@ export class GeolocationService {
     this.directionsService = new google.maps.DirectionsService();
   }
 
+  /**
+   * Gets the users current location. Checks if the user has geolocation enabled in browser, if true then gets the users current location
+   * and then checks if the user is in the CBD. If the user is not in the CBD, we want the centre of the map to be in the CBD instead
+   * of where the user might be (as could be anywhere in the country).
+   */
   getCurrentLocation(): google.maps.LatLngLiteral {
     let loc: google.maps.LatLngLiteral;
     const tgaCentre: google.maps.LatLngLiteral = {
@@ -36,7 +41,11 @@ export class GeolocationService {
     return loc && this.isInCBD(loc) ? loc : tgaCentre;
   }
 
-  isInCBD(geolocation): boolean {
+  /**
+   * Checks if the location is in the CBD, returns true or false.
+   * @param geolocation data object of the lat and lng.
+   */
+  isInCBD(geolocation: google.maps.LatLngLiteral): boolean {
     const cbd = new google.maps.LatLngBounds(
       {
         lat: -37.689038,

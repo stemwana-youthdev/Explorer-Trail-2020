@@ -5,6 +5,9 @@ import { Categories } from 'src/app/shared/enums/categories.enum';
 export class MapConfigService {
   constructor() {}
 
+  /**
+   * configuration options for the map.
+   */
   mapOptions(): google.maps.MapOptions {
     return {
       scrollwheel: true,
@@ -38,6 +41,10 @@ export class MapConfigService {
     };
   }
 
+  /**
+   * returns the map marker icon for the category for the map, or if multiple, returns the red pointer.
+   * @param cat the challenge category enum value
+   */
   mapMarkerIcons(cat: number): string {
     const icons = {
       [Categories.Science]: 'map-marker-green.svg',

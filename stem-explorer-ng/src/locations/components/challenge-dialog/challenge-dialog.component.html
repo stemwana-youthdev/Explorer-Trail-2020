@@ -5,7 +5,6 @@
     {{ challenge.challengeTitle }}
   </app-challenge-title>
 
-  <!-- <ng-container *ngIf="data.dialogType === DialogType.Preview"> -->
     <h4>{{ Categories[challenge.challengeCategory] }}</h4>
     <h4>Duration: </h4>
     <p>{{ challenge.challengeDescription }}</p>
@@ -45,9 +44,4 @@
         Scan QR Code
       </app-button>
     </div>
-  <!-- </ng-container> -->
-  <!-- <ng-container *ngIf="data.dialogType === DialogType.Hint">
-    <h4>{{ Level[data.level?.difficulty] }}</h4>
-    <p>{{ data.level?.hint }}</p>
-  </ng-container> -->
 </app-dialog>

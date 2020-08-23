@@ -13,8 +13,7 @@ import { User } from '../models/user';
 @Injectable()
 export class ApiService {
   get apiEndpoint() {
-    // return this.config.get('API_ENDPOINT') as string;
-    return `https://localhost:44382/api`;
+    return this.config.get('API_ENDPOINT') as string;
   }
 
   constructor(
