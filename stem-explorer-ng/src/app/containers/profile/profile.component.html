@@ -4,13 +4,11 @@
     <h4 class="blue">Edit Profile Image</h4>
 </div>
 <form [formGroup]='profileForm' (ngSubmit)="onSubmit()">
-    <div class="profile-container">
-        <h4>First Name:</h4><input type="text" name="firstName" formControlName="firstName">
-        <h4>Last Name:</h4><input type="text" name="lastName" formControlName="lastName">
-        <h4>Email:</h4><input type="email" formControlName="email">
-        <h4>Region:</h4><input type="text" name="region" formControlName="region">
-        <h4>Home Town:</h4><input type="text" name="homeTown" formControlName="homeTown">
-    </div>
+    <input type="text" placeholder="First Name" name="firstName" formControlName="firstName">
+    <input type="text" placeholder="Last Name" name="lastName" formControlName="lastName">
+    <input type="email" placeholder="Email" formControlName="email">
+    <input type="text" placeholder="Region" name="region" formControlName="region">
+    <input type="text" placeholder="Home Town" name="homeTown" formControlName="homeTown">
 
     <h4 class="blue terms">Terms of Use and Privacy Policy</h4>
 
