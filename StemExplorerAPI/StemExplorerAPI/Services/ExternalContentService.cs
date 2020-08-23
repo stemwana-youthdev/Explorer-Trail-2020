@@ -26,7 +26,7 @@ namespace StemExplorerAPI.Services
                 Title = c.Title,
                 Url = c.Url,
                 Order = c.Order,
-            }).ToListAsync();
+            }).OrderBy(c => c.Order).ToListAsync();
         }
 
         public async Task InsertContent(ExternalContentDto newContent)

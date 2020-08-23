@@ -57,7 +57,6 @@ export class DrawerComponent implements OnInit {
     this.api.getExternalContent().subscribe({
       next: (content) => {
         this.externalContent = content;
-        this.externalContent.sort((a, b) => a.order - b.order);
       },
     });
   }
