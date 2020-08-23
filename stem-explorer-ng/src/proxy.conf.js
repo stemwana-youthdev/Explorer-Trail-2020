@@ -5,11 +5,11 @@ module.exports = {
       if (process.env.USE_FIXTURES !== 'true') return;
 
       switch (req.originalUrl) {
-        case '/api/Challenge/GetChallenges':
+        case '/api/Challenges':
           return '/assets/challenges.json';
-        case '/api/Location/GetLocations':
+        case '/api/Locations':
           return '/assets/locations.json';
-        case '/api/ChallengeLevel/GetLevels':
+        case '/api/ChallengeLevels':
           return '/assets/challengeLevels.json';
       }
     },

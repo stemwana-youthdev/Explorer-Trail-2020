@@ -1,0 +1,40 @@
+@use 'src/app/variables' as *;
+
+.email-register-fields {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 768px;
+  }
+
+.error-message {
+  color: $secondary-red;
+}
+
+input {
+    @include typeface-body;
+    font-size: inherit;
+    line-height: 36px;
+
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0.5rem 0 1rem;
+    padding: 0.5rem;
+
+    border: 2px solid tint(10%, $primary-black);
+    background-color: tint(5%, $primary-black);
+    border-radius: 0.5rem;
+    color: tint(80%, $primary-black);
+
+    outline: none;
+}
+
+.error-message {
+    margin: 0;
+    position: relative;
+    top: -10px;
+    left: 5px;
+}
+
+.googleButton {
+    margin-top: 20px;
+}

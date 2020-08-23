@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext, StateToken, createSelector } from '@ngxs/store';
-import { tap, map } from 'rxjs/operators';
-
+import { Action, createSelector, Selector, State, StateContext, StateToken } from '@ngxs/store';
+import { map, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/shared/services/api.service';
-
-import { LoadChallengesData, FilterChallenges } from './challenges.actions';
 import { Challenge } from '../../shared/models/challenge';
-
+import { LoadChallengesData } from './challenges.actions';
 
 export interface ChallengesStateModel {
   challenges: Challenge[];
   fetched: boolean;
-  filter: number[];
 }
 
 const CHALLENGES_TOKEN: StateToken<ChallengesStateModel> = new StateToken('challenges');
@@ -21,7 +17,6 @@ const CHALLENGES_TOKEN: StateToken<ChallengesStateModel> = new StateToken('chall
   defaults: {
     challenges: [],
     fetched: false,
-    filter: [0, 1, 2, 3],
   },
   children: [],
 })
@@ -34,11 +29,6 @@ export class ChallengesState {
   @Selector()
   public static challenges(state: ChallengesStateModel): Challenge[] {
     return state.challenges;
-  }
-
-  @Selector()
-  public static challengeFilter(state: ChallengesStateModel): number[] {
-    return state.filter;
   }
 
   @Selector()
@@ -65,15 +55,5 @@ export class ChallengesState {
         })),
       );
     }
-  }
-
-  @Action(FilterChallenges)
-  public filterChallenges(
-    { patchState }: StateContext<ChallengesStateModel>,
-    action: FilterChallenges,
-  ) {
-    patchState({
-      filter: action.filter,
-    });
   }
 }

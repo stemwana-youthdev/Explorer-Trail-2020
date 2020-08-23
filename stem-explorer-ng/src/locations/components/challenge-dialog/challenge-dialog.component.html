@@ -1,0 +1,53 @@
+<app-dialog [category]="location.category">
+  <app-challenge-title [category]="location.category">
+    <span *ngIf="data.dialogType === DialogType.Preview"
+      class="distance" aria-label="Distance to challenge">{{ distance$ | async | largeDistance }}</span>
+    {{ location.challengeTitle }}
+  </app-challenge-title>
+
+  <ng-container *ngIf="data.dialogType === DialogType.Preview">
+    <h4>{{ Categories[location.category] }}</h4>
+    <h4>Duration: </h4>
+    <p>{{ location.challengeDescription }}</p>
+    
+    <app-contact-info
+      [category]="location.category"
+      icon="location_on"
+      [label]="location.name"
+      aria-label="Location address"
+    ></app-contact-info>
+    <br>
+    <app-contact-info
+      [link]="location.link"
+      [category]="location.category"
+      icon="language"
+      label="View Website"
+      aria-label="Location website"
+    ></app-contact-info>
+    
+    <br><br>
+
+    <div style="display: flex;">
+      <app-button
+        mat-dialog-close
+        class="challengeActions"
+        [category]="location.category"
+        [outlined]="true"
+        (click)="mapDirections()">
+        Get Directions
+      </app-button>
+      <app-button
+        mat-dialog-close
+        class="challengeActions"
+        [category]="location.category"
+        (click)="cameraView()"
+        aria-label="Start challenge">
+        Scan QR Code
+      </app-button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="data.dialogType === DialogType.Hint">
+    <h4>{{ Level[data.level?.difficulty] }}</h4>
+    <p>{{ data.level?.hint }}</p>
+  </ng-container>
+</app-dialog>

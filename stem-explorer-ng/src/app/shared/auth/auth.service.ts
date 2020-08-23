@@ -18,7 +18,6 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth, // this injects firebase authentication
     private api: ApiService,
-    private http: HttpClient,
   ) {
     this.isLoggedIn = this.afAuth.authState.pipe(
       map(state => {
@@ -61,6 +60,22 @@ export class AuthService {
       console.log('You have been succesfully logged in! woohoo', res, user);
     } catch (error) {
       console.warn(error);
+    }
+  }
+
+  async emailRegister(
+    email: string,
+    password: string
+  ) {
+    try {
+      const res = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      console.log('Successful register!', res);
+    } catch (error) {
+      console.warn(error);
+      throw error;
     }
   }
 

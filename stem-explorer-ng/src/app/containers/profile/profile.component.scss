@@ -1,0 +1,52 @@
+@use 'src/app/variables' as *;
+
+.image-container {
+    padding: 25px 25px 40px 25px;
+    border-bottom: solid;
+    border-color: tint(20%, $primary-black); 
+    display: flex;
+}
+
+.blue {
+    color: $primary-blue;
+}
+
+.profile-image {
+    font-size: 50px;
+    padding-right: 40px;
+}
+
+form {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 768px;
+}
+
+.profile-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile-container>h4 {
+    flex: 25% 0;
+}
+
+.profile-container>input {
+    flex: 0 70%;
+    margin-top: 5px;
+    padding: 5px;
+    border: solid;
+    border-color: tint(50%, $primary-black);
+
+    &:focus {
+        outline: $primary-blue;
+    }
+}
+
+.terms {
+    padding: 20px 0;
+}
+
+.blue {
+    color: $primary-blue;
+}
