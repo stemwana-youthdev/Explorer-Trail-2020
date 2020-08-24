@@ -5,13 +5,14 @@ import { ChallengeViewComponent } from './containers/challenge-view/challenge-vi
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
 import { ProfileComponent } from './containers/profile/profile.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'challenge/:id', component: ChallengeViewComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   // lazy loading
   {
     path: 'list-view',

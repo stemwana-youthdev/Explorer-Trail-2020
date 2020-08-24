@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidationService } from 'src/app/shared/services/custom-validation.service';
 import { Store } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { User } from 'src/app/shared/models/user';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.sta
 export class RegisterPageComponent {
 
   errorMessage = '';
+  user: User;
 
   passwordRegex = /(?=.*\d)(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])|(?=.*\d)(?=.*[!@#$%^&;*()_+}{:'"?/.,])|(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[!@#$%^&;*()_+}{:'"?/.,])|(?=.*[A-Z])(?=.*[!@#$%^&;*()_+}{:'"?/.,])/;
 
@@ -57,6 +59,14 @@ export class RegisterPageComponent {
           this.registerForm.get('email').value,
           this.registerForm.get('password').value
         );
+        this.user = {
+          id: '',
+          firstName: this.registerForm.get('firstName').value,
+          lastName: this.registerForm.get('lastName').value,
+          region: '',
+          homeTown: ''
+        };
+        await this.auth.registerUser(this.user);
       } catch (error) {
         this.errorMessage = error.message;
         return;
