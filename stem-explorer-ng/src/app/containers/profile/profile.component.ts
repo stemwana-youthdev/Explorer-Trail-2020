@@ -50,12 +50,15 @@ export class ProfileComponent implements OnInit {
   }
 
   async onSubmit() {
-    this.user.firstName = this.profileForm.get('firstName').value;
-    this.user.lastName = this.profileForm.get('lastName').value;
-    this.user.region = this.profileForm.get('region').value;
-    this.user.homeTown = this.profileForm.get('homeTown').value;
+    const updatedUser = {
+      id: this.user.id,
+      firstName: this.profileForm.get('firstName').value,
+      lastName: this.profileForm.get('lastName').value,
+      region: this.profileForm.get('region').value,
+      homeTown: this.profileForm.get('homeTown').value
+    };
     try {
-      await this.auth.updateCurrentUser(this.user);
+      await this.auth.updateCurrentUser(updatedUser);
     }catch (error) {
       console.warn(error);
       return;
