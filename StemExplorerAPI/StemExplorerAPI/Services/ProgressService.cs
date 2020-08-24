@@ -56,6 +56,12 @@ namespace StemExplorerAPI.Services
         public async Task LevelCompleted(string userId, int levelId, bool correct)
         {
             var progress = await GetProgressForLevel(userId, levelId);
+            if (progress.Correct)
+            {
+                // Don't store anything if the user has already completed the challenge
+                return;
+            }
+
             progress.Attempts++;
             if (correct)
             {
