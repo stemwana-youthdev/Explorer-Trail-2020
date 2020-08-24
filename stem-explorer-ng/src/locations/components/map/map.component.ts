@@ -32,6 +32,7 @@ export class MapComponent implements OnInit {
   Colour = StemColours;
   Icon = CategoryIcons;
   locationAccess = false;
+  tilesLoaded = false;
 
   constructor(
     private store: Store,

@@ -7,10 +7,10 @@
     height="100%"
     width="100%"
     [options]="options"
+    (tilesloaded)="tilesLoaded = true"
     >
     <map-marker
       *ngFor="let location of locations"
-      
       #markerElem
       [position]="location.position"
       [title]="location.name"
@@ -35,3 +35,5 @@
     </map-info-window>
   </google-map>
 </span>
+
+<div class="bouncer centered" *ngIf="!tilesLoaded || !locations?.length"></div>
