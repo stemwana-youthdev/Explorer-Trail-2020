@@ -23,6 +23,7 @@ export class ChallengeMapComponent implements OnInit, OnDestroy {
 
 
   locationAccess = false;
+  tilesLoaded = false;
 
   zoom = 15;
   // Tauranga
