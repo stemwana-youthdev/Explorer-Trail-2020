@@ -15,7 +15,6 @@ import { ProgressState } from '../../store/progress/progress.state';
 
 import { Challenge } from '../../shared/models/challenge';
 import { ChallengeLevel } from '../../shared/models/challenge-level';
-import { CompletedLevel } from '../../shared/models/progress';
 
 import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dialog.component';
 
@@ -69,13 +68,10 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
       this.selectedLevel = minLevel;
     });
 
-    const loadProgressSubscription = combineLatest([
-      this.challengeId$,
-      this.isLoggedIn$,
-    ]).subscribe({
-      next: ([challengeId, isLoggedIn]) => {
+    const loadProgressSubscription = this.isLoggedIn$.subscribe({
+      next: (isLoggedIn) => {
         if (isLoggedIn) {
-          this.store.dispatch(new LoadProgress(challengeId));
+          this.store.dispatch(new LoadProgress());
         }
       },
     });
@@ -108,7 +104,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     );
   }
 
-  get completedLevels$(): Observable<CompletedLevel[]> {
+  get completedLevels$(): Observable<number[]> {
     return this.store.select(ProgressState.completedLevels);
   }
 
@@ -118,7 +114,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
         challengeLevels.filter(
           (level) =>
             !completedLevels.some(
-              (completedLevel) => completedLevel.challengeLevelId === level.uid
+              (completedLevel) => completedLevel === level.uid
             )
         )
       ),
@@ -176,10 +172,9 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     // Record that the user completed the level
     const nextLevel = await this.getNextLevel();
     const isLoggedIn = await this.isLoggedIn$.pipe(take(1)).toPromise();
-    const challengeId = await this.challengeId$.pipe(take(1)).toPromise();
-    if (isCorrect && isLoggedIn) {
-      await this.auth.levelCompleted(level.uid);
-      this.store.dispatch(new LoadProgress(challengeId));
+    if (isLoggedIn) {
+      await this.auth.levelCompleted(level.uid, isCorrect);
+      this.store.dispatch(new LoadProgress());
     }
 
     // Open another dialog

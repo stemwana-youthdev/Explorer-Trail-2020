@@ -1,9 +1,7 @@
-export interface Progress {
-  challengeId: number;
-  completedLevels: CompletedLevel[];
-}
-
-export interface CompletedLevel {
+export interface UserProgress {
   userId: string;
+  challengeId: number;
   challengeLevelId: number;
+  attempts: number;
+  correct: boolean;
 }

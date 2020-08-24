@@ -33,16 +33,16 @@ namespace StemExplorerAPI.Controllers
             _progressService = progressService;
         }
 
-        [HttpGet("{challengeId}")]
-        public async Task<ProgressDto> GetProgressForChallenge(int challengeId)
+        [HttpGet("")]
+        public async Task<List<UserProgressDto>> Get()
         {
-            return await _progressService.GetProgressForChallenge(userId, challengeId);
+            return await _progressService.GetProgress(userId);
         }
 
-        [HttpPost("LevelCompleted/{levelId}")]
-        public async Task LevelCompleted(int levelId)
+        [HttpPost("LevelCompleted")]
+        public async Task LevelCompleted(CompletedLevelDto completed)
         {
-            await _progressService.LevelCompleted(userId, levelId);
+            await _progressService.LevelCompleted(userId, completed.LevelId, completed.Correct);
         }
     }
 }

@@ -18,33 +18,49 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public async Task<ProgressDto> GetProgressForChallenge(string userId, int challengeId)
+        public async Task<List<UserProgressDto>> GetProgress(string userId)
         {
-            var progress = await _context.UserProgress
-                .Where(l => l.UserId == userId && l.ChallengeLevel.ChallengeId == challengeId)
-                .Select(l => new CompletedLevelDto
+            return await _context.UserProgress
+                .Where(p => p.UserId == userId)
+                .Select(p => new UserProgressDto
                 {
-                    UserId = l.UserId,
-                    ChallengeLevelId = l.ChallengeLevelId,
+                    UserId = p.UserId,
+                    ChallengeId = p.ChallengeLevel.ChallengeId,
+                    ChallengeLevelId = p.ChallengeLevelId,
+                    Attempts = p.Attempts,
+                    Correct = p.Correct,
                 })
                 .ToListAsync();
-
-            return new ProgressDto
-            {
-                ChallengeId = challengeId,
-                CompletedLevels = progress,
-            };
         }
 
-        public async Task LevelCompleted(string userId, int levelId)
+        private async Task<UserProgress> GetProgressForLevel(string userId, int levelId)
         {
-            var progress = new UserProgress
-            {
-                UserId = userId,
-                ChallengeLevelId = levelId,
-            };
+            var progress = await _context.UserProgress
+                .FirstOrDefaultAsync(p => p.UserId == userId && p.ChallengeLevelId == levelId);
 
-            _context.UserProgress.Add(progress);
+            if (progress is null)
+            {
+                progress = new UserProgress
+                {
+                    Attempts = 0,
+                    Correct = false,
+                    UserId = userId,
+                    ChallengeLevelId = levelId,
+                };
+                _context.UserProgress.Add(progress);
+            }
+
+            return progress;
+        }
+
+        public async Task LevelCompleted(string userId, int levelId, bool correct)
+        {
+            var progress = await GetProgressForLevel(userId, levelId);
+            progress.Attempts++;
+            if (correct)
+            {
+                progress.Correct = true;
+            }
             await _context.SaveChangesAsync();
         }
     }

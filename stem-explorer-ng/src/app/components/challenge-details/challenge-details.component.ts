@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Challenge } from '../../shared/models/challenge';
 import { ChallengeLevel } from '../../shared/models/challenge-level';
-import { CompletedLevel } from '../../shared/models/progress';
 
 import { Categories } from '../../shared/enums/categories.enum';
 import { Levels } from '../../shared/enums/levels.enum';
@@ -27,7 +26,7 @@ export interface AnswerEvent {
 export class ChallengeDetailsComponent implements OnInit {
   @Input() challenge: Challenge;
   @Input() challengeLevels: ChallengeLevel[] = [];
-  @Input() completedLevels: CompletedLevel[] = [];
+  @Input() completedLevels: number[] = [];
   @Input() selectedLevel: number;
 
   @Output() levelChange = new EventEmitter<number>();
@@ -53,7 +52,7 @@ export class ChallengeDetailsComponent implements OnInit {
 
   get currentLevelIsCompleted(): boolean {
     return this.completedLevels.some(
-      (completedLevel) => completedLevel.challengeLevelId === this.currentLevel.uid,
+      (completedLevel) => completedLevel === this.currentLevel.uid,
     );
   }
 

@@ -7,7 +7,7 @@ import { Location } from '../models/location';
 import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
 import { User } from '../models/user';
-import { Progress } from '../models/progress';
+import { UserProgress } from '../models/progress';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -88,19 +88,22 @@ export class ApiService {
     );
   }
 
-  getProgress(token: string, challengeId: number) {
-    return this.http.get<Progress>(
-      `${this.apiEndpoint}/Progress/${challengeId}`,
+  getProgress(token: string) {
+    return this.http.get<UserProgress[]>(
+      `${this.apiEndpoint}/Progress`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
   }
 
-  levelCompleted(token: string, levelId: number) {
+  levelCompleted(token: string, levelId: number, correct: boolean) {
     return this.http.post(
-      `${this.apiEndpoint}/Progress/LevelCompleted/${levelId}`,
-      null,
+      `${this.apiEndpoint}/Progress/LevelCompleted`,
+      {
+        levelId,
+        correct,
+      },
       {
         headers: { Authorization: `Bearer ${token}` },
       }

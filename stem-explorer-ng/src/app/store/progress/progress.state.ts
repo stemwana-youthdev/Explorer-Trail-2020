@@ -4,18 +4,20 @@ import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
 import { LoadProgress } from './progress.actions';
-import { Progress, CompletedLevel } from 'src/app/shared/models/progress';
+import { UserProgress } from 'src/app/shared/models/progress';
 import { tap } from 'rxjs/operators';
 import { from } from 'rxjs';
 
+export interface ProgressStateModel {
+  progress: UserProgress[];
+}
 
-const PROGRESS_TOKEN: StateToken<Progress> = new StateToken('progress');
+const PROGRESS_TOKEN: StateToken<ProgressStateModel> = new StateToken('progress');
 
-@State<Progress>({
+@State<ProgressStateModel>({
   name: PROGRESS_TOKEN,
   defaults: {
-    challengeId: null,
-    completedLevels: [],
+    progress: [],
   },
   children: [],
 })
@@ -26,14 +28,16 @@ export class ProgressState {
   ) { }
 
   @Selector()
-  public static completedLevels(state: Progress): CompletedLevel[] {
-    return state.completedLevels;
+  public static completedLevels(state: ProgressStateModel): number[] {
+    return state.progress
+      .filter((progress) => progress.correct)
+      .map((progress) => progress.challengeLevelId);
   }
 
   @Action(LoadProgress)
-  public loadProgress(ctx: StateContext<Progress>, action: LoadProgress) {
-    return from(this.authService.getProgress(action.challengeId)).pipe(
-      tap((progress) => ctx.setState(progress)),
+  public loadProgress(ctx: StateContext<ProgressStateModel>) {
+    return from(this.authService.getProgress()).pipe(
+      tap((progress) => ctx.setState({ progress })),
     );
   }
 }

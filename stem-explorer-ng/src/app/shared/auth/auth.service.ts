@@ -101,11 +101,11 @@ export class AuthService {
     return await this.api.updateUser(await this.getToken(), userInfo).toPromise();
   }
 
-  async getProgress(challengeId: number) {
-    return await this.api.getProgress(await this.getToken(), challengeId).toPromise();
+  async getProgress() {
+    return await this.api.getProgress(await this.getToken()).toPromise();
   }
 
-  async levelCompleted(levelId: number) {
-    return await this.api.levelCompleted(await this.getToken(), levelId).toPromise();
+  async levelCompleted(levelId: number, correct: boolean) {
+    return await this.api.levelCompleted(await this.getToken(), levelId, correct).toPromise();
   }
 }
