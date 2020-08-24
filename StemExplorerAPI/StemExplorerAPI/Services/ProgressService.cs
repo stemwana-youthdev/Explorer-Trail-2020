@@ -20,7 +20,7 @@ namespace StemExplorerAPI.Services
 
         public async Task<ProgressDto> GetProgressForChallenge(string userId, int challengeId)
         {
-            var completedLevels = await _context.CompletedLevels
+            var progress = await _context.UserProgress
                 .Where(l => l.UserId == userId && l.ChallengeLevel.ChallengeId == challengeId)
                 .Select(l => new CompletedLevelDto
                 {
@@ -32,19 +32,19 @@ namespace StemExplorerAPI.Services
             return new ProgressDto
             {
                 ChallengeId = challengeId,
-                CompletedLevels = completedLevels,
+                CompletedLevels = progress,
             };
         }
 
         public async Task LevelCompleted(string userId, int levelId)
         {
-            var completedLevel = new CompletedLevel
+            var progress = new UserProgress
             {
                 UserId = userId,
                 ChallengeLevelId = levelId,
             };
 
-            _context.CompletedLevels.Add(completedLevel);
+            _context.UserProgress.Add(progress);
             await _context.SaveChangesAsync();
         }
     }

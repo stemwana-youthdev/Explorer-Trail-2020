@@ -24,7 +24,7 @@ namespace StemExplorerAPI.Models
         internal DbSet<ChallengeLevel> ChallengeLevels { get; set; }
         internal DbSet<ExternalContent> ExternalContent { get; set; }
         internal DbSet<User> Users { get; set; }
-        internal DbSet<CompletedLevel> CompletedLevels { get; set; }
+        internal DbSet<UserProgress> UserProgress { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace StemExplorerAPI.Models
                 .Property(c => c.Difficulty)
                 .HasConversion<int>();
             
-            modelBuilder.Entity<CompletedLevel>()
+            modelBuilder.Entity<UserProgress>()
                 .HasIndex(c => new { c.UserId, c.ChallengeLevelId })
                 .IsUnique();
             
