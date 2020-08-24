@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace StemExplorerAPI.Models.ViewModels
 {
-    public class UserProgressDto
+    public class ProgressDto
     {
-        public string UserId { get; set; }
+        public int ProfileId { get; set; }
         public int ChallengeId { get; set; }
         public int ChallengeLevelId { get; set; }
         public int Attempts { get; set; }
@@ -13,6 +13,7 @@ namespace StemExplorerAPI.Models.ViewModels
 
     public class CompletedLevelDto
     {
+        public int ProfileId { get; set; }
         public int LevelId { get; set; }
         public bool Correct { get; set; }
     }

@@ -18,6 +18,7 @@ namespace StemExplorerAPI.Controllers
     public class ProgressController : ControllerBase
     {
         private readonly IProgressService _progressService;
+        private readonly IProfileService _profileService;
 
         private string userId
         {
@@ -28,21 +29,27 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
-        public ProgressController(IProgressService progressService)
+        public ProgressController(
+            IProgressService progressService,
+            IProfileService profileService
+        )
         {
             _progressService = progressService;
+            _profileService = profileService;
         }
 
-        [HttpGet("")]
-        public async Task<List<UserProgressDto>> Get()
+        [HttpGet("{profileId}")]
+        public async Task<List<ProgressDto>> Get(int profileId)
         {
-            return await _progressService.GetProgress(userId);
+            await _profileService.AssertProfileOwnership(userId, profileId);
+            return await _progressService.GetProgress(profileId);
         }
 
         [HttpPost("LevelCompleted")]
         public async Task LevelCompleted(CompletedLevelDto completed)
         {
-            await _progressService.LevelCompleted(userId, completed.LevelId, completed.Correct);
+            await _profileService.AssertProfileOwnership(userId, completed.ProfileId);
+            await _progressService.LevelCompleted(completed.ProfileId, completed.LevelId, completed.Correct);
         }
     }
 }

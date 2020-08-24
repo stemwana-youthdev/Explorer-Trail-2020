@@ -18,13 +18,13 @@ namespace StemExplorerAPI.Services
             _context = context;
         }
 
-        public async Task<List<UserProgressDto>> GetProgress(string userId)
+        public async Task<List<ProgressDto>> GetProgress(int profileId)
         {
-            return await _context.UserProgress
-                .Where(p => p.UserId == userId)
-                .Select(p => new UserProgressDto
+            return await _context.Progress
+                .Where(p => p.ProfileId == profileId)
+                .Select(p => new ProgressDto
                 {
-                    UserId = p.UserId,
+                    ProfileId = p.ProfileId,
                     ChallengeId = p.ChallengeLevel.ChallengeId,
                     ChallengeLevelId = p.ChallengeLevelId,
                     Attempts = p.Attempts,
@@ -33,29 +33,29 @@ namespace StemExplorerAPI.Services
                 .ToListAsync();
         }
 
-        private async Task<UserProgress> GetProgressForLevel(string userId, int levelId)
+        private async Task<Progress> GetProgressForLevel(int profileId, int levelId)
         {
-            var progress = await _context.UserProgress
-                .FirstOrDefaultAsync(p => p.UserId == userId && p.ChallengeLevelId == levelId);
+            var progress = await _context.Progress
+                .FirstOrDefaultAsync(p => p.ProfileId == profileId && p.ChallengeLevelId == levelId);
 
             if (progress is null)
             {
-                progress = new UserProgress
+                progress = new Progress
                 {
                     Attempts = 0,
                     Correct = false,
-                    UserId = userId,
+                    ProfileId = profileId,
                     ChallengeLevelId = levelId,
                 };
-                _context.UserProgress.Add(progress);
+                _context.Progress.Add(progress);
             }
 
             return progress;
         }
 
-        public async Task LevelCompleted(string userId, int levelId, bool correct)
+        public async Task LevelCompleted(int profileId, int levelId, bool correct)
         {
-            var progress = await GetProgressForLevel(userId, levelId);
+            var progress = await GetProgressForLevel(profileId, levelId);
             if (progress.Correct)
             {
                 // Don't store anything if the user has already completed the challenge
