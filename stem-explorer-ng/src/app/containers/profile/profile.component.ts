@@ -29,11 +29,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.auth.isLoggedIn.subscribe(state => {
-      if (state) {
-        this.getUserInfo();
-      }
-    });
+    this.getUserInfo();
   }
 
   async getUserInfo() {
