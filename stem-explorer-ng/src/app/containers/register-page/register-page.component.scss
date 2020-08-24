@@ -4,10 +4,6 @@
     padding: 20px;
     margin: 0 auto;
     max-width: 768px;
-  }
-
-.error-message {
-  color: $secondary-red;
 }
 
 input {
@@ -33,6 +29,7 @@ input {
     position: relative;
     top: -10px;
     left: 5px;
+    color: $secondary-red;
 }
 
 .googleButton {

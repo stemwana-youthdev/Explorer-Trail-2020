@@ -53,3 +53,8 @@ input:disabled {
     background-color: tint(2%, $primary-black);
     color: tint(50%, $primary-black);
 }
+
+.error-message {
+    color: $secondary-red;
+    padding-bottom: 10px;
+}
