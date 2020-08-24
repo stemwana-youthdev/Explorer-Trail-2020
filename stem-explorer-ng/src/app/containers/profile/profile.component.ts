@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { User } from 'src/app/shared/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,11 +16,11 @@ export class ProfileComponent implements OnInit {
   loggedIn: boolean;
 
   profileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl({value: '', disabled: true}),
-    region: new FormControl(''),
-    homeTown: new FormControl(''),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    email: new FormControl({value: '', disabled: true}, Validators.required),
+    region: new FormControl('', Validators.required),
+    homeTown: new FormControl('', Validators.required),
   });
 
   constructor(

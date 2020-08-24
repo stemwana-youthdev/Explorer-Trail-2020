@@ -12,5 +12,5 @@
 
     <h4 class="blue terms">Terms of Use and Privacy Policy</h4>
 
-    <app-button color="pink" type="submit">Update Profile</app-button>
+    <app-button color="pink" type="submit" [disabled]="!profileForm.valid">Update Profile</app-button>
 </form>
