@@ -27,6 +27,7 @@ export class MapComponent implements OnInit {
   locations: Location[] = [];
   zoom = 16;
   center: google.maps.LatLngLiteral;
+  userLocation: google.maps.LatLngLiteral;
   options: google.maps.MapOptions;
   location: Location;
   Colour = StemColours;
@@ -44,6 +45,7 @@ export class MapComponent implements OnInit {
   ) {
     this.options = this.mapConfig.mapOptions();
     this.center = this.geolocation.getCurrentLocation();
+    this.userLocation = geolocation.currentLocation;
 
     this.locationAccess = !navigator.geolocation;
   }
@@ -134,7 +136,7 @@ export class MapComponent implements OnInit {
   }
 
   /**
-   * Gets the distance to location. Resets distance to an empty string to prevent previous distance 
+   * Gets the distance to location. Resets distance to an empty string to prevent previous distance
    * from showing in the Info Window, and only assigns the distance text to it if current has a
    * current position. If user does not have a current position, then obs returns undefined and distance
    * remains as an empty string.

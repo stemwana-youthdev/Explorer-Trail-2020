@@ -2,7 +2,9 @@ export interface Location {
   uid: number;
   name: string;
   position: Position;
-  link: string;
+  link?: string;
+  phone?: string;
+  email?: string;
   distance?: string;
   locationChallenges: LocationChallenge[];
   challengeCount: number;

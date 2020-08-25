@@ -102,11 +102,23 @@ export class AuthService {
     return await this.api.registerUser(await this.getToken(), userInfo).toPromise();
   }
 
+  async getProfiles() {
+    return await this.api.getProfiles(await this.getToken()).toPromise();
+  }
+
   // userInfo needs to have all of its properties set,
   // or they will be set to null in the DB.
   // Usually this will be a copy of CurrentUser.user with
   // the properties you want to update
   async updateCurrentUser(userInfo: User) {
     return await this.api.updateUser(await this.getToken(), userInfo).toPromise();
+  }
+
+  async getProgress(profileId: number) {
+    return await this.api.getProgress(await this.getToken(), profileId).toPromise();
+  }
+
+  async levelCompleted(profileId: number, levelId: number, correct: boolean) {
+    return await this.api.levelCompleted(await this.getToken(), profileId, levelId, correct).toPromise();
   }
 }
