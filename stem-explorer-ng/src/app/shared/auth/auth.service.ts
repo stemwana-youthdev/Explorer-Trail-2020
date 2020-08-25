@@ -102,10 +102,10 @@ export class AuthService {
   }
 
   async getProgress() {
-    return await this.api.getProgress(await this.getToken()).toPromise();
+    return await this.api.getProgress(await this.getToken(), 1).toPromise();
   }
 
   async levelCompleted(levelId: number, correct: boolean) {
-    return await this.api.levelCompleted(await this.getToken(), levelId, correct).toPromise();
+    return await this.api.levelCompleted(await this.getToken(), 1, levelId, correct).toPromise();
   }
 }

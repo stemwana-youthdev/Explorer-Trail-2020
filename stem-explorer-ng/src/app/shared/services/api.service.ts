@@ -88,21 +88,22 @@ export class ApiService {
     );
   }
 
-  getProgress(token: string) {
+  getProgress(token: string, profileId: number) {
     return this.http.get<UserProgress[]>(
-      `${this.apiEndpoint}/Progress`,
+      `${this.apiEndpoint}/Progress/${profileId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
   }
 
-  levelCompleted(token: string, levelId: number, correct: boolean) {
+  levelCompleted(token: string, profileId, levelId: number, correct: boolean) {
     return this.http.post(
       `${this.apiEndpoint}/Progress/LevelCompleted`,
       {
         levelId,
         correct,
+        profileId,
       },
       {
         headers: { Authorization: `Bearer ${token}` },
