@@ -38,4 +38,8 @@ $secondary-light-orange: #FCEAD7;
   @return mix($color, white, $percentage);
 }
 
+@function shade($percentage, $color) {
+  @return mix($color, black, $percentage);
+}
+
 $fab-padding: 1rem;

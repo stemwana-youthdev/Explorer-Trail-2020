@@ -8,6 +8,8 @@
     <h4>{{ Categories[challenge.challengeCategory] }}</h4>
     <h4>Duration: </h4>
     <p>{{ challenge.challengeDescription }}</p>
+
+    <app-challenge-progress [category]="challenge.challengeCategory"></app-challenge-progress>
     
     <app-contact-info
       [category]="challenge.challengeCategory"
