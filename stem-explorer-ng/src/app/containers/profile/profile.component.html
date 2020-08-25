@@ -10,6 +10,8 @@
     <input type="text" placeholder="Region" name="region" formControlName="region">
     <input type="text" placeholder="Home Town" name="homeTown" formControlName="homeTown">
 
+    <h3 *ngIf="!profileForm.valid" class="error-message">Please complete all fields</h3>
+
     <h4 class="blue terms">Terms of Use and Privacy Policy</h4>
 
     <app-button color="pink" type="submit" [disabled]="!profileForm.valid">Update Profile</app-button>
