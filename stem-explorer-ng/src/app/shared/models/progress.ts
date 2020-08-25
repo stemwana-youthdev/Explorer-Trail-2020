@@ -1,4 +1,4 @@
-export interface UserProgress {
+export interface Progress {
   userId: string;
   challengeId: number;
   challengeLevelId: number;

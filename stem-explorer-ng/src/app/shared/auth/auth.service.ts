@@ -14,6 +14,7 @@ import { User } from '../models/user';
 })
 export class AuthService {
   public readonly isLoggedIn: Observable<boolean>;
+  public currentProfile: number = null;
 
   constructor(
     private afAuth: AngularFireAuth, // this injects firebase authentication
@@ -93,6 +94,10 @@ export class AuthService {
     return await this.api.registerUser(await this.getToken(), userInfo).toPromise();
   }
 
+  async getProfiles() {
+    return await this.api.getProfiles(await this.getToken()).toPromise();
+  }
+
   // userInfo needs to have all of its properties set,
   // or they will be set to null in the DB.
   // Usually this will be a copy of CurrentUser.user with
@@ -102,10 +107,10 @@ export class AuthService {
   }
 
   async getProgress() {
-    return await this.api.getProgress(await this.getToken(), 1).toPromise();
+    return await this.api.getProgress(await this.getToken(), this.currentProfile).toPromise();
   }
 
   async levelCompleted(levelId: number, correct: boolean) {
-    return await this.api.levelCompleted(await this.getToken(), 1, levelId, correct).toPromise();
+    return await this.api.levelCompleted(await this.getToken(), this.currentProfile, levelId, correct).toPromise();
   }
 }

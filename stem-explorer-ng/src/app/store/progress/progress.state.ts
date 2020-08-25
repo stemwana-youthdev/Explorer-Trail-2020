@@ -4,12 +4,12 @@ import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
 import { LoadProgress } from './progress.actions';
-import { UserProgress } from 'src/app/shared/models/progress';
+import { Progress } from 'src/app/shared/models/progress';
 import { tap } from 'rxjs/operators';
 import { from } from 'rxjs';
 
 export interface ProgressStateModel {
-  progress: UserProgress[];
+  progress: Progress[];
 }
 
 const PROGRESS_TOKEN: StateToken<ProgressStateModel> = new StateToken('progress');
