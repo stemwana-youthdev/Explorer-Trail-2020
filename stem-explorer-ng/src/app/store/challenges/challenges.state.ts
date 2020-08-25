@@ -37,7 +37,7 @@ export class ChallengesState {
       [ChallengesState],
       (challengeId: number): Challenge => {
         return state.challenges.find(
-          (challenge) => challenge.uid === challengeId,
+          (challenge) => challenge.id === challengeId,
         );
       },
     );
