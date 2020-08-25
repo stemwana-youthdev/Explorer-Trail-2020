@@ -8,6 +8,7 @@ import { ChallengeLevelsState } from './challenge-levels/challenge-levels.state'
 import { ChallengesState } from './challenges/challenges.state';
 import { LastHomepageState } from './last-homepage/last-homepage.state';
 import { ProgressState } from './progress/progress.state';
+import { ProfilesState } from './profiles/profiles.state';
 
 @NgModule({
   declarations: [],
@@ -19,6 +20,7 @@ import { ProgressState } from './progress/progress.state';
         ChallengeLevelsState,
         LastHomepageState,
         ProgressState,
+        ProfilesState,
       ],
       { developmentMode: !environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot(),

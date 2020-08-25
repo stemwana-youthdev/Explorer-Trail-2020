@@ -35,8 +35,8 @@ export class ProgressState {
   }
 
   @Action(LoadProgress)
-  public loadProgress(ctx: StateContext<ProgressStateModel>) {
-    return from(this.authService.getProgress()).pipe(
+  public loadProgress(ctx: StateContext<ProgressStateModel>, action: LoadProgress) {
+    return from(this.authService.getProgress(action.profileId)).pipe(
       tap((progress) => ctx.setState({ progress })),
     );
   }

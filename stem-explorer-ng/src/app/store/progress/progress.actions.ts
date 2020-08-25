@@ -1,4 +1,4 @@
 export class LoadProgress {
   public static type = 'LoadProgress';
-  constructor() {}
+  constructor(public profileId: number) {}
 }

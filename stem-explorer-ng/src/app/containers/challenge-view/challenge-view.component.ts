@@ -12,9 +12,11 @@ import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
 import { LoadProgress } from '../../store/progress/progress.actions';
 import { ProgressState } from '../../store/progress/progress.state';
+import { ProfilesState } from 'src/app/store/profiles/profiles.state';
 
 import { Challenge } from '../../shared/models/challenge';
 import { ChallengeLevel } from '../../shared/models/challenge-level';
+import { Profile } from 'src/app/shared/models/profile';
 
 import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dialog.component';
 
@@ -24,6 +26,7 @@ import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.
 import { ChallengeDialogComponent } from 'src/locations/components/challenge-dialog/challenge-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
 
 
 @Component({
@@ -68,10 +71,19 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
       this.selectedLevel = minLevel;
     });
 
-    const loadProgressSubscription = this.isLoggedIn$.subscribe({
+    const loadProfilesSubscription = this.isLoggedIn$.subscribe({
       next: (isLoggedIn) => {
         if (isLoggedIn) {
-          this.store.dispatch(new LoadProgress());
+          this.store.dispatch(new LoadProfiles());
+        }
+      },
+    });
+    this.challengesChangeSubscription.add(loadProfilesSubscription);
+
+    const loadProgressSubscription = this.currentProfile$.subscribe({
+      next: (profile) => {
+        if (profile) {
+          this.store.dispatch(new LoadProgress(profile.id));
         }
       },
     });
@@ -119,6 +131,10 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
         )
       ),
     );
+  }
+
+  get currentProfile$(): Observable<Profile> {
+    return this.store.select(ProfilesState.currentProfile);
   }
 
   onLevelChange(level: number) {
@@ -173,8 +189,9 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     const nextLevel = await this.getNextLevel();
     const isLoggedIn = await this.isLoggedIn$.pipe(take(1)).toPromise();
     if (isLoggedIn) {
-      await this.auth.levelCompleted(level.uid, isCorrect);
-      this.store.dispatch(new LoadProgress());
+      const profile = await this.currentProfile$.pipe(take(1)).toPromise();
+      await this.auth.levelCompleted(profile.id, level.uid, isCorrect);
+      this.store.dispatch(new LoadProgress(profile.id));
     }
 
     // Open another dialog
