@@ -9,8 +9,9 @@ namespace StemExplorerAPI.Models.Entities
     {
         public int LocationId { get; set; }
         public string Name { get; set; }
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
+        public string GooglePlaceId { get; set; }
         public string Url { get; set; }
 
         // EF relationship definition

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 
@@ -14,24 +15,49 @@ namespace StemExplorerAPI.Controllers
     public class LocationController : ControllerBase
     {
         private readonly ILocationService _locationService;
+        private readonly ILogger _logger;
 
-        public LocationController(ILocationService locationService)
+        public LocationController(ILogger<LocationController> logger, ILocationService locationService)
         {
+            _logger = logger;
             _locationService = locationService;
         }
 
         // GET: api/Location
         [HttpGet]
-        public async Task<List<LocationDto>> Get()
+        public async Task<IActionResult> Get()
         {
-            return await _locationService.GetLocations();
+            try
+            {
+                return Ok(await _locationService.GetLocations());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // GET: api/Location/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> GetLocation(int id)
         {
-            return "value";
+            try
+            {
+                var location = await _locationService.GetLocationById(id);
+
+                if (location == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(location);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // POST: api/Location

@@ -1,10 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
-import { ListViewComponent } from './components/list-view/list-view.component';
 import { NgModule } from '@angular/core';
+import { ListComponent } from './components/list/list.component';
 
 const routes: Routes = [
-  { path: '', component: ListViewComponent }
-]
+  { path: '', component: ListComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

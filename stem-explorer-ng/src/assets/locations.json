@@ -6,11 +6,15 @@
       "lat": -37.6865807,
       "lng": 176.1649332
     },
-    "challengetitle": "Day of The Week",
-    "challengedescription": "Do you know what day of the week this is?",
-    "challengeid": 1,
-    "category": 0,
-    "link": "https://www.basestation.nz/en"
+    "googlePlaceId": 0,
+    "locationChallenges": [{
+      "title": "Day of The Week",
+      "description": "Do you know what day of the week this is?",
+      "uid": 1,
+      "category": 0
+    }],
+    "link": "https://www.basestation.nz/en",
+    "challengeCount": 1
   },
   {
     "uid": 2,
@@ -19,24 +23,40 @@
       "lat": -37.6857656,
       "lng": 176.1679695
     },
-    "challengetitle": "How many numbers",
-    "challengedescription": "We need to know how many numbers there are before 10, can you count them?",
-    "challengeid": 2,
-    "category": 1,
-    "link": "https://www.trustpower.co.nz/"
+    "googlePlaceId": 0,
+    "locationChallenges": [
+      {
+        "title": "How many numbers",
+        "description": "We need to know how many numbers there are before 10, can you count them?",
+        "uid": 2,
+        "category": 1
+      },
+      {
+        "title": "How many numbers",
+        "description": "We need to know how many numbers there are before 30, can you count them?",
+        "uid": 5,
+        "category": 3
+      }
+    ],
+    "link": "https://www.trustpower.co.nz/",
+    "challengeCount": 2
   },
   {
     "uid": 3,
     "name": "i-SITE",
-    "position": {
+    "position":{
       "lat": -37.6855958,
       "lng": 176.1690853
     },
-    "challengetitle": "Biscuits, biscuits, biscuits!",
-    "challengedescription": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
-    "challengeid": 3,
-    "category": 2,
-    "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/"
+    "googlePlaceId": 0,
+    "locationChallenges": [{
+      "title": "Biscuits, biscuits, biscuits!",
+      "description": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
+      "uid": 3,
+      "category": 2
+    }],
+    "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/",
+    "challengeCount": 1
   },
   {
     "uid": 4,
@@ -45,10 +65,14 @@
       "lat": -37.6845175,
       "lng": 176.1678085
     },
-    "challengetitle": "Do you know your STEM",
-    "challengedescription": "Do you know what this letter in STEM stands for?",
-    "challengeid": 4,
-    "category": 3,
-    "link": "https://library.tauranga.govt.nz/"
+    "googlePlaceId": 0,
+    "locationChallenges": [{
+      "title": "Do you know your STEM",
+      "description": "Do you know what this letter in STEM stands for?",
+      "uid": 4,
+      "category": 3
+    }],
+    "link": "https://library.tauranga.govt.nz/",
+    "challengeCount": 1
   }
 ]

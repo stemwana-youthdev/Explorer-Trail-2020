@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
-import { Location } from '../models/location';
-import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
+import { ExternalContent } from '../models/external-content';
+import { Location } from '../../../locations/models/location';
 import { User } from '../models/user';
 
 // With the api server running, go to

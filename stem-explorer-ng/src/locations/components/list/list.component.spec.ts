@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChallengeMapComponent } from './challenge-map.component';
+import { ListComponent } from './list.component';
 
-describe('ChallengeMapComponent', () => {
-  let component: ChallengeMapComponent;
-  let fixture: ComponentFixture<ChallengeMapComponent>;
+describe('ListViewComponent', () => {
+  let component: ListComponent;
+  let fixture: ComponentFixture<ListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChallengeMapComponent ]
+      declarations: [ ListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChallengeMapComponent);
+    fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
