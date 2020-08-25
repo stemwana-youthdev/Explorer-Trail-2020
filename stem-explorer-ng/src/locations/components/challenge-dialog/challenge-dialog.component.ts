@@ -12,9 +12,9 @@ import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
-import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
+import { WatchProfiles } from 'src/app/store/profiles/profiles.actions';
 import { ProfilesState } from 'src/app/store/profiles/profiles.state';
-import { LoadProgress } from 'src/app/store/progress/progress.actions';
+import { WatchProgress } from 'src/app/store/progress/progress.actions';
 import { ProgressState } from 'src/app/store/progress/progress.state';
 import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
 import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
@@ -38,7 +38,6 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
   challenge: LocationChallenge;
   distance$: ReplaySubject<number>;
   distanceSubscription: Subscription;
-  loggedInSubscription: Subscription;
   profilesSubscription: Subscription;
 
   constructor(
@@ -55,22 +54,12 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
     this.distance$ = new ReplaySubject();
     // this.distanceSubscription = this.getDistance(this.location).subscribe(this.distance$);
 
-    this.store.dispatch(new LoadChallengeLevelsData());
-    this.loggedInSubscription = this.auth.isLoggedIn.subscribe((loggedIn) => {
-      if (loggedIn) {
-        this.store.dispatch(new LoadProfiles());
-      }
-    });
-    this.profilesSubscription = this.store.select(ProfilesState.currentProfile).subscribe((profile) => {
-      if (profile) {
-        this.store.dispatch(new LoadProgress(profile.id));
-      }
-    });
+    this.store.dispatch(new WatchProfiles());
+    this.store.dispatch(new WatchProgress());
   }
 
   ngOnDestroy(): void {
     this.distanceSubscription?.unsubscribe();
-    this.loggedInSubscription?.unsubscribe();
     this.profilesSubscription?.unsubscribe();
   }
 

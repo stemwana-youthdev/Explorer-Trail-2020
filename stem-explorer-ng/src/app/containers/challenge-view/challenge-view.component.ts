@@ -10,7 +10,7 @@ import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-lev
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
-import { LoadProgress } from '../../store/progress/progress.actions';
+import { WatchProgress, CompleteLevel } from '../../store/progress/progress.actions';
 import { ProgressState } from '../../store/progress/progress.state';
 import { ProfilesState } from 'src/app/store/profiles/profiles.state';
 
@@ -24,7 +24,7 @@ import { ResultDialogComponent } from '../../components/result-dialog/result-dia
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
-import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
+import { WatchProfiles } from 'src/app/store/profiles/profiles.actions';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 
 
@@ -70,23 +70,8 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
       this.selectedLevel = minLevel;
     });
 
-    const loadProfilesSubscription = this.isLoggedIn$.subscribe({
-      next: (isLoggedIn) => {
-        if (isLoggedIn) {
-          this.store.dispatch(new LoadProfiles());
-        }
-      },
-    });
-    this.challengesChangeSubscription.add(loadProfilesSubscription);
-
-    const loadProgressSubscription = this.currentProfile$.subscribe({
-      next: (profile) => {
-        if (profile) {
-          this.store.dispatch(new LoadProgress(profile.id));
-        }
-      },
-    });
-    this.challengesChangeSubscription.add(loadProgressSubscription);
+    this.store.dispatch(new WatchProfiles());
+    this.store.dispatch(new WatchProgress());
   }
 
   get challengeId$(): Observable<number> {
@@ -189,7 +174,9 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     if (isLoggedIn) {
       const profile = await this.currentProfile$.pipe(take(1)).toPromise();
       await this.auth.levelCompleted(profile.id, level.uid, isCorrect);
-      this.store.dispatch(new LoadProgress(profile.id));
+      this.store.dispatch(new CompleteLevel(profile.id, challenge.id, level.uid, isCorrect));
+    } else {
+      this.store.dispatch(new CompleteLevel(0, challenge.id, level.uid, isCorrect));
     }
 
     // Open another dialog

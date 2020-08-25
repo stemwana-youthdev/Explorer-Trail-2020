@@ -14,6 +14,8 @@ import { LevelProgress } from '../challenge-progress/challenge-progress.componen
 import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
 import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
 import { ProgressState } from 'src/app/store/progress/progress.state';
+import { WatchProfiles } from 'src/app/store/profiles/profiles.actions';
+import { WatchProgress } from 'src/app/store/progress/progress.actions';
 
 /*
 * Component to show the challenges in a list view
@@ -39,6 +41,8 @@ export class ListComponent implements OnInit {
     this.store.dispatch(new LoadLocationsData());
     this.store.dispatch(new LoadChallengeLevelsData());
     this.store.dispatch(new VisitedHomepage());
+    this.store.dispatch(new WatchProfiles());
+    this.store.dispatch(new WatchProgress());
 
     this.getLocations();
     this.filter$.pipe(map(res => this.filter = res)).subscribe();
