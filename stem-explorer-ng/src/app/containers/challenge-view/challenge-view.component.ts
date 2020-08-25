@@ -10,16 +10,21 @@ import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-lev
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
+import { LoadProgress } from '../../store/progress/progress.actions';
+import { ProgressState } from '../../store/progress/progress.state';
+import { ProfilesState } from 'src/app/store/profiles/profiles.state';
 
 import { Challenge } from '../../shared/models/challenge';
 import { ChallengeLevel } from '../../shared/models/challenge-level';
+import { Profile } from 'src/app/shared/models/profile';
 
 import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dialog.component';
 
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
-import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { ChallengeDialogComponent } from 'src/locations/components/challenge-dialog/challenge-dialog.component';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { AuthService } from 'src/app/shared/auth/auth.service';
+import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 
 
@@ -37,6 +42,8 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store,
     public dialog: MatDialog,
+    private api: ApiService,
+    private auth: AuthService,
     private gtmService: GoogleTagManagerService,
   ) {}
 
@@ -52,21 +59,42 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
   }
 
   private listenToChallengeLevelsChanges() {
-    this.challengesChangeSubscription = this.challengeLevels$
-      .pipe(
-        map((challengeLevels) => {
-          const difficulties = challengeLevels.map((level) => level.difficulty);
-          return Math.min(...difficulties);
-        }),
-        filter((minLevel) => minLevel < Infinity),
-      )
-      .subscribe((minLevel) => {
-        this.selectedLevel = minLevel;
-      });
+    this.challengesChangeSubscription = this.incompleteLevels$.pipe(
+      map((incompleteLevels) => {
+        const difficulties = incompleteLevels.map((level) => level.difficulty);
+        return Math.min(...difficulties);
+      }),
+      filter((minLevel) => minLevel < Infinity),
+    )
+    .subscribe((minLevel) => {
+      this.selectedLevel = minLevel;
+    });
+
+    const loadProfilesSubscription = this.isLoggedIn$.subscribe({
+      next: (isLoggedIn) => {
+        if (isLoggedIn) {
+          this.store.dispatch(new LoadProfiles());
+        }
+      },
+    });
+    this.challengesChangeSubscription.add(loadProfilesSubscription);
+
+    const loadProgressSubscription = this.currentProfile$.subscribe({
+      next: (profile) => {
+        if (profile) {
+          this.store.dispatch(new LoadProgress(profile.id));
+        }
+      },
+    });
+    this.challengesChangeSubscription.add(loadProgressSubscription);
   }
 
   get challengeId$(): Observable<number> {
     return this.route.params.pipe(map((routeParams) => +routeParams.id));
+  }
+
+  get isLoggedIn$(): Observable<boolean> {
+    return this.auth.isLoggedIn;
   }
 
   get challenge$(): Observable<Challenge> {
@@ -85,6 +113,27 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     ]).pipe(
       map(([fn, challengeId]) => fn(challengeId)),
     );
+  }
+
+  get completedLevels$(): Observable<number[]> {
+    return this.store.select(ProgressState.completedLevels);
+  }
+
+  get incompleteLevels$(): Observable<ChallengeLevel[]> {
+    return combineLatest([this.challengeLevels$, this.completedLevels$]).pipe(
+      map(([challengeLevels, completedLevels]) =>
+        challengeLevels.filter(
+          (level) =>
+            !completedLevels.some(
+              (completedLevel) => completedLevel === level.uid
+            )
+        )
+      ),
+    );
+  }
+
+  get currentProfile$(): Observable<Profile> {
+    return this.store.select(ProfilesState.currentProfile);
   }
 
   onLevelChange(level: number) {
@@ -134,8 +183,17 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // Record that the user completed the level
+    const nextLevel = await this.getNextLevel();
+    const isLoggedIn = await this.isLoggedIn$.pipe(take(1)).toPromise();
+    if (isLoggedIn) {
+      const profile = await this.currentProfile$.pipe(take(1)).toPromise();
+      await this.auth.levelCompleted(profile.id, level.uid, isCorrect);
+      this.store.dispatch(new LoadProgress(profile.id));
+    }
+
     // Open another dialog
-    const hasNext = await this.getNextLevel() !== null;
+    const hasNext = nextLevel !== null;
     const resultDialog = this.dialog.open(ResultDialogComponent, {
       data: {
         level,
@@ -150,7 +208,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     const dialogResult = await resultDialog.afterClosed().toPromise();
     // If the user clicked next level, switch to the next level
     if (dialogResult === 'next-level') {
-      this.selectedLevel = (await this.getNextLevel()) ?? this.selectedLevel;
+      this.selectedLevel = nextLevel ?? this.selectedLevel;
     }
   }
 

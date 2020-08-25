@@ -17,6 +17,7 @@ namespace StemExplorerAPI.Controllers
     public class UserContoller : ControllerBase
     {
         private IUserService _userService;
+        private IProfileService _profileService;
 
         private string userId
         {
@@ -27,9 +28,13 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
-        public UserContoller(IUserService userService)
+        public UserContoller(
+            IUserService userService,
+            IProfileService profileService
+        )
         {
             _userService = userService;
+            _profileService = profileService;
         }
 
         [HttpGet("CurrentUser")]
