@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext, StateToken, createSelector } from '@ngxs/store';
+import { Action, createSelector, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-
 import { ApiService } from 'src/app/shared/services/api.service';
-
+import { ChallengeLevel } from 'src/challenge/models/challenge-level';
 import { LoadChallengeLevelsData } from './challenge-levels.actions';
-import { ChallengeLevel } from '../../shared/models/challenge-level';
-
 
 export interface ChallengeLevelsStateModel {
   challengesLevels: ChallengeLevel[];

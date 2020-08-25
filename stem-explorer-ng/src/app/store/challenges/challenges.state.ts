@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action, createSelector, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { map, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { Challenge } from '../../shared/models/challenge';
+import { Challenge } from '../../../challenge/models/challenge';
 import { LoadChallengesData } from './challenges.actions';
 
 export interface ChallengesStateModel {

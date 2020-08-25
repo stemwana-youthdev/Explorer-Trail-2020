@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Levels } from 'src/app/shared/enums/levels.enum';
-import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
-import { Challenge } from 'src/app/shared/models/challenge';
+import { Challenge } from 'src/challenge/models/challenge';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { Store } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { ChallengeLevel } from 'src/challenge/models/challenge-level';
 
 export interface ResultDialogData {
   level: ChallengeLevel;

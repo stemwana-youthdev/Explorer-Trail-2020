@@ -1,27 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Observable, combineLatest, Subscription } from 'rxjs';
-import { map, filter, take } from 'rxjs/operators';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-
-import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-levels.state';
-import { ChallengesState } from '../../store/challenges/challenges.state';
-import { LoadChallengesData } from '../../store/challenges/challenges.actions';
-import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
-
-import { Challenge } from '../../shared/models/challenge';
-import { ChallengeLevel } from '../../shared/models/challenge-level';
-
-import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dialog.component';
-
+import { combineLatest, Observable, Subscription } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
+import { AnswerEvent, HintEvent } from '../../components/challenge-details/challenge-details.component';
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
-import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
-import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { ChallengeDialogComponent } from 'src/locations/components/challenge-dialog/challenge-dialog.component';
+import { LoadChallengesData } from 'src/app/store/challenges/challenges.actions';
+import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
+import { Challenge } from 'src/challenge/models/challenge';
+import { ChallengesState } from 'src/app/store/challenges/challenges.state';
+import { ChallengeLevel } from 'src/challenge/models/challenge-level';
+import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
-
+import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
 
 @Component({
   selector: 'app-challenge-view',

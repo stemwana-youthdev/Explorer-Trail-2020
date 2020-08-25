@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Challenge } from '../../shared/models/challenge';
-import { ChallengeLevel } from '../../shared/models/challenge-level';
-
-import { Categories } from '../../shared/enums/categories.enum';
-import { Levels } from '../../shared/enums/levels.enum';
 import { MatSelectChange } from '@angular/material/select';
+import { Challenge } from 'src/challenge/models/challenge';
+import { ChallengeLevel } from 'src/challenge/models/challenge-level';
+import { Categories } from 'src/app/shared/enums/categories.enum';
+import { Levels } from 'src/app/shared/enums/levels.enum';
 
 export interface HintEvent {
   challenge: Challenge;

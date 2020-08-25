@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Levels } from '../../shared/enums/levels.enum';
-import { ChallengeLevel } from 'src/app/shared/models/challenge-level';
-import { Challenge } from 'src/app/shared/models/challenge';
+import { Challenge } from 'src/challenge/models/challenge';
 import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { ChallengeLevel } from 'src/challenge/models/challenge-level';
+import { Levels } from 'src/app/shared/enums/levels.enum';
 
 export interface AnswerDialogData {
   level: ChallengeLevel;

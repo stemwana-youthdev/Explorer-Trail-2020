@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/config/config.service';
-import { Challenge } from '../models/challenge';
-import { ChallengeLevel } from '../models/challenge-level';
+import { Challenge } from '../../../challenge/models/challenge';
 import { ExternalContent } from '../models/external-content';
-import { Location } from '../../../locations/models/location';
 import { User } from '../models/user';
+import { ChallengeLevel } from 'src/challenge/models/challenge-level';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -21,15 +20,15 @@ export class ApiService {
     private config: ConfigService,
   ) {}
 
-  getChallenges() {
-    return this.http.get<Challenge[]>(
-      `${this.apiEndpoint}/Challenges`
+  getEntity(request: string) {
+    return this.http.get(
+      `${this.apiEndpoint}/${request}`
     );
   }
 
-  getLocations() {
-    return this.http.get<Location[]>(
-      `${this.apiEndpoint}/Locations`
+  getChallenges() {
+    return this.http.get<Challenge[]>(
+      `${this.apiEndpoint}/Challenges`
     );
   }
 
