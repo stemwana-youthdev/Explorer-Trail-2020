@@ -14,6 +14,8 @@
       "category": 0
     }],
     "link": "https://www.basestation.nz/en",
+    "phone": "0800000577",
+    "email": "info@basestation.nz",
     "challengeCount": 1
   },
   {
@@ -39,6 +41,8 @@
       }
     ],
     "link": "https://www.trustpower.co.nz/",
+    "phone": "0800878787",
+    "email": "info@trustpower.co.nz",
     "challengeCount": 2
   },
   {
@@ -56,6 +60,8 @@
       "category": 2
     }],
     "link": "https://www.newzealand.com/in/plan/business/tauranga-i-site-visitor-information-centre/",
+    "phone": "075788103",
+    "email": "tauranga@newzealand.com",
     "challengeCount": 1
   },
   {
@@ -73,6 +79,8 @@
       "category": 3
     }],
     "link": "https://library.tauranga.govt.nz/",
+    "phone": "075777177",
+    "email": "library@tauranga.govt.nz",
     "challengeCount": 1
   }
 ]

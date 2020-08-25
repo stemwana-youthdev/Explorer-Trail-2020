@@ -16,6 +16,8 @@ namespace StemExplorerAPI.Models.ViewModels
         public LocationPositionDto Position { get; set; }
         public IEnumerable<LocationChallenge> LocationChallenges { get; set; }
         public string Link { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
         public int ChallengeCount { get; set; }
     }
 

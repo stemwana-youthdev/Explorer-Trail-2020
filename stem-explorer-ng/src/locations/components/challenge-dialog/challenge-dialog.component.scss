@@ -8,6 +8,12 @@ app-challenge-title {
   margin-left: 1rem;
 }
 .challengeActions {
-  width: 50%;
   flex: 1;
+}
+.contactInfo {
+  display:grid;
+}
+
+.contactInfo app-contact-info {
+  font-size: 14px;
 }

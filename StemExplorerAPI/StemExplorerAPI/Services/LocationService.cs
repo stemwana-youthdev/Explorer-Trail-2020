@@ -44,6 +44,8 @@ namespace StemExplorerAPI.Services
                             ChallengeTitle = lc.Title
                         }).ToList(),
                         Link = l.Url,
+                        Phone = l.Phone,
+                        Email = l.Email,
                         ChallengeCount = l.Challenges.Count()
                     })
                     .ToListAsync();
