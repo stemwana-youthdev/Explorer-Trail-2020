@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject, zip } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { Location } from '../models/location';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export type LatLng = google.maps.LatLngLiteral;
 
@@ -9,13 +8,9 @@ export type LatLng = google.maps.LatLngLiteral;
   providedIn: 'root',
 })
 export class GeolocationService {
-  geolocation$ = new ReplaySubject<LatLng>(1);
+  currentLocation: google.maps.LatLngLiteral;
 
-  private directionsService: google.maps.DirectionsService;
-
-  constructor() {
-    this.directionsService = new google.maps.DirectionsService();
-  }
+  constructor() {}
 
   /**
    * Gets the users current location. Checks if the user has geolocation enabled in browser, if true then gets the users current location
@@ -23,7 +18,6 @@ export class GeolocationService {
    * of where the user might be (as could be anywhere in the country).
    */
   getCurrentLocation(): google.maps.LatLngLiteral {
-    let loc: google.maps.LatLngLiteral;
     const tgaCentre: google.maps.LatLngLiteral = {
       lat: -37.6854709,
       lng: 176.1673285
@@ -31,14 +25,14 @@ export class GeolocationService {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        loc = {
+        this.currentLocation = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
       });
     }
 
-    return loc && this.isInCBD(loc) ? loc : tgaCentre;
+    return this.currentLocation && this.isInCBD(this.currentLocation) ? this.currentLocation : tgaCentre;
   }
 
   /**
@@ -59,49 +53,35 @@ export class GeolocationService {
     return geolocation ? cbd.contains(geolocation) : false;
   }
 
-  locationDistance(location: Location): Observable<number> {
-    return zip(this.geolocation$, this.isInCBD$).pipe(
-      switchMap(([geolocation, isInCBD]) =>
-        this.getRoute({
-          origin: geolocation,
-          destination: location.position,
-          // Get the walking distance if the user is in the CBD
-          travelMode: isInCBD
-            ? google.maps.TravelMode.WALKING
-            : google.maps.TravelMode.DRIVING,
-        })
-      ),
-      map(
-        (directionsResult) => directionsResult.routes[0].legs[0].distance.value
-      )
-    );
+  /**
+   * Method called to get the distance between user's current location and a location 
+   * on the map.
+   * @param position the lat and lng of a map location
+   */
+  getDistance(position: google.maps.LatLngLiteral): Observable<string> {
+    if (!this.currentLocation) { return; }
+    const route = {
+      origin: this.currentLocation,
+      destination: position,
+      travelMode: this.isInCBD(this.currentLocation) ?
+        google.maps.TravelMode.WALKING
+        : google.maps.TravelMode.DRIVING
+    };
+
+    return this.getRoute(route).pipe(map(res => res.routes[0].legs[0].distance.text));
   }
 
-  // CBD boundary according to
-  // https://www.tauranga.govt.nz/Portals/0/data/council/roads/files/tcc_road_categories_map.pdf
-  get isInCBD$(): Observable<boolean> {
-    const cbd = new google.maps.LatLngBounds(
-      {
-        lat: -37.689038,
-        lng: 176.161683,
-      },
-      {
-        lat: -37.676751,
-        lng: 176.172378,
-      }
-    );
-
-    return this.geolocation$.pipe(
-      map((geolocation) => cbd.contains(geolocation))
-    );
-  }
-
-  // Observable wrapper for directionsService.route
-  getRoute(
-    request: google.maps.DirectionsRequest
+  /**
+   * Observable wrapper for directionsService route
+   * @param route the directions request stating origin, destination, and travel mode
+   */
+  private getRoute(
+    route: google.maps.DirectionsRequest
   ): Observable<google.maps.DirectionsResult> {
+    const directionsService = new google.maps.DirectionsService();
+
     return new Observable((subscriber) => {
-      this.directionsService.route(request, (response, status) => {
+      directionsService.route(route, (response, status) => {
         if (status === 'OK') {
           subscriber.next(response);
         } else {

@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
   }
 
   navigateToList() {
-    this.router.navigateByUrl('/list-view');
+    this.router.navigateByUrl('/list');
   }
 
   navigateToMap() {
