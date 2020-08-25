@@ -39,7 +39,7 @@ namespace StemExplorerAPI.Services
 
         public async Task<List<ProfileDto>> GetProfiles(string userId)
         {
-            return await _context.Profiles
+            var profiles = await _context.Profiles
                 .Where(p => p.UserId == userId)
                 .Select(p => new ProfileDto
                 {
@@ -48,6 +48,17 @@ namespace StemExplorerAPI.Services
                     UserId = p.UserId,
                 })
                 .ToListAsync();
+            
+            if (profiles.Count < 1)
+            {
+                profiles.Add(await CreateProfile(new ProfileDto
+                {
+                    Name = "Default Profile",
+                    UserId = userId,
+                }));
+            }
+
+            return profiles;
         }
 
         public async Task<ProfileDto> GetProfile(int profileId)

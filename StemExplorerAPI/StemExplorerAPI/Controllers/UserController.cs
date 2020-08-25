@@ -50,14 +50,7 @@ namespace StemExplorerAPI.Controllers
         {
             // Use the user's actual userId
             userInfo.Id = userId;
-            var user = await _userService.CreateUser(userInfo);
-            // Create a default profile
-            await _profileService.CreateProfile(new ProfileDto
-            {
-                Name = "Default Profile",
-                UserId = userId,
-            });
-            return user;
+            return await _userService.CreateUser(userInfo);
         }
 
         [HttpPut("CurrentUser")]
