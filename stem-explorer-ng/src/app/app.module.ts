@@ -26,6 +26,7 @@ import { StoreModule } from './store/store.module';
 import { LocationsModule } from 'src/locations/locations.module';
 import { ProfileComponent } from './containers/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HintDialogComponent } from './containers/hint-dialog/hint-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ResultDialogComponent,
     ChallengeDetailsComponent,
     ProfileComponent,
+    HintDialogComponent
   ],
   imports: [
     GoogleMapsModule,

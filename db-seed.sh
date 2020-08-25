@@ -8,14 +8,14 @@
 docker exec -i explorer-trail-2020_explorer_trail_db_1 \
 psql -d StemExplorer -U stem << EOF
 
-INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "Url")
-VALUES (1, 'Basestation', -37.6865807, 176.1649332,
+INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "GooglePlaceId", "Url")
+VALUES (1, 'Basestation', -37.6865807, 176.1649332, 'ChIJ905i8dzbbW0RIvN_2Wp8sJQ',
         'https://www.basestation.nz/en'),
-       (2, 'Trustpower', -37.6857656, 176.1679695,
+       (2, 'Trustpower', -37.6865807, 176.1649332, 'ChIJgxvxUurYbW0RuC2eHkOaUQA',
         'https://www.trustpower.co.nz/'),
-       (3, 'i-SITE', -37.6855958, 176.1690853,
+       (3, 'i-SITE', -37.6835924, 176.1677695, 'ChIJn9OKit3bbW0ROSguplmSk5U',
         'https://www.newzealand.com/in/plan/business/tauranga-i-size-visitor-information-centre/'),
-       (4, 'Tauranga City Library', -37.6845175, 176.1678085,
+       (4, 'Tauranga City Library', -37.6828031, 176.1664596, 'ChIJD5sBYefbbW0RP-oj-NNSuoA'
         'https://library.tauranga.govt.nz/');
 
 INSERT INTO "Challenges" ("Id", "Title", "Description", "Category", "LocationId")
@@ -30,7 +30,10 @@ VALUES (1, 'Day of the Week',
         2, 3),
        (4, 'Do you know your STEM',
         'Do you know what this letter in STEM stands for?',
-        3, 4);
+        3, 4),
+        (5, 'How many numbers',
+        'We need to know how many numbers there are before 20, can you count them?',
+        3, 2);
 
 INSERT INTO "ExternalContent" ("Id", "Title", "Url", "Order")
 VALUES (1, 'Tauranga STEM Festival', 'https://www.taurangastemfestival.co.nz/', 2),

@@ -1,0 +1,21 @@
+<app-challenge-filter></app-challenge-filter>
+
+<div *ngIf="locations">
+  <span *ngFor="let location of locations">
+    <app-card
+    class="challenge-card"
+    *ngFor="let challenge of location.locationChallenges"
+    [category]="challenge.challengeCategory"
+    (click)="openInfo(location, challenge)"
+    >
+      <app-challenge-title [category]="challenge.challengeCategory">
+        <!-- <span class="distance">{{ location.distance | largeDistance }}</span> -->
+        {{challenge.challengeTitle}}
+      </app-challenge-title>
+      <h4>{{Categories[challenge.challengeCategory]}}</h4>
+      <p>{{challenge.challengeDescription | truncate:50}}</p>
+    </app-card>
+  </span>
+</div>
+
+<div class="bouncer centered" *ngIf="!locations?.length"></div>

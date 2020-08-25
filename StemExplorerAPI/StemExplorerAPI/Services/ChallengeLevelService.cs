@@ -33,6 +33,7 @@ namespace StemExplorerAPI.Services
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
                 })
+                .OrderBy(l => l.Difficulty)
                 .ToListAsync();
         }
 

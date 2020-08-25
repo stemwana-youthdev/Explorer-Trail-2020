@@ -22,11 +22,10 @@ import { AnswerDialogComponent } from '../../containers/answer-dialog/answer-dia
 
 import { ResultDialogComponent } from '../../components/result-dialog/result-dialog.component';
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
-import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { ChallengeDialogComponent } from 'src/locations/components/challenge-dialog/challenge-dialog.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
+import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 
 
 @Component({
@@ -157,11 +156,10 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
   }
 
   async openHintDialog(challenge: Challenge, level: ChallengeLevel) {
-    this.dialog.open(ChallengeDialogComponent, {
+    this.dialog.open(HintDialogComponent, {
       data: {
         challenge,
         level,
-        dialogType: ChallengeDialogType.Hint,
       },
       panelClass: 'app-dialog',
     });

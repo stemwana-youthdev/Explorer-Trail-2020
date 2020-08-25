@@ -21,10 +21,12 @@ export class AuthService {
   ) {
     this.isLoggedIn = this.afAuth.authState.pipe(
       map(state => {
-        if (state)
+        if (state) {
           return true;
-        else
+        }
+        else {
           return false;
+        }
       })
     );
   }
@@ -76,6 +78,13 @@ export class AuthService {
     } catch (error) {
       console.warn(error);
       throw error;
+    }
+  }
+
+  async currentUserEmail() {
+    const user = await this.afAuth.currentUser;
+    if (user != null) {
+      return user.email;
     }
   }
 

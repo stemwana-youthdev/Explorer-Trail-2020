@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { Location } from 'src/app/shared/models/location';
+import { Location, LocationChallenge } from 'src/locations/models/location';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
@@ -16,16 +16,15 @@ import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.c
 * Component to show the challenges in a list view
 */
 @Component({
-  selector: 'app-list-view',
-  templateUrl: './list-view.component.html',
-  styleUrls: ['./list-view.component.scss']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
 })
-export class ListViewComponent implements OnInit {
+export class ListComponent implements OnInit {
   @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
-
   locations: Location[] = [];
   Categories: any = Categories;
-  filter = [0, 1, 2, 3];
+  filter: number[] = [];
 
   constructor(
     private store: Store,
@@ -38,34 +37,41 @@ export class ListViewComponent implements OnInit {
     this.store.dispatch(new VisitedHomepage());
 
     this.getLocations();
+    this.filter$.pipe(map(res => this.filter = res)).subscribe();
   }
 
-  onItemClick(location: Location) {
-    this.openChallengeDialog(location);
+  /**
+   * Method that opens the challenge dialog
+   * @param location location data object
+   * @param challenge data object of the challenge
+   */
+  openInfo(location: Location, challenge: LocationChallenge): void {
+    this.dialog.open(ChallengeDialogComponent, {
+      data: { location, challenge },
+      panelClass: 'app-dialog',
+    });
     // push to dataLayer
-    const gtmTag = {
-      event: 'card click',
-      challengeTitle: location.challengeTitle,
-  };
-    this.gtmService.pushTag(gtmTag);
+    this.addGtmTag(challenge.challengeTitle);
   }
 
+  /**
+   * Gets all locations
+   */
   private getLocations(): void {
     this.store.select(LocationsState.locations).pipe(map(res => {
       this.locations = res;
     })).subscribe();
   }
 
-  /*
-  * Opens the dialog for the given challenge
-  */
-  private openChallengeDialog(location: Location): void {
-    this.dialog.open(ChallengeDialogComponent, {
-      data: {
-        location,
-        dialogType: ChallengeDialogType.Preview,
-      },
-      panelClass: 'app-dialog',
-    });
+  /**
+   * add tag to GTM on the card click
+   * @param title challenge title
+   */
+  private addGtmTag(title: string): void {
+    const gtmTag = {
+      event: 'card click',
+      challengeTitle: title,
+    };
+    this.gtmService.pushTag(gtmTag);
   }
 }

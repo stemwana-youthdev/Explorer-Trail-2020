@@ -5,12 +5,9 @@ import { LocationsRoutingModule } from './locations-routing.module';
 import { NgxsModule } from '@ngxs/store';
 import { LocationsState } from './store/locations.state';
 import { MapComponent } from './components/map/map.component';
-import { ListViewComponent } from './components/list-view/list-view.component';
 import { ChallengeDialogComponent } from './components/challenge-dialog/challenge-dialog.component';
 import { ChallengeFilterComponent } from './components/challenge-filter/challenge-filter.component';
-import { ChallengeMapComponent } from './components/challenge-map/challenge-map.component';
-import { ChallengeListComponent } from './components/challenge-list/challenge-list.component';
-import { FilterButtonsComponent } from './components/filter-buttons/filter-buttons.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   imports: [
@@ -21,12 +18,9 @@ import { FilterButtonsComponent } from './components/filter-buttons/filter-butto
   ],
   declarations: [
     MapComponent,
-    ChallengeMapComponent,
-    ListViewComponent,
-    ChallengeListComponent,
+    ListComponent,
     ChallengeDialogComponent,
     ChallengeFilterComponent,
-    FilterButtonsComponent
   ]
 })
 export class LocationsModule {}
