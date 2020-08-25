@@ -6,7 +6,9 @@ export interface Location {
   challengeDescription: string;
   challengeId: number;
   category: number;
-  link: string;
+  link?: string;
+  phone?: string;
+  email?: string;
 }
 
 export interface Position {

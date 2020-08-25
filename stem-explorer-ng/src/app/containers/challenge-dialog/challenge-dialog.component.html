@@ -25,18 +25,18 @@
         [label]="data.location?.link"
         aria-label="Location website"
       ></app-contact-info>
-      <app-contact-info
-        [link]="data.location?.Phone"
+      <app-contact-info *ngIf="data.location?.phone"
+        [link]="data.location?.phone"
         [category]="data.challenge.category"
         icon="phone"
         [label]="data.location?.phone"
         aria-label="Location Phone Number"
       ></app-contact-info>
-      <app-contact-info
-        [link]="data.location?.Email"
+      <app-contact-info *ngIf="data.location?.email"
+        [link]="data.location?.email"
         [category]="data.challenge.category"
         icon="mail_outline"
-        [label]="data.location?.Email"
+        [label]="data.location?.email"
         aria-label="Location Email"
       ></app-contact-info>
   </div>
@@ -49,7 +49,7 @@
         class="challengeActions"
         [category]="data.challenge.category"
         [outlined]="true"
-        (click)="mapDirections($event)">
+        (click)="mapDirections()">
         Get Directions
       </app-button>
       <app-button
