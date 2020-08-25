@@ -82,7 +82,7 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
       map(([levels, completedLevels]) =>
         levels(this.challenge.challengeId).map((level) => ({
           difficulty: level.difficulty,
-          complete: completedLevels.includes(level.id),
+          complete: completedLevels.includes(level.uid),
         }))
       )
     );
