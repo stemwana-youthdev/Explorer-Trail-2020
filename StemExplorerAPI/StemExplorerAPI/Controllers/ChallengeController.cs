@@ -9,7 +9,7 @@ using StemExplorerAPI.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {
-    [Route("api/Challenge")]
+    [Route("api/Challenges")]
     [ApiController]
     public class ChallengeController : ControllerBase
     {
@@ -20,9 +20,9 @@ namespace StemExplorerAPI.Controllers
             _challengeService = challengeService;
         }
 
-        // GET: api/GetChallenges
-        [HttpGet("GetChallenges")]
-        public async Task<ChallengesDto> GetAllChallenges()
+        // GET: api/Challenge
+        [HttpGet]
+        public async Task<List<ChallengeDto>> Get()
         {
             return await _challengeService.GetChallenges();
         }

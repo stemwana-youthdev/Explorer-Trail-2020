@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-
 import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../models/challenge';
-import { Location } from '../models/location';
-import { ExternalContent } from '../models/external-content';
 import { ChallengeLevel } from '../models/challenge-level';
+import { ExternalContent } from '../models/external-content';
+import { Location } from '../../../locations/models/location';
+import { User } from '../models/user';
 
+// With the api server running, go to
+// http://localhost:5000/swagger
+// to view the basic swagger api docs.
 @Injectable()
 export class ApiService {
   get apiEndpoint() {
@@ -20,61 +22,68 @@ export class ApiService {
   ) {}
 
   getChallenges() {
-    return this.http.get<Challenges>(
-      `${this.apiEndpoint}/Challenge/GetChallenges`
+    return this.http.get<Challenge[]>(
+      `${this.apiEndpoint}/Challenges`
     );
   }
 
   getLocations() {
-    return this.http.get<Locations>(
-      `${this.apiEndpoint}/Location/GetLocations`
+    return this.http.get<Location[]>(
+      `${this.apiEndpoint}/Locations`
     );
   }
 
   getExternalContent() {
     return this.http.get<ExternalContent[]>(
-      `${this.apiEndpoint}/ExternalContent/GetContent`
+      `${this.apiEndpoint}/ExternalContent`
     );
-  }
-
-  getChallenge(uid) {
-    return this.http.get('assets/locations.json');
   }
 
   getChallengeLevels() {
-    return this.http.get<ChallengeLevels>('assets/challengeLevels.json');
-  }
-
-  validateAnswer(levelUid: number, answer: string) {
-    // TODO: replace with dedicated API call
-    return this.getChallengeLevels().pipe(
-      map((levels) => {
-        const level = levels.challengeLevels.find((l) => l.uid === levelUid);
-        if (!level) {
-          return false;
-        }
-
-        for (const possibleAnswer of level.possibleAnswers) {
-          if (possibleAnswer.answerText.toLowerCase().trim() === answer.toLowerCase().trim()) {
-            return possibleAnswer.isCorrect;
-          }
-        }
-
-        return false;
-      }),
+    return this.http.get<ChallengeLevel[]>(
+      `${this.apiEndpoint}/ChallengeLevels`
     );
   }
 
-}
+  validateAnswer(levelUid: number, answer: string) {
+    return this.http.post(
+      `${this.apiEndpoint}/ChallengeLevels/${levelUid}/ValidateAnswer`,
+      JSON.stringify(answer),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
 
-export interface Challenges {
-  challenges: Challenge[];
-}
+  getCurrentUser(token: string) {
+    return this.http.get<User>(
+      `${this.apiEndpoint}/User/CurrentUser`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
 
-export interface Locations {
-  location: Location[];
-}
+  registerUser(token: string, userInfo: User) {
+    return this.http.post<User>(
+      `${this.apiEndpoint}/User/RegisterUser`,
+      userInfo,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
 
-export interface ChallengeLevels {
-  challengeLevels: ChallengeLevel[];
+  updateUser(token: string, userInfo: User) {
+    return this.http.put<User>(
+      `${this.apiEndpoint}/User/CurrentUser`,
+      userInfo,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+
 }

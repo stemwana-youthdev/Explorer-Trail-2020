@@ -1,0 +1,55 @@
+@use 'src/app/styles/variables' as *;
+
+.image-container {
+    padding: 25px 25px 40px 25px;
+    border-bottom: solid;
+    border-color: tint(20%, $primary-black); 
+    display: flex;
+}
+
+.blue {
+    color: $primary-blue;
+}
+
+.profile-image {
+    font-size: 50px;
+    padding-right: 40px;
+}
+
+form {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 768px;
+}
+
+.terms {
+    padding-bottom: 20px;
+}
+
+.blue {
+    color: $primary-blue;
+}
+
+input {
+    @include typeface-body;
+    font-size: inherit;
+    line-height: 36px;
+
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0.5rem 0 1rem;
+    padding: 0.5rem;
+
+    border: 2px solid tint(10%, $primary-black);
+    background-color: tint(5%, $primary-black);
+    border-radius: 0.5rem;
+    color: tint(80%, $primary-black);
+
+    outline: none;
+}
+
+input:disabled {
+    border: 2px solid tint(8%, $primary-black);
+    background-color: tint(2%, $primary-black);
+    color: tint(50%, $primary-black);
+}

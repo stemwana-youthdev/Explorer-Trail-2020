@@ -1,0 +1,16 @@
+<div class="image-container">
+    <!--Image will go here-->
+    <mat-icon class="profile-image">person</mat-icon>
+    <h4 class="blue">Edit Profile Image</h4>
+</div>
+<form [formGroup]='profileForm' (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="First Name" name="firstName" formControlName="firstName">
+    <input type="text" placeholder="Last Name" name="lastName" formControlName="lastName">
+    <input type="email" placeholder="Email" formControlName="email">
+    <input type="text" placeholder="Region" name="region" formControlName="region">
+    <input type="text" placeholder="Home Town" name="homeTown" formControlName="homeTown">
+
+    <h4 class="blue terms">Terms of Use and Privacy Policy</h4>
+
+    <app-button color="pink" type="submit" [disabled]="!profileForm.valid">Update Profile</app-button>
+</form>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
@@ -12,35 +13,83 @@ namespace StemExplorerAPI.Services
     public class LocationService : ILocationService
     {
         private readonly StemExplorerContext _context;
-        public LocationService(StemExplorerContext context)
+        private readonly ILogger _logger;
+        public LocationService(StemExplorerContext context, ILogger<LocationService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        public async Task<LocationsDto> GetLocations()
+        public async Task<List<LocationDto>> GetLocations()
         {
-            var locations = await _context.Locations.Select(l => new LocationDto
+            try
             {
-                Id = l.LocationId,
-                Name = l.Name,
-                Position = new LocationPositionDto
-                {
-                    Latitude = l.Latitude,
-                    Longitude = l.Longitude,
-                },
-                ChallengeTitle = l.Challenges.Any() ? l.Challenges.First().Title : null,
-                ChallengeDescription = l.Challenges.Any() ? l.Challenges.First().Description : null,
-                ChallengeCategory = l.Challenges.Any() ? l.Challenges.First().Category : 0,
-                Link = l.Url,
-                ChallengeId = l.Challenges.Any() ? l.Challenges.First().Id : 0,
-                Phone = l.Phone,
-                Email = l.Email,
-            }).ToListAsync();
+                return await _context.Locations
+                    .AsNoTracking()
+                    .Select(l => new LocationDto
+                    {
+                        Id = l.LocationId,
+                        Name = l.Name,
+                        GooglePlaceId = l.GooglePlaceId ?? null,
+                        Position = new LocationPositionDto
+                        {
+                            Lat = l.Latitude ?? null,
+                            Lng = l.Longitude ?? null,
+                        },
+                        LocationChallenges = l.Challenges.Select(lc => new LocationChallenge
+                        {
+                            ChallengeId = lc.Id,
+                            ChallengeCategory = lc.Category,
+                            ChallengeDescription = lc.Description,
+                            ChallengeTitle = lc.Title
+                        }).ToList(),
+                        Link = l.Url,
+                        Phone = l.Phone,
+                        Email = l.Email,
+                        ChallengeCount = l.Challenges.Count()
+                    })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
 
-            return new LocationsDto
+        public async Task<LocationDto> GetLocationById(int locationId)
+        {
+            try
             {
-                Locations = locations,
-            };
+                return await _context.Locations
+                    .AsNoTracking()
+                    .Where(l => l.LocationId == locationId)
+                    .Select(location => new LocationDto
+                    {
+                        Id = location.LocationId,
+                        Name = location.Name,
+                        GooglePlaceId = location.GooglePlaceId,
+                        Position = new LocationPositionDto
+                        {
+                            Lat = location.Latitude ?? null,
+                            Lng = location.Longitude ?? null,
+                        },
+                        LocationChallenges = location.Challenges.Select(lc => new LocationChallenge
+                        {
+                            ChallengeId = lc.Id,
+                            ChallengeTitle = lc.Title,
+                            ChallengeDescription = lc.Description,
+                            ChallengeCategory = lc.Category
+                        }).ToList(),
+                        Link = location.Url,
+                        ChallengeCount = location.Challenges.Count()
+                    }).SingleOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
     }
 }

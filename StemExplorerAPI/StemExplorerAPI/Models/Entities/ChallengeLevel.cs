@@ -10,8 +10,12 @@ namespace StemExplorerAPI.Models.Entities
         public int Id { get; set; }
         public string QuestionText { get; set; }
         public Enums.ChallengeDifficulty Difficulty { get; set; }
+        public string Instructions { get; set; }
         public Enums.AnswerType AnswerType { get; set; }
-        public string Answer { get; set; }
+        public string Hint { get; set; }
+
+        public List<string> PossibleAnswers { get; set; }
+        public List<string> Answers { get; set; }
 
         // EF relationship definition
         public int ChallengeId { get; set; }

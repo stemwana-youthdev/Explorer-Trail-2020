@@ -47,7 +47,7 @@ export class ChallengeLevelsState {
   @Action(LoadChallengeLevelsData)
   public loadData({ patchState }: StateContext<ChallengeLevelsStateModel>) {
     return this.apiService.getChallengeLevels().pipe(
-      tap((data) => patchState({ challengesLevels: data.challengeLevels })),
+      tap((challengesLevels) => patchState({ challengesLevels })),
     );
   }
 }
