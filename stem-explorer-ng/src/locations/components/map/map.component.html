@@ -19,7 +19,7 @@
       >
     </map-marker>
 
-    <map-marker [position]="center" *ngIf="locationAccess" [options]="userMarkerPoint()">
+    <map-marker [position]="userLocation" *ngIf="userLocation" [options]="userMarkerPoint()">
     </map-marker>
 
     <map-info-window>

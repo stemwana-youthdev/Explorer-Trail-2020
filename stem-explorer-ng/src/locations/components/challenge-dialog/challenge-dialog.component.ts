@@ -48,11 +48,20 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
     });
   }
 
-  mapDirections(): void {
-    window.open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
+  mapDirections() {
+    this.geolocation.getCurrentLocation();
+    if (!navigator.geolocation) {
+      this.viewOnMap();
+    } else {
+      (window as any).open('https://www.google.com/maps/dir/' + `${this.geolocation.currentLocation}/` + `${this.data.location.name}`, '_blank');
+    }
   }
 
-  private getDistance(location: Location): Observable<number> {
-    return this.geolocation.locationDistance(location);
+  viewOnMap() {
+    (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
   }
+
+  // private getDistance(location: Location): Observable<number> {
+  //   return this.geolocation.locationDistance(location);
+  // }
 }

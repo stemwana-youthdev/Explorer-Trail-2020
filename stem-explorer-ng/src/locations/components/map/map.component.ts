@@ -27,6 +27,7 @@ export class MapComponent implements OnInit {
   locations: Location[] = [];
   zoom = 16;
   center: google.maps.LatLngLiteral;
+  userLocation: google.maps.LatLngLiteral;
   options: google.maps.MapOptions;
   location: Location;
   Colour = StemColours;
@@ -43,6 +44,7 @@ export class MapComponent implements OnInit {
   ) {
     this.options = this.mapConfig.mapOptions();
     this.center = geolocation.getCurrentLocation();
+    this.userLocation = geolocation.currentLocation;
 
     this.locationAccess = !navigator.geolocation;
   }

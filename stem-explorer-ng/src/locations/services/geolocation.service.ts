@@ -10,6 +10,7 @@ export type LatLng = google.maps.LatLngLiteral;
 })
 export class GeolocationService {
   geolocation$ = new ReplaySubject<LatLng>(1);
+  currentLocation: google.maps.LatLngLiteral;
 
   private directionsService: google.maps.DirectionsService;
 
@@ -23,7 +24,6 @@ export class GeolocationService {
    * of where the user might be (as could be anywhere in the country).
    */
   getCurrentLocation(): google.maps.LatLngLiteral {
-    let loc: google.maps.LatLngLiteral;
     const tgaCentre: google.maps.LatLngLiteral = {
       lat: -37.6854709,
       lng: 176.1673285
@@ -31,14 +31,14 @@ export class GeolocationService {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        loc = {
+        this.currentLocation = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
       });
     }
 
-    return loc && this.isInCBD(loc) ? loc : tgaCentre;
+    return this.currentLocation && this.isInCBD(this.currentLocation) ? this.currentLocation : tgaCentre;
   }
 
   /**

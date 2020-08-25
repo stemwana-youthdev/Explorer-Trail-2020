@@ -21,11 +21,12 @@ export interface AnswerEvent {
 @Component({
   selector: 'app-challenge-details',
   templateUrl: './challenge-details.component.html',
-  styleUrls: ['./challenge-details.component.scss']
+  styleUrls: ['./challenge-details.component.scss'],
 })
 export class ChallengeDetailsComponent implements OnInit {
   @Input() challenge: Challenge;
   @Input() challengeLevels: ChallengeLevel[] = [];
+  @Input() completedLevels: number[] = [];
   @Input() selectedLevel: number;
 
   @Output() levelChange = new EventEmitter<number>();
@@ -35,10 +36,9 @@ export class ChallengeDetailsComponent implements OnInit {
   Categories: any = Categories;
   Levels: any = Levels;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get levels(): number[] {
     return this.challengeLevels.map((level) => level.difficulty);
@@ -47,6 +47,12 @@ export class ChallengeDetailsComponent implements OnInit {
   get currentLevel(): ChallengeLevel {
     return this.challengeLevels.find(
       (challenge) => challenge.difficulty === this.selectedLevel,
+    );
+  }
+
+  get currentLevelIsCompleted(): boolean {
+    return this.completedLevels.some(
+      (completedLevel) => completedLevel === this.currentLevel.uid,
     );
   }
 
@@ -67,5 +73,4 @@ export class ChallengeDetailsComponent implements OnInit {
       level: this.currentLevel,
     });
   }
-
 }

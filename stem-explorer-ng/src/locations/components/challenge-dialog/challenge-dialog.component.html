@@ -1,7 +1,5 @@
 <app-dialog [category]="challenge.challengeCategory">
   <app-challenge-title [category]="challenge.challengeCategory">
-    <!-- <span *ngIf="data.dialogType === DialogType.Preview"
-      class="distance" aria-label="Distance to challenge">{{ distance$ | async | largeDistance }}</span> -->
     {{ challenge.challengeTitle }}
   </app-challenge-title>
 
@@ -10,22 +8,38 @@
     <p>{{ challenge.challengeDescription }}</p>
 
     <app-challenge-progress [category]="challenge.challengeCategory"></app-challenge-progress>
-    
-    <app-contact-info
-      [category]="challenge.challengeCategory"
-      icon="location_on"
-      [label]="data.location.name"
-      aria-label="Location address"
-    ></app-contact-info>
-    <br>
-    <app-contact-info
-      [link]="data.location.link"
-      [category]="challenge.challengeCategory"
-      icon="language"
-      label="View Website"
-      aria-label="Location website"
-    ></app-contact-info>
-    
+
+    <div class=contactInfo>
+      <app-contact-info
+        [category]="challenge.challengeCategory"
+        icon="location_on"
+        [label]="data.location.name"
+        (click)="viewOnMap()"
+        aria-label="Location address"
+      ></app-contact-info>
+      <br>
+      <app-contact-info
+        [link]="data.location.link"
+        [category]="challenge.challengeCategory"
+        icon="launch"
+        [label]="data.location?.link"
+        aria-label="Location website"
+      ></app-contact-info>
+      <app-contact-info *ngIf="data.location?.phone"
+          [link]="data.location?.phone"
+          [category]="challenge.challengeCategory"
+          icon="phone"
+          [label]="data.location?.phone"
+          aria-label="Location Phone Number"
+        ></app-contact-info>
+        <app-contact-info *ngIf="data.location?.email"
+          [link]="data.location?.email"
+          [category]="challenge.challengeCategory"
+          icon="mail_outline"
+          [label]="data.location?.email"
+          aria-label="Location Email"
+        ></app-contact-info>
+      </div>
     <br><br>
 
     <div style="display: flex;">
