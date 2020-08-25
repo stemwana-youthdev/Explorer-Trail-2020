@@ -1,10 +1,24 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, ReplaySubject, Subscription } from 'rxjs';
+import { Store } from '@ngxs/store';
+import { Observable, ReplaySubject, Subscription, combineLatest } from 'rxjs';
+
 import { CameraComponent } from 'src/app/containers/camera/camera.component';
+
 import { Categories } from 'src/app/shared/enums/categories.enum';
+import { LevelProgress } from '../challenge-progress/challenge-progress.component';
 import { Location, LocationChallenge } from 'src/locations/models/location';
+
 import { GeolocationService } from 'src/locations/services/geolocation.service';
+import { AuthService } from 'src/app/shared/auth/auth.service';
+
+import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
+import { ProfilesState } from 'src/app/store/profiles/profiles.state';
+import { LoadProgress } from 'src/app/store/progress/progress.actions';
+import { ProgressState } from 'src/app/store/progress/progress.state';
+import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
+import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
+import { map } from 'rxjs/operators';
 
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
@@ -24,11 +38,15 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
   challenge: LocationChallenge;
   distance$: ReplaySubject<number>;
   distanceSubscription: Subscription;
+  loggedInSubscription: Subscription;
+  profilesSubscription: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private dialog: MatDialog,
     private geolocation: GeolocationService,
+    private auth: AuthService,
+    private store: Store,
   ) {
     this.challenge = this.data.challenge;
   }
@@ -36,10 +54,38 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void  {
     this.distance$ = new ReplaySubject();
     // this.distanceSubscription = this.getDistance(this.location).subscribe(this.distance$);
+
+    this.store.dispatch(new LoadChallengeLevelsData());
+    this.loggedInSubscription = this.auth.isLoggedIn.subscribe((loggedIn) => {
+      if (loggedIn) {
+        this.store.dispatch(new LoadProfiles());
+      }
+    });
+    this.profilesSubscription = this.store.select(ProfilesState.currentProfile).subscribe((profile) => {
+      if (profile) {
+        this.store.dispatch(new LoadProgress(profile.id));
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.distanceSubscription?.unsubscribe();
+    this.loggedInSubscription?.unsubscribe();
+    this.profilesSubscription?.unsubscribe();
+  }
+
+  get progress$(): Observable<LevelProgress[]> {
+    return combineLatest([
+      this.store.select(ChallengeLevelsState.challengeLevels),
+      this.store.select(ProgressState.completedLevels),
+    ]).pipe(
+      map(([levels, completedLevels]) =>
+        levels(this.challenge.challengeId).map((level) => ({
+          difficulty: level.difficulty,
+          complete: completedLevels.includes(level.id),
+        }))
+      )
+    );
   }
 
   cameraView(): void {

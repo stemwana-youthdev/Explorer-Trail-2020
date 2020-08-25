@@ -7,7 +7,7 @@
     <h4>Duration: </h4>
     <p>{{ challenge.challengeDescription }}</p>
 
-    <app-challenge-progress [category]="challenge.challengeCategory"></app-challenge-progress>
+    <app-challenge-progress [category]="challenge.challengeCategory" [levels]="progress$ | async"></app-challenge-progress>
 
     <div class=contactInfo>
       <app-contact-info

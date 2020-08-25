@@ -7,26 +7,6 @@ export interface LevelProgress {
   complete: boolean;
 }
 
-// TODO: replace with api data
-const exampleLevels = [
-  {
-    difficulty: 1,
-    complete: true,
-  },
-  {
-    difficulty: 2,
-    complete: false,
-  },
-  {
-    difficulty: 3,
-    complete: false,
-  },
-  {
-    difficulty: 4,
-    complete: false,
-  },
-];
-
 /*
 * Component for the list view dialog for more information
 */
@@ -36,7 +16,7 @@ const exampleLevels = [
   styleUrls: ['./challenge-progress.component.scss'],
 })
 export class ChallengeProgressComponent {
-  @Input() levels: LevelProgress[] = exampleLevels;
+  @Input() levels: LevelProgress[] = [];
   @Input() category: Categories;
 
   constructor(private stemColors: StemColorsService) {}
