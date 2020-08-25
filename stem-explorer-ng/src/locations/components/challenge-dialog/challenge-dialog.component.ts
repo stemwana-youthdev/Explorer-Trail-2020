@@ -49,7 +49,12 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
   }
 
   mapDirections() {
-    (window as any).open('https://www.google.com/maps/dir/' + `${this.geolocation.currentLocation}/` + `${this.data.location.name}`, '_blank');
+    this.geolocation.getCurrentLocation();
+    if (!navigator.geolocation) {
+      this.viewOnMap();
+    } else {
+      (window as any).open('https://www.google.com/maps/dir/' + `${this.geolocation.currentLocation}/` + `${this.data.location.name}`, '_blank');
+    }
   }
 
   viewOnMap() {
