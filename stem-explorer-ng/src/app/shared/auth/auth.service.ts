@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { auth } from 'firebase/app';
-
-import { ApiService } from '../services/api.service';
 import { User } from '../models/user';
+import { ApiService } from '../services/api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -102,11 +99,23 @@ export class AuthService {
     return await this.api.registerUser(await this.getToken(), userInfo).toPromise();
   }
 
+  async getProfiles() {
+    return await this.api.getProfiles(await this.getToken()).toPromise();
+  }
+
   // userInfo needs to have all of its properties set,
   // or they will be set to null in the DB.
   // Usually this will be a copy of CurrentUser.user with
   // the properties you want to update
   async updateCurrentUser(userInfo: User) {
     return await this.api.updateUser(await this.getToken(), userInfo).toPromise();
+  }
+
+  async getProgress(profileId: number) {
+    return await this.api.getProgress(await this.getToken(), profileId).toPromise();
+  }
+
+  async levelCompleted(profileId: number, levelId: number, correct: boolean) {
+    return await this.api.levelCompleted(await this.getToken(), profileId, levelId, correct).toPromise();
   }
 }

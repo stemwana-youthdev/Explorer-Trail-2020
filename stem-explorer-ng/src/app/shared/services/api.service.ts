@@ -5,6 +5,8 @@ import { Challenge } from '../../../challenge/models/challenge';
 import { ExternalContent } from '../models/external-content';
 import { User } from '../models/user';
 import { ChallengeLevel } from 'src/challenge/models/challenge-level';
+import { Progress } from '../models/progress';
+import { Profile } from '../models/profile';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -85,4 +87,35 @@ export class ApiService {
     );
   }
 
+  getProgress(token: string, profileId: number) {
+    return this.http.get<Progress[]>(
+      `${this.apiEndpoint}/Progress/${profileId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+
+  levelCompleted(token: string, profileId, levelId: number, correct: boolean) {
+    return this.http.post(
+      `${this.apiEndpoint}/Progress/LevelCompleted`,
+      {
+        levelId,
+        correct,
+        profileId,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+
+  getProfiles(token: string) {
+    return this.http.get<Profile[]>(
+      `${this.apiEndpoint}/Profiles`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
 }
