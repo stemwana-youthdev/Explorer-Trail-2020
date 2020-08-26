@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext, StateToken, Store } from '@ngxs/
 
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
-import { WatchProgress, CompleteLevel } from './progress.actions';
+import { WatchProgress, LoadProgress } from './progress.actions';
 import { Progress } from 'src/app/shared/models/progress';
 import { tap, flatMap, switchMap, filter } from 'rxjs/operators';
 import { from } from 'rxjs';
@@ -53,31 +53,16 @@ export class ProgressState {
     );
   }
 
-  @Action(CompleteLevel)
-  public completeLevel(ctx: StateContext<ProgressStateModel>, action: CompleteLevel) {
-    const { profileId, challengeId, levelId, correct } = action;
-    let { progress } = ctx.getState();
-
-    let singleProgress = progress.find((prog) => prog.profileId === profileId);
-    if (!singleProgress) {
-      singleProgress = {
-        profileId,
-        challengeId,
-        challengeLevelId: levelId,
-        attempts: 0,
-        correct: false,
-      };
-      progress = [...progress, singleProgress]
+  @Action(LoadProgress)
+  public loadProgress(ctx: StateContext<ProgressStateModel>) {
+    const profile = this.store.selectSnapshot(ProfilesState.currentProfile);
+    if (!profile) {
+      return;
     }
 
-    if (!singleProgress.correct) {
-      singleProgress.attempts++;
-    }
-    if (correct) {
-      singleProgress.correct = true;
-    }
-
-    ctx.patchState({ progress });
+    return from(this.authService.getProgress(profile.id)).pipe(
+      tap((progress) => ctx.patchState({ progress }))
+    );
   }
 }
 

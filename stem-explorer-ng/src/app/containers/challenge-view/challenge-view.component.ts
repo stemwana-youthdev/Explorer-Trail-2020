@@ -10,7 +10,7 @@ import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-lev
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
-import { WatchProgress, CompleteLevel } from '../../store/progress/progress.actions';
+import { WatchProgress, LoadProgress } from '../../store/progress/progress.actions';
 import { ProgressState } from '../../store/progress/progress.state';
 import { ProfilesState } from 'src/app/store/profiles/profiles.state';
 
@@ -174,9 +174,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     if (isLoggedIn) {
       const profile = await this.currentProfile$.pipe(take(1)).toPromise();
       await this.auth.levelCompleted(profile.id, level.uid, isCorrect);
-      this.store.dispatch(new CompleteLevel(profile.id, challenge.id, level.uid, isCorrect));
-    } else {
-      this.store.dispatch(new CompleteLevel(0, challenge.id, level.uid, isCorrect));
+      this.store.dispatch(new LoadProgress());
     }
 
     // Open another dialog
