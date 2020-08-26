@@ -2,44 +2,75 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export type LatLng = google.maps.LatLngLiteral;
-
 @Injectable({
   providedIn: 'root',
 })
 export class GeolocationService {
-  currentLocation: google.maps.LatLngLiteral;
-
   constructor() {}
 
   /**
-   * Gets the users current location. Checks if the user has geolocation enabled in browser, if true then gets the users current location
-   * and then checks if the user is in the CBD. If the user is not in the CBD, we want the centre of the map to be in the CBD instead
-   * of where the user might be (as could be anywhere in the country).
+   * Method for getting user's current position, for displaying the user on the map
+   * and for working out distance to location.
    */
-  getCurrentLocation(): google.maps.LatLngLiteral {
+  getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        resolve({ lat: position.coords.latitude, lng: position.coords.longitude});
+      }, err => {
+        reject(err);
+      });
+    }).catch(() => {});
+  }
+
+  /**
+   * For getting where the centre of the map should be. If the user's location is in the CBD then
+   * show where the user is in the CBD as the centre of the map. If the user is outside of the
+   * CBD or does not have geolocation enabled in their browser, so the CBD as the centre.
+   */
+  getMapCentre(): Promise<google.maps.LatLngLiteral> {
     const tgaCentre: google.maps.LatLngLiteral = {
       lat: -37.6854709,
       lng: 176.1673285
     };
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.currentLocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-      });
-    }
+    return this.getPosition().then(pos => {
+      const loc = {
+        lat: pos.lat,
+        lng: pos.lng
+      };
+      return loc && this.isInCBD(loc) ? loc : tgaCentre;
+    }).catch(() => {
+      return tgaCentre;
+    });
+  }
 
-    return this.currentLocation && this.isInCBD(this.currentLocation) ? this.currentLocation : tgaCentre;
+  /**
+   * Method called to get the distance between user's current location and a location
+   * on the map.
+   * @param position the lat and lng of a map location
+   * @param userPos the lat and lng of the user's current location
+   */
+  getDistance(
+    position: google.maps.LatLngLiteral,
+    userPos: google.maps.LatLngLiteral
+  ): Observable<string> {
+    if (!userPos) { return; }
+    const route = {
+      origin: userPos,
+      destination: position,
+      travelMode: this.isInCBD(userPos) ?
+        google.maps.TravelMode.WALKING
+        : google.maps.TravelMode.DRIVING
+    };
+
+    return this.getRoute(route).pipe(map(res => res.routes[0].legs[0].distance.text));
   }
 
   /**
    * Checks if the location is in the CBD, returns true or false.
    * @param geolocation data object of the lat and lng.
    */
-  isInCBD(geolocation: google.maps.LatLngLiteral): boolean {
+  private isInCBD(geolocation: google.maps.LatLngLiteral): boolean {
     const cbd = new google.maps.LatLngBounds(
       {
         lat: -37.689038,
@@ -51,24 +82,6 @@ export class GeolocationService {
       }
     );
     return geolocation ? cbd.contains(geolocation) : false;
-  }
-
-  /**
-   * Method called to get the distance between user's current location and a location 
-   * on the map.
-   * @param position the lat and lng of a map location
-   */
-  getDistance(position: google.maps.LatLngLiteral): Observable<string> {
-    if (!this.currentLocation) { return; }
-    const route = {
-      origin: this.currentLocation,
-      destination: position,
-      travelMode: this.isInCBD(this.currentLocation) ?
-        google.maps.TravelMode.WALKING
-        : google.maps.TravelMode.DRIVING
-    };
-
-    return this.getRoute(route).pipe(map(res => res.routes[0].legs[0].distance.text));
   }
 
   /**

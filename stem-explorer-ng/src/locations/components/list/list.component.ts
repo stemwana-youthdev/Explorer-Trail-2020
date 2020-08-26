@@ -3,15 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { Location, LocationChallenge } from 'src/locations/models/location';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
+import { Location, LocationChallenge } from 'src/locations/models/location';
+import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { GeolocationService } from 'src/locations/services/geolocation.service';
 
 /*
 * Component to show the challenges in a list view
@@ -26,13 +25,23 @@ export class ListComponent implements OnInit {
   locations: Location[] = [];
   Categories: any = Categories;
   filter: number[] = [];
+  userLocation: google.maps.LatLngLiteral;
 
   constructor(
     public dialog: MatDialog,
     private store: Store,
     private gtmService: GoogleTagManagerService,
     private geolocation: GeolocationService
-  ) {}
+  ) {
+    this.geolocation.getPosition().then(pos => {
+      if (pos) {
+        this.userLocation = {
+          lat: pos.lat,
+          lng: pos.lng
+        };
+      }
+    });
+  }
 
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
@@ -70,12 +79,13 @@ export class ListComponent implements OnInit {
    * @todo finish this to show distance to location in the list. Currently polling too much.
    * @param location location data object
    */
-  getLocationDistance(location: Location) {
-    let distance = '';
-    const obs = this.geolocation.getDistance(location.position);
-    if (obs) {
-      obs.pipe(map(res => distance = res)).subscribe();
-    }
+  getLocationDistance(location: Location): string {
+    const distance = '';
+    // if (this.userLocation) {
+    //   this.geolocation.getDistance(location.position, this.userLocation).pipe(
+    //     map(res => distance = res)
+    //   ).subscribe();
+    // }
     return distance;
   }
 

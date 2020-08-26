@@ -44,8 +44,20 @@ export class MapComponent implements OnInit {
     private geolocation: GeolocationService
   ) {
     this.options = this.mapConfig.mapOptions();
-    this.center = this.geolocation.getCurrentLocation();
-    this.userLocation = geolocation.currentLocation;
+    this.geolocation.getMapCentre().then(pos => {
+      this.center = {
+        lat: pos.lat,
+        lng: pos.lng
+      };
+    });
+    this.geolocation.getPosition().then(pos => {
+      if (pos) {
+        this.userLocation = {
+          lat: pos.lat,
+          lng: pos.lng
+        };
+      }
+    });
 
     this.locationAccess = !navigator.geolocation;
   }
@@ -144,9 +156,11 @@ export class MapComponent implements OnInit {
    */
   private getDistanceToLocation(position: google.maps.LatLngLiteral): void {
     this.distance = '';
-    const obs = this.geolocation.getDistance(position);
-    if (obs) {
-      obs.pipe(map(res => this.distance = res)).subscribe();
+
+    if (this.userLocation) {
+      this.geolocation.getDistance(position, this.userLocation).pipe(
+        map(res => this.distance = res)
+      ).subscribe();
     }
   }
 
