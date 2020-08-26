@@ -92,6 +92,16 @@ export class AuthService {
     await this.afAuth.signOut();
   }
 
+  async getPhotoURL() {
+    const user = await this.afAuth.currentUser;
+    return user.photoURL;
+  }
+
+  async updatePhotoURL(photoURL: string) {
+    const user = await this.afAuth.currentUser;
+    await user.updateProfile({ photoURL });
+  }
+
   // These methods return promises instead of Observables
   // so that we can await this.getToken()
   async getCurrentUser() {

@@ -44,7 +44,7 @@ import { ProfilePhotoDialogComponent } from './containers/profile-photo-dialog/p
     ResultDialogComponent,
     ChallengeDetailsComponent,
     ProfileComponent,
-    HintDialogComponent
+    HintDialogComponent,
     ProfilePhotoDialogComponent,
   ],
   imports: [
