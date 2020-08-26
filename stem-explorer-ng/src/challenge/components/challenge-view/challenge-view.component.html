@@ -1,15 +1,49 @@
-<app-challenge-details
-  *ngIf="challenge$ | async; else loading"
-  [challenge]="challenge$ | async"
-  [challengeLevels]="challengeLevels$ | async"
-  [completedLevels]="completedLevels$ | async"
-  [selectedLevel]="selectedLevel"
-  (levelChange)="onLevelChange($event)"
-  (hint)="onHint($event)"
-  (answer)="onAnswer($event)"
->
-</app-challenge-details>
-
 <ng-template #loading>
   <div class="bouncer centered"></div>
 </ng-template>
+
+<div class="challenge-details" *ngIf="challenge">
+
+  <div class="challenge-header">
+    <app-challenge-title [category]="challenge.category">
+      {{ challenge.title }}
+    </app-challenge-title>
+  </div>
+
+  <h4 id="top-element">{{ Categories[challenge.category] }}</h4>
+  <p>{{ challenge.description }}</p>
+
+  <div *ngIf="challenge.challengeLevels.length > 1" class="levels-wrapper">
+    <mat-select [value]="selectedLevel.difficulty" [class]="Colour[challenge.category]"
+      (selectionChange)="levelChange($event)" aria-label="Select Level">
+      <mat-option *ngFor="let option of challenge.challengeLevels; trackBy: trackLevel" [value]="option.difficulty">
+        {{ Levels[option.difficulty] }}
+      </mat-option>
+    </mat-select>
+    <mat-icon class="arrow">expand_more</mat-icon>
+  </div>
+
+  <ng-container *ngIf="selectedLevel">
+    <app-challenge-title [category]="challenge.category">Instructions</app-challenge-title>
+    <p>{{ selectedLevel.instructions }}</p>
+      <app-button
+        *ngIf="selectedLevel.hint"
+        color="pink"
+        (click)="getHint()"
+        aria-label="Get hint"
+      >
+        Get Hint
+      </app-button>
+  </ng-container>
+
+  <app-button
+    [category]="challenge.category"
+    (click)="enterAnswer()"
+    style="position: relative; top: 10px;"
+    aria-label="Answer here"
+  >
+    Enter Answer
+  </app-button>
+
+  <p *ngIf="selectedLevel.isCompleted">Awesome work! This level is completed!</p>
+</div>

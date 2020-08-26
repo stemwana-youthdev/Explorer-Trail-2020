@@ -1,16 +1,17 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Levels } from 'src/app/shared/enums/levels.enum';
-import { Challenge } from 'src/challenge/models/challenge';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/auth/auth.service';
 import { Store } from '@ngxs/store';
+import { AuthService } from 'src/app/shared/auth/auth.service';
+import { Levels } from 'src/app/shared/enums/levels.enum';
+import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-import { ChallengeLevel } from 'src/challenge/models/challenge-level';
+import { Categories } from 'src/app/shared/enums/categories.enum';
 
 export interface ResultDialogData {
-  level: ChallengeLevel;
-  challenge: Challenge;
+  difficulty: number;
+  title: string;
+  category: number;
   isCorrect: boolean;
   hasNext: boolean;
 }
@@ -21,39 +22,33 @@ export interface ResultDialogData {
   styleUrls: ['./result-dialog.component.scss']
 })
 export class ResultDialogComponent {
-
   Levels: any = Levels;
+  cssClass: string;
+  loggedIn: boolean;
+  Category = Categories;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ResultDialogData,
     public auth: AuthService,
     private router: Router,
-    private dialogRef: MatDialogRef<ResultDialogComponent>,
     private store: Store,
-  ) { }
-
-  get category() {
-    return this.data.isCorrect ? this.data.challenge.category : null;
+  ) {
+    this.cssClass = `inverted ${this.data.isCorrect ? StemColours[this.data.category] : 'pink'}`;
   }
 
-  get lastHomepage() {
-    return this.store.selectSnapshot(LastHomepageState.lastHomepage);
+  /**
+   * Navigate to home
+   */
+  toHome(): void {
+    this.router.navigateByUrl(
+      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    );
   }
 
-  navigateToHomepage() {
-    this.router.navigateByUrl(this.lastHomepage);
-  }
-
-  navigateToRegister() {
-    this.router.navigateByUrl('/register');
-  }
-
-  navigateToLogin() {
+  /**
+   * Navigate to log in
+   */
+  toLogin(): void {
     this.router.navigateByUrl('/login');
   }
-
-  nextLevel() {
-    this.dialogRef.close('next-level');
-  }
-
 }

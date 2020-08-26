@@ -55,7 +55,18 @@ namespace StemExplorerAPI.Services
                         Title = challenge.Title,
                         Description = challenge.Description,
                         Category = challenge.Category,
-                        LocationId = challenge.LocationId
+                        LocationId = challenge.LocationId,
+                        ChallengeLevels = challenge.ChallengeLevel.Select(cl => new LevelsForChallenge
+                        {
+                            Id = cl.Id,
+                            Question = cl.QuestionText,
+                            Instructions = cl.Instructions,
+                            Difficulty = cl.Difficulty,
+                            Answer = cl.Answers,
+                            Hint = cl.Hint,
+                            PossibleAnswers = cl.PossibleAnswers,
+                            QuestionType = cl.AnswerType
+                        }).ToList().OrderBy(l => l.Difficulty)
                     }).SingleOrDefaultAsync();
             }
             catch (Exception ex)

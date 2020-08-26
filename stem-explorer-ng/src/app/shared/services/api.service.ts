@@ -4,9 +4,9 @@ import { ConfigService } from 'src/app/config/config.service';
 import { Challenge } from '../../../challenge/models/challenge';
 import { ExternalContent } from '../models/external-content';
 import { User } from '../models/user';
-import { ChallengeLevel } from 'src/challenge/models/challenge-level';
 import { Progress } from '../models/progress';
 import { Profile } from '../models/profile';
+import { Observable } from 'rxjs';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -22,27 +22,19 @@ export class ApiService {
     private config: ConfigService,
   ) {}
 
-  getEntity(request: string) {
+  /**
+   * Method to get any entities.
+   * @param request the API request string, i.e. 'locations'
+   */
+  getEntity(request: string): Observable<any> {
     return this.http.get(
       `${this.apiEndpoint}/${request}`
-    );
-  }
-
-  getChallenges() {
-    return this.http.get<Challenge[]>(
-      `${this.apiEndpoint}/Challenges`
     );
   }
 
   getExternalContent() {
     return this.http.get<ExternalContent[]>(
       `${this.apiEndpoint}/ExternalContent`
-    );
-  }
-
-  getChallengeLevels() {
-    return this.http.get<ChallengeLevel[]>(
-      `${this.apiEndpoint}/ChallengeLevels`
     );
   }
 

@@ -9,6 +9,9 @@ $secondary-pink: #E71F68;
 $secondary-light-blue: #CBE2F7;
 $secondary-light-orange: #FCEAD7;
 
+$main-font: 'Lato', sans-serif;
+$accent-font: 'Caveat', sans-serif;
+
 @mixin typeface-display {
   font-family: 'Lato', sans-serif;
   font-weight: 900;

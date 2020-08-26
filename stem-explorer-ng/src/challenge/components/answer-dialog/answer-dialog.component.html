@@ -2,35 +2,34 @@
   <app-challenge-title [category]="data.challenge.category">{{data.challenge.title}}</app-challenge-title>
   <h4>{{ Levels[data.level.difficulty] }}</h4>
 
-  <p id="question">
-    <b>Question: </b>
-    {{ data.level.questionText }}
+  <p class="question">
+    <b>Q: </b>
+    {{ data.level.question }}
   </p>
 
   <h3>
+    <span *ngIf="data.level.questionType === QuestionType.Multichoice">Choose your </span>
     Answer
-    <span *ngIf="data.level.answerType === AnswerType.Multichoice" class="smaller">- Choose one</span>
   </h3>
   
-  <ng-container [ngSwitch]="data.level.answerType">
+  <ng-container [ngSwitch]="data.level.questionType">
 
-    <ul *ngSwitchCase="AnswerType.Multichoice" class="answer-list">
-      <li *ngFor="let answer of data.level.possibleAnswers">
-        <app-button outlined [disabled]="checkingAnswer && answer !== selectedAnswer"
-          (click)="submitAnswer(answer)">
-          {{ answer }}
-        </app-button>
-      </li>
-    </ul>
+    <span *ngSwitchCase="QuestionType.Multichoice" class="answer-list">
+      <button *ngFor="let answer of data.level.possibleAnswers"
+        mat-flat-button
+        [mat-dialog-close]="answer"
+        class="outlined"
+      >{{ answer }}</button>
+    </span>
 
-    <form *ngSwitchDefault (submit)="$event.preventDefault(); submitAnswer(answerValue)">
-      <app-input placeholder="Type answer here" [disabled]="checkingAnswer" name="answer" [color]="validationError ? 'red' : ''" [(ngModel)]="answerValue"></app-input>
-      <app-button [disabled]="checkingAnswer || (answerValue.trim().length === 0)" [category]="data.challenge.category">Enter Answer</app-button>
-    </form>
+    <span *ngSwitchDefault>
+      <input placeholder="Type your answer here!" [formControl]="answer" class="answer-input"/>
+      <button mat-flat-button [mat-dialog-close]="answer.value"
+        [disabled]="!answer.value"
+        [class]="Colour[data.challenge.category]"
+      >Submit your answer</button>
+    </span>
 
   </ng-container>
 
-  <p *ngIf="validationError">{{ validationError }}</p>
-
-  <p *ngIf="checkingAnswer">Checking your answer&hellip;</p>
 </app-dialog>
