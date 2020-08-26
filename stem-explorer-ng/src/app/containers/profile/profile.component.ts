@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   });
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
   ) { }

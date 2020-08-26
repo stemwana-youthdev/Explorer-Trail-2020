@@ -19,7 +19,7 @@ export class ToolbarComponent {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
+    public auth: AuthService,
     private store: Store,
   ) { }
 

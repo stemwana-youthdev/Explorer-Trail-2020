@@ -92,9 +92,13 @@ export class AuthService {
     await this.afAuth.signOut();
   }
 
-  async getPhotoURL() {
-    const user = await this.afAuth.currentUser;
-    return user.photoURL;
+  get photoURL() {
+    return this.afAuth.authState.pipe(
+      map((user) => {
+        console.log(user);
+        return user?.photoURL;
+      })
+    );
   }
 
   async updatePhotoURL(photoURL: string) {
