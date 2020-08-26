@@ -5,7 +5,6 @@
       {{ (challenge$ | async)?.title }}
     </app-challenge-title>
     <h4>{{ Categories[category$ | async] }}</h4>
-    <h4>Duration: </h4>
     <p>{{ (challenge$ | async)?.description }}</p>
 
     <app-contact-info
@@ -19,6 +18,20 @@
       [category]="category$ | async"
       icon="language"
       label="View Website"
+    ></app-contact-info>
+    <br>
+    <app-contact-info
+      [link]="(location$ | async)?.link"
+      [category]="category$ | async"
+      icon="phone"
+      label="Contact"
+    ></app-contact-info>
+    <br>
+    <app-contact-info
+      [link]="(location$ | async)?.link"
+      [category]="category$ | async"
+      icon="book"
+      label="Address"
     ></app-contact-info>
     <br><br>
 
