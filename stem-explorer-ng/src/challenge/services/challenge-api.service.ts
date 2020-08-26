@@ -6,7 +6,7 @@ export class ChallengeApiService {
 
   constructor(private api: ApiService) {}
 
-  getChallenge(id: string) {
+  getChallenge(id: number) {
     this.api.getEntity(`Challenges/${id}`);
   }
 }
