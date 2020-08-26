@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { User } from 'src/app/shared/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfilePhotoDialogComponent } from '../profile-photo-dialog/profile-photo-dialog.component';
 
@@ -12,10 +12,12 @@ import { ProfilePhotoDialogComponent } from '../profile-photo-dialog/profile-pho
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   user: User;
   loggedIn: boolean;
+  photoURL: string;
+  photoURLSubscription: Subscription;
 
   profileForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -26,13 +28,20 @@ export class ProfileComponent implements OnInit {
   });
 
   constructor(
-    public auth: AuthService,
+    private auth: AuthService,
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.getUserInfo();
+    this.photoURLSubscription = this.auth.photoURL.subscribe((url) => {
+      this.photoURL = url;
+    });
+  }
+
+  ngOnDestroy() {
+    this.photoURLSubscription?.unsubscribe();
   }
 
   async getUserInfo() {

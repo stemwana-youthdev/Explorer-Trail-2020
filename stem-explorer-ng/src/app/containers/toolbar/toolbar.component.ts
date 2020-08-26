@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 
@@ -12,16 +12,29 @@ import { AuthService } from '../../shared/auth/auth.service';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent {
+export class ToolbarComponent implements OnInit, OnDestroy {
 
   @Input()
   drawer: MatDrawer;
 
+  photoURL: string;
+  photoURLSubscription: Subscription;
+
   constructor(
     private router: Router,
-    public auth: AuthService,
+    private auth: AuthService,
     private store: Store,
   ) { }
+
+  ngOnInit() {
+    this.photoURLSubscription = this.auth.photoURL.subscribe((url) => {
+      this.photoURL = url;
+    });
+  }
+
+  ngOnDestroy() {
+    this.photoURLSubscription?.unsubscribe();
+  }
 
   get isLoggedIn(): Observable<boolean> {
     return this.auth.isLoggedIn;
