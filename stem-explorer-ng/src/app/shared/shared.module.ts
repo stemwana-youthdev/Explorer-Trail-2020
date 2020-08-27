@@ -20,6 +20,7 @@ import { CardComponent } from './components/card/card.component';
 import { GeolocationService } from '../../locations/services/geolocation.service';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     AuthModule,
     HttpClientModule,
     MaterialModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    FlexLayoutModule
   ],
   providers: [
     ApiService,
@@ -62,7 +64,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     InputComponent,
     SortByPipe,
     MaterialModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    FlexLayoutModule
   ],
 })
 export class SharedModule { }

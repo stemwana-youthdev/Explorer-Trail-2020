@@ -5,9 +5,9 @@ import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { Location, LocationChallenge } from 'src/locations/models/location';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
+import { Location, LocationChallenge } from 'src/locations/models/location';
+import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
@@ -25,12 +25,23 @@ export class ListComponent implements OnInit {
   locations: Location[] = [];
   Categories: any = Categories;
   filter: number[] = [];
+  userLocation: google.maps.LatLngLiteral;
 
   constructor(
-    private store: Store,
     public dialog: MatDialog,
-    private gtmService: GoogleTagManagerService
-  ) { }
+    private store: Store,
+    private gtmService: GoogleTagManagerService,
+    private geolocation: GeolocationService
+  ) {
+    this.geolocation.getPosition().then(pos => {
+      if (pos) {
+        this.userLocation = {
+          lat: pos.lat,
+          lng: pos.lng
+        };
+      }
+    });
+  }
 
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
@@ -38,6 +49,16 @@ export class ListComponent implements OnInit {
 
     this.getLocations();
     this.filter$.pipe(map(res => this.filter = res)).subscribe();
+  }
+
+  trackLocations(idx, item) {
+    if (!item) { return null; }
+    return idx;
+  }
+
+  trackChallenges(idx, item) {
+    if (!item) { return null; }
+    return idx;
   }
 
   /**
@@ -52,6 +73,20 @@ export class ListComponent implements OnInit {
     });
     // push to dataLayer
     this.addGtmTag(challenge.challengeTitle);
+  }
+
+  /**
+   * @todo finish this to show distance to location in the list. Currently polling too much.
+   * @param location location data object
+   */
+  getLocationDistance(location: Location): string {
+    const distance = '';
+    // if (this.userLocation) {
+    //   this.geolocation.getDistance(location.position, this.userLocation).pipe(
+    //     map(res => distance = res)
+    //   ).subscribe();
+    // }
+    return distance;
   }
 
   /**
