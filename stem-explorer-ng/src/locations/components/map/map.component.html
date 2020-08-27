@@ -10,7 +10,7 @@
     (tilesloaded)="tilesLoaded = true"
     >
     <map-marker
-      *ngFor="let location of locations"
+      *ngFor="let location of locations; trackBy: trackLocations"
       #markerElem
       [position]="location.position"
       [title]="location.name"
@@ -24,8 +24,11 @@
 
     <map-info-window>
       <div class="marker-info" *ngIf="location">
-        <h3>{{ location.name }}</h3>
-        <ng-container *ngFor="let challenge of location.locationChallenges">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <h3>{{ location.name }}</h3>
+          <h3 *ngIf="distance">{{ distance }}</h3>
+        </div>
+        <ng-container *ngFor="let challenge of location.locationChallenges; trackBy: trackChallenges">
           <button mat-flat-button class="{{Colour[challenge.challengeCategory]}}"
             (click)="openChallenge(location, challenge)">
             View Challenge <mat-icon>{{Icon[challenge.challengeCategory]}}</mat-icon>

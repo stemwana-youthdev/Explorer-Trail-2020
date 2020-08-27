@@ -1,7 +1,7 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
-import { Observable, ReplaySubject, Subscription, combineLatest } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 
 import { CameraComponent } from 'src/app/containers/camera/camera.component';
 
@@ -9,15 +9,11 @@ import { Categories } from 'src/app/shared/enums/categories.enum';
 import { LevelProgress } from '../challenge-progress/challenge-progress.component';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 
-import { GeolocationService } from 'src/locations/services/geolocation.service';
-import { AuthService } from 'src/app/shared/auth/auth.service';
 
 import { WatchProfiles } from 'src/app/store/profiles/profiles.actions';
-import { ProfilesState } from 'src/app/store/profiles/profiles.state';
 import { WatchProgress } from 'src/app/store/progress/progress.actions';
 import { ProgressState } from 'src/app/store/progress/progress.state';
 import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
-import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
 import { map } from 'rxjs/operators';
 
 export interface ChallengeDialogData {
@@ -36,30 +32,22 @@ export interface ChallengeDialogData {
 export class ChallengeDialogComponent implements OnInit, OnDestroy {
   Categories: any = Categories;
   challenge: LocationChallenge;
-  distance$: ReplaySubject<number>;
-  distanceSubscription: Subscription;
   profilesSubscription: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private dialog: MatDialog,
-    private geolocation: GeolocationService,
-    private auth: AuthService,
     private store: Store,
   ) {
     this.challenge = this.data.challenge;
   }
 
   ngOnInit(): void  {
-    this.distance$ = new ReplaySubject();
-    // this.distanceSubscription = this.getDistance(this.location).subscribe(this.distance$);
-
     this.store.dispatch(new WatchProfiles());
     this.store.dispatch(new WatchProgress());
   }
 
   ngOnDestroy(): void {
-    this.distanceSubscription?.unsubscribe();
     this.profilesSubscription?.unsubscribe();
   }
 
@@ -84,19 +72,21 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
   }
 
   mapDirections() {
-    this.geolocation.getCurrentLocation();
     if (!navigator.geolocation) {
       this.viewOnMap();
     } else {
-      (window as any).open('https://www.google.com/maps/dir/' + `${this.geolocation.currentLocation}/` + `${this.data.location.name}`, '_blank');
+      let currentLocation;
+      navigator.geolocation.getCurrentPosition((pos) => {
+        currentLocation = {
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude
+        };
+      });
+      (window as any).open('https://www.google.com/maps/dir/' + `${currentLocation}/` + `${this.data.location.name}`, '_blank');
     }
   }
 
   viewOnMap() {
     (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
   }
-
-  // private getDistance(location: Location): Observable<number> {
-  //   return this.geolocation.locationDistance(location);
-  // }
 }
