@@ -15,7 +15,7 @@ export class MapConfigService {
       disableDoubleClickZoom: true,
       maxZoom: 18,
       minZoom: 8,
-      gestureHandling: 'cooperative', // for gesture controls
+      gestureHandling: 'auto', // for gesture controls
       styles: [
         {
           featureType: 'poi',
