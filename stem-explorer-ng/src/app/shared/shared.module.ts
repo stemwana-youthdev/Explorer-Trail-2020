@@ -21,6 +21,7 @@ import { GeolocationService } from '../../locations/services/geolocation.service
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     MaterialModule,
     GoogleMapsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ReactiveFormsModule
   ],
   providers: [
     ApiService,
@@ -65,7 +67,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     SortByPipe,
     MaterialModule,
     GoogleMapsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ReactiveFormsModule
   ],
 })
 export class SharedModule { }

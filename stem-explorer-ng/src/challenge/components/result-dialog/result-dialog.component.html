@@ -1,0 +1,43 @@
+<app-dialog inverted [category]="data.isCorrect ? data.category : ''">
+  <h3>{{ data.title }}</h3>
+  <h4>{{ Levels[data.difficulty] }}</h4>
+
+  <div class="message" *ngIf="data.isCorrect; else incorrectMessage">
+    <mat-icon class="graphic">
+      done_outline
+    </mat-icon>
+    <h3 class="text">
+      Well done! Correct Answer!
+    </h3>
+  </div>
+
+  <ng-template #incorrectMessage>
+    <div class="message">
+      <mat-icon class="graphic">
+        close
+      </mat-icon>
+      <h3 class="text">
+        Oops! Wrong Answer
+      </h3>
+    </div>
+  </ng-template>
+
+  <ng-container *ngIf="auth.isLoggedIn | async; else guest">
+    <button mat-flat-button
+      mat-dialog-close="next-level"
+      [class]="cssClass"
+    >Next Level</button>
+  </ng-container>
+
+  <ng-template #guest>
+    <button mat-flat-button
+      mat-dialog-close [class]="cssClass" (click)="toLogin()">
+      Register or Login to save your progress
+    </button>
+  </ng-template>
+
+  <button mat-flat-button *ngIf="!data.isCorrect" mat-dialog-close="try-again"
+    [class]="cssClass">Try Again</button>
+  <button mat-flat-button mat-dialog-close (click)="toHome()"
+    [class]="cssClass">Back to Home</button>
+</app-dialog>
