@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-
 import { ConfigService } from 'src/app/config/config.service';
-import { Challenge } from '../models/challenge';
-import { Location } from '../models/location';
+import { Challenge } from '../../../challenge/models/challenge';
 import { ExternalContent } from '../models/external-content';
-import { ChallengeLevel } from '../models/challenge-level';
+import { User } from '../models/user';
+import { Progress } from '../models/progress';
+import { Profile } from '../models/profile';
+import { Observable } from 'rxjs';
 
+// With the api server running, go to
+// http://localhost:5000/swagger
+// to view the basic swagger api docs.
 @Injectable()
 export class ApiService {
   get apiEndpoint() {
@@ -19,62 +22,92 @@ export class ApiService {
     private config: ConfigService,
   ) {}
 
-  getChallenges() {
-    return this.http.get<Challenges>(
-      `${this.apiEndpoint}/Challenge/GetChallenges`
-    );
-  }
-
-  getLocations() {
-    return this.http.get<Locations>(
-      `${this.apiEndpoint}/Location/GetLocations`
+  /**
+   * Method to get any entities.
+   * @param request the API request string, i.e. 'locations'
+   */
+  getEntity(request: string): Observable<any> {
+    return this.http.get(
+      `${this.apiEndpoint}/${request}`
     );
   }
 
   getExternalContent() {
     return this.http.get<ExternalContent[]>(
-      `${this.apiEndpoint}/ExternalContent/GetContent`
+      `${this.apiEndpoint}/ExternalContent`
     );
-  }
-
-  getChallenge(uid) {
-    return this.http.get('assets/locations.json');
-  }
-
-  getChallengeLevels() {
-    return this.http.get<ChallengeLevels>('assets/challengeLevels.json');
   }
 
   validateAnswer(levelUid: number, answer: string) {
-    // TODO: replace with dedicated API call
-    return this.getChallengeLevels().pipe(
-      map((levels) => {
-        const level = levels.challengeLevels.find((l) => l.uid === levelUid);
-        if (!level) {
-          return false;
-        }
-
-        for (const possibleAnswer of level.possibleAnswers) {
-          if (possibleAnswer.answerText.toLowerCase().trim() === answer.toLowerCase().trim()) {
-            return possibleAnswer.isCorrect;
-          }
-        }
-
-        return false;
-      }),
+    return this.http.post(
+      `${this.apiEndpoint}/ChallengeLevels/${levelUid}/ValidateAnswer`,
+      JSON.stringify(answer),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
     );
   }
 
-}
+  getCurrentUser(token: string) {
+    return this.http.get<User>(
+      `${this.apiEndpoint}/User/CurrentUser`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
 
-export interface Challenges {
-  challenges: Challenge[];
-}
+  registerUser(token: string, userInfo: User) {
+    return this.http.post<User>(
+      `${this.apiEndpoint}/User/RegisterUser`,
+      userInfo,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
 
-export interface Locations {
-  location: Location[];
-}
+  updateUser(token: string, userInfo: User) {
+    return this.http.put<User>(
+      `${this.apiEndpoint}/User/CurrentUser`,
+      userInfo,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
 
-export interface ChallengeLevels {
-  challengeLevels: ChallengeLevel[];
+  getProgress(token: string, profileId: number) {
+    return this.http.get<Progress[]>(
+      `${this.apiEndpoint}/Progress/${profileId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+
+  levelCompleted(token: string, profileId, levelId: number, correct: boolean) {
+    return this.http.post(
+      `${this.apiEndpoint}/Progress/LevelCompleted`,
+      {
+        levelId,
+        correct,
+        profileId,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+
+  getProfiles(token: string) {
+    return this.http.get<Profile[]>(
+      `${this.apiEndpoint}/Profiles`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
 }

@@ -4,34 +4,60 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {
-    [Route("api/Challenge")]
+    [Route("api/Challenges")]
     [ApiController]
     public class ChallengeController : ControllerBase
     {
         private readonly IChallengeService _challengeService;
+        private readonly ILogger _logger;
 
-        public ChallengeController(IChallengeService challengeService)
+        public ChallengeController(ILogger<LocationController> logger, IChallengeService challengeService)
         {
+            _logger = logger;
             _challengeService = challengeService;
         }
 
-        // GET: api/GetChallenges
-        [HttpGet("GetChallenges")]
-        public async Task<ChallengesDto> GetAllChallenges()
+        // GET: api/Challenge
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
-            return await _challengeService.GetChallenges();
+            try
+            {
+                return Ok(await _challengeService.GetChallenges());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // GET: api/Challenge/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetChallenge(int id)
         {
-            return "value";
+            try
+            {
+                var challenge = await _challengeService.GetChallengeById(id);
+
+                if (challenge == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(challenge);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // POST: api/Challenge

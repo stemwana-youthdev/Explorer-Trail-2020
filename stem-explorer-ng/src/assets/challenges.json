@@ -1,32 +1,30 @@
-{
-  "challenges": [
-    {
-      "uid": 1,
-      "title": "A Challenge that is not in the db",
-      "description": "Do you know what day of the week this is?",
-      "category": 0,
-      "locationId": 1
-    },
-    {
-      "uid": 2,
-      "title": "How many numbers",
-      "description": "We need to know how many numbers there are before 10, can you count them?",
-      "category": 1,
-      "locationId": 2
-    },
-    {
-      "uid": 3,
-      "title": "Biscuits, biscuits, biscuits!",
-      "description": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
-      "category": 2,
-      "locationId": 3
-    },
-    {
-      "uid": 4,
-      "title": "Do you know your STEM",
-      "description": "Do you know what this letter in STEM stands for?",
-      "category": 3,
-      "locationId": 4
-    }
-  ]
-}
+[
+  {
+    "uid": 1,
+    "title": "A Challenge that is not in the db",
+    "description": "Do you know what day of the week this is?",
+    "category": 0,
+    "locationId": 1
+  },
+  {
+    "uid": 2,
+    "title": "How many numbers",
+    "description": "We need to know how many numbers there are before 10, can you count them?",
+    "category": 1,
+    "locationId": 2
+  },
+  {
+    "uid": 3,
+    "title": "Biscuits, biscuits, biscuits!",
+    "description": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
+    "category": 2,
+    "locationId": 3
+  },
+  {
+    "uid": 4,
+    "title": "Do you know your STEM",
+    "description": "Do you know what this letter in STEM stands for?",
+    "category": 3,
+    "locationId": 4
+  }
+]

@@ -1,0 +1,60 @@
+<app-dialog [category]="challenge.challengeCategory">
+  <app-challenge-title [category]="challenge.challengeCategory">
+    {{ challenge.challengeTitle }}
+  </app-challenge-title>
+
+    <h4>{{ Categories[challenge.challengeCategory] }}</h4>
+    <h4>Duration: </h4>
+    <p>{{ challenge.challengeDescription }}</p>
+    <div class=contactInfo>
+      <app-contact-info
+        [category]="challenge.challengeCategory"
+        icon="location_on"
+        [label]="data.location.name"
+        (click)="viewOnMap()"
+        aria-label="Location address"
+      ></app-contact-info>
+      <br>
+      <app-contact-info
+        [link]="data.location.link"
+        [category]="challenge.challengeCategory"
+        icon="launch"
+        [label]="data.location?.link"
+        aria-label="Location website"
+      ></app-contact-info>
+      <app-contact-info *ngIf="data.location?.phone"
+          [link]="data.location?.phone"
+          [category]="challenge.challengeCategory"
+          icon="phone"
+          [label]="data.location?.phone"
+          aria-label="Location Phone Number"
+        ></app-contact-info>
+        <app-contact-info *ngIf="data.location?.email"
+          [link]="data.location?.email"
+          [category]="challenge.challengeCategory"
+          icon="mail_outline"
+          [label]="data.location?.email"
+          aria-label="Location Email"
+        ></app-contact-info>
+      </div>
+    <br><br>
+
+    <div style="display: flex;">
+      <app-button
+        mat-dialog-close
+        class="challengeActions"
+        [category]="challenge.challengeCategory"
+        [outlined]="true"
+        (click)="mapDirections()">
+        Get Directions
+      </app-button>
+      <app-button
+        mat-dialog-close
+        class="challengeActions"
+        [category]="challenge.challengeCategory"
+        (click)="cameraView()"
+        aria-label="Start challenge">
+        Scan QR Code
+      </app-button>
+    </div>
+</app-dialog>

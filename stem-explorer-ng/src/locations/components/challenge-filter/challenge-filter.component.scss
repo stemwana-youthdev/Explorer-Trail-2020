@@ -1,0 +1,41 @@
+@use 'src/app/styles/variables' as *;
+
+.mat-button-toggle-group {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+}
+
+.mat-button-toggle-group span {
+    background-color: tint(80%, $primary-black);
+    color: white;
+    font-size: 35px;
+    padding: 5px;
+}
+
+.mat-button-toggle {
+    color: white;
+    background-color: tint(80%, $primary-black);
+    width: 100%;
+    font-size: 20px;
+}
+
+@mixin coloured-button($color) {
+    background-color: $color;
+}
+
+.mat-button-toggle-checked.green {
+    @include coloured-button($primary-green)
+}
+
+.mat-button-toggle-checked.blue {
+    @include coloured-button($primary-blue)
+}
+
+.mat-button-toggle-checked.orange {
+    @include coloured-button($primary-orange)
+}
+
+.mat-button-toggle-checked.purple {
+    @include coloured-button($primary-purple)
+}
