@@ -62,11 +62,11 @@ namespace StemExplorerAPI.Services
                             Question = cl.QuestionText,
                             Instructions = cl.Instructions,
                             Difficulty = cl.Difficulty,
-                            Answer = cl.Answers,
+                            Answer = new List<string>(),
                             Hint = cl.Hint,
-                            PossibleAnswers = cl.PossibleAnswers,
+                            PossibleAnswers = new List<string>(),
                             QuestionType = cl.AnswerType
-                        }).ToList().OrderBy(l => l.Difficulty)
+                        }).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
             }
             catch (Exception ex)

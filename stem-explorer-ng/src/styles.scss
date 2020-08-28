@@ -96,7 +96,12 @@ i, em {
 }
 
 .mat-drawer-container {
-  background-color: white;
+  // background-color: white;
+  overflow: hidden !important;  
+}
+
+.mat-drawer-content {
+  overflow: hidden !important;
 }
 
 .app-dialog .mat-dialog-content {
