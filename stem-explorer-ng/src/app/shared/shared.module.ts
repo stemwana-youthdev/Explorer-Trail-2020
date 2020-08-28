@@ -22,6 +22,8 @@ import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
 import { ImageService } from './services/image.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ImageService } from './services/image.service';
     AuthModule,
     HttpClientModule,
     MaterialModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    FlexLayoutModule,
+    ReactiveFormsModule
   ],
   providers: [
     ApiService,
@@ -68,6 +72,8 @@ import { ImageService } from './services/image.service';
     MaterialModule,
     GoogleMapsModule,
     ProfilePictureComponent,
+    FlexLayoutModule,
+    ReactiveFormsModule
   ],
 })
 export class SharedModule { }

@@ -1,0 +1,58 @@
+@use 'src/app/styles/variables' as *;
+
+.challenge-details {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 768px;
+}
+
+.challenge-header {
+  background-color: white;
+  // border-bottom: solid;
+  border-color: tint(10%, $primary-black);
+  margin-left: -20px;
+  padding: 22px 0px 10px 20px;
+  // position: fixed;
+  top: 56px;
+  width: 100%;
+}
+
+app-form-field {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+  max-width: 768px;
+}
+
+.antiOverlay {
+  width: 100%;
+}
+
+.challenge-details {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 768px;
+}
+
+.top-element {
+  margin-top: 15px;
+}
+
+.arrow {
+  position: relative;
+  float: right;
+  top: -39px;
+  right: -10px;
+  font-size: 2rem;
+  color: #fff;
+}
+
+@media only screen and (min-width: 768px) {
+  .challenge-header {
+    text-align: center;
+  }
+}
+
+.levels-wrapper {
+  margin-right: 32px;
+}

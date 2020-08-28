@@ -15,5 +15,6 @@ namespace StemExplorerAPI.Models.Entities
         // EF relationship definition
         public int LocationId { get; set; }
         public Location Location { get; set; }
+        public ICollection<ChallengeLevel> ChallengeLevel {get; set; }
     }
 }

@@ -8,14 +8,10 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChallengeDetailsComponent } from './components/challenge-details/challenge-details.component';
-import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { ConfigModule } from './config/config.module';
-import { AnswerDialogComponent } from './containers/answer-dialog/answer-dialog.component';
 import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
 import { CameraComponent } from './containers/camera/camera.component';
-import { ChallengeViewComponent } from './containers/challenge-view/challenge-view.component';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
@@ -28,6 +24,7 @@ import { ProfileComponent } from './containers/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HintDialogComponent } from './containers/hint-dialog/hint-dialog.component';
 import { ProfilePhotoDialogComponent } from './containers/profile-photo-dialog/profile-photo-dialog.component';
+import { ChallengeModule } from 'src/challenge/challenge.module';
 
 @NgModule({
   declarations: [
@@ -35,14 +32,10 @@ import { ProfilePhotoDialogComponent } from './containers/profile-photo-dialog/p
     LoginPageComponent,
     RegisterPageComponent,
     SplashScreenComponent,
-    ChallengeViewComponent,
     ToolbarComponent,
     CameraComponent,
     CameraButtonComponent,
     DrawerComponent,
-    AnswerDialogComponent,
-    ResultDialogComponent,
-    ChallengeDetailsComponent,
     ProfileComponent,
     HintDialogComponent,
     ProfilePhotoDialogComponent,
@@ -60,7 +53,8 @@ import { ProfilePhotoDialogComponent } from './containers/profile-photo-dialog/p
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
-    LocationsModule
+    LocationsModule,
+    ChallengeModule
   ],
   entryComponents: [
     SplashScreenComponent,

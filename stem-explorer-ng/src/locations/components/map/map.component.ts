@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MapInfoWindow } from '@angular/google-maps';
 import { MapMarker } from '@angular/google-maps/map-marker/map-marker';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
@@ -14,7 +14,7 @@ import { MapConfigService } from 'src/locations/services/map-config.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { MapInfoWindow } from '@angular/google-maps';
+import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
 
 @Component({
   selector: 'app-map',
@@ -34,17 +34,30 @@ export class MapComponent implements OnInit {
   Icon = CategoryIcons;
   locationAccess = false;
   tilesLoaded = false;
+  distance: string;
 
   constructor(
     private store: Store,
     private dialog: MatDialog,
     private gtmService: GoogleTagManagerService,
     private mapConfig: MapConfigService,
-    geolocation: GeolocationService
+    private geolocation: GeolocationService
   ) {
     this.options = this.mapConfig.mapOptions();
-    this.center = geolocation.getCurrentLocation();
-    this.userLocation = geolocation.currentLocation;
+    this.geolocation.getMapCentre().then(pos => {
+      this.center = {
+        lat: pos.lat,
+        lng: pos.lng
+      };
+    });
+    this.geolocation.getPosition().then(pos => {
+      if (pos) {
+        this.userLocation = {
+          lat: pos.lat,
+          lng: pos.lng
+        };
+      }
+    });
 
     this.locationAccess = !navigator.geolocation;
   }
@@ -54,12 +67,24 @@ export class MapComponent implements OnInit {
     this.getLocations();
   }
 
+  trackLocations(idx, item) {
+    if (!item) { return null; }
+    return idx;
+  }
+
+  trackChallenges(idx, item) {
+    if (!item) { return null; }
+    return idx;
+  }
+
   /**
    * Method for when a user clicks on a map marker on the map. Shows the location details and the list of challenges
+   * and gets the distance from user's current position to the location.
    * @param marker google MapMarker object
    * @param location location of mapmarker
    */
   click(marker: MapMarker, location: Location): void {
+    this.getDistanceToLocation(location.position);
     this.location = location;
     this.infoWindow.open(marker);
     this.addGtmTag('open location info', location.name);
@@ -120,6 +145,23 @@ export class MapComponent implements OnInit {
     this.store.select(LocationsState.locations).pipe(map(res => {
       this.locations = res;
     })).subscribe();
+  }
+
+  /**
+   * Gets the distance to location. Resets distance to an empty string to prevent previous distance
+   * from showing in the Info Window, and only assigns the distance text to it if current has a
+   * current position. If user does not have a current position, then obs returns undefined and distance
+   * remains as an empty string.
+   * @param position the lat and lng object of a location
+   */
+  private getDistanceToLocation(position: google.maps.LatLngLiteral): void {
+    this.distance = '';
+
+    if (this.userLocation) {
+      this.geolocation.getDistance(position, this.userLocation).pipe(
+        map(res => this.distance = res)
+      ).subscribe();
+    }
   }
 
   /**

@@ -1,0 +1,60 @@
+@import './variables';
+
+@mixin typeface-display {
+  font-family: $main-font;
+  font-weight: 900;
+}
+
+@mixin typeface-heading {
+  font-family: $main-font;
+  font-weight: 700;
+}
+
+@mixin typeface-sub-heading {
+  font-family: $main-font;
+  font-weight: 700;
+}
+
+@mixin typeface-body {
+  font-family: $main-font;
+  font-weight: 400;
+}
+
+@mixin typeface-accent {
+  font-family: $accent-font;
+  font-weight: 400;
+}
+
+@mixin title-colour($colour) {
+  color: $colour;
+}
+
+@mixin coloured-card($colour) {
+  border-color: $colour;
+}
+
+@mixin coloured-select-field($color) {
+  color: #fff !important;
+  background-color: $color;
+}
+
+@mixin coloured-button($color) {
+  color: white;
+  border-radius: 0;
+  width: 100%;
+  background-color: $color;
+  &.inverted {
+    background-color: white;
+    color: $color;
+    border: none;
+  }
+}
+
+@mixin coloured-dialog($color) {
+  border-color: $color;
+
+  &.inverted {
+      background-color: $color;
+      color: white;
+  }
+}

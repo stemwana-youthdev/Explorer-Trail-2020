@@ -1,0 +1,33 @@
+@import './variables';
+@import './mixins';
+
+mat-select {
+  color: #fff;
+  background-color: tint(80%, $primary-black);
+  padding: 1rem;
+  font-weight: 100;
+
+  .mat-select-arrow-wrapper {
+    visibility: hidden;
+  }
+}
+
+mat-select.green {
+  @include coloured-select-field($primary-green);
+}
+
+mat-select.blue {
+  @include coloured-select-field($primary-blue);
+}
+
+mat-select.orange {
+  @include coloured-select-field($primary-orange);
+}
+
+mat-select.purple {
+  @include coloured-select-field($primary-purple);
+}
+
+mat-select.pink {
+  @include coloured-select-field($secondary-pink);
+}
