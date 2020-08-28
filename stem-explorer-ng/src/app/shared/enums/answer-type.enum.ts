@@ -1,4 +1,4 @@
-export enum AnswerType {
+export enum QuestionType {
   Multichoice,
   Number,
   Text,

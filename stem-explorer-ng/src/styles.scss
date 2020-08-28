@@ -1,5 +1,9 @@
 // Import variables
-@use 'app/variables' as *;
+@use 'app/styles/variables' as *;
+@import 'app/styles/mixins';
+@import 'app/styles/select';
+@import 'app/styles/button';
+@import 'app/styles//input';
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -93,7 +97,12 @@ i, em {
 }
 
 .mat-drawer-container {
-  background-color: white;
+  // background-color: white;
+  overflow: hidden !important;  
+}
+
+.mat-drawer-content {
+  overflow: hidden !important;
 }
 
 .app-dialog .mat-dialog-content {

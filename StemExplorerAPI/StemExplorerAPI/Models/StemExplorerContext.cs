@@ -16,13 +16,15 @@ namespace StemExplorerAPI.Models
 
         public StemExplorerContext(DbContextOptions<StemExplorerContext> options) : base(options)
         {
-            
         }
 
         internal DbSet<Challenge> Challenges { get; set; }
         internal DbSet<Location> Locations { get; set; }
         internal DbSet<ChallengeLevel> ChallengeLevels { get; set; }
         internal DbSet<ExternalContent> ExternalContent { get; set; }
+        internal DbSet<User> Users { get; set; }
+        internal DbSet<Progress> Progress { get; set; }
+        internal DbSet<Profile> Profiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +39,10 @@ namespace StemExplorerAPI.Models
             modelBuilder.Entity<ChallengeLevel>()
                 .Property(c => c.Difficulty)
                 .HasConversion<int>();
+            
+            modelBuilder.Entity<Progress>()
+                .HasIndex(c => new { c.ProfileId, c.ChallengeLevelId })
+                .IsUnique();
             
             base.OnModelCreating(modelBuilder);
         }

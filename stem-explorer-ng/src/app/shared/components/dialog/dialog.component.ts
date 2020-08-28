@@ -15,7 +15,7 @@ export class DialogComponent implements OnInit {
 
   constructor(
     private stemColors: StemColorsService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
   }

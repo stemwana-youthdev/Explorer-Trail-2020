@@ -1,4 +1,4 @@
-@use 'src/app/variables' as *;
+@use 'src/app/styles/variables' as *;
 
 .mat-dialog-content {
     border-radius: 0;
@@ -6,6 +6,7 @@
     border-style: solid;
     padding: 20px;
     border-color: white;
+    min-width: 200px;
 }
 
 .close-button {
@@ -13,6 +14,15 @@
     display: block;
     right: -12px;
     top: 12px;
+    z-index: 99; /* fixes close button on ios */
+
+    &.inverted {
+        visibility: hidden;
+    }
+
+    @media only screen and (max-width: 315px) {
+        visibility: hidden;
+    }
 }
 
 .mat-icon-button ::ng-deep .mat-button-focus-overlay {
@@ -21,10 +31,6 @@
 
 .dialog-position {
     position: relative;
-}
-
-.close-button.inverted {
-    visibility: hidden;
 }
 
 @mixin coloured-dialog($color) {

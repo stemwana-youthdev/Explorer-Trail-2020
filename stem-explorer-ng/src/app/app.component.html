@@ -2,7 +2,7 @@
 
 <app-drawer #drawer>
 
-  <div [class]="(isMap | async) ? 'full-height' : 'padding'">
+  <div class="background-image" [class]="(isMap | async) ? 'full-height' : 'padding'">
     <router-outlet></router-outlet>
   </div>
   

@@ -1,0 +1,19 @@
+app-challenge-title {
+  display: block;
+  margin-right: 2rem;
+}
+
+.distance {
+  float: right;
+  margin-left: 1rem;
+}
+.challengeActions {
+  flex: 1;
+}
+.contactInfo {
+  display:grid;
+}
+
+.contactInfo app-contact-info {
+  font-size: 14px;
+}

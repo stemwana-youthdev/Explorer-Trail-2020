@@ -1,0 +1,26 @@
+@import 'src/app/styles/variables';
+@import 'src/app/styles/mixins';
+
+.message {
+  margin: 1rem 0 2rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  @include typeface-sub-heading;
+
+  .text {
+    width: 50%;
+  }
+  .graphic {
+    font-size: 4em;
+    width: 50%;
+    text-align: center;
+  }
+}
+
+button {
+  display: block;
+  margin-top: 1rem;
+}
