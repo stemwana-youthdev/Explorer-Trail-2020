@@ -1,0 +1,20 @@
+<mat-toolbar>
+  <span>Explorer Trial - Admin</span>
+  <span class="spacer"></span>
+  <button mat-button class="account-icon" aria-label="Profile picture">
+    <mat-icon>account_circle</mat-icon>
+     Ada Lovelace
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="main-container">
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list role="list">
+      <mat-list-item *ngFor="let link of navLink" role="listitem" (click)="goToPage(link.path)">
+        {{ link.label }}
+      </mat-list-item>
+    </mat-nav-list>  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

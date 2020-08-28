@@ -1,0 +1,13 @@
+<!-- <div *ngIf="state$ | async as state"> -->
+
+  <h1>Custom Content</h1>
+  
+  <button mat-button class="mat-raised-button primary-button" (click)="contentDialog()">Add New</button>
+
+  <app-table
+  [table]="table"
+  [dataSource]="state"
+  [canDrag]="true"
+  (selectRow)="contentDialog($event)"
+  ></app-table>
+<!-- </div> -->

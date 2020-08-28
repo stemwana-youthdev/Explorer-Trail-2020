@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/purple-green.css';
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-sidenav-container {
+  height: 100%;
+
+  mat-sidenav {
+    width: 250px;
+  }
+
+  mat-card {
+    margin: 20px;
+    min-height: 500px;
+  }
+}
