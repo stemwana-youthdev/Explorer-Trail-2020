@@ -31,7 +31,7 @@ export class AuthService {
     );
   }
 
-  private async getToken() {
+  async getToken() {
     const user = await this.afAuth.currentUser;
     const token = await user.getIdToken();
     return token;

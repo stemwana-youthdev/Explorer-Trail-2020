@@ -34,5 +34,14 @@ namespace StemExplorerAPI.Models.ViewModels
         public string ChallengeTitle { get; set; }
         public string ChallengeDescription { get; set; }
         public Enums.ChallengeCategories ChallengeCategory { get; set; }
+        public IEnumerable<LocationLevelDto> ChallengeLevels { get; set; }
+    }
+
+    public class LocationLevelDto
+    {
+        [JsonProperty("uid")]
+        public int Id { get; set; }
+        public Enums.ChallengeDifficulty Difficulty { get; set; }
+        public bool Complete { get; set; }
     }
 }

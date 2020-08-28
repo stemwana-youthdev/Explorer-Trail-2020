@@ -15,6 +15,7 @@ import { MapConfigService } from 'src/locations/services/map-config.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
 
 @Component({
   selector: 'app-map',
@@ -63,6 +64,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new LoadProfiles());
     this.store.dispatch(new LoadLocationsData());
     this.getLocations();
   }

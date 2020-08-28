@@ -19,9 +19,14 @@ export class LocationApiService {
   /**
    * GET all locations
    */
-  getLocations(): Observable<Location[]> {
+  getLocations(token?: string, profileId?: number): Observable<Location[]> {
+    const headers: any = {};
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
     return this.http.get<Location[]>(
-      `${this.api.apiEndpoint}/Locations`
+      `${this.api.apiEndpoint}/Locations${profileId ? `?profileId=${profileId}` : ''}`,
+      { headers },
     );
   }
 }

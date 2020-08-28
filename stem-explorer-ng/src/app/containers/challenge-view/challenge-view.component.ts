@@ -10,7 +10,7 @@ import { ChallengeLevelsState } from '../../store/challenge-levels/challenge-lev
 import { ChallengesState } from '../../store/challenges/challenges.state';
 import { LoadChallengesData } from '../../store/challenges/challenges.actions';
 import { LoadChallengeLevelsData } from '../../store/challenge-levels/challenge-levels.actions';
-import { WatchProgress, LoadProgress } from '../../store/progress/progress.actions';
+import { LoadProgress } from '../../store/progress/progress.actions';
 import { ProgressState } from '../../store/progress/progress.state';
 import { ProfilesState } from 'src/app/store/profiles/profiles.state';
 
@@ -24,7 +24,7 @@ import { ResultDialogComponent } from '../../components/result-dialog/result-dia
 import { HintEvent, AnswerEvent } from '../../components/challenge-details/challenge-details.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
-import { WatchProfiles } from 'src/app/store/profiles/profiles.actions';
+import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 
 
@@ -70,8 +70,8 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
       this.selectedLevel = minLevel;
     });
 
-    this.store.dispatch(new WatchProfiles());
-    this.store.dispatch(new WatchProgress());
+    this.store.dispatch(new LoadProfiles());
+    this.store.dispatch(new LoadProgress());
   }
 
   get challengeId$(): Observable<number> {
@@ -174,7 +174,7 @@ export class ChallengeViewComponent implements OnInit, OnDestroy {
     if (isLoggedIn) {
       const profile = await this.currentProfile$.pipe(take(1)).toPromise();
       await this.auth.levelCompleted(profile.id, level.uid, isCorrect);
-      this.store.dispatch(new LoadProgress());
+      this.store.dispatch(new LoadProgress(true));
     }
 
     // Open another dialog

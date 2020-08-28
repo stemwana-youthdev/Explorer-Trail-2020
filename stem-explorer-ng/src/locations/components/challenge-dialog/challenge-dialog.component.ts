@@ -10,8 +10,7 @@ import { LevelProgress } from '../challenge-progress/challenge-progress.componen
 import { Location, LocationChallenge } from 'src/locations/models/location';
 
 
-import { WatchProfiles } from 'src/app/store/profiles/profiles.actions';
-import { WatchProgress } from 'src/app/store/progress/progress.actions';
+import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
 import { ProgressState } from 'src/app/store/progress/progress.state';
 import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
 import { map } from 'rxjs/operators';
@@ -43,8 +42,7 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void  {
-    this.store.dispatch(new WatchProfiles());
-    this.store.dispatch(new WatchProgress());
+    this.store.dispatch(new LoadProfiles());
   }
 
   ngOnDestroy(): void {

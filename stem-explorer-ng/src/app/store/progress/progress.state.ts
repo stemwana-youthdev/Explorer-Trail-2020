@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext, StateToken, Store } from '@ngxs/
 
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
-import { WatchProgress, LoadProgress } from './progress.actions';
+import { LoadProgress } from './progress.actions';
 import { Progress } from 'src/app/shared/models/progress';
 import { tap, flatMap, switchMap, filter } from 'rxjs/operators';
 import { from } from 'rxjs';
@@ -11,7 +11,7 @@ import { ProfilesState } from '../profiles/profiles.state';
 
 export interface ProgressStateModel {
   progress: Progress[];
-  watching: boolean;
+  fetched: boolean;
 }
 
 const PROGRESS_TOKEN: StateToken<ProgressStateModel> = new StateToken('progress');
@@ -20,7 +20,7 @@ const PROGRESS_TOKEN: StateToken<ProgressStateModel> = new StateToken('progress'
   name: PROGRESS_TOKEN,
   defaults: {
     progress: [],
-    watching: false,
+    fetched: false,
   },
   children: [],
 })
@@ -38,30 +38,20 @@ export class ProgressState {
       .map((progress) => progress.challengeLevelId);
   }
 
-  @Action(WatchProgress)
-  public watchProgress(ctx: StateContext<ProgressStateModel>) {
-    const { watching } = ctx.getState();
-    if (watching) {
+  @Action(LoadProgress)
+  public loadProgress(ctx: StateContext<ProgressStateModel>, action: LoadProgress) {
+    const { fetched } = ctx.getState();
+    if (fetched && !action.overrideCache) {
       return;
     }
-    ctx.patchState({ watching: true });
 
-    return this.store.select(ProfilesState.currentProfile).pipe(
-      filter((profile) => !!profile),
-      switchMap((profile) => from(this.authService.getProgress(profile.id))),
-      tap((progress) => ctx.patchState({ progress })),
-    );
-  }
-
-  @Action(LoadProgress)
-  public loadProgress(ctx: StateContext<ProgressStateModel>) {
     const profile = this.store.selectSnapshot(ProfilesState.currentProfile);
     if (!profile) {
       return;
     }
 
     return from(this.authService.getProgress(profile.id)).pipe(
-      tap((progress) => ctx.patchState({ progress }))
+      tap((progress) => ctx.patchState({ progress, fetched: true }))
     );
   }
 }

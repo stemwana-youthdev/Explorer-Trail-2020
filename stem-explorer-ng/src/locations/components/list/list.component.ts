@@ -2,22 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { Observable, of, combineLatest } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
-import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { LevelProgress } from '../challenge-progress/challenge-progress.component';
-import { LoadChallengeLevelsData } from 'src/app/store/challenge-levels/challenge-levels.actions';
-import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
-import { ProgressState } from 'src/app/store/progress/progress.state';
-import { WatchProfiles } from 'src/app/store/profiles/profiles.actions';
-import { WatchProgress } from 'src/app/store/progress/progress.actions';
+import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
 
 /*
 * Component to show the challenges in a list view
@@ -52,10 +46,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
-    this.store.dispatch(new LoadChallengeLevelsData());
     this.store.dispatch(new VisitedHomepage());
-    this.store.dispatch(new WatchProfiles());
-    this.store.dispatch(new WatchProgress());
+    this.store.dispatch(new LoadProfiles());
 
     this.getLocations();
     this.filter$.pipe(map(res => this.filter = res)).subscribe();
@@ -118,19 +110,5 @@ export class ListComponent implements OnInit {
       challengeTitle: title,
     };
     this.gtmService.pushTag(gtmTag);
-  }
-
-  progressFor(challenge: LocationChallenge): Observable<LevelProgress[]> {
-    return combineLatest([
-      this.store.select(ChallengeLevelsState.challengeLevels),
-      this.store.select(ProgressState.completedLevels),
-    ]).pipe(
-      map(([levels, completedLevels]) =>
-        levels(challenge.challengeId).map((level) => ({
-          difficulty: level.difficulty,
-          complete: completedLevels.includes(level.uid),
-        }))
-      )
-    );
   }
 }

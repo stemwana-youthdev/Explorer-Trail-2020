@@ -3,15 +3,15 @@ import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 
 import { AuthService } from 'src/app/shared/auth/auth.service';
 
-import { WatchProfiles } from './profiles.actions';
+import { LoadProfiles } from './profiles.actions';
 import { Profile } from 'src/app/shared/models/profile';
-import { tap, switchMap, filter } from 'rxjs/operators';
+import { tap, switchMap, filter, take } from 'rxjs/operators';
 import { from } from 'rxjs';
 
 export interface ProfilesStateModel {
   profiles: Profile[];
   currentProfile: Profile;
-  watching: boolean;
+  fetched: boolean;
 }
 
 const PROFILES_TOKEN: StateToken<ProfilesStateModel> = new StateToken('profiles');
@@ -21,7 +21,7 @@ const PROFILES_TOKEN: StateToken<ProfilesStateModel> = new StateToken('profiles'
   defaults: {
     profiles: [],
     currentProfile: null,
-    watching: false,
+    fetched: false,
   },
   children: [],
 })
@@ -41,15 +41,15 @@ export class ProfilesState {
     return state.currentProfile;
   }
 
-  @Action(WatchProfiles)
-  public watchProfiles(ctx: StateContext<ProfilesStateModel>) {
-    const { watching } = ctx.getState();
-    if (watching) {
+  @Action(LoadProfiles)
+  public loadProfiles(ctx: StateContext<ProfilesStateModel>) {
+    const { fetched } = ctx.getState();
+    if (fetched) {
       return;
     }
-    ctx.patchState({ watching: true });
 
     return this.authService.isLoggedIn.pipe(
+      take(1),
       filter((loggedIn) => loggedIn),
       switchMap(() => from(this.authService.getProfiles())),
       tap((profiles) => {
@@ -57,7 +57,7 @@ export class ProfilesState {
         if (!profiles.some((profile) => profile.id === currentProfile?.id)) {
           currentProfile = profiles[0];
         }
-        ctx.patchState({ profiles, currentProfile });
+        ctx.patchState({ profiles, currentProfile, fetched: true });
       })
     );
   }
