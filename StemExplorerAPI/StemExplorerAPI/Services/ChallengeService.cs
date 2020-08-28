@@ -56,7 +56,7 @@ namespace StemExplorerAPI.Services
                         Description = challenge.Description,
                         Category = challenge.Category,
                         LocationId = challenge.LocationId,
-                        ChallengeLevels = challenge.ChallengeLevel.Select(cl => new LevelsForChallenge
+                        ChallengeLevels = challenge.ChallengeLevels.Select(cl => new LevelsForChallenge
                         {
                             Id = cl.Id,
                             Question = cl.QuestionText,
