@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/config/config.service';
-import { Challenge } from '../models/challenge';
-import { ChallengeLevel } from '../models/challenge-level';
+import { Challenge } from '../../../challenge/models/challenge';
 import { ExternalContent } from '../models/external-content';
-import { Location } from '../../../locations/models/location';
 import { User } from '../models/user';
 import { Progress } from '../models/progress';
 import { Profile } from '../models/profile';
+import { Observable } from 'rxjs';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -23,27 +22,19 @@ export class ApiService {
     private config: ConfigService,
   ) {}
 
-  getChallenges() {
-    return this.http.get<Challenge[]>(
-      `${this.apiEndpoint}/Challenges`
-    );
-  }
-
-  getLocations() {
-    return this.http.get<Location[]>(
-      `${this.apiEndpoint}/Locations`
+  /**
+   * Method to get any entities.
+   * @param request the API request string, i.e. 'locations'
+   */
+  getEntity(request: string): Observable<any> {
+    return this.http.get(
+      `${this.apiEndpoint}/${request}`
     );
   }
 
   getExternalContent() {
     return this.http.get<ExternalContent[]>(
       `${this.apiEndpoint}/ExternalContent`
-    );
-  }
-
-  getChallengeLevels() {
-    return this.http.get<ChallengeLevel[]>(
-      `${this.apiEndpoint}/ChallengeLevels`
     );
   }
 

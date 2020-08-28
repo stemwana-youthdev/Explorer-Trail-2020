@@ -6,7 +6,6 @@ import { Select, Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
@@ -16,6 +15,7 @@ import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
+import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
 
 @Component({
   selector: 'app-map',

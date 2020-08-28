@@ -16,6 +16,6 @@ namespace StemExplorerAPI.Models.Entities
         public int LocationId { get; set; }
         public Location Location { get; set; }
 
-        public List<ChallengeLevel> ChallengeLevels { get; set; }
+        public ICollection<ChallengeLevel> ChallengeLevels { get; set; }
     }
 }
