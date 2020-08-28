@@ -1,19 +1,15 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
-import { Observable, Subscription, combineLatest } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { CameraComponent } from 'src/app/containers/camera/camera.component';
 
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { LevelProgress } from '../challenge-progress/challenge-progress.component';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 
 
 import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
-import { ProgressState } from 'src/app/store/progress/progress.state';
-import { ChallengeLevelsState } from 'src/app/store/challenge-levels/challenge-levels.state';
-import { map } from 'rxjs/operators';
 
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
@@ -47,20 +43,6 @@ export class ChallengeDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.profilesSubscription?.unsubscribe();
-  }
-
-  get progress$(): Observable<LevelProgress[]> {
-    return combineLatest([
-      this.store.select(ChallengeLevelsState.challengeLevels),
-      this.store.select(ProgressState.completedLevels),
-    ]).pipe(
-      map(([levels, completedLevels]) =>
-        levels(this.challenge.challengeId).map((level) => ({
-          difficulty: level.difficulty,
-          complete: completedLevels.includes(level.uid),
-        }))
-      )
-    );
   }
 
   cameraView(): void {
