@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-login-page',
@@ -13,6 +14,7 @@ import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.sta
 export class LoginPageComponent {
 
   errorMessage = '';
+  user: User;
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -45,9 +47,21 @@ export class LoginPageComponent {
       return;
     }
     console.log('successful login');
-    this.router.navigateByUrl(
-      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    this.pageNavigate();
+  }
+
+  // Checks if the user has completed their profile and if not navigates to profile page
+  async pageNavigate() {
+    await this.auth.getCurrentUser().then(value =>
+      this.user = value
     );
+    if (this.user.firstName && this.user.lastName && this.user.region && this.user.homeTown) {
+      this.router.navigateByUrl(
+        this.store.selectSnapshot(LastHomepageState.lastHomepage)
+        );
+    }else {
+      this.router.navigateByUrl('profile');
+    }
   }
 
 }
