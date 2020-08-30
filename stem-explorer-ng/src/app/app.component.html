@@ -6,13 +6,6 @@
     <router-outlet></router-outlet>
   </div>
   
-  <ng-container *ngIf="isMap | async; else genericFab">
-    <app-fab matIcon="list" (click)="navigateToList()"></app-fab>
-    <app-camera-button></app-camera-button>
-  </ng-container>
-  <ng-template #genericFab>
-    <app-fab matIcon="location_on" (click)="navigateToMap()"></app-fab>
-    <span class="fill-remaining-space"></span>
-  </ng-template>
+<span class="fill-remaining-space"></span>
 
 </app-drawer>
