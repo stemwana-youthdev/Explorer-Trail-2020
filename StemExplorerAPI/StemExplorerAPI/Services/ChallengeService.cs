@@ -62,9 +62,9 @@ namespace StemExplorerAPI.Services
                             Question = cl.QuestionText,
                             Instructions = cl.Instructions,
                             Difficulty = cl.Difficulty,
-                            Answer = new List<string>(),
+                            Answer = cl.Answers,
                             Hint = cl.Hint,
-                            PossibleAnswers = new List<string>(),
+                            PossibleAnswers = cl.PossibleAnswers,
                             QuestionType = cl.AnswerType
                         }).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
