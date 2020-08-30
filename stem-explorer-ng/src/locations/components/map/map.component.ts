@@ -15,6 +15,7 @@ import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -41,7 +42,8 @@ export class MapComponent implements OnInit {
     private dialog: MatDialog,
     private gtmService: GoogleTagManagerService,
     private mapConfig: MapConfigService,
-    private geolocation: GeolocationService
+    private geolocation: GeolocationService,
+    private router: Router
   ) {
     this.options = this.mapConfig.mapOptions();
     this.geolocation.getMapCentre().then(pos => {
@@ -65,6 +67,10 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
     this.getLocations();
+  }
+
+  navigateToList() {
+    this.router.navigateByUrl('/list');
   }
 
   trackLocations(idx, item) {
