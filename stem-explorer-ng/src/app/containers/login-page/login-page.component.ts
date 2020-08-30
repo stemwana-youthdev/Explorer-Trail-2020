@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngxs/store';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 
 @Component({
   selector: 'app-login-page',
@@ -9,9 +12,17 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 })
 export class LoginPageComponent {
 
+  errorMessage = '';
+
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required)
+  });
+
   constructor(
     private auth: AuthService,
     private router: Router,
+    private store: Store,
   ) { }
 
   async loginWithGoogle() {
@@ -23,8 +34,20 @@ export class LoginPageComponent {
     this.router.navigateByUrl('register');
   }
 
-  navigateToHomepage() {
-    this.router.navigateByUrl('');
+  async onSubmit() {
+    try {
+      await this.auth.emailLogin(
+        this.loginForm.get('email').value,
+        this.loginForm.get('password').value
+      );
+    }catch (error) {
+      this.errorMessage = error.message;
+      return;
+    }
+    console.log('successful login');
+    this.router.navigateByUrl(
+      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    );
   }
 
 }
