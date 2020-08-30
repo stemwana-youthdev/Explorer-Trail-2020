@@ -2,6 +2,7 @@ export interface Location {
   uid: number;
   name: string;
   position: Position;
+  googlePlaceId: string;
   link?: string;
   phone?: string;
   email?: string;
