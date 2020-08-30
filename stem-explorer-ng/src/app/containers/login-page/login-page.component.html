@@ -1,10 +1,17 @@
-<p>
-  <button mat-raised-button (click)="loginWithGoogle()">Login with Google</button>
-</p>
-<mat-divider></mat-divider>
-<p>
-  <button mat-button (click)="navigateToRegister()">Not yet registered?</button>
-</p>
-<p>
-  <button mat-button (click)="navigateToHomepage()">Return to Homepage</button>
-</p>
+<div class="email-register-fields">
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input placeholder="Email" type="email" required
+      formControlName="email">
+  
+      <input placeholder="Password" type="password" required
+      formControlName="password">
+     
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  
+      <app-button color="pink" type="submit" [disabled]="!loginForm.valid">Login</app-button>
+  </form>
+
+<button mat-raised-button (click)="loginWithGoogle()" class="google-button">Login with Google</button>
+
+<button mat-raised-button (click)="navigateToRegister()">Not yet registered?</button>
