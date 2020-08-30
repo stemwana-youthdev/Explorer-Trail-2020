@@ -35,10 +35,6 @@ export class DrawerComponent implements OnInit {
       title: 'Featured Retailers',
       url: '/',
     },
-    {
-      title: 'Contact Us',
-      url: '/',
-    },
   ];
 
   externalContent: ExternalContent[];
