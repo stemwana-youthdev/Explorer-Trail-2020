@@ -2,6 +2,7 @@
 
 @mixin title-color($color) {
     color: $color;
+    margin-top: 15px; /*In order to fix the spacing between the level selector and h3 in challenge view*/
 }
 
 h3.green {
