@@ -36,8 +36,10 @@ VALUES (1, 'Day of the Week',
         3, 2);
 
 INSERT INTO "ExternalContent" ("Id", "Title", "Url", "Order")
-VALUES (1, 'Tauranga STEM Festival', 'https://www.taurangastemfestival.co.nz/', 2),
-       (2, 'Google Maps', 'https://www.google.co.nz/maps', 1);
+VALUES (1, 'Tauranga STEM Festival', 'https://www.taurangastemfestival.co.nz/', 3),
+       (2, 'Google Maps', 'https://www.google.co.nz/maps', 2),
+       (3, 'Contact Us', 'https://www.taurangastemfestival.co.nz/contact-us/', 1),
+       (4, 'About the App', 'https://stemwana.nz/about-stem-explorer-trail/', 4);
 
 INSERT INTO "ChallengeLevels" ("Id", "QuestionText", "Difficulty", "AnswerType", "ChallengeId", "PossibleAnswers", "Answers")
 VALUES (1,

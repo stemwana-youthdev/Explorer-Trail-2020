@@ -28,15 +28,7 @@ export class DrawerComponent implements OnInit {
       home: true,
     },
     {
-      title: 'About the App',
-      url: '/',
-    },
-    {
-      title: 'Featured Retailers',
-      url: '/',
-    },
-    {
-      title: 'Contact Us',
+      title: 'Featured Locations',
       url: '/',
     },
   ];

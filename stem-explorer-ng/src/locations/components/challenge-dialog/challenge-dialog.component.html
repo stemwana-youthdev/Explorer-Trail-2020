@@ -3,8 +3,6 @@
     {{ challenge.challengeTitle }}
   </app-challenge-title>
 
-    <h4>{{ Categories[challenge.challengeCategory] }}</h4>
-    <h4>Duration: </h4>
     <p>{{ challenge.challengeDescription }}</p>
 
     <app-challenge-progress [category]="challenge.challengeCategory" [levels]="challenge.challengeLevels"></app-challenge-progress>

@@ -22,6 +22,9 @@ import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CameraComponent } from './components/camera/camera.component';
+import { CameraButtonComponent } from './components/camera-button/camera-button.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    CameraComponent,
+    CameraButtonComponent,
+
   ],
   imports: [
     CommonModule,
@@ -45,7 +51,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     GoogleMapsModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ZXingScannerModule,
+
   ],
   providers: [
     ApiService,
@@ -68,7 +76,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     GoogleMapsModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CameraComponent,
+    CameraButtonComponent,
+    ZXingScannerModule,
   ],
 })
 export class SharedModule { }

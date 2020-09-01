@@ -12,6 +12,7 @@ import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
+import { Router } from '@angular/router';
 
 /*
 * Component to show the challenges in a list view
@@ -32,7 +33,8 @@ export class ListComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store,
     private gtmService: GoogleTagManagerService,
-    private geolocation: GeolocationService
+    private geolocation: GeolocationService,
+    private router: Router
   ) {
     this.geolocation.getPosition().then(pos => {
       if (pos) {
@@ -61,6 +63,10 @@ export class ListComponent implements OnInit {
   trackChallenges(idx, item) {
     if (!item) { return null; }
     return idx;
+  }
+
+  navigateToMap() {
+    this.router.navigateByUrl('/');
   }
 
   /**
