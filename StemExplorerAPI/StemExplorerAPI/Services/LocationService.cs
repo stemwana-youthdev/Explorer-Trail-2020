@@ -46,7 +46,6 @@ namespace StemExplorerAPI.Services
                             ChallengeTitle = lc.Title,
                             ChallengeLevels = lc.ChallengeLevels.Select(l => new LocationLevelDto
                             {
-                                Id = l.Id,
                                 Difficulty = l.Difficulty,
                                 Complete = false,
                             }),

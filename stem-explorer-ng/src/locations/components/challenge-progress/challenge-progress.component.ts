@@ -1,11 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { StemColorsService } from 'src/app/shared/services/stem-colors.service';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-
-export interface LevelProgress {
-  difficulty: number;
-  complete: boolean;
-}
+import { LocationLevel } from 'src/locations/models/location';
 
 /*
 * Component for the list view dialog for more information
@@ -16,7 +12,7 @@ export interface LevelProgress {
   styleUrls: ['./challenge-progress.component.scss'],
 })
 export class ChallengeProgressComponent {
-  @Input() levels: LevelProgress[] = [];
+  @Input() levels: LocationLevel[] = [];
   @Input() category: Categories;
 
   constructor(private stemColors: StemColorsService) {}

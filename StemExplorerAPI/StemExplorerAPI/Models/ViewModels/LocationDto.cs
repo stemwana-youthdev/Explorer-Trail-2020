@@ -39,8 +39,6 @@ namespace StemExplorerAPI.Models.ViewModels
 
     public class LocationLevelDto
     {
-        [JsonProperty("uid")]
-        public int Id { get; set; }
         public Enums.ChallengeDifficulty Difficulty { get; set; }
         public bool Complete { get; set; }
     }
