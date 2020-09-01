@@ -3,7 +3,6 @@ using StemExplorerAPI.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Models.ViewModels
@@ -39,6 +38,8 @@ namespace StemExplorerAPI.Models.ViewModels
 
     public class LocationLevelDto
     {
+        [JsonIgnore]
+        public int Id { get; set; }
         public Enums.ChallengeDifficulty Difficulty { get; set; }
         public bool Complete { get; set; }
     }
