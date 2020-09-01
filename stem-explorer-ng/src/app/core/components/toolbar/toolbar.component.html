@@ -5,7 +5,7 @@
   
   <span class="fill-remaining-space"><img src="../../../assets/logo.png" aria-label="STEM Wana Trust" class="logo" (click)="navigateToHome()"/></span>
   
-  <button mat-button *ngIf="!(isLoggedIn | async); else loggedInBlock" (click)="navigateToLogin()" aria-label="Log in">Log In</button>
+  <button mat-button *ngIf="!(auth.user$ | async); else loggedInBlock" (click)="navigateToLogin()" aria-label="Log in">Log In</button>
   
   <ng-template #loggedInBlock>
     <button mat-icon-button [matMenuTriggerFor]="profileMenu">

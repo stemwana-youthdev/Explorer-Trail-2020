@@ -23,14 +23,18 @@ button.pink {
 
 button.mat-flat-button {
   color: white;
-  border-radius: 0;
+  border-radius: 0.5rem;
   width: 100%;
+  max-width: 768px !important;
   // background-color: tint(80%, $primary-black); @todo do we need this
   padding: 5px;
+  // margin-top: 15px;
   font-weight: bold;
-  max-width: 768px !important;
   text-align: center;
-  margin-top: 15px;
+
+  &:disabled {
+    border: none;
+  }
 
   &.outlined {
     background: white;

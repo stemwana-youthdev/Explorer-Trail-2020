@@ -2,11 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { AuthService } from 'src/app/shared/auth/auth.service';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 import { Categories } from 'src/app/shared/enums/categories.enum';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 export interface ResultDialogData {
   difficulty: number;
@@ -24,7 +24,6 @@ export interface ResultDialogData {
 export class ResultDialogComponent {
   Levels: any = Levels;
   cssClass: string;
-  loggedIn: boolean;
   Category = Categories;
 
   constructor(

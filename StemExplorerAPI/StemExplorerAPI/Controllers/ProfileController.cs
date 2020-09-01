@@ -36,7 +36,7 @@ namespace StemExplorerAPI.Controllers
         [HttpGet("")]
         public async Task<List<ProfileDto>> Get()
         {
-            return await _profileService.GetProfiles(userId);
+            return await _profileService.GetProfile(userId);
         }
     }
 }

@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ConfigService } from 'src/app/config/config.service';
-import { Challenge } from '../../../challenge/models/challenge';
 import { ExternalContent } from '../models/external-content';
 import { User } from '../models/user';
 import { Progress } from '../models/progress';
 import { Profile } from '../models/profile';
 import { Observable } from 'rxjs';
+import { ConfigService } from 'src/app/core/config/config.service';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -59,13 +58,15 @@ export class ApiService {
     );
   }
 
-  registerUser(token: string, userInfo: User) {
+  registerUser(token: string, profileInfo: Profile) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
     return this.http.post<User>(
       `${this.apiEndpoint}/User/RegisterUser`,
-      userInfo,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
+      profileInfo,
+      headers
     );
   }
 
@@ -103,11 +104,13 @@ export class ApiService {
   }
 
   getProfiles(token: string) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
     return this.http.get<Profile[]>(
       `${this.apiEndpoint}/Profiles`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
+      headers
     );
   }
 }

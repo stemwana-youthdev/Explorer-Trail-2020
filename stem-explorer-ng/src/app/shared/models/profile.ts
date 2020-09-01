@@ -1,5 +1,11 @@
 export interface Profile {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  region: string;
+  homeTown: string;
   userId: string;
+  photoUrl: string;
+  profileCompleted: boolean;
 }
