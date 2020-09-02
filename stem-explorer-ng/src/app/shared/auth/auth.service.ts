@@ -35,7 +35,6 @@ export class AuthService {
   private async getToken() {
     let token = localStorage.token;
     let tokenExpirationTime = localStorage.tokenExpirationTime;
-    console.log(tokenExpirationTime);
     if (!token || Date.parse(tokenExpirationTime) < Date.now()) {
       const user = await this.afAuth.currentUser;
       const res = await user.getIdTokenResult();
