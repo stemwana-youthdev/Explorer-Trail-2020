@@ -97,7 +97,6 @@ export class AuthService {
   get photoURL() {
     return this.afAuth.authState.pipe(
       map((user) => {
-        console.log(user);
         return user?.photoURL;
       })
     );
