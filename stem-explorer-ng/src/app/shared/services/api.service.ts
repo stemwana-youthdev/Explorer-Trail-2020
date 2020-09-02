@@ -26,10 +26,13 @@ export class ApiService {
    * Method to get any entities.
    * @param request the API request string, i.e. 'locations'
    */
-  getEntity(request: string): Observable<any> {
-    return this.http.get(
-      `${this.apiEndpoint}/${request}`
-    );
+  getEntity(request: string, token?: string): Observable<any> {
+    const headers: any = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return this.http.get(`${this.apiEndpoint}/${request}`, { headers });
   }
 
   getExternalContent() {

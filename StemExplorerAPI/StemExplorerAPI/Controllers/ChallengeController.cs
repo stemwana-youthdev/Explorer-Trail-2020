@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,21 +16,37 @@ namespace StemExplorerAPI.Controllers
     public class ChallengeController : ControllerBase
     {
         private readonly IChallengeService _challengeService;
+        private readonly IProfileService _profileService;
         private readonly ILogger _logger;
 
-        public ChallengeController(ILogger<LocationController> logger, IChallengeService challengeService)
+        private string userId
+        {
+            get
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                return identity.FindFirst("user_id").Value;
+            }
+        }
+
+        public ChallengeController(ILogger<LocationController> logger, IChallengeService challengeService, IProfileService profileService)
         {
             _logger = logger;
             _challengeService = challengeService;
+            _profileService = profileService;
         }
 
         // GET: api/Challenge
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int? profileId)
         {
             try
             {
-                return Ok(await _challengeService.GetChallenges());
+                if (profileId is int uid)
+                {
+                    await _profileService.AssertProfileOwnership(userId, uid);
+                }
+
+                return Ok(await _challengeService.GetChallenges(profileId));
             }
             catch (Exception ex)
             {
@@ -40,11 +57,16 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/Challenge/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetChallenge(int id)
+        public async Task<IActionResult> GetChallenge(int id, int? profileId)
         {
             try
             {
-                var challenge = await _challengeService.GetChallengeById(id);
+                if (profileId is int uid)
+                {
+                    await _profileService.AssertProfileOwnership(userId, uid);
+                }
+
+                var challenge = await _challengeService.GetChallengeById(id, profileId);
 
                 if (challenge == null)
                 {

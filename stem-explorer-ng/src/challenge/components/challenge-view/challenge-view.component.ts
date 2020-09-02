@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { map } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
@@ -11,6 +11,12 @@ import { ChallengeApiService } from 'src/challenge/services/challenge-api.servic
 import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
+import { AuthService } from 'src/app/shared/auth/auth.service';
+
+import { Store } from '@ngxs/store';
+import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
+import { ProfilesState } from 'src/app/store/profiles/profiles.state';
+import { Profile } from 'src/app/shared/models/profile';
 
 @Component({
   selector: 'app-challenge-view',
@@ -32,6 +38,8 @@ export class ChallengeViewComponent implements OnInit {
     public dialog: MatDialog,
     private api: ChallengeApiService,
     private gtmService: GoogleTagManagerService,
+    private authService: AuthService,
+    private store: Store,
   ) {
     this.challengeId = +this.route.snapshot.params['id'];
   }
@@ -97,6 +105,7 @@ export class ChallengeViewComponent implements OnInit {
           this.markLevelCompleted();
         }
 
+        this.saveResult(result);
         this.resultsDialog(result);
         this.gtmTag(result ? 'answer correct' : 'answer wrong');
       }
@@ -111,7 +120,7 @@ export class ChallengeViewComponent implements OnInit {
   private markLevelCompleted(): void {
     const completed = {
       ...this.selectedLevel,
-      isCompleted: true
+      complete: true
     };
     const idx = this.challenge.challengeLevels.indexOf(this.selectedLevel);
 
@@ -119,17 +128,47 @@ export class ChallengeViewComponent implements OnInit {
     this.selectedLevel = completed;
   }
 
+  private async saveResult(result: boolean) {
+    const loggedIn = await this.authService.isLoggedIn.pipe(take(1)).toPromise();
+    if (loggedIn) {
+      const profile = await this.store
+        .select(ProfilesState.currentProfile)
+        .pipe(
+          filter((p) => !!p),
+          take(1),
+        )
+        .toPromise();
+      const token = await this.authService.getToken();
+      await this.api
+        .levelCompleted(token, profile.id, this.selectedLevel.id, result)
+        .toPromise();
+    }
+  }
+
   /**
    * Loads the challenge and sets the selected level as the lowest.
-   * @todo set the selected level as the lowest not completed
    */
-  private loadChallenge(): void {
-    this.api.getChallenge(this.challengeId).pipe(
-      map(res => {
-        this.challenge = res;
-        this.selectedLevel = this.challenge.challengeLevels[0];
-      })
-    ).subscribe();
+  private async loadChallenge() {
+    let profile = null as Profile;
+    const loggedIn = await this.authService.isLoggedIn.pipe(take(1)).toPromise();
+    if (loggedIn) {
+      this.store.dispatch(new LoadProfiles());
+      profile = await this.store
+        .select(ProfilesState.currentProfile)
+        .pipe(
+          filter((p) => !!p),
+          take(1),
+        )
+        .toPromise();
+    }
+
+    const token = await this.authService.getToken();
+    const challenge = await this.api
+      .getChallenge(this.challengeId, token, profile?.id)
+      .toPromise();
+
+    this.challenge = challenge;
+    this.selectedLevel = challenge.challengeLevels.find((level) => !level.complete) ?? challenge.challengeLevels[0];
   }
 
   /**
