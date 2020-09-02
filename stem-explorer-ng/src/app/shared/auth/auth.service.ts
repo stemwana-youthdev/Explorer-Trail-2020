@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, defer } from 'rxjs';
+import { map, tap, startWith } from 'rxjs/operators';
 import { User } from '../models/user';
 import { ApiService } from '../services/api.service';
 
@@ -16,21 +16,33 @@ export class AuthService {
     private afAuth: AngularFireAuth, // this injects firebase authentication
     private api: ApiService,
   ) {
-    this.isLoggedIn = this.afAuth.authState.pipe(
-      map(state => {
-        if (state) {
-          return true;
-        }
-        else {
-          return false;
-        }
-      })
+    // defer only gets value from localStorage when the observable is subscribed to
+    this.isLoggedIn = defer(() =>
+      this.afAuth.authState.pipe(
+        map((state) => {
+          if (state) {
+            return true;
+          } else {
+            localStorage.removeItem('token');
+            return false;
+          }
+        }),
+        startWith(!!localStorage.token),
+      )
     );
   }
 
   private async getToken() {
-    const user = await this.afAuth.currentUser;
-    const token = await user.getIdToken();
+    let token = localStorage.token;
+    let tokenExpirationTime = localStorage.tokenExpirationTime;
+    console.log(tokenExpirationTime);
+    if (!token || Date.parse(tokenExpirationTime) < Date.now()) {
+      const user = await this.afAuth.currentUser;
+      const res = await user.getIdTokenResult();
+      localStorage.token = token = res.token;
+      localStorage.tokenExpirationTime = tokenExpirationTime =
+        res.expirationTime;
+    }
     return token;
   }
 
