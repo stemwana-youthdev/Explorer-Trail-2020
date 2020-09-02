@@ -2,7 +2,7 @@
   <div class="bouncer centered"></div>
 </ng-template>
 
-<div class="challenge-details" *ngIf="challenge">
+<div class="challenge-details" *ngIf="challenge; else loading">
 
   <div class="challenge-header">
     <app-challenge-title [category]="challenge.category">
