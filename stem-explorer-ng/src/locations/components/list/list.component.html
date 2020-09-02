@@ -19,3 +19,6 @@
 </div>
 
 <div class="bouncer centered" *ngIf="!locations?.length"></div>
+
+<app-fab matIcon="location_on" (click)="navigateToMap()"></app-fab>
+<app-camera-button></app-camera-button>

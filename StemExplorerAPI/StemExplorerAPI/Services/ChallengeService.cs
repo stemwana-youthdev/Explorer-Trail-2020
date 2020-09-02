@@ -66,7 +66,7 @@ namespace StemExplorerAPI.Services
                             Hint = cl.Hint,
                             PossibleAnswers = cl.PossibleAnswers,
                             QuestionType = cl.AnswerType
-                        }).ToList().OrderBy(l => l.Difficulty)
+                        }).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
             }
             catch (Exception ex)

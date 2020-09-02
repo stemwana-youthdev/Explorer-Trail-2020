@@ -10,8 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { ConfigModule } from './config/config.module';
-import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
-import { CameraComponent } from './containers/camera/camera.component';
 import { DrawerComponent } from './containers/drawer/drawer.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
@@ -33,8 +31,6 @@ import { ChallengeModule } from 'src/challenge/challenge.module';
     RegisterPageComponent,
     SplashScreenComponent,
     ToolbarComponent,
-    CameraComponent,
-    CameraButtonComponent,
     DrawerComponent,
     ProfileComponent,
     HintDialogComponent,
@@ -46,7 +42,6 @@ import { ChallengeModule } from 'src/challenge/challenge.module';
     AppRoutingModule,
     ConfigModule,
     BrowserAnimationsModule,
-    ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
     StoreModule,
@@ -54,7 +49,7 @@ import { ChallengeModule } from 'src/challenge/challenge.module';
     MaterialModule,
     ReactiveFormsModule,
     LocationsModule,
-    ChallengeModule
+    ChallengeModule,
   ],
   entryComponents: [
     SplashScreenComponent,
