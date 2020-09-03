@@ -51,6 +51,8 @@ export class AuthService {
           });
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
+          localStorage.removeItem('currentUser');
+          localStorage.removeItem('token');
           return of(null);
         }
       })
