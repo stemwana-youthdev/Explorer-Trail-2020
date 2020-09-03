@@ -1,19 +1,36 @@
 @use 'src/app/styles/variables' as *;
 
 .image-container {
-  padding: 25px 25px 40px 25px;
+  padding: 25px;
   border-bottom: solid;
   border-color: tint(20%, $primary-black); 
   display: flex;
+  max-width: 768px;
+  margin: 0 auto;
+
+  h4 {
+      margin-top: 10px;
+  }
 }
 
 .blue {
   color: $primary-blue;
 }
 
+app-profile-picture {
+    margin-right: 20px;
+}
+
 .profile-image {
-  font-size: 50px;
-  padding-right: 40px;
+    font-size: 40px;
+    padding-right: 35px;
+    padding-bottom: 20px;
+}
+
+form {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 768px;
 }
 
 .terms {
