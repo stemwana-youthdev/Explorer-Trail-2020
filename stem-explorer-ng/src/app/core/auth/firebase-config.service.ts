@@ -9,7 +9,6 @@ export class FirebaseConfigService {
   constructor(private config: ConfigService) { }
 
   get(): FirebaseOptions {
-    console.warn(this.config.get('AUTH_API'))
     return {
       apiKey: this.config.get('AUTH_API'),
       authDomain: 'explorer-trial.firebaseapp.com',

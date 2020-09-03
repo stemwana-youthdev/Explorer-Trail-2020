@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 import { map } from 'rxjs/operators';
 import { Profile } from 'src/app/shared/models/profile';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -28,11 +29,19 @@ export class ProfileComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.getProfile();
+    // this.photoURLSubscription = this.auth.photoURL.subscribe((url) => {
+    //   this.photoURL = url;
+    // });
+  }
+
+  ngOnDestroy() {
+    // this.photoURLSubscription?.unsubscribe();
   }
 
   getProfile() {
@@ -58,6 +67,12 @@ export class ProfileComponent implements OnInit {
     this.profileForm.controls.homeTown.setValue(this.profile.homeTown);
     this.profileForm.controls.profilePic.setValue(this.profile.photoUrl);
     this.profileForm.controls.nickname.setValue(this.profile.nickname);
+  }
+
+  editPhoto() {
+    // this.dialog.open(ProfilePhotoDialogComponent, {
+    //   panelClass: 'app-dialog',
+    // });
   }
 
   async onSubmit() {
