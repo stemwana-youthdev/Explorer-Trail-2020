@@ -33,7 +33,7 @@ export class AuthService {
     if (localStorage.getItem('currentUser') !== null) {
       this._user = JSON.parse(localStorage.getItem('currentUser'));
       this.user$ = of(this._user);
-      this.getToken();
+      this.getToken().subscribe();
     }
   }
 
@@ -51,8 +51,6 @@ export class AuthService {
           });
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
-          localStorage.removeItem('currentUser');
-          localStorage.removeItem('token');
           return of(null);
         }
       })
@@ -194,7 +192,7 @@ export class AuthService {
     };
     localStorage.setItem('currentUser', JSON.stringify(this._user));
     this.user$ = of(this._user);
-    this.getToken();
+    this.getToken().subscribe();
   }
 
   /**
