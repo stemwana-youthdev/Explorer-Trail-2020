@@ -34,21 +34,10 @@ namespace StemExplorerAPI.Services
                     Answers = l.Answers,
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
-                    Complete = false,
                 })
                 .OrderBy(l => l.Difficulty)
                 .ToListAsync();
 
-            if (profileId != null) 
-            {
-                var progress = await _progressService.GetProgress(profileId ?? 0);
-            
-                foreach (var level in levels)
-                {
-                    level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                }
-            }
-        
             return levels;
         }
 
@@ -69,16 +58,6 @@ namespace StemExplorerAPI.Services
                     Hint = l.Hint,
                 })
                 .ToListAsync();
-
-            if (profileId != null) 
-            {
-                var progress = await _progressService.GetProgress(profileId ?? 0);
-            
-                foreach (var level in levels)
-                {
-                    level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                }
-            }
 
             return levels;
         }

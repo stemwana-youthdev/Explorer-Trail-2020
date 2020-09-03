@@ -20,6 +20,5 @@ namespace StemExplorerAPI.Models.ViewModels
         public List<string> Answers { get; set; }
         public int ChallengeId { get; set; }
         public string Hint { get; set; }
-        public bool Complete { get; set; }
     }
 }
