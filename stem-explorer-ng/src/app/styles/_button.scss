@@ -23,17 +23,20 @@ button.pink {
 
 button.mat-flat-button {
   color: white;
-  border-radius: 0;
+  border-radius: 0.5rem;
   width: 100%;
-  // background-color: tint(80%, $primary-black); @todo do we need this
+  max-width: 768px !important;
   padding: 5px;
   font-weight: bold;
-  max-width: 768px !important;
   text-align: center;
-  margin-top: 15px;
 
-  &.outlined {
+  &:disabled {
+    border: none;
+  }
+
+  &.answer {
     background: white;
+    margin-top: 15px;
     color: $primary-black;
     border: 3px solid $primary-black;
     font-size: 1rem;

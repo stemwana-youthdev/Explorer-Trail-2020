@@ -4,8 +4,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-
-import { AuthService } from '../../shared/auth/auth.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -18,14 +17,14 @@ export class ToolbarComponent {
   drawer: MatDrawer;
 
   constructor(
+    public auth: AuthService,
     private router: Router,
-    private auth: AuthService,
     private store: Store,
   ) { }
 
-  get isLoggedIn(): Observable<boolean> {
-    return this.auth.isLoggedIn;
-  }
+  // get isLoggedIn(): Observable<boolean> {
+  //   return this.auth.isLoggedIn;
+  // }
 
   get lastHomepage() {
     return this.store.selectSnapshot(LastHomepageState.lastHomepage);
@@ -36,7 +35,7 @@ export class ToolbarComponent {
   }
 
   logout() {
-    this.auth.logout();
+    this.auth.signOut();
   }
 
   navigateToHome() {

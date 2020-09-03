@@ -43,16 +43,16 @@
         class="challengeActions"
         [category]="challenge.challengeCategory"
         [outlined]="true"
-        (click)="mapDirections()">
-        Get Directions
+        (click)="mapDirections()"
+        [value]="'Get Directions'">
       </app-button>
       <app-button
         mat-dialog-close
         class="challengeActions"
         [category]="challenge.challengeCategory"
         (click)="cameraView()"
-        aria-label="Start challenge">
-        Scan QR Code
+        aria-label="Start challenge"
+        [value]="'Scan QR Code'">
       </app-button>
     </div>
 </app-dialog>

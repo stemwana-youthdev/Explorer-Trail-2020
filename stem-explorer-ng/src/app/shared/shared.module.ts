@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-
-import { AuthModule } from './auth/auth.module';
 import { ApiService } from './services/api.service';
 import { MaterialModule } from './material.module';
 import { TruncatePipe } from './pipes/truncate.pipe';
@@ -46,7 +44,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
   ],
   imports: [
     CommonModule,
-    AuthModule,
     HttpClientModule,
     MaterialModule,
     GoogleMapsModule,

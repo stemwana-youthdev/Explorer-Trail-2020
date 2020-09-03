@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/shared/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidationService } from 'src/app/shared/services/custom-validation.service';
 import { User } from 'src/app/shared/models/user';
-
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-register-page',
@@ -12,7 +11,6 @@ import { User } from 'src/app/shared/models/user';
   styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent {
-
   errorMessage = '';
   user: User;
 
@@ -27,49 +25,53 @@ export class RegisterPageComponent {
   }, { validators: this.customValidator.matchPassword('password', 'confirmPassword') });
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router,
     private customValidator: CustomValidationService,
   ) { }
 
-  async registerWithGoogle() {
-    await this.auth.googleAuthLogin();
-    this.router.navigateByUrl('profile');
+  get emailError(): boolean {
+    return this.registerForm.controls.email.hasError('email')
+      && this.registerForm.controls.email.touched;
   }
 
-  navigateToLogin() {
-    this.router.navigateByUrl('login');
+  get passwordError(): boolean {
+    return this.registerForm.controls.password.hasError('pattern')
+      && this.registerForm.controls.password.touched;
+  }
+
+  get passwordMatchError(): boolean {
+    return this.registerForm.controls.confirmPassword.hasError('passwordMismatch')
+      && this.registerForm.controls.confirmPassword.touched;
+  }
+
+  goToLogin() {
+    this.router.navigate(['login']);
   }
 
   navigateToHomepage() {
-    this.router.navigateByUrl('');
-  }
-
-  navigateToEmailRegister() {
-    this.router.navigateByUrl('email-register');
+    this.router.navigate(['/']);
   }
 
   async onSubmit() {
-    if (this.registerForm.valid) {
-      try {
-        await this.auth.emailRegister(
-          this.registerForm.get('email').value,
-          this.registerForm.get('password').value
-        );
-        this.user = {
-          id: '',
-          firstName: this.registerForm.get('firstName').value,
-          lastName: this.registerForm.get('lastName').value,
-          region: '',
-          homeTown: ''
-        };
-        await this.auth.registerUser(this.user);
-      } catch (error) {
-        this.errorMessage = error.message;
-        return;
+
+    this.auth.registerEmail(
+      this.registerForm.controls.email.value,
+      this.registerForm.controls.password.value,
+      this.registerForm.controls.firstName.value,
+      this.registerForm.controls.lastName.value
+    ).then(() => {
+      this.router.navigate(['profile']);
+    }).catch(
+      (err) => {
+        if (err.code === 'auth/email-already-in-use') {
+          this.errorMessage = 'This email already has an account.';
+        }
+        if (err.code === 'auth/invalid-email') {
+          this.errorMessage = `Sorry, that doesn't look like a valid email address`;
+        }
       }
-      this.router.navigateByUrl('profile');
-     }
+    );
   }
 
 }

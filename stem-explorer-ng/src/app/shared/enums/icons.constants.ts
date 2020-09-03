@@ -1,4 +1,5 @@
 export type SvgIcon =
+| 'google-login'
 | 'AMEN-food'
 | 'AMEN-magnifying-glass'
 | 'AMEN-mail'
