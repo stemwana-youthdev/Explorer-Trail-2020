@@ -103,13 +103,39 @@ export class ApiService {
     );
   }
 
-  getProfiles(token: string) {
+  /** Profile Endpoints */
+
+  getProfile(token: string, userId: string) {
     const headers = {
       headers: { Authorization: `Bearer ${token}` }
     };
 
-    return this.http.get<Profile[]>(
-      `${this.apiEndpoint}/Profiles`,
+    return this.http.get<Profile>(
+      `${this.apiEndpoint}/Profile?userId=${userId}`,
+      headers
+    );
+  }
+
+  createProfile(profile: Profile, token?: string) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    return this.http.post<Profile>(
+      `${this.apiEndpoint}/Profile`,
+      profile,
+      headers
+    );
+  }
+
+  updateProfile(token: string, profile: Profile) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    return this.http.put<Profile>(
+      `${this.apiEndpoint}/Profile/Update`,
+      profile,
       headers
     );
   }

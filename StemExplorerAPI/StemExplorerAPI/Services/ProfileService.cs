@@ -6,7 +6,6 @@ using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Models.ViewModels.Requests;
 using StemExplorerAPI.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,10 +29,6 @@ namespace StemExplorerAPI.Services
                 FirstName = profileInfo.FirstName,
                 LastName = profileInfo.LastName,
                 Email = profileInfo.Email,
-                Region = profileInfo.Region,
-                HomeTown = profileInfo.HomeTown,
-                PhotoUrl = profileInfo.PhotoUrl,
-                ProfileCompleted = profileInfo.ProfileCompleted
             };
 
             _context.Profiles.Add(profile);
@@ -44,7 +39,8 @@ namespace StemExplorerAPI.Services
 
         public async Task<ProfileDto> GetProfile(string userId)
         {
-            try {
+            try
+            {
                 return await _context.Profiles
                     .AsNoTracking()
                     .Where(p => p.UserId == userId)
@@ -54,23 +50,43 @@ namespace StemExplorerAPI.Services
                         UserId = profile.UserId,
                         FirstName = profile.FirstName,
                         LastName = profile.LastName,
+                        Nickname = profile.Nickname,
                         Email = profile.Email,
                         Region = profile.Region,
                         HomeTown = profile.HomeTown,
                         PhotoUrl = profile.PhotoUrl,
                         ProfileCompleted = profile.ProfileCompleted
-                    })
+                    }).SingleOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
             }
         }
 
-        // public async Task AssertProfileOwnership(string userId, int profileId)
-        // {
-        //     var profile = await GetProfile(profileId);
-        //     if (profile.UserId != userId)
-        //     {
-        //         throw new AccessViolationException("You do not own that profile");
-        //     }
-        // }
+        public async Task EditProfile(ProfileDto profileDto)
+        {
+            try
+            {
+                var entity = await _context.Profiles.SingleOrDefaultAsync(p => p.Id == profileDto.Id);
+
+                entity.FirstName = profileDto.FirstName;
+                entity.LastName = profileDto.LastName;
+                entity.Nickname = profileDto.Nickname;
+                entity.Region = profileDto.Region;
+                entity.HomeTown = profileDto.HomeTown;
+                entity.PhotoUrl = profileDto.PhotoUrl;
+                entity.ProfileCompleted = profileDto.ProfileCompleted;
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
     }
 }
 

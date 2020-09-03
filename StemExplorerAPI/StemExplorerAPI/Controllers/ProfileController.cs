@@ -7,36 +7,90 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models.ViewModels;
+using StemExplorerAPI.Models.ViewModels.Requests;
 using StemExplorerAPI.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {
-    [Route("api/Profiles")]
+    [Route("api/Profile")]
     [ApiController]
     [Authorize]
     public class ProfileController : ControllerBase
     {
         private readonly IProfileService _profileService;
+        private readonly ILogger _logger;
 
-        private string userId
+        public ProfileController(IProfileService profileService, ILogger<ProfileController> logger)
         {
-            get
+            _profileService = profileService;
+            _logger = logger;
+        }
+
+        // GET: api/Profile
+        [HttpGet(Name ="GetProfile")]
+        [Authorize]
+        public async Task<IActionResult> Get(string userId)
+        {
+            try
             {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return identity.FindFirst("user_id").Value;
+                var profile = await _profileService.GetProfile(userId);
+
+                if (profile == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
-        public ProfileController(IProfileService profileService)
+        // POST: api/Profile
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateProfileAsync([FromBody] ProfileRequestDto profileDto)
         {
-            _profileService = profileService;
+            try
+            {
+                var profileId = await _profileService.CreateProfile(profileDto);
+                return CreatedAtRoute("GetProfile", profileDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
-        [HttpGet("")]
-        public async Task<List<ProfileDto>> Get()
+        // PUT: api/Profile/Update
+        [HttpPut("Update")]
+        [Authorize]
+        public async Task<IActionResult> Put([FromBody] ProfileDto profileDto)
         {
-            return await _profileService.GetProfile(userId);
+            try
+            {
+                var profile = await _profileService.GetProfile(profileDto.UserId);
+
+                if (profile == null)
+                {
+                    return NotFound();
+                }
+
+                await _profileService.EditProfile(profileDto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
     }
 }

@@ -47,6 +47,12 @@
     color: $color;
     border: none;
   }
+
+  &.outlined {
+    border-color: 3px solid $color;
+    color: $color;
+    background: #fff;
+  }
 }
 
 @mixin coloured-dialog($color) {

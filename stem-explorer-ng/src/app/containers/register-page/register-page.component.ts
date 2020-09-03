@@ -4,8 +4,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidationService } from 'src/app/shared/services/custom-validation.service';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/core/auth/auth.service';
-import { Profile } from 'src/app/shared/models/profile';
-
 
 @Component({
   selector: 'app-register-page',
@@ -66,7 +64,6 @@ export class RegisterPageComponent {
       this.router.navigate(['profile']);
     }).catch(
       (err) => {
-        console.warn('onSubmit', err)
         if (err.code === 'auth/email-already-in-use') {
           this.errorMessage = 'This email already has an account.';
         }
@@ -75,27 +72,6 @@ export class RegisterPageComponent {
         }
       }
     );
-
-    // if (this.registerForm.valid) {
-    //   try {
-    //     await this.auth.emailRegister(
-    //       this.registerForm.get('email').value,
-    //       this.registerForm.get('password').value
-    //     );
-    //     this.user = {
-    //       id: '',
-    //       firstName: this.registerForm.get('firstName').value,
-    //       lastName: this.registerForm.get('lastName').value,
-    //       region: '',
-    //       homeTown: ''
-    //     };
-    //     await this.auth.registerUser(this.user);
-    //   } catch (error) {
-    //     this.errorMessage = error.message;
-    //     return;
-    //   }
-    //   this.router.navigateByUrl('profile');
-    //  }
   }
 
 }

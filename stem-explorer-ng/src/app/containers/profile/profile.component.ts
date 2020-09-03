@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { map } from 'rxjs/operators';
 import { Profile } from 'src/app/shared/models/profile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -12,8 +12,6 @@ import { Profile } from 'src/app/shared/models/profile';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  user: User;
   loggedIn: boolean;
   profile: Profile;
 
@@ -23,58 +21,66 @@ export class ProfileComponent implements OnInit {
     email: new FormControl({value: '', disabled: true}, Validators.required),
     region: new FormControl('', Validators.required),
     homeTown: new FormControl('', Validators.required),
+    profilePic: new FormControl(''),
+    nickname: new FormControl('', Validators.required)
   });
 
   constructor(
     private auth: AuthService,
     private snackbar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    // this.getUserInfo();
     this.getProfile();
   }
 
   getProfile() {
     this.auth.getProfile().pipe(map(res => {
-      console.warn(res)
+      this.profile = res;
+      this.setForm();
     })).subscribe();
   }
 
-  // getUserInfo() {
-  //   this.auth.user$.pipe(
-  //     map(res => {
-  //       console.warn(res)
-  //       this.user = res
-        
-  //     })
-  //   ).subscribe();
-  // }
+  toMap() {
+    this.router.navigate(['/']);
+  }
 
-  private setForm(profile: Profile) {
-    this.profileForm.controls.firstName.setValue(profile.firstName);
-    this.profileForm.controls.lastName.setValue(profile.lastName);
-    this.profileForm.controls.email.setValue(profile.email);
-    this.profileForm.controls.region.setValue(profile.region);
-    this.profileForm.controls.homeTown.setValue(profile.homeTown);
+  get errorMessage(): boolean {
+    return this.profileForm.dirty && !this.profileForm.valid;
+  }
+
+  private setForm() {
+    this.profileForm.controls.firstName.setValue(this.profile.firstName);
+    this.profileForm.controls.lastName.setValue(this.profile.lastName);
+    this.profileForm.controls.email.setValue(this.profile.email);
+    this.profileForm.controls.region.setValue(this.profile.region);
+    this.profileForm.controls.homeTown.setValue(this.profile.homeTown);
+    this.profileForm.controls.profilePic.setValue(this.profile.photoUrl);
+    this.profileForm.controls.nickname.setValue(this.profile.nickname);
   }
 
   async onSubmit() {
-    // const updatedUser = {
-    //   id: this.user.id,
-    //   firstName: this.profileForm.get('firstName').value,
-    //   lastName: this.profileForm.get('lastName').value,
-    //   region: this.profileForm.get('region').value,
-    //   homeTown: this.profileForm.get('homeTown').value
-    // };
-    // try {
-    //   await this.auth.updateCurrentUser(updatedUser);
-    // }catch (error) {
-    //   console.warn(error);
-    //   return;
-    // }
-    // this.snackbar.open('Profile successfully updated', 'Close', {
-    //   duration: 3000
-    // });
+    const updatedUser: Profile = {
+      id: this.profile.id,
+      firstName: this.profileForm.get('firstName').value,
+      lastName: this.profileForm.get('lastName').value,
+      region: this.profileForm.get('region').value,
+      homeTown: this.profileForm.get('homeTown').value,
+      nickname: this.profileForm.get('nickname').value,
+      profileCompleted: true,
+      userId: this.profile.userId,
+      email: this.profile.email,
+      photoUrl: this.profileForm.get('profilePic').value
+    };
+
+    this.auth.updateProfile(updatedUser).subscribe(
+      () => {
+        this.profileForm.markAsPristine();
+        this.snackbar.open('Awesome! Profile updated!', 'Close', {
+          duration: 3000
+        });
+      }
+    );
   }
 }

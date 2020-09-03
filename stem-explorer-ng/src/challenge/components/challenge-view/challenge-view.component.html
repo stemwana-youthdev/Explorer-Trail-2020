@@ -31,9 +31,8 @@
         color="pink"
         (click)="getHint()"
         aria-label="Get hint"
-      >
-        Get Hint
-      </app-button>
+        [value]="'Get Hint'"
+      ></app-button>
   </ng-container>
 
   <app-button
@@ -41,9 +40,8 @@
     (click)="enterAnswer()"
     style="position: relative; top: 10px;"
     aria-label="Answer here"
-  >
-    Enter Answer
-  </app-button>
+    [value]="'Enter Answer'"
+  ></app-button>
 
   <p *ngIf="selectedLevel.isCompleted">Awesome work! This level is completed!</p>
 </div>

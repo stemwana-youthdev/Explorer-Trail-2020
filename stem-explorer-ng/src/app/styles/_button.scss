@@ -26,9 +26,7 @@ button.mat-flat-button {
   border-radius: 0.5rem;
   width: 100%;
   max-width: 768px !important;
-  // background-color: tint(80%, $primary-black); @todo do we need this
   padding: 5px;
-  // margin-top: 15px;
   font-weight: bold;
   text-align: center;
 
@@ -36,8 +34,9 @@ button.mat-flat-button {
     border: none;
   }
 
-  &.outlined {
+  &.answer {
     background: white;
+    margin-top: 15px;
     color: $primary-black;
     border: 3px solid $primary-black;
     font-size: 1rem;
