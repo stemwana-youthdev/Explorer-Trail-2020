@@ -37,19 +37,6 @@ namespace StemExplorerAPI.Services
                         LocationId = c.LocationId,
                     }).ToListAsync();
 
-                if (profileId is int uid)
-                {
-                    var progress = await _progressService.GetProgress(uid);
-
-                    foreach (var challenge in challenges)
-                    {
-                        foreach (var level in challenge.ChallengeLevels)
-                        {
-                            level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                        }
-                    }
-                }
-
                 return challenges;
             }
             catch (Exception ex)
@@ -63,6 +50,8 @@ namespace StemExplorerAPI.Services
         {
             try
             {
+                var unwrappedProfileId = profileId ?? -1;
+
                 var challenge = await _context.Challenges
                     .AsNoTracking()
                     .Where(c => c.Id == challengeId)
@@ -82,19 +71,10 @@ namespace StemExplorerAPI.Services
                             Answer = cl.Answers,
                             Hint = cl.Hint,
                             PossibleAnswers = cl.PossibleAnswers,
-                            QuestionType = cl.AnswerType
+                            QuestionType = cl.AnswerType,
+                            Complete = _context.Progress.Any(p => p.ProfileId == unwrappedProfileId && p.ChallengeLevelId == cl.Id) && _context.Progress.First(p => p.ProfileId == unwrappedProfileId && p.ChallengeLevelId == cl.Id).Correct,
                         }).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
-
-                if (profileId is int uid && challenge != null)
-                {
-                    var progress = await _progressService.GetProgress(uid);
-
-                    foreach (var level in challenge.ChallengeLevels)
-                    {
-                        level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                    }
-                }
 
                 return challenge;
             }
