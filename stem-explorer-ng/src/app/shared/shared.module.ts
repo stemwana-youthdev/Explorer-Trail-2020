@@ -24,6 +24,9 @@ import { ProfilePictureComponent } from './components/profile-picture/profile-pi
 import { ImageService } from './services/image.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CameraComponent } from './components/camera/camera.component';
+import { CameraButtonComponent } from './components/camera-button/camera-button.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     InputComponent,
     SortByPipe,
     ProfilePictureComponent,
+    CameraComponent,
+    CameraButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +53,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     GoogleMapsModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ZXingScannerModule,
+
   ],
   providers: [
     ApiService,
@@ -73,7 +80,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     GoogleMapsModule,
     ProfilePictureComponent,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CameraComponent,
+    CameraButtonComponent,
+    ZXingScannerModule,
   ],
 })
 export class SharedModule { }

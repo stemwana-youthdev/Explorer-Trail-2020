@@ -3,8 +3,6 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidationService } from 'src/app/shared/services/custom-validation.service';
-import { Store } from '@ngxs/store';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 import { User } from 'src/app/shared/models/user';
 
 
@@ -32,12 +30,11 @@ export class RegisterPageComponent {
     private auth: AuthService,
     private router: Router,
     private customValidator: CustomValidationService,
-    private store: Store,
   ) { }
 
   async registerWithGoogle() {
     await this.auth.googleAuthLogin();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('profile');
   }
 
   navigateToLogin() {
@@ -71,9 +68,7 @@ export class RegisterPageComponent {
         this.errorMessage = error.message;
         return;
       }
-      this.router.navigateByUrl(
-      this.store.selectSnapshot(LastHomepageState.lastHomepage)
-      );
+      this.router.navigateByUrl('profile');
      }
   }
 

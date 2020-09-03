@@ -85,6 +85,11 @@ export class AuthService {
     }
   }
 
+  async emailLogin(email: string, password: string) {
+    const res = await this.afAuth.signInWithEmailAndPassword(email, password);
+    console.log('You have been succesfully logged in!', res);
+  }
+
   async logout() {
     await this.afAuth.signOut();
   }
@@ -92,7 +97,6 @@ export class AuthService {
   get photoURL() {
     return this.afAuth.authState.pipe(
       map((user) => {
-        console.log(user);
         return user?.photoURL;
       })
     );

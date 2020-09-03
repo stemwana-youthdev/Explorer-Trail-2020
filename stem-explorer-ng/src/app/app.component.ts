@@ -53,14 +53,6 @@ export class AppComponent implements OnInit {
     this.store.dispatch(new VisitedHomepage());
   }
 
-  navigateToList() {
-    this.router.navigateByUrl('/list');
-  }
-
-  navigateToMap() {
-    this.router.navigateByUrl('/');
-  }
-
 }
 
 function registerIcons(

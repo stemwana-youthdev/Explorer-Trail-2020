@@ -10,13 +10,13 @@ psql -d StemExplorer -U stem << EOF
 
 INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "GooglePlaceId", "Url", "Phone", "Email")
 VALUES (1, 'Basestation', -37.6865807, 176.1649332, 'ChIJ905i8dzbbW0RIvN_2Wp8sJQ',
-        'https://www.basestation.nz/en', "0800000577", "info@basestation.nz"),
+        'https://www.basestation.nz/en', '0800000577', 'info@basestation.nz'),
        (2, 'Trustpower', -37.6865807, 176.1649332, 'ChIJgxvxUurYbW0RuC2eHkOaUQA',
-        'https://www.trustpower.co.nz/', "0800878787", "info@trustpower.co.nz"),
+        'https://www.trustpower.co.nz/', '0800878787', 'info@trustpower.co.nz'),
        (3, 'i-SITE', -37.6835924, 176.1677695, 'ChIJn9OKit3bbW0ROSguplmSk5U',
-        'https://www.newzealand.com/in/plan/business/tauranga-i-size-visitor-information-centre/', "075788103", "tauranga@newzealand.com"),
-       (4, 'Tauranga City Library', -37.6828031, 176.1664596, 'ChIJD5sBYefbbW0RP-oj-NNSuoA'
-        'https://library.tauranga.govt.nz/', "075777177", "library@tauranga.govt.nz");
+        'https://www.newzealand.com/in/plan/business/tauranga-i-size-visitor-information-centre/', '075788103', 'tauranga@newzealand.com'),
+       (4, 'Tauranga City Library', -37.6828031, 176.1664596, 'ChIJD5sBYefbbW0RP-oj-NNSuoA',
+        'https://library.tauranga.govt.nz/', '075777177', 'library@tauranga.govt.nz');
 
 INSERT INTO "Challenges" ("Id", "Title", "Description", "Category", "LocationId")
 VALUES (1, 'Day of the Week',
@@ -36,8 +36,10 @@ VALUES (1, 'Day of the Week',
         3, 2);
 
 INSERT INTO "ExternalContent" ("Id", "Title", "Url", "Order")
-VALUES (1, 'Tauranga STEM Festival', 'https://www.taurangastemfestival.co.nz/', 2),
-       (2, 'Google Maps', 'https://www.google.co.nz/maps', 1);
+VALUES (1, 'Tauranga STEM Festival', 'https://www.taurangastemfestival.co.nz/', 3),
+       (2, 'Google Maps', 'https://www.google.co.nz/maps', 2),
+       (3, 'Contact Us', 'https://www.taurangastemfestival.co.nz/contact-us/', 1),
+       (4, 'About the App', 'https://stemwana.nz/about-stem-explorer-trail/', 4);
 
 INSERT INTO "ChallengeLevels" ("Id", "QuestionText", "Difficulty", "AnswerType", "ChallengeId", "PossibleAnswers", "Answers")
 VALUES (1,
