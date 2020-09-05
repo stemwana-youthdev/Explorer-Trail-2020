@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/auth/auth.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { User } from 'src/app/shared/models/user';
 
 @Component({
@@ -15,53 +14,55 @@ export class LoginPageComponent {
 
   errorMessage = '';
   user: User;
+  passwordReminderSent = false;
+  hideField = false;
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
 
+  resetPassword = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email])
+  });
+
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router,
     private store: Store,
   ) { }
 
-  async loginWithGoogle() {
-    await this.auth.googleAuthLogin();
-    this.router.navigateByUrl('');
-  }
-
   navigateToRegister() {
-    this.router.navigateByUrl('register');
+    this.router.navigate(['register']);
   }
 
-  async onSubmit() {
-    try {
-      await this.auth.emailLogin(
-        this.loginForm.get('email').value,
-        this.loginForm.get('password').value
-      );
-    }catch (error) {
-      this.errorMessage = error.message;
-      return;
+  onSubmit() {
+    this.auth.emailLogin(
+      this.loginForm.get('email').value,
+      this.loginForm.get('password').value
+    ).then(() => {
+      this.router.navigate(['/']);
     }
-    console.log('successful login');
-    this.pageNavigate();
+    ).catch(() => {
+      this.errorMessage = 'Oops! Your email or password is incorrect.';
+    });
+  }
+
+  forgotPassword() {
+    this.router.navigate(['forgot-password']);
   }
 
   // Checks if the user has completed their profile and if not navigates to profile page
   async pageNavigate() {
-    await this.auth.getCurrentUser().then(value =>
-      this.user = value
-    );
-    if (this.user.firstName && this.user.lastName && this.user.region && this.user.homeTown) {
-      this.router.navigateByUrl(
-        this.store.selectSnapshot(LastHomepageState.lastHomepage)
-        );
-    }else {
-      this.router.navigateByUrl('profile');
-    }
+    // await this.auth.getCurrentUser().then(value =>
+    //   this.user = value
+    // );
+    // if (this.user.firstName && this.user.lastName && this.user.region && this.user.homeTown) {
+    //   this.router.navigateByUrl(
+    //     this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    //     );
+    // }else {
+    //   this.router.navigateByUrl('profile');
+    // }
   }
-
 }

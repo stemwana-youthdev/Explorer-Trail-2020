@@ -145,15 +145,34 @@ namespace StemExplorerAPI.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("HomeTown")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nickname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("ProfileCompleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Region")
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Profiles");
                 });
@@ -192,18 +211,6 @@ namespace StemExplorerAPI.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HomeTown")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -221,17 +228,10 @@ namespace StemExplorerAPI.Migrations
             modelBuilder.Entity("StemExplorerAPI.Models.Entities.ChallengeLevel", b =>
                 {
                     b.HasOne("StemExplorerAPI.Models.Entities.Challenge", "Challenge")
-                        .WithMany()
+                        .WithMany("ChallengeLevel")
                         .HasForeignKey("ChallengeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("StemExplorerAPI.Models.Entities.Profile", b =>
-                {
-                    b.HasOne("StemExplorerAPI.Models.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("StemExplorerAPI.Models.Entities.Progress", b =>

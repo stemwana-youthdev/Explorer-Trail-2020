@@ -38,18 +38,18 @@ namespace StemExplorerAPI.Controllers
             _profileService = profileService;
         }
 
-        [HttpGet("{profileId}")]
-        public async Task<List<ProgressDto>> Get(int profileId)
-        {
-            await _profileService.AssertProfileOwnership(userId, profileId);
-            return await _progressService.GetProgress(profileId);
-        }
+        // [HttpGet("{profileId}")]
+        // public async Task<List<ProgressDto>> Get(int profileId)
+        // {
+        //     await _profileService.AssertProfileOwnership(userId, profileId);
+        //     return await _progressService.GetProgress(profileId);
+        // }
 
-        [HttpPost("LevelCompleted")]
-        public async Task LevelCompleted(CompletedLevelDto completed)
-        {
-            await _profileService.AssertProfileOwnership(userId, completed.ProfileId);
-            await _progressService.LevelCompleted(completed.ProfileId, completed.LevelId, completed.Correct);
-        }
+        // [HttpPost("LevelCompleted")]
+        // public async Task LevelCompleted(CompletedLevelDto completed)
+        // {
+        //     await _profileService.AssertProfileOwnership(userId, completed.ProfileId);
+        //     await _progressService.LevelCompleted(completed.ProfileId, completed.LevelId, completed.Correct);
+        // }
     }
 }

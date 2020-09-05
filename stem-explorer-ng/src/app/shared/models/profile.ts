@@ -1,5 +1,11 @@
 export interface Profile {
   id: number;
-  name: string;
+  email: string;
   userId: string;
+  profileCompleted: boolean;
+  firstName?: string;
+  lastName?: string;
+  nickname?: string;
+  region?: string;
+  homeTown?: string;
 }

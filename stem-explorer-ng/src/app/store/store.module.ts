@@ -5,7 +5,6 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from '../../environments/environment';
 import { LastHomepageState } from './last-homepage/last-homepage.state';
-import { ProfilesState } from './profiles/profiles.state';
 
 @NgModule({
   declarations: [],
@@ -14,7 +13,6 @@ import { ProfilesState } from './profiles/profiles.state';
     NgxsModule.forRoot(
       [
         LastHomepageState,
-        ProfilesState,
       ],
       { developmentMode: !environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
