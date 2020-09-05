@@ -1,53 +1,43 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Observable, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { Profile } from 'src/app/shared/models/profile';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit, OnDestroy {
-
-  @Input()
-  drawer: MatDrawer;
-
-  photoURL: string;
-  photoURLSubscription: Subscription;
+export class ToolbarComponent implements OnInit {
+  @Input() drawer: MatDrawer;
+  profile: Profile;
 
   constructor(
     public auth: AuthService,
     private router: Router,
     private store: Store,
-  ) { }
+  ) {}
 
-  // get isLoggedIn(): Observable<boolean> {
-  //   return this.auth.isLoggedIn;
-  // }
   ngOnInit() {
-    // this.photoURLSubscription = this.auth.photoURL.subscribe((url) => {
-    //   this.photoURL = url;
-    // });
+    if (this.auth.user$) {
+      this.getProfile();
+    }
   }
 
-  ngOnDestroy() {
-    this.photoURLSubscription?.unsubscribe();
+  get photoURL(): string {
+    return this.auth._user.photo;
   }
 
-  get isLoggedIn(): Observable<boolean> {
-    return this.auth.isLoggedIn;
-  }
-
-  get lastHomepage() {
-    return this.store.selectSnapshot(LastHomepageState.lastHomepage);
+  getProfile() {
+    this.profile = JSON.parse(localStorage.getItem('profile'));
   }
 
   navigateToLogin() {
-    this.router.navigateByUrl('login');
+    this.router.navigate(['login']);
   }
 
   logout() {
@@ -55,11 +45,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   navigateToHome() {
-    this.router.navigateByUrl(this.lastHomepage);
+    this.router.navigate([this.store.selectSnapshot(LastHomepageState.lastHomepage)]);
   }
 
   navigateToProfile() {
-    this.router.navigateByUrl('profile');
+    this.router.navigate(['profile']);
   }
 
 }
