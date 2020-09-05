@@ -15,12 +15,10 @@ namespace StemExplorerAPI.Controllers
     public class ChallengeLevelController : ControllerBase
     {
         private readonly IChallengeLevelService _challengeLevelService;
-        private readonly IProfileService _profileService;
 
         public ChallengeLevelController(IChallengeLevelService challengeLevelService, IProfileService profileService)
         {
             _challengeLevelService = challengeLevelService;
-            _profileService = profileService;
         }
 
         private string userId
@@ -35,11 +33,6 @@ namespace StemExplorerAPI.Controllers
         [HttpGet]
         public async Task<List<ChallengeLevelDto>> Get(int? challengeId, int? profileId)
         {
-            if (profileId is int uid)
-            {
-                await _profileService.AssertProfileOwnership(userId, uid);
-            }
-
             if (challengeId is int id)
             {
                 return await _challengeLevelService.GetLevelsForChallenge(id, profileId);

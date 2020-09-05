@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/shared/models/profile';
+import { User } from 'src/app/shared/models/user';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-toolbar',
@@ -29,7 +29,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   get photoURL(): string {
-    return this.auth._user.photo;
+    const user: User = JSON.parse(localStorage.getItem('currentUser'));
+    return user ? user.photo : null;
   }
 
   getProfile() {

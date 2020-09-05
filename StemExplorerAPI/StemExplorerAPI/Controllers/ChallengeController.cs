@@ -41,11 +41,6 @@ namespace StemExplorerAPI.Controllers
         {
             try
             {
-                if (profileId is int uid)
-                {
-                    await _profileService.AssertProfileOwnership(userId, uid);
-                }
-
                 return Ok(await _challengeService.GetChallenges(profileId));
             }
             catch (Exception ex)
@@ -61,11 +56,6 @@ namespace StemExplorerAPI.Controllers
         {
             try
             {
-                if (profileId is int uid)
-                {
-                    await _profileService.AssertProfileOwnership(userId, uid);
-                }
-
                 var challenge = await _challengeService.GetChallengeById(id, profileId);
 
                 if (challenge == null)

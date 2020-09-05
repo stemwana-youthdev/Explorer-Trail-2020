@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { Location, LocationChallenge } from 'src/locations/models/location';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
+import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
-import { Router } from '@angular/router';
 
 /*
 * Component to show the challenges in a list view
@@ -49,7 +48,6 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
     this.store.dispatch(new VisitedHomepage());
-    this.store.dispatch(new LoadProfiles());
 
     this.getLocations();
     this.filter$.pipe(map(res => this.filter = res)).subscribe();

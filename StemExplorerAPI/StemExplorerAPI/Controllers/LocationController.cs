@@ -41,10 +41,6 @@ namespace StemExplorerAPI.Controllers
         {
             try
             {
-                if (profileId != null)
-                {
-                    await _profileService.AssertProfileOwnership(userId, profileId ?? 0);
-                }
                 return Ok(await _locationService.GetLocations(profileId));
             }
             catch (Exception ex)

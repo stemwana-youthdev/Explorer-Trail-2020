@@ -1,15 +1,8 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Store } from '@ngxs/store';
-import { Subscription } from 'rxjs';
-
 import { CameraComponent } from 'src/app/shared/components/camera/camera.component';
-
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
-
-
-import { LoadProfiles } from 'src/app/store/profiles/profiles.actions';
 
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
@@ -24,25 +17,18 @@ export interface ChallengeDialogData {
   templateUrl: './challenge-dialog.component.html',
   styleUrls: ['./challenge-dialog.component.scss'],
 })
-export class ChallengeDialogComponent implements OnInit, OnDestroy {
+export class ChallengeDialogComponent implements OnInit {
   Categories: any = Categories;
   challenge: LocationChallenge;
-  profilesSubscription: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
-    private dialog: MatDialog,
-    private store: Store,
+    private dialog: MatDialog
   ) {
     this.challenge = this.data.challenge;
   }
 
   ngOnInit(): void  {
-    this.store.dispatch(new LoadProfiles());
-  }
-
-  ngOnDestroy(): void {
-    this.profilesSubscription?.unsubscribe();
   }
 
   cameraView(): void {
