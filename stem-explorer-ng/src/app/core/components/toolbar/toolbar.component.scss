@@ -1,3 +1,5 @@
+@import './../../../styles/variables';
+
 .fill-remaining-space {
   flex: 1;
   text-align: center;
@@ -7,4 +9,14 @@
   height: 30px;
   padding-top: 10px;
   cursor: pointer;
+}
+
+.profile-icon {
+  color: $secondary-pink;
+  font-size: 35px;
+  margin-right: 10px;
+}
+
+.profile-pic {
+  border-radius: 50%;
 }

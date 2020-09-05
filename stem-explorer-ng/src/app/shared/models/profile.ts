@@ -8,5 +8,4 @@ export interface Profile {
   nickname?: string;
   region?: string;
   homeTown?: string;
-  photoUrl?: string;
 }

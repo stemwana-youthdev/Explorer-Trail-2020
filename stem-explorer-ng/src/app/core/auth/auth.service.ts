@@ -19,6 +19,7 @@ export class AuthService {
   _user: User;
   token: string;
   token$: Observable<string>;
+  profile: Profile;
 
   actionCodeSettings = {
     url: 'https://explorer-trial-ui.herokuapp.com/'
@@ -44,7 +45,6 @@ export class AuthService {
     return this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          console.warn(user)
           user.getIdTokenResult().then((res) => {
             localStorage.setItem('token', JSON.stringify(res.token));
             return res;
@@ -66,7 +66,8 @@ export class AuthService {
 
     const data = {
       id: user.uid,
-      email: user.email
+      email: user.email,
+      photo: user.photoURL
     };
 
     return userRef.set(data, { merge: true });
@@ -103,6 +104,7 @@ export class AuthService {
     await this.afAuth.signOut();
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
+    localStorage.removeItem('profile');
     this.user$ = of(null);
     this.router.navigate(['/']);
   }
@@ -158,12 +160,18 @@ export class AuthService {
   /**
    * Get the user profile
    */
-  getProfile(): Observable<Profile> {
-    const token = JSON.parse(localStorage.getItem('token'));
-    if (token) {
-      return this.api.getProfile(token, this._user.id);
+  getProfile(token?: string): Observable<Profile> {
+    const userToken = token || JSON.parse(localStorage.getItem('token'));
+    if (userToken) {
+      const obs = this.api.getProfile(userToken, this._user.id).pipe(map(res => {
+        localStorage.setItem('profile', JSON.stringify(res));
+        this.profile = res;
+        return res;
+      }));
+      return obs;
     } else {
       // @todo error handling
+      console.warn('Profile error!')
       return;
     }
   }
@@ -171,14 +179,28 @@ export class AuthService {
   /**
    * update user profile
    */
-  updateProfile(profile: Profile): Observable<Profile> {
+  updateProfile(profile: Profile, photo?: any): Observable<Profile> {
     const token = JSON.parse(localStorage.getItem('token'));
     if (token) {
+      if (photo !== null) {
+        this.updatePhotoURL(photo);
+      }
       return this.api.updateProfile(token, profile);
     } else {
       // @todo error handling
       return;
     }
+  }
+
+  async updatePhotoURL(photoURL) {
+    const user = await this.afAuth.currentUser;
+    await user.updateProfile({ photoURL }).then(
+      (res) => {
+        this.setUser(user);
+      }
+    ).catch(() => {
+      console.warn('update photo error')
+    });
   }
 
   /**
@@ -188,7 +210,8 @@ export class AuthService {
   private setUser(user: firebase.User) {
     this._user = {
       id: user.uid,
-      email: user.email
+      email: user.email,
+      photo: user.photoURL
     };
     localStorage.setItem('currentUser', JSON.stringify(this._user));
     this.user$ = of(this._user);
@@ -202,10 +225,12 @@ export class AuthService {
     return this.afAuth.idToken.pipe(map(res => {
       if (res) {
         localStorage.setItem('token', JSON.stringify(res));
+        this.getProfile().subscribe();
         return res;
       } else {
         // @todo: error handling
         console.warn('Error!');
+        this.authenticateUser();
       }
     }));
   }
@@ -218,6 +243,7 @@ export class AuthService {
       if (token) {
         this.api.createProfile(profile, token).pipe(map((success) => {
           if (success) {
+            localStorage.setItem('profile', JSON.stringify(success));
             this.router.navigate(['profile']);
           }
         })).subscribe();
