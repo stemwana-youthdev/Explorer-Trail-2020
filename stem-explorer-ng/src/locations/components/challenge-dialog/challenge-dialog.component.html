@@ -4,6 +4,9 @@
   </app-challenge-title>
 
     <p>{{ challenge.challengeDescription }}</p>
+
+    <app-challenge-progress [category]="challenge.challengeCategory" [levels]="challenge.challengeLevels"></app-challenge-progress>
+
     <div class=contactInfo>
       <app-contact-info
         [category]="challenge.challengeCategory"

@@ -14,17 +14,19 @@ namespace StemExplorerAPI.Services
     {
         private readonly StemExplorerContext _context;
         private readonly ILogger _logger;
-        public LocationService(StemExplorerContext context, ILogger<LocationService> logger)
+        private readonly IProgressService _progressService;
+        public LocationService(StemExplorerContext context, ILogger<LocationService> logger, IProgressService progressService)
         {
             _context = context;
             _logger = logger;
+            _progressService = progressService;
         }
 
-        public async Task<List<LocationDto>> GetLocations()
+        public async Task<List<LocationDto>> GetLocations(int? profileId)
         {
             try
             {
-                return await _context.Locations
+                var locations = await _context.Locations
                     .AsNoTracking()
                     .Select(l => new LocationDto
                     {
@@ -41,7 +43,13 @@ namespace StemExplorerAPI.Services
                             ChallengeId = lc.Id,
                             ChallengeCategory = lc.Category,
                             ChallengeDescription = lc.Description,
-                            ChallengeTitle = lc.Title
+                            ChallengeTitle = lc.Title,
+                            ChallengeLevels = lc.ChallengeLevels.Select(l => new LocationLevelDto
+                            {
+                                Id = l.Id,
+                                Difficulty = l.Difficulty,
+                                Complete = false,
+                            }),
                         }).ToList(),
                         Link = l.Url,
                         Phone = l.Phone,
@@ -49,6 +57,24 @@ namespace StemExplorerAPI.Services
                         ChallengeCount = l.Challenges.Count()
                     })
                     .ToListAsync();
+
+                if (profileId != null) 
+                {
+                    var progress = await _progressService.GetProgress(profileId ?? 0);
+                    
+                    foreach (var l in locations)
+                    {
+                        foreach (var lc in l.LocationChallenges)
+                        {
+                            foreach (var level in lc.ChallengeLevels)
+                            {
+                                level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                            }
+                        }
+                    }
+                }
+
+                return locations;
             }
             catch (Exception ex)
             {

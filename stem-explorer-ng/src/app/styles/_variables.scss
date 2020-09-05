@@ -41,4 +41,8 @@ $accent-font: 'Caveat', sans-serif;
   @return mix($color, white, $percentage);
 }
 
+@function shade($percentage, $color) {
+  @return mix($color, black, $percentage);
+}
+
 $fab-padding: 1rem;
