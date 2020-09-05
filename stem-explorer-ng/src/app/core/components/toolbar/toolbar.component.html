@@ -9,7 +9,10 @@
   
   <ng-template #loggedInBlock>
     <button mat-icon-button [matMenuTriggerFor]="profileMenu">
-      <mat-icon>account_box</mat-icon>
+      <img class="profile-pic" *ngIf="photoURL; else noPhoto" [src]="photoURL" alt="profile picture">
+      <ng-template #noPhoto>
+        <mat-icon class="profile-icon">account_circle</mat-icon>
+      </ng-template>
     </button>
   
     <mat-menu #profileMenu="matMenu">

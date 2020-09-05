@@ -1,37 +1,44 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { Profile } from 'src/app/shared/models/profile';
+import { User } from 'src/app/shared/models/user';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent {
-
-  @Input()
-  drawer: MatDrawer;
+export class ToolbarComponent implements OnInit {
+  @Input() drawer: MatDrawer;
+  profile: Profile;
 
   constructor(
     public auth: AuthService,
     private router: Router,
     private store: Store,
-  ) { }
+  ) {}
 
-  // get isLoggedIn(): Observable<boolean> {
-  //   return this.auth.isLoggedIn;
-  // }
+  ngOnInit() {
+    if (this.auth.user$) {
+      this.getProfile();
+    }
+  }
 
-  get lastHomepage() {
-    return this.store.selectSnapshot(LastHomepageState.lastHomepage);
+  get photoURL(): string {
+    const user: User = JSON.parse(localStorage.getItem('currentUser'));
+    return user ? user.photo : null;
+  }
+
+  getProfile() {
+    this.profile = JSON.parse(localStorage.getItem('profile'));
   }
 
   navigateToLogin() {
-    this.router.navigateByUrl('login');
+    this.router.navigate(['login']);
   }
 
   logout() {
@@ -39,11 +46,11 @@ export class ToolbarComponent {
   }
 
   navigateToHome() {
-    this.router.navigateByUrl(this.lastHomepage);
+    this.router.navigate([this.store.selectSnapshot(LastHomepageState.lastHomepage)]);
   }
 
   navigateToProfile() {
-    this.router.navigateByUrl('profile');
+    this.router.navigate(['profile']);
   }
 
 }

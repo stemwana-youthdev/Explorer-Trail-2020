@@ -19,5 +19,5 @@ export interface ChallengeLevel {
     questionType: QuestionType;
     answer: string[];
     possibleAnswers?: string[];
-    isCompleted?: boolean;
+    complete?: boolean;
 }

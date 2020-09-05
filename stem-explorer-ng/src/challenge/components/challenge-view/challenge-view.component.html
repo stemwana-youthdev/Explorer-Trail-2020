@@ -2,7 +2,7 @@
   <div class="bouncer centered"></div>
 </ng-template>
 
-<div class="challenge-details" *ngIf="challenge">
+<div class="challenge-details" *ngIf="challenge; else loading">
 
   <div class="challenge-header">
     <app-challenge-title [category]="challenge.category">
@@ -43,5 +43,5 @@
     [value]="'Enter Answer'"
   ></app-button>
 
-  <p *ngIf="selectedLevel.isCompleted">Awesome work! This level is completed!</p>
+  <p *ngIf="selectedLevel.complete">Awesome work! This level is completed!</p>
 </div>

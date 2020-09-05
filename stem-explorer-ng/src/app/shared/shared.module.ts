@@ -18,6 +18,8 @@ import { CardComponent } from './components/card/card.component';
 import { GeolocationService } from '../../locations/services/geolocation.service';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
+import { ImageService } from './services/image.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CameraComponent } from './components/camera/camera.component';
@@ -38,9 +40,9 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    ProfilePictureComponent,
     CameraComponent,
     CameraButtonComponent,
-
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ApiService,
     StemColorsService,
     GeolocationService,
+    ImageService,
   ],
   exports: [
     TruncatePipe,
@@ -72,6 +75,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     SortByPipe,
     MaterialModule,
     GoogleMapsModule,
+    ProfilePictureComponent,
     FlexLayoutModule,
     ReactiveFormsModule,
     CameraComponent,

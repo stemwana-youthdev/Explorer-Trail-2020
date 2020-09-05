@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { map } from 'rxjs/operators';
-import { Profile } from 'src/app/shared/models/profile';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { Profile } from 'src/app/shared/models/profile';
+import { ImageService } from 'src/app/shared/services/image.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   loggedIn: boolean;
   profile: Profile;
+  profilePic: any;
 
   profileForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -28,18 +29,14 @@ export class ProfileComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private imageService: ImageService
   ) { }
 
   ngOnInit(): void {
-    this.getProfile();
-  }
-
-  getProfile() {
-    this.auth.getProfile().pipe(map(res => {
-      this.profile = res;
-      this.setForm();
-    })).subscribe();
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    this.profilePic = this.auth._user.photo;
+    this.setForm();
   }
 
   toMap() {
@@ -56,11 +53,11 @@ export class ProfileComponent implements OnInit {
     this.profileForm.controls.email.setValue(this.profile.email);
     this.profileForm.controls.region.setValue(this.profile.region);
     this.profileForm.controls.homeTown.setValue(this.profile.homeTown);
-    this.profileForm.controls.profilePic.setValue(this.profile.photoUrl);
+    this.profileForm.controls.profilePic.setValue(this.profilePic);
     this.profileForm.controls.nickname.setValue(this.profile.nickname);
   }
 
-  async onSubmit() {
+  onSubmit(): void {
     const updatedUser: Profile = {
       id: this.profile.id,
       firstName: this.profileForm.get('firstName').value,
@@ -71,10 +68,9 @@ export class ProfileComponent implements OnInit {
       profileCompleted: true,
       userId: this.profile.userId,
       email: this.profile.email,
-      photoUrl: this.profileForm.get('profilePic').value
     };
 
-    this.auth.updateProfile(updatedUser).subscribe(
+    this.auth.updateProfile(updatedUser, this.profilePic).subscribe(
       () => {
         this.profileForm.markAsPristine();
         this.snackbar.open('Awesome! Profile updated!', 'Close', {
@@ -82,5 +78,17 @@ export class ProfileComponent implements OnInit {
         });
       }
     );
+  }
+
+  async selectFile(photo) {
+    if (photo.target.files && photo.target.files[0]) {
+      this.profileForm.controls.profilePic.markAsDirty();
+      const file = photo.target.files[0];
+      const url = await this.imageService.readAsDataURL(file);
+      const unscaled = await this.imageService.loadImage(url);
+      const cropped = this.imageService.cropToSquare(unscaled, 40);
+      const croppedURL = cropped.toDataURL('image/webp');
+      this.profilePic = croppedURL;
+    }
   }
 }
