@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/shared/models/profile';
 import { ImageService } from 'src/app/shared/services/image.service';
+import { HttpClient } from '@angular/common/http';
+import { Region } from 'src/app/shared/models/region';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +17,8 @@ export class ProfileComponent implements OnInit {
   loggedIn: boolean;
   profile: Profile;
   profilePic: any;
+  regions: Region[] = [];
+  cities: string[] = [];
 
   profileForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -30,13 +34,22 @@ export class ProfileComponent implements OnInit {
     private auth: AuthService,
     private snackbar: MatSnackBar,
     private router: Router,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
     this.profile = JSON.parse(localStorage.getItem('profile'));
     this.profilePic = this.auth._user.photo;
     this.setForm();
+    this.fetchRegions();
+  }
+
+  fetchRegions() {
+    this.http.get<Region[]>('/assets/regions.json').subscribe((regions) => {
+      this.regions = regions;
+      console.log(regions);
+    });
   }
 
   toMap() {
