@@ -24,7 +24,9 @@
   </div>
 
   <ng-container *ngIf="selectedLevel">
-    <app-challenge-title [category]="challenge.category">Instructions</app-challenge-title>
+    <h3 [class]="Colour[challenge.category]" class="instructions-header">
+      Instructions
+    </h3>
     <p>{{ selectedLevel.instructions }}</p>
       <app-button
         *ngIf="selectedLevel.hint"

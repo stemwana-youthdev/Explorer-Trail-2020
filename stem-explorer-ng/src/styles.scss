@@ -3,7 +3,8 @@
 @import 'app/styles/mixins';
 @import 'app/styles/select';
 @import 'app/styles/button';
-@import 'app/styles//input';
+@import 'app/styles/input';
+@import 'app/styles/text';
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -50,6 +51,11 @@ h3, h4, h5, h6, b, strong {
 h3 {
   margin-top: 0;
 }
+
+.challenge-view-Header{
+  margin-top: 5;
+}
+
 h4, p{
   margin-top: 0.5rem;
 }

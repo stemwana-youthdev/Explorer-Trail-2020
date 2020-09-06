@@ -5,17 +5,17 @@
 }
 
 h3.green {
-  @include title-color($primary-green)
+  @include title-color($primary-green);
 }
 
 h3.blue {
-  @include title-color($primary-blue)
+  @include title-color($primary-blue);
 }
 
 h3.orange {
-  @include title-color($primary-orange)
+  @include title-color($primary-orange);
 }
 
 h3.purple {
-  @include title-color($primary-purple)
+  @include title-color($primary-purple);
 }
