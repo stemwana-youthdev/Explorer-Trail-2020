@@ -23,7 +23,7 @@ export class ChallengeDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     this.challenge = this.data.challenge;
   }

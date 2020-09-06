@@ -1,5 +1,5 @@
 export interface Progress {
-  userId: string;
+  profileId: number;
   challengeId: number;
   challengeLevelId: number;
   attempts: number;

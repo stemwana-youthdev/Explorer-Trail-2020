@@ -24,7 +24,9 @@ const LOCATIONS_TOKEN: StateToken<LocationsStateModel> = new StateToken('locatio
 })
 @Injectable()
 export class LocationsState {
-  constructor(private apiService: LocationApiService) { }
+  constructor(
+    private apiService: LocationApiService
+  ) {}
 
   @Selector()
   public static locations(state: LocationsStateModel): Location[] {
@@ -40,11 +42,15 @@ export class LocationsState {
   public loadData(ctx: StateContext<LocationsStateModel>) {
     const state = ctx.getState();
     if (!state.fetched) {
-      return this.apiService.getLocations().pipe(
-        tap((locations) => ctx.patchState({
-          locations,
-          fetched: true,
-        })),
+      const token = JSON.parse(localStorage.getItem('token'));
+      const profile = JSON.parse(localStorage.getItem('profile'));
+      return this.apiService.getLocations(token, profile?.id).pipe(
+        tap((locations) =>
+          ctx.patchState({
+            locations,
+            fetched: true,
+          })
+        )
       );
     }
   }

@@ -22,7 +22,7 @@
     </div>
   </ng-template>
 
-  <ng-container *ngIf="auth.isLoggedIn | async; else guest">
+  <ng-container *ngIf="auth.user$ | async; else guest">
     <button mat-flat-button
       mat-dialog-close="next-level"
       [class]="cssClass"

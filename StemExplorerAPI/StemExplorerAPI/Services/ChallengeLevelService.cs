@@ -13,14 +13,16 @@ namespace StemExplorerAPI.Services
     public class ChallengeLevelService : IChallengeLevelService
     {
         private readonly StemExplorerContext _context;
-        public ChallengeLevelService(StemExplorerContext context)
+        private readonly IProgressService _progressService;
+        public ChallengeLevelService(StemExplorerContext context, IProgressService progressService)
         {
             _context = context;
+            _progressService = progressService;
         }
 
-        public async Task<List<ChallengeLevelDto>> GetLevels()
+        public async Task<List<ChallengeLevelDto>> GetLevels(int? profileId)
         {
-            return await _context.ChallengeLevels
+            var levels = await _context.ChallengeLevels
                 .Select(l => new ChallengeLevelDto
                 {
                     Id = l.Id,
@@ -32,14 +34,27 @@ namespace StemExplorerAPI.Services
                     Answers = l.Answers,
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
+                    Complete = false,
                 })
                 .OrderBy(l => l.Difficulty)
                 .ToListAsync();
+
+            if (profileId != null) 
+            {
+                var progress = await _progressService.GetProgress(profileId ?? 0);
+            
+                foreach (var level in levels)
+                {
+                    level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                }
+            }
+        
+            return levels;
         }
 
-        public async Task<List<ChallengeLevelDto>> GetLevelsForChallenge(int challengeId)
+        public async Task<List<ChallengeLevelDto>> GetLevelsForChallenge(int challengeId, int? profileId)
         {
-            return await _context.ChallengeLevels
+            var levels = await _context.ChallengeLevels
                 .Where(l => l.ChallengeId == challengeId)
                 .Select(l => new ChallengeLevelDto
                 {
@@ -54,6 +69,18 @@ namespace StemExplorerAPI.Services
                     Hint = l.Hint,
                 })
                 .ToListAsync();
+
+            if (profileId != null) 
+            {
+                var progress = await _progressService.GetProgress(profileId ?? 0);
+            
+                foreach (var level in levels)
+                {
+                    level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                }
+            }
+
+            return levels;
         }
 
         public async Task<bool> ValidateAnswer(int levelId, string givenAnswer)

@@ -1,10 +1,36 @@
-<p>
-  <button mat-raised-button (click)="loginWithGoogle()">Login with Google</button>
-</p>
-<mat-divider></mat-divider>
-<p>
-  <button mat-button (click)="navigateToRegister()">Not yet registered?</button>
-</p>
-<p>
-  <button mat-button (click)="navigateToHomepage()">Return to Homepage</button>
-</p>
+<div class="email-register-fields">
+
+  <div class="auth-button-group" fxLayout="column">
+    <button mat-raised-button (click)="auth.googleSignin()" class="auth-button">
+      <mat-icon svgIcon="google-login"></mat-icon>
+      &nbsp;Log in with Google
+    </button>
+    <button mat-raised-button class="auth-button">
+      &nbsp;Log in with Facebook
+    </button>
+  </div>
+
+  <h3 class="auth-title">Log in with Email</h3>
+  <p>Sign in to save your progress!</p>
+
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <input placeholder="Email" type="email" required
+    (change)="errorMessage = undefined"
+    formControlName="email">
+
+    <input placeholder="Password" type="password" required
+    formControlName="password" (change)="errorMessage = undefined">
+
+    <app-button color="pink" type="submit" [disabled]="!loginForm.valid"
+      [value]="'LOGIN'"></app-button>
+  </form>
+
+  <div class="auth-button-group" fxLayout="column">
+    <span class="forgot" (click)="forgotPassword()">
+      Forgot Password
+    </span>
+    <button mat-raised-button class="auth-button" (click)="navigateToRegister()">
+      Don't have an account? Signup!
+    </button>
+  </div>

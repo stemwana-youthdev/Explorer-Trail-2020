@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,21 +16,30 @@ namespace StemExplorerAPI.Controllers
     {
         private readonly IChallengeLevelService _challengeLevelService;
 
-        public ChallengeLevelController(IChallengeLevelService challengeLevelService)
+        public ChallengeLevelController(IChallengeLevelService challengeLevelService, IProfileService profileService)
         {
             _challengeLevelService = challengeLevelService;
         }
 
+        private string userId
+        {
+            get
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                return identity.FindFirst("user_id").Value;
+            }
+        }
+
         [HttpGet]
-        public async Task<List<ChallengeLevelDto>> Get(int? challengeId)
+        public async Task<List<ChallengeLevelDto>> Get(int? challengeId, int? profileId)
         {
             if (challengeId is int id)
             {
-                return await _challengeLevelService.GetLevelsForChallenge(id);
+                return await _challengeLevelService.GetLevelsForChallenge(id, profileId);
             }
             else
             {
-                return await _challengeLevelService.GetLevels();
+                return await _challengeLevelService.GetLevels(profileId);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using StemExplorerAPI.Models.Entities;
+﻿using Newtonsoft.Json;
+using StemExplorerAPI.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace StemExplorerAPI.Models.ViewModels
 {
     public class ExternalContentDto
     {
-        [JsonPropertyName("uid")]
+        [JsonProperty("uid")]
         public int Id { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }

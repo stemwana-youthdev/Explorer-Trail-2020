@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models;
 using StemExplorerAPI.Models.Entities;
 using StemExplorerAPI.Models.ViewModels;
+using StemExplorerAPI.Models.ViewModels.Requests;
 using StemExplorerAPI.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,74 +14,78 @@ namespace StemExplorerAPI.Services
     public class ProfileService : IProfileService
     {
         private readonly StemExplorerContext _context;
-        public ProfileService(StemExplorerContext context)
+        private readonly ILogger _logger;
+        public ProfileService(StemExplorerContext context, ILogger<ProfileService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        public async Task<ProfileDto> CreateProfile(ProfileDto profileInfo)
+        public async Task<int> CreateProfile(ProfileRequestDto profileInfo)
         {
             var profile = new Profile
             {
-                Name = profileInfo.Name,
                 UserId = profileInfo.UserId,
+                FirstName = profileInfo.FirstName,
+                LastName = profileInfo.LastName,
+                Email = profileInfo.Email,
             };
 
             _context.Profiles.Add(profile);
             await _context.SaveChangesAsync();
 
-            return new ProfileDto
-            {
-                Id = profile.Id,
-                Name = profile.Name,
-                UserId = profile.UserId,
-            };
+            return profile.Id;
         }
 
-        public async Task<List<ProfileDto>> GetProfiles(string userId)
+        public async Task<ProfileDto> GetProfile(string userId)
         {
-            var profiles = await _context.Profiles
-                .Where(p => p.UserId == userId)
-                .Select(p => new ProfileDto
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    UserId = p.UserId,
-                })
-                .ToListAsync();
-            
-            if (profiles.Count < 1)
+            try
             {
-                profiles.Add(await CreateProfile(new ProfileDto
-                {
-                    Name = "Default Profile",
-                    UserId = userId,
-                }));
+                return await _context.Profiles
+                    .AsNoTracking()
+                    .Where(p => p.UserId == userId)
+                    .Select(profile => new ProfileDto
+                    {
+                        Id = profile.Id,
+                        UserId = profile.UserId,
+                        FirstName = profile.FirstName,
+                        LastName = profile.LastName,
+                        Nickname = profile.Nickname,
+                        Email = profile.Email,
+                        Region = profile.Region,
+                        HomeTown = profile.HomeTown,
+                        PhotoUrl = profile.PhotoUrl,
+                        ProfileCompleted = profile.ProfileCompleted
+                    }).SingleOrDefaultAsync();
             }
-
-            return profiles;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
-        public async Task<ProfileDto> GetProfile(int profileId)
+        public async Task EditProfile(ProfileDto profileDto)
         {
-            var profile = await _context.Profiles
-                .FirstAsync(p => p.Id == profileId);
-            return new ProfileDto
+            try
             {
-                Id = profile.Id,
-                Name = profile.Name,
-                UserId = profile.UserId,
-            };
-        }
+                var entity = await _context.Profiles.SingleOrDefaultAsync(p => p.Id == profileDto.Id);
 
-        public async Task AssertProfileOwnership(string userId, int profileId)
-        {
-            var profile = await GetProfile(profileId);
-            if (profile.UserId != userId)
+                entity.FirstName = profileDto.FirstName;
+                entity.LastName = profileDto.LastName;
+                entity.Nickname = profileDto.Nickname;
+                entity.Region = profileDto.Region;
+                entity.HomeTown = profileDto.HomeTown;
+                entity.PhotoUrl = profileDto.PhotoUrl;
+                entity.ProfileCompleted = profileDto.ProfileCompleted;
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
             {
-                throw new AccessViolationException("You do not own that profile");
+                _logger.LogError(ex.Message, ex);
+                throw;
             }
         }
     }
 }
-
