@@ -61,7 +61,7 @@ export class RegisterPageComponent {
       this.registerForm.controls.firstName.value,
       this.registerForm.controls.lastName.value
     ).then(() => {
-      this.router.navigate(['profile']);
+      this.router.navigate(['/']);
     }).catch(
       (err) => {
         if (err.code === 'auth/email-already-in-use') {

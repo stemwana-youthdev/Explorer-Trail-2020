@@ -46,3 +46,8 @@ $accent-font: 'Caveat', sans-serif;
 }
 
 $fab-padding: 1rem;
+
+/*In order to fix the spacing between the level selector and h3 in challenge view*/
+@mixin title-margin {
+  margin-top: 15px;
+}

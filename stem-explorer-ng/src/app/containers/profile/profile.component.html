@@ -16,13 +16,13 @@
     </div>
 
     <input type="text" placeholder="Explorer Team Name" name="nickname" formControlName="nickname">
-    <input type="text" placeholder="First Name" name="firstName" formControlName="firstName">
-    <input type="text" placeholder="Last Name" name="lastName" formControlName="lastName">
+    <input type="text" placeholder="First Name*" name="firstName" formControlName="firstName" required>
+    <input type="text" placeholder="Last Name*" name="lastName" formControlName="lastName" required>
     <input type="email" placeholder="Email" formControlName="email">
 
     <div class="dropdown-wrapper">
       <mat-select [value]="selectedRegion"
-        (selectionChange)="regionChange($event)" aria-label="Region" placeholder="Region" formControlName="region">
+        (selectionChange)="regionChange($event)" aria-label="Region" placeholder="Region *" formControlName="region" required>
         <mat-option *ngFor="let option of regions" [value]="option.name">
           {{ option.name }}
         </mat-option>
@@ -32,7 +32,7 @@
 
     <div class="dropdown-wrapper">
       <mat-select
-        aria-label="Home Town" placeholder="Home Town" formControlName="homeTown">
+        aria-label="Home Town" placeholder="Home Town*" formControlName="homeTown" required>
         <mat-option *ngFor="let option of cities" [value]="option">
           {{ option }}
         </mat-option>
@@ -40,9 +40,11 @@
       <mat-icon class="arrow">expand_more</mat-icon>
     </div>
 
-    <h3 *ngIf="errorMessage" class="error-message">Please complete all fields</h3>
+    <h3 *ngIf="errorMessage" class="error-message">*Please complete all required fields</h3>
 
-    <h4 class="terms">Terms of Use and Privacy Policy</h4>
+    <a class="terms" [href]="termsLink" target="_blank">Terms of Use and Privacy Policy</a>
+
+    <br><br>
 
     <app-button color="pink" type="submit" [disabled]="profileForm.pristine || !profileForm.valid" [value]="'Update Profile'"></app-button>
   </form>

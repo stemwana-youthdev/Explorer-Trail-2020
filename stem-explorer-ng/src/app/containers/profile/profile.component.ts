@@ -7,6 +7,7 @@ import { Profile } from 'src/app/shared/models/profile';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { HttpClient } from '@angular/common/http';
 import { Region } from 'src/app/shared/models/region';
+import { ConfigService } from 'src/app/core/config/config.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ export class ProfileComponent implements OnInit {
   profilePic: any;
   regions: Region[] = [];
   cities: string[] = [];
+  termsLink: string;
 
   profileForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -27,7 +29,7 @@ export class ProfileComponent implements OnInit {
     region: new FormControl('', Validators.required),
     homeTown: new FormControl('', Validators.required),
     profilePic: new FormControl(''),
-    nickname: new FormControl('', Validators.required)
+    nickname: new FormControl('')
   });
 
   constructor(
@@ -36,9 +38,11 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private imageService: ImageService,
     private http: HttpClient,
+    private configService: ConfigService,
   ) { }
 
   ngOnInit(): void {
+    this.termsLink = this.configService.get('TERMS_LINK');
     this.profile = JSON.parse(localStorage.getItem('profile'));
     this.profilePic = this.auth._user.photo;
     this.setForm();
