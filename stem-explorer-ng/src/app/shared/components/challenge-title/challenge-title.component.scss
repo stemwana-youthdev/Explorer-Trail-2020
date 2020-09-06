@@ -6,20 +6,16 @@
 
 h3.green {
   @include title-color($primary-green);
-  @include title-margin;
 }
 
 h3.blue {
   @include title-color($primary-blue);
-  @include title-margin;
 }
 
 h3.orange {
   @include title-color($primary-orange);
-  @include title-margin;
 }
 
 h3.purple {
   @include title-color($primary-purple);
-  @include title-margin;
 }

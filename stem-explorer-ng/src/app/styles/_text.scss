@@ -1,0 +1,18 @@
+@import './variables';
+@import './mixins';
+
+h3.green {
+  @include title-colour($primary-green);
+}
+
+h3.blue {
+  @include title-colour($primary-blue);
+}
+
+h3.orange {
+  @include title-colour($primary-orange);
+}
+
+h3.purple {
+  @include title-colour($primary-purple);
+}
