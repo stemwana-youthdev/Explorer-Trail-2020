@@ -19,8 +19,26 @@
     <input type="text" placeholder="First Name" name="firstName" formControlName="firstName">
     <input type="text" placeholder="Last Name" name="lastName" formControlName="lastName">
     <input type="email" placeholder="Email" formControlName="email">
-    <input type="text" placeholder="Region" name="region" formControlName="region">
-    <input type="text" placeholder="Home Town" name="homeTown" formControlName="homeTown">
+
+    <div class="dropdown-wrapper">
+      <mat-select [value]="selectedRegion"
+        (selectionChange)="regionChange($event)" aria-label="Region" placeholder="Region">
+        <mat-option *ngFor="let option of regions" [value]="option">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="arrow">expand_more</mat-icon>
+    </div>
+
+    <div class="dropdown-wrapper">
+      <mat-select [value]="selectedCity"
+        (selectionChange)="cityChange($event)" aria-label="Home Town" placeholder="Home Town">
+        <mat-option *ngFor="let option of cities" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="arrow">expand_more</mat-icon>
+    </div>
 
     <h3 *ngIf="errorMessage" class="error-message">Please complete all fields</h3>
 

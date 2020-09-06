@@ -17,6 +17,8 @@ export class ProfileComponent implements OnInit {
   loggedIn: boolean;
   profile: Profile;
   profilePic: any;
+  selectedRegion: Region;
+  selectedCity: string;
   regions: Region[] = [];
   cities: string[] = [];
 
@@ -24,8 +26,9 @@ export class ProfileComponent implements OnInit {
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     email: new FormControl({value: '', disabled: true}, Validators.required),
-    region: new FormControl('', Validators.required),
-    homeTown: new FormControl('', Validators.required),
+    // @todo: Use FormControls for region and hometown
+    // region: new FormControl('', Validators.required),
+    // homeTown: new FormControl('', Validators.required),
     profilePic: new FormControl(''),
     nickname: new FormControl('', Validators.required)
   });
@@ -48,8 +51,16 @@ export class ProfileComponent implements OnInit {
   fetchRegions() {
     this.http.get<Region[]>('/assets/regions.json').subscribe((regions) => {
       this.regions = regions;
-      console.log(regions);
     });
+  }
+
+  regionChange({ value }: { value: Region }) {
+    this.selectedRegion = value;
+    this.cities = value.cities;
+  }
+
+  cityChange({ value }: { value: string }) {
+    this.selectedCity = value;
   }
 
   toMap() {
@@ -64,8 +75,8 @@ export class ProfileComponent implements OnInit {
     this.profileForm.controls.firstName.setValue(this.profile.firstName);
     this.profileForm.controls.lastName.setValue(this.profile.lastName);
     this.profileForm.controls.email.setValue(this.profile.email);
-    this.profileForm.controls.region.setValue(this.profile.region);
-    this.profileForm.controls.homeTown.setValue(this.profile.homeTown);
+    // this.profileForm.controls.region.setValue(this.profile.region);
+    // this.profileForm.controls.homeTown.setValue(this.profile.homeTown);
     this.profileForm.controls.profilePic.setValue(this.profilePic);
     this.profileForm.controls.nickname.setValue(this.profile.nickname);
   }
@@ -75,8 +86,8 @@ export class ProfileComponent implements OnInit {
       id: this.profile.id,
       firstName: this.profileForm.get('firstName').value,
       lastName: this.profileForm.get('lastName').value,
-      region: this.profileForm.get('region').value,
-      homeTown: this.profileForm.get('homeTown').value,
+      // region: this.profileForm.get('region').value,
+      // homeTown: this.profileForm.get('homeTown').value,
       nickname: this.profileForm.get('nickname').value,
       profileCompleted: true,
       userId: this.profile.userId,
