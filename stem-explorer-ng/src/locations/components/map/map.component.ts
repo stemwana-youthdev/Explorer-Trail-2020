@@ -109,6 +109,7 @@ export class MapComponent implements OnInit {
         challenge,
         location,
         dialogType: ChallengeDialogType.Preview,
+        userLocation: this.userLocation
       },
       panelClass: 'app-dialog',
     });

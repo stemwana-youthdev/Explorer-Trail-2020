@@ -7,6 +7,7 @@ import { Location, LocationChallenge } from 'src/locations/models/location';
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
   location: Location;
+  userLocation: any;
 }
 
 /*
@@ -26,6 +27,7 @@ export class ChallengeDialogComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.challenge = this.data.challenge;
+    console.log(this.data.userLocation);
   }
 
   ngOnInit(): void  {
@@ -38,7 +40,7 @@ export class ChallengeDialogComponent implements OnInit {
   }
 
   mapDirections() {
-    if (!navigator.geolocation) {
+    if (!navigator.geolocation || this.data.userLocation === undefined) {
       this.viewOnMap();
     } else {
       let currentLocation;

@@ -74,7 +74,7 @@ export class ListComponent implements OnInit {
    */
   openInfo(location: Location, challenge: LocationChallenge): void {
     this.dialog.open(ChallengeDialogComponent, {
-      data: { location, challenge },
+      data: { location, challenge, userLocation: this.userLocation},
       panelClass: 'app-dialog',
     });
     // push to dataLayer
