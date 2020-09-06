@@ -72,6 +72,7 @@ namespace StemExplorerAPI
             app.UseCors(builder => {
                 builder.AllowAnyOrigin();
                 builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
             });
 
             app.UseEndpoints(endpoints =>
