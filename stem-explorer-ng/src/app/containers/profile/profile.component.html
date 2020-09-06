@@ -24,7 +24,9 @@
 
     <h3 *ngIf="errorMessage" class="error-message">Please complete all fields</h3>
 
-    <h4 class="terms">Terms of Use and Privacy Policy</h4>
+    <a class="terms" [href]="termsLink" target="_blank">Terms of Use and Privacy Policy</a>
+
+    <br><br>
 
     <app-button color="pink" type="submit" [disabled]="profileForm.pristine || !profileForm.valid" [value]="'Update Profile'"></app-button>
   </form>
