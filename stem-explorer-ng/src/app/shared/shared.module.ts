@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-
-import { AuthModule } from './auth/auth.module';
 import { ApiService } from './services/api.service';
 import { MaterialModule } from './material.module';
 import { TruncatePipe } from './pipes/truncate.pipe';
@@ -20,8 +18,13 @@ import { CardComponent } from './components/card/card.component';
 import { GeolocationService } from '../../locations/services/geolocation.service';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
+import { ImageService } from './services/image.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CameraComponent } from './components/camera/camera.component';
+import { CameraButtonComponent } from './components/camera-button/camera-button.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -37,20 +40,25 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    ProfilePictureComponent,
+    CameraComponent,
+    CameraButtonComponent,
   ],
   imports: [
     CommonModule,
-    AuthModule,
     HttpClientModule,
     MaterialModule,
     GoogleMapsModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ZXingScannerModule,
+
   ],
   providers: [
     ApiService,
     StemColorsService,
     GeolocationService,
+    ImageService,
   ],
   exports: [
     TruncatePipe,
@@ -67,8 +75,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     SortByPipe,
     MaterialModule,
     GoogleMapsModule,
+    ProfilePictureComponent,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CameraComponent,
+    CameraButtonComponent,
+    ZXingScannerModule,
   ],
 })
 export class SharedModule { }

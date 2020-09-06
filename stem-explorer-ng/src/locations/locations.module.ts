@@ -8,6 +8,7 @@ import { MapComponent } from './components/map/map.component';
 import { ChallengeDialogComponent } from './components/challenge-dialog/challenge-dialog.component';
 import { ChallengeFilterComponent } from './components/challenge-filter/challenge-filter.component';
 import { ListComponent } from './components/list/list.component';
+import { ChallengeProgressComponent } from './components/challenge-progress/challenge-progress.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ListComponent } from './components/list/list.component';
     ListComponent,
     ChallengeDialogComponent,
     ChallengeFilterComponent,
+    ChallengeProgressComponent,
   ]
 })
 export class LocationsModule {}

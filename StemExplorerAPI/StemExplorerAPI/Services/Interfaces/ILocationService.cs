@@ -8,7 +8,7 @@ namespace StemExplorerAPI.Services.Interfaces
 {
     public interface ILocationService
     {
-        Task<List<LocationDto>> GetLocations();
+        Task<List<LocationDto>> GetLocations(int? profileId);
         Task<LocationDto> GetLocationById(int locationId);
     }
 }

@@ -53,14 +53,6 @@ export class AppComponent implements OnInit {
     this.store.dispatch(new VisitedHomepage());
   }
 
-  navigateToList() {
-    this.router.navigateByUrl('/list');
-  }
-
-  navigateToMap() {
-    this.router.navigateByUrl('/');
-  }
-
 }
 
 function registerIcons(
@@ -90,6 +82,7 @@ function registerIcons(
     { name: 'AMEN-water-refill' , file: 'AMEN-water-refill.svg'},
     { name: 'AMEN-wheelchair' , file: 'AMEN-wheelchair.svg'},
     { name: 'AMEN-wifi' , file: 'wifi-food.svg'},
+    { name: 'google-login' , file: 'google-login.svg'},
   ];
 
   iconArr.forEach(item => {

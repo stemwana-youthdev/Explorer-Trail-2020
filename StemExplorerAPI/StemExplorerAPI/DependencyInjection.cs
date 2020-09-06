@@ -16,7 +16,7 @@ namespace StemExplorerAPI
             services.AddScoped<IChallengeLevelService, ChallengeLevelService>();
             services.AddScoped<IExternalContentService, ExternalContentService>();
             services.AddScoped<ILocationService, LocationService>();
-            services.AddScoped<IUserService, UserService>();
+            // services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProgressService, ProgressService>();
             services.AddScoped<IProfileService, ProfileService>();
 

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CameraComponent } from 'src/app/containers/camera/camera.component';
+import { CameraComponent } from 'src/app/shared/components/camera/camera.component';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 
@@ -23,7 +23,7 @@ export class ChallengeDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     this.challenge = this.data.challenge;
   }

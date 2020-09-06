@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 
@@ -18,7 +19,7 @@ namespace StemExplorerAPI.Controllers
     public class ProgressController : ControllerBase
     {
         private readonly IProgressService _progressService;
-        private readonly IProfileService _profileService;
+        private readonly ILogger _logger;
 
         private string userId
         {
@@ -31,25 +32,39 @@ namespace StemExplorerAPI.Controllers
 
         public ProgressController(
             IProgressService progressService,
-            IProfileService profileService
+            ILogger<ProgressController> logger
         )
         {
             _progressService = progressService;
-            _profileService = profileService;
+            _logger = logger;
         }
 
         [HttpGet("{profileId}")]
-        public async Task<List<ProgressDto>> Get(int profileId)
+        public async Task<IActionResult> Get(int profileId)
         {
-            await _profileService.AssertProfileOwnership(userId, profileId);
-            return await _progressService.GetProgress(profileId);
+            try
+            {
+                return Ok(await _progressService.GetProgress(profileId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         [HttpPost("LevelCompleted")]
         public async Task LevelCompleted(CompletedLevelDto completed)
         {
-            await _profileService.AssertProfileOwnership(userId, completed.ProfileId);
-            await _progressService.LevelCompleted(completed.ProfileId, completed.LevelId, completed.Correct);
+            try
+            {
+                await _progressService.LevelCompleted(completed.ProfileId, completed.LevelId, completed.Correct);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
     }
 }

@@ -20,4 +20,10 @@ export interface LocationChallenge {
   challengeDescription: string;
   challengeId: number;
   challengeTitle: string;
+  challengeLevels: LocationLevel[];
+}
+
+export interface LocationLevel {
+  difficulty: number;
+  complete: boolean;
 }
