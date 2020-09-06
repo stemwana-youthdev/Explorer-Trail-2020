@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/shared/models/profile';
 import { ImageService } from 'src/app/shared/services/image.service';
+import { ConfigService } from 'src/app/core/config/config.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ export class ProfileComponent implements OnInit {
   loggedIn: boolean;
   profile: Profile;
   profilePic: any;
+  termsLink: string;
 
   profileForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -30,10 +32,12 @@ export class ProfileComponent implements OnInit {
     private auth: AuthService,
     private snackbar: MatSnackBar,
     private router: Router,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private configService: ConfigService,
   ) { }
 
   ngOnInit(): void {
+    this.termsLink = this.configService.get('TERMS_LINK');
     this.profile = JSON.parse(localStorage.getItem('profile'));
     this.profilePic = this.auth._user.photo;
     this.setForm();
