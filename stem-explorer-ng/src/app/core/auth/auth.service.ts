@@ -35,6 +35,7 @@ export class AuthService {
       this._user = JSON.parse(localStorage.getItem('currentUser'));
       this.user$ = of(this._user);
       this.getToken().subscribe();
+      this.getProfile().subscribe();
     }
   }
 
@@ -225,7 +226,7 @@ export class AuthService {
     return this.afAuth.idToken.pipe(map(res => {
       if (res) {
         localStorage.setItem('token', JSON.stringify(res));
-        this.getProfile().subscribe();
+        // this.getProfile().subscribe();
         return res;
       } else {
         // @todo: error handling
