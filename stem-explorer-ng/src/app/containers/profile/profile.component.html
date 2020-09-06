@@ -22,8 +22,8 @@
 
     <div class="dropdown-wrapper">
       <mat-select [value]="selectedRegion"
-        (selectionChange)="regionChange($event)" aria-label="Region" placeholder="Region">
-        <mat-option *ngFor="let option of regions" [value]="option">
+        (selectionChange)="regionChange($event)" aria-label="Region" placeholder="Region" formControlName="region">
+        <mat-option *ngFor="let option of regions" [value]="option.name">
           {{ option.name }}
         </mat-option>
       </mat-select>
@@ -31,8 +31,8 @@
     </div>
 
     <div class="dropdown-wrapper">
-      <mat-select [value]="selectedCity"
-        (selectionChange)="cityChange($event)" aria-label="Home Town" placeholder="Home Town">
+      <mat-select
+        aria-label="Home Town" placeholder="Home Town" formControlName="homeTown">
         <mat-option *ngFor="let option of cities" [value]="option">
           {{ option }}
         </mat-option>
