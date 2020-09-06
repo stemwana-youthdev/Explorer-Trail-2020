@@ -10,7 +10,7 @@
   {"name": "Marlborough", "cities": ["Blenheim", "French Pass", "Havelock", "Picton", "Rai Valley", "Renwick", "Seddon", "Spring Creek", "Tuamarina", "Ward"]},
   {"name": "Tasman", "cities": ["Brightwater", "Collingwood", "Mapua", "Motueka", "Murchison", "Nelson", "Richmond", "Riwaka", "Saint Arnaud", "Takaka", "Tapawera", "Upper Moutere", "Wakefield"]},
   {"name": "Wellington", "cities": ["Carterton", "Eketahuna", "Featherston", "Greytown", "Karori", "Levin", "Lower Hutt", "Martinborough", "Masterton", "Otaki", "Paekakariki", "Paraparaumu", "Porirua", "Pukerua Bay", "Te Horo", "Tinui", "Upper Hutt", "Waikanae", "Wainuiomata", "Wellington"]},
-  {"name": "", "cities": ["Chatham Islands"]},
+  {"name": "Chatham Islands", "cities": ["Chatham Islands"]},
   {"name": "Hawke's Bay", "cities": ["Clive", "Dannevirke", "Hastings", "Haumoana", "Havelock North", "Kotemaori", "Mahia", "Napier", "Nuhaka", "Ongaonga", "Otane", "Porangahau", "Raupunga", "Taihape", "Takapau", "Taupo", "Te Awanga", "Tuai", "Tutira", "Waipawa", "Waipukurau", "Wairoa", "Whakatu"]},
   {"name": "Bay of Plenty", "cities": ["Edgecumbe", "Katikati", "Kawerau", "Mamaku", "Matata", "Mount Maunganui", "Murupara", "Ohope", "Omokoroa", "Opotiki", "Papamoa", "Reporoa", "Rotorua", "Taneatua", "Taupo", "Tauranga", "Te Puke", "Te Teko", "Waihi", "Waihi Beach", "Waimana", "Whakatane"]},
   {"name": "Taranaki", "cities": ["Eltham", "Hawera", "Inglewood", "Kaponga", "Manaia", "Mokau", "New Plymouth", "Oakura", "Okato", "Opunake", "Patea", "Stratford", "Urenui", "Waitara", "Waitotara", "Waverley", "Whanganui"]},
