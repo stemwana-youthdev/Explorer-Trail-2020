@@ -83,7 +83,6 @@ export class AuthService {
     const credential = await this.afAuth.signInWithPopup(provider);
     this.setUser(credential.user);
     if (credential.additionalUserInfo.isNewUser) {
-      credential.user.sendEmailVerification(this.actionCodeSettings);
       const profile: Profile = {
           id: null,
           email: credential.user.email,
@@ -245,7 +244,7 @@ export class AuthService {
         this.api.createProfile(profile, token).pipe(map((success) => {
           if (success) {
             localStorage.setItem('profile', JSON.stringify(success));
-            this.router.navigate(['profile']);
+            this.router.navigate(['/']);
           }
         })).subscribe();
       }

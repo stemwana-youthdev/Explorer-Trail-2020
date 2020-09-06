@@ -16,13 +16,13 @@
     </div>
 
     <input type="text" placeholder="Explorer Team Name" name="nickname" formControlName="nickname">
-    <input type="text" placeholder="First Name" name="firstName" formControlName="firstName">
-    <input type="text" placeholder="Last Name" name="lastName" formControlName="lastName">
+    <input type="text" placeholder="First Name*" name="firstName" formControlName="firstName" required>
+    <input type="text" placeholder="Last Name*" name="lastName" formControlName="lastName" required>
     <input type="email" placeholder="Email" formControlName="email">
-    <input type="text" placeholder="Region" name="region" formControlName="region">
-    <input type="text" placeholder="Home Town" name="homeTown" formControlName="homeTown">
+    <input type="text" placeholder="Region*" name="region" formControlName="region" required>
+    <input type="text" placeholder="Home Town*" name="homeTown" formControlName="homeTown" required>
 
-    <h3 *ngIf="errorMessage" class="error-message">Please complete all fields</h3>
+    <h3 *ngIf="errorMessage" class="error-message">*Please complete all required fields</h3>
 
     <a class="terms" [href]="termsLink" target="_blank">Terms of Use and Privacy Policy</a>
 

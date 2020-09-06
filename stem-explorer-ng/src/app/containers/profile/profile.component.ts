@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
     region: new FormControl('', Validators.required),
     homeTown: new FormControl('', Validators.required),
     profilePic: new FormControl(''),
-    nickname: new FormControl('', Validators.required)
+    nickname: new FormControl('')
   });
 
   constructor(
