@@ -39,14 +39,7 @@ export class ChallengeDialogComponent implements OnInit {
     if (!navigator.geolocation) {
       this.viewOnMap();
     } else {
-      let currentLocation;
-      navigator.geolocation.getCurrentPosition((pos) => {
-        currentLocation = {
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude
-        };
-      });
-      (window as any).open('https://www.google.com/maps/dir/' + `${currentLocation}/` + `${this.data.location.name}`, '_blank');
+      (window as any).open('https://www.google.com/maps/dir/?api=1&destination=' + `${this.data.location.name}`, '_blank');
     }
   }
 
