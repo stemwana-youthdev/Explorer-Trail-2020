@@ -63,10 +63,6 @@ export class ListComponent implements OnInit {
     return idx;
   }
 
-  navigateToMap() {
-    this.router.navigateByUrl('/');
-  }
-
   /**
    * Method that opens the challenge dialog
    * @param location location data object

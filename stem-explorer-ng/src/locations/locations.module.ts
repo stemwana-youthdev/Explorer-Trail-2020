@@ -9,6 +9,7 @@ import { ChallengeDialogComponent } from './components/challenge-dialog/challeng
 import { ChallengeFilterComponent } from './components/challenge-filter/challenge-filter.component';
 import { ListComponent } from './components/list/list.component';
 import { ChallengeProgressComponent } from './components/challenge-progress/challenge-progress.component';
+import { BottomNavComponent } from './components/bottom-navigation/bottom-navigation.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ChallengeProgressComponent } from './components/challenge-progress/chal
     ChallengeDialogComponent,
     ChallengeFilterComponent,
     ChallengeProgressComponent,
+    BottomNavComponent
   ]
 })
 export class LocationsModule {}

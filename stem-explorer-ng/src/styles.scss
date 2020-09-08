@@ -63,19 +63,6 @@ i, em {
   @include typeface-accent;
 }
 
-// Used for the camera pop-up
-.fullscreen-dialog {
-  max-width: none !important;
-  max-height: none;
-  width: 100vw;
-  height: 100vh;
-
-  mat-dialog-container {
-    border-radius: 0;
-    padding: 0;
-  }
-}
-
 .mat-select-value,
 .mat-select-arrow {
   color: white;
@@ -96,10 +83,15 @@ i, em {
   position: relative;
 }
 
-.mat-toolbar {
-  background-color: white;
-  border-bottom: solid;
-  border-color: tint(20%, $primary-black);
+.mat-toolbar-single-row {
+  padding: 0 8px;
+  height: 65px;
+}
+
+@media (max-width: 599px) {
+  .mat-toolbar-single-row {
+    height: 65px;
+  }
 }
 
 .mat-drawer-container {
