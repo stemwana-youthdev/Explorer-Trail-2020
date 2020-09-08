@@ -25,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CameraComponent } from './components/camera/camera.component';
 import { CameraButtonComponent } from './components/camera-button/camera-button.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { CategoryIconComponent } from './components/category-icon/category-icon.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ProfilePictureComponent,
     CameraComponent,
     CameraButtonComponent,
+    CategoryIconComponent,
   ],
   imports: [
     CommonModule,
@@ -81,6 +83,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     CameraComponent,
     CameraButtonComponent,
     ZXingScannerModule,
+    CategoryIconComponent,
   ],
 })
 export class SharedModule { }

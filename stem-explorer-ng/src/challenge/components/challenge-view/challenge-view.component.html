@@ -4,6 +4,8 @@
 
 <div class="challenge-details" *ngIf="challenge; else loading">
 
+  <app-category-icon [category]="challenge.category"></app-category-icon>
+
   <div class="challenge-header">
     <app-challenge-title [category]="challenge.category">
       {{ challenge.title }}
