@@ -30,6 +30,14 @@ export class CameraComponent {
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
     this.hasDevices = Boolean(devices && devices.length);
+
+    this.availableDevices.forEach(mediaDevice => {
+      console.warn(mediaDevice)
+      if (mediaDevice.label.toLowerCase().includes('back')) {
+        this.currentDevice = mediaDevice;
+        return;
+      }
+    });
     this.currentDevice = devices[0] || null;
   }
 
@@ -39,7 +47,7 @@ export class CameraComponent {
 
   onHasPermission(has: boolean) {
     this.hasPermission = has;
-    this.errorMessage = 'Oops! Please enable your camera!';
+    this.errorMessage = 'Oops! You might need to go to your settings to enable your camera or try another browser!';
   }
 
   scanSuccess(url: string) {
