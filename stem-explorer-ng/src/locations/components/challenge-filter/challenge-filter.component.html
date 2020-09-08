@@ -3,8 +3,8 @@
   [value]="filter$ | async"
   multiple
 >
-  <span class="material-icons" aria-label="Extra filters">
-    tune
+  <span aria-label="Extra filters">
+    <img src="/assets/icons/FILTER-filter.svg" alt="Filter icon">
   </span>
   <mat-button-toggle *ngFor='let button of buttons'
     [value]="button.value"

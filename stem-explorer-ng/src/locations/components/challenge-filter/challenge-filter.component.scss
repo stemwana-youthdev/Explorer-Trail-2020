@@ -1,41 +1,62 @@
 @use 'src/app/styles/variables' as *;
 
+:host {
+  display: block;
+  height: 83px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
 .mat-button-toggle-group {
-    width: 100%;
+  display: flex;
+
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  max-width: 365px;
+  margin: 5px auto;
+
+  border: none;
+  border-radius: 0;
+
+  span, .mat-button-toggle {
+    flex-shrink: 1;
     border: none;
-    border-radius: 0;
-}
+    border-radius: 3px;
+  }
 
-.mat-button-toggle-group span {
-    background-color: tint(80%, $primary-black);
-    color: white;
-    font-size: 35px;
-    padding: 5px;
-}
+  span {
+    width: 49px;
+    background: #282828;
 
-.mat-button-toggle {
-    color: white;
-    background-color: tint(80%, $primary-black);
-    width: 100%;
-    font-size: 20px;
+    img {
+      display: block;
+      margin: 26px auto;
+      height: 21px;
+    }
+  }
+
+  .mat-button-toggle {
+    width: 74px;
+    margin-left: 5px;
+    background: #ffffff;
+  }
 }
 
 @mixin coloured-button($color) {
-    background-color: $color;
+  background-color: $color;
 }
 
-.mat-button-toggle-checked.green {
-    @include coloured-button($primary-green)
+.mat-button-toggle.green {
+  @include coloured-button($primary-green);
 }
 
-.mat-button-toggle-checked.blue {
-    @include coloured-button($primary-blue)
+.mat-button-toggle.blue {
+  @include coloured-button($primary-blue);
 }
 
-.mat-button-toggle-checked.orange {
-    @include coloured-button($primary-orange)
+.mat-button-toggle.orange {
+  @include coloured-button($primary-orange);
 }
 
-.mat-button-toggle-checked.purple {
-    @include coloured-button($primary-purple)
+.mat-button-toggle.purple {
+  @include coloured-button($primary-purple);
 }
