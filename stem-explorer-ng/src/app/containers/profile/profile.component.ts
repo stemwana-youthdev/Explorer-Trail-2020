@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/shared/models/profile';
 import { ImageService } from 'src/app/shared/services/image.service';
-import { HttpClient } from '@angular/common/http';
 import { Region } from 'src/app/shared/models/region';
 import { ConfigService } from 'src/app/core/config/config.service';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
     private snackbar: MatSnackBar,
     private router: Router,
     private imageService: ImageService,
-    private http: HttpClient,
+    private api: ApiService,
     private configService: ConfigService,
   ) { }
 
@@ -45,12 +45,12 @@ export class ProfileComponent implements OnInit {
     this.termsLink = this.configService.get('TERMS_LINK');
     this.profile = JSON.parse(localStorage.getItem('profile'));
     this.profilePic = this.auth._user.photo;
-    this.setForm();
     this.fetchRegions();
+    this.setForm();
   }
 
   fetchRegions() {
-    this.http.get<Region[]>('/assets/regions.json').subscribe((regions) => {
+    this.api.getRegions().subscribe((regions) => {
       this.regions = regions;
       this.cities =
         this.regions.find((region) => region.name === this.profile.region)?.cities ?? [];
