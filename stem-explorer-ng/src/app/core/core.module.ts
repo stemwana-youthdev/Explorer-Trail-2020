@@ -7,6 +7,7 @@ import { ConfigService } from './config/config.service';
 import { SharedModule } from '../shared/shared.module';
 import { FirebaseConfigService } from './auth/firebase-config.service';
 import { FIREBASE_OPTIONS, AngularFireModule } from '@angular/fire';
+import { CameraComponent } from './components/camera/camera.component';
 
 function getFirebaseConfig(firebaseConfig: FirebaseConfigService) {
   return firebaseConfig.get();
@@ -26,7 +27,8 @@ const ConfiguredAngularFireModule: ModuleWithProviders<AngularFireModule> = {
 @NgModule({
   declarations: [
     DrawerComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    CameraComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ const ConfiguredAngularFireModule: ModuleWithProviders<AngularFireModule> = {
   ],
   exports: [
     DrawerComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    CameraComponent
   ],
   providers: [ConfigService, AuthService]
 })

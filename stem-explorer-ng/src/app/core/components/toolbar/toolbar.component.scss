@@ -5,10 +5,17 @@
   text-align: center;
 }
 
+.logo-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .logo {
   height: 30px;
   padding-top: 10px;
   cursor: pointer;
+  position: absolute;
+  text-align: center;
 }
 
 .profile-icon {
@@ -22,3 +29,10 @@
   height: 40px;
   width: 40px;
 }
+
+.log-in {
+  width: 75px;
+  padding: 0px;
+  margin-top: 0px;
+}
+

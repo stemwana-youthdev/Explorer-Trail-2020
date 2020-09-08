@@ -35,7 +35,6 @@ export class AuthService {
       this._user = JSON.parse(localStorage.getItem('currentUser'));
       this.user$ = of(this._user);
       this.getToken().subscribe();
-      this.getProfile().subscribe();
     }
   }
 
@@ -81,16 +80,17 @@ export class AuthService {
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.signInWithPopup(provider);
-    this.setUser(credential.user);
     if (credential.additionalUserInfo.isNewUser) {
+      this.setUser(credential.user, true);
       const profile: Profile = {
-          id: null,
-          email: credential.user.email,
-          userId: credential.user.uid,
-          profileCompleted: false
-        };
+        id: null,
+        email: credential.user.email,
+        userId: credential.user.uid,
+        profileCompleted: false
+      };
       this.createProfile(profile);
     } else {
+      this.setUser(credential.user);
       this.router.navigate(['/']);
     }
 
@@ -115,7 +115,7 @@ export class AuthService {
   async registerEmail(email: string, password: string, firstName: string, lastName: string) {
     const obs = await this.afAuth.createUserWithEmailAndPassword(email, password).then(
       (res) => {
-        this.setUser(res.user);
+        this.setUser(res.user, true);
         res.user.sendEmailVerification(this.actionCodeSettings);
         const profile: Profile = {
           id: null,
@@ -207,7 +207,7 @@ export class AuthService {
    * set the firebase user in the local storage
    * @param user firebase.user data object
    */
-  private setUser(user: firebase.User) {
+  private setUser(user: firebase.User, newUser = false) {
     this._user = {
       id: user.uid,
       email: user.email,
@@ -215,7 +215,13 @@ export class AuthService {
     };
     localStorage.setItem('currentUser', JSON.stringify(this._user));
     this.user$ = of(this._user);
-    this.getToken().subscribe();
+    this.getToken().subscribe(
+      () => {
+        if (!newUser) {
+          this.getProfile();
+        }
+      }
+    );
   }
 
   /**

@@ -6,7 +6,6 @@ import { MaterialModule } from './material.module';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { LargeDistancePipe } from './pipes/large-distance.pipe';
-import { FabComponent } from './components/fab/fab.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ChallengeTitleComponent } from './components/challenge-title/challenge-title.component';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -22,8 +21,6 @@ import { ProfilePictureComponent } from './components/profile-picture/profile-pi
 import { ImageService } from './services/image.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CameraComponent } from './components/camera/camera.component';
-import { CameraButtonComponent } from './components/camera-button/camera-button.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
@@ -31,7 +28,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     TruncatePipe,
     FilterPipe,
     LargeDistancePipe,
-    FabComponent,
     ButtonComponent,
     CardComponent,
     ChallengeTitleComponent,
@@ -41,8 +37,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     InputComponent,
     SortByPipe,
     ProfilePictureComponent,
-    CameraComponent,
-    CameraButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -64,7 +58,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     TruncatePipe,
     FilterPipe,
     LargeDistancePipe,
-    FabComponent,
     ButtonComponent,
     CardComponent,
     ChallengeTitleComponent,
@@ -78,8 +71,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ProfilePictureComponent,
     FlexLayoutModule,
     ReactiveFormsModule,
-    CameraComponent,
-    CameraButtonComponent,
     ZXingScannerModule,
   ],
 })
