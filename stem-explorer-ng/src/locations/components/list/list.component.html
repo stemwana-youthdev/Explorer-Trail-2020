@@ -9,6 +9,7 @@
     (click)="openInfo(location, challenge)"
     >
       <app-category-icon [category]="challenge.challengeCategory"></app-category-icon>
+      <img class="category-icon" [src]="CategoryIcons[challenge.challengeCategory]" [alt]="Categories[challenge.challengeCategory]">
       <app-challenge-title [category]="challenge.challengeCategory">
         <!-- <span class="distance">{{ getLocationDistance(location) }}</span> -->
         {{challenge.challengeTitle}}
