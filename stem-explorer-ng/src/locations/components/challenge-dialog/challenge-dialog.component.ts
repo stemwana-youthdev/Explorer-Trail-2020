@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CameraComponent } from 'src/app/shared/components/camera/camera.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
+import { Router } from '@angular/router';
 
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
@@ -23,7 +23,7 @@ export class ChallengeDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
-    private dialog: MatDialog
+    private router: Router
   ) {
     this.challenge = this.data.challenge;
   }
@@ -32,9 +32,7 @@ export class ChallengeDialogComponent implements OnInit {
   }
 
   cameraView(): void {
-    this.dialog.open(CameraComponent, {
-      panelClass: 'fullscreen-dialog',
-    });
+    this.router.navigate(['camera']);
   }
 
   mapDirections() {

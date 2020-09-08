@@ -69,10 +69,6 @@ export class MapComponent implements OnInit {
     this.getLocations();
   }
 
-  navigateToList() {
-    this.router.navigateByUrl('/list');
-  }
-
   trackLocations(idx, item) {
     if (!item) { return null; }
     return idx;
