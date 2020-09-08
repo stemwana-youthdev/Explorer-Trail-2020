@@ -4,7 +4,7 @@
 
 <div class="challenge-details" *ngIf="challenge; else loading">
 
-  <img class="category-icon" [src]="CategoryIcons[challenge.category]" [alt]="Categories[challenge.category]">
+  <img class="category-icon" [src]="'/assets/icons/' + CategoryIcons[challenge.category]" [alt]="Categories[challenge.category]">
 
   <div class="challenge-header">
     <app-challenge-title [category]="challenge.category">
