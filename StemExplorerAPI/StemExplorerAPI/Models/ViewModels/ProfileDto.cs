@@ -12,7 +12,6 @@ namespace StemExplorerAPI.Models.ViewModels
         public string Email { get; set; }
         public string Region { get; set; }
         public string HomeTown { get; set; }
-        public string PhotoUrl { get; set; }
         public bool ProfileCompleted { get; set; }
     }
 }

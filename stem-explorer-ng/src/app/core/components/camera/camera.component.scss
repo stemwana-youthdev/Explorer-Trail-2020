@@ -12,10 +12,11 @@
   color: $secondary-pink;
   position: absolute;
   display: flex;
-  justify-content: center;
   align-items: center;
+  text-align: center;
   height: 70%;
-  width: 100%;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .home-button {

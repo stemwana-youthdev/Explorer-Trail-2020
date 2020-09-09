@@ -1,6 +1,6 @@
 <app-challenge-filter></app-challenge-filter>
 
-<div *ngIf="locations">
+<div class="list-container" *ngIf="locations">
   <span *ngFor="let location of locations; trackBy: trackLocations">
     <app-card
     class="challenge-card"

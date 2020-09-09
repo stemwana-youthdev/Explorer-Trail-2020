@@ -4,6 +4,9 @@
     width: 100%;
     border: none;
     border-radius: 0;
+    top: 56px;
+    position: fixed;
+    z-index: 9;
 }
 
 .mat-button-toggle-group span {
