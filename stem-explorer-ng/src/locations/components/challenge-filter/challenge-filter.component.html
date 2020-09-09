@@ -12,6 +12,7 @@
     (change)="change(group.value)"
     aria-label="Filter by {{button.category}}"
   >
-    {{button.category}}
+    <img class="category-icon" [src]="'/assets/icons/' + CategoryIcons[button.value]" [alt]="Categories[button.value]">
+    <div class="category-text">{{ Categories[button.value] }}</div>
   </mat-button-toggle>
 </mat-button-toggle-group>

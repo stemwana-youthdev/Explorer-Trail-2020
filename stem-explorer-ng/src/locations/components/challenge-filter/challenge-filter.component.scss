@@ -2,6 +2,12 @@
 
 :host {
   display: block;
+  position: fixed;
+  top: 56px;
+  left: 0px;
+  right: 0px;
+  z-index: 10;
+
   height: 83px;
   background: rgba(0, 0, 0, 0.18);
 }
@@ -16,11 +22,13 @@
 
   border: none;
   border-radius: 0;
+  overflow: visible;
 
   span, .mat-button-toggle {
     flex-shrink: 1;
     border: none;
     border-radius: 3px;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);
   }
 
   span {
@@ -38,11 +46,35 @@
     width: 74px;
     margin-left: 5px;
     background: #ffffff;
+
+    ::ng-deep .mat-button-toggle-label-content {
+      display: block;
+      padding: 0;
+      line-height: initial;
+    }
+
+    .category-icon {
+      display: block;
+      height: 40px;
+      margin: 5px auto;
+    }
+
+    .category-text {
+      color: #ffffff;
+      line-height: 13px;
+      font-size: 10px;
+      margin: 0 3px;
+      padding: 3px;
+      border-radius: 2px;
+      box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);
+    }
   }
 }
 
 @mixin coloured-button($color) {
-  background-color: $color;
+  .category-text {
+    background: $color;
+  }
 }
 
 .mat-button-toggle.green {
