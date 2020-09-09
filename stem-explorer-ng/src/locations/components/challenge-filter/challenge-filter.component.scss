@@ -10,6 +10,10 @@
 
   height: 83px;
   background: rgba(0, 0, 0, 0.18);
+
+  @media (min-width: 600px) {
+    top: 64px;
+  }
 }
 
 .mat-button-toggle-group {
