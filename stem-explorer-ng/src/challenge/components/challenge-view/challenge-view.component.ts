@@ -12,7 +12,7 @@ import { ChallengeApiService } from 'src/challenge/services/challenge-api.servic
 import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
-import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
+import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 
 @Component({
   selector: 'app-challenge-view',
@@ -27,7 +27,7 @@ export class ChallengeViewComponent implements OnInit {
 
   Colour = StemColours;
   Categories = Categories;
-  CategoryIcons = CategoryIcons;
+  CategoryIcons = LargeCategoryIcons;
   Levels = Levels;
   profile: Profile;
 
