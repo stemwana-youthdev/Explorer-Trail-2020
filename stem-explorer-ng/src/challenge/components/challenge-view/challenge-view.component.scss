@@ -6,13 +6,15 @@
   max-width: 768px;
 }
 
+.category-icon {
+  float: right;
+  height: 4rem;
+}
+
 .challenge-header {
-  background-color: white;
-  // border-bottom: solid;
   border-color: tint(10%, $primary-black);
   margin-left: -20px;
   padding: 22px 0px 10px 20px;
-  // position: fixed;
   top: 56px;
   width: 100%;
 }
