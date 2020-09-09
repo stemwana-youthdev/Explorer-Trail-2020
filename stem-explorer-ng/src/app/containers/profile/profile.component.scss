@@ -88,3 +88,34 @@ img {
 .file-input {
   display: none;
 }
+
+:host ::ng-deep .dropdown-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+
+  mat-select {
+    box-sizing: border-box;
+    background: none;
+    border-bottom: 1px solid #333;
+    box-shadow: none;
+    padding: 0;
+
+    .mat-select-trigger {
+      padding: 16px;
+    }
+
+    .mat-select-value {
+      color: #333;
+    }
+
+    .mat-select-placeholder {
+      color: #666;
+    }
+  }
+
+  mat-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+}

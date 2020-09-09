@@ -6,6 +6,7 @@ import { Progress } from '../models/progress';
 import { Profile } from '../models/profile';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/config/config.service';
+import { Region } from '../models/region';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -38,6 +39,10 @@ export class ApiService {
     return this.http.get<ExternalContent[]>(
       `${this.apiEndpoint}/ExternalContent`
     );
+  }
+
+  getRegions() {
+    return this.http.get<Region[]>('/assets/regions.json');
   }
 
   validateAnswer(levelUid: number, answer: string) {
