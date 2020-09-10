@@ -218,7 +218,7 @@ export class AuthService {
     this.getToken().subscribe(
       () => {
         if (!newUser) {
-          this.getProfile();
+          this.getProfile().subscribe();
         }
       }
     );

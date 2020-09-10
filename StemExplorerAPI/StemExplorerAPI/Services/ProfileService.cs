@@ -54,7 +54,6 @@ namespace StemExplorerAPI.Services
                         Email = profile.Email,
                         Region = profile.Region,
                         HomeTown = profile.HomeTown,
-                        PhotoUrl = profile.PhotoUrl,
                         ProfileCompleted = profile.ProfileCompleted
                     }).SingleOrDefaultAsync();
             }
@@ -71,12 +70,12 @@ namespace StemExplorerAPI.Services
             {
                 var entity = await _context.Profiles.SingleOrDefaultAsync(p => p.Id == profileDto.Id);
 
+                entity.Id = profileDto.Id;
                 entity.FirstName = profileDto.FirstName;
                 entity.LastName = profileDto.LastName;
                 entity.Nickname = profileDto.Nickname;
                 entity.Region = profileDto.Region;
                 entity.HomeTown = profileDto.HomeTown;
-                entity.PhotoUrl = profileDto.PhotoUrl;
                 entity.ProfileCompleted = profileDto.ProfileCompleted;
 
                 await _context.SaveChangesAsync();
