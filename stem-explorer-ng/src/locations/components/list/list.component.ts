@@ -14,6 +14,7 @@ import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 
+
 /*
 * Component to show the challenges in a list view
 */
@@ -26,11 +27,11 @@ export class ListComponent implements OnInit {
   @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
   locations: Location[] = [];
   Categories: any = Categories;
-  CategoryIcons: any = LargeCategoryIcons;
   filter: number[] = [];
   userLocation: google.maps.LatLngLiteral;
 
   constructor(
+
     public dialog: MatDialog,
     private store: Store,
     private gtmService: GoogleTagManagerService,
@@ -63,6 +64,10 @@ export class ListComponent implements OnInit {
   trackChallenges(idx, item) {
     if (!item) { return null; }
     return idx;
+  }
+
+  navigateToMap() {
+    this.router.navigateByUrl('/');
   }
 
   /**
