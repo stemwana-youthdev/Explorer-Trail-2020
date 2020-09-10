@@ -91,6 +91,10 @@
   }
 }
 
+.mat-menu-item mat-checkbox {
+  margin-left: 1rem;
+}
+
 @mixin coloured-button($color) {
   .category-text {
     background: $color;

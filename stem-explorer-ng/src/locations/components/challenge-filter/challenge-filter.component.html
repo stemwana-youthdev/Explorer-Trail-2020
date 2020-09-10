@@ -3,9 +3,15 @@
   [value]="filter$ | async"
   multiple
 >
-  <span aria-label="Extra filters">
+  <span aria-label="Extra filters" [matMenuTriggerFor]="extraFilters">
     <img src="/assets/icons/FILTER-filter.svg" alt="Filter icon">
   </span>
+  <mat-menu #extraFilters="matMenu">
+    <label mat-menu-item>
+      <span>Show Completed Challenges</span>
+      <mat-checkbox [checked]="true"></mat-checkbox>
+    </label>
+  </mat-menu>
   <mat-button-toggle *ngFor='let button of buttons'
     [value]="button.value"
     [class]="button.colorClass"
