@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Observable } from 'rxjs';
@@ -35,7 +34,6 @@ export class ListComponent implements OnInit {
     private store: Store,
     private gtmService: GoogleTagManagerService,
     private geolocation: GeolocationService,
-    private router: Router
   ) {
     this.geolocation.getPosition().then(pos => {
       if (pos) {
