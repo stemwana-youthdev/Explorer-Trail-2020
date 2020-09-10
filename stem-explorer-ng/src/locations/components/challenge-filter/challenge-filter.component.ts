@@ -3,6 +3,8 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { FilterLocations } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
+import { Categories } from 'src/app/shared/enums/categories.enum';
+import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 
 @Component({
   selector: 'app-challenge-filter',
@@ -11,6 +13,9 @@ import { LocationsState } from 'src/locations/store/locations.state';
 })
 export class ChallengeFilterComponent implements OnInit {
   @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
+
+  Categories = Categories;
+  CategoryIcons = LargeCategoryIcons;
 
   buttons = [
     {category: 'S', value: 0, colorClass: 'green'},

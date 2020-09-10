@@ -76,7 +76,6 @@ export class ProfileComponent implements OnInit {
     this.profileForm.controls.email.setValue(this.profile.email);
     this.profileForm.controls.region.setValue(this.profile.region);
     this.profileForm.controls.homeTown.setValue(this.profile.homeTown);
-    this.profileForm.controls.profilePic.setValue(this.profilePic);
     this.profileForm.controls.nickname.setValue(this.profile.nickname);
   }
 

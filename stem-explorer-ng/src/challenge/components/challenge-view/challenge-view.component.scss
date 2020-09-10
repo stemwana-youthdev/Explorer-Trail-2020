@@ -8,6 +8,7 @@
 
 .category-icon {
   float: right;
+  width: 4rem;
   height: 4rem;
 }
 
@@ -25,7 +26,6 @@ app-form-field {
   transform: translate(-50%, 0);
   max-width: 768px;
 }
-
 
 .antiOverlay {
   width: 100%;
@@ -62,4 +62,8 @@ app-form-field {
 
 .instructions-header {
   margin-top: 20px;
+}
+
+.center {
+  text-align: center;
 }

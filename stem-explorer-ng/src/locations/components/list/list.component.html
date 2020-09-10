@@ -1,6 +1,6 @@
 <app-challenge-filter></app-challenge-filter>
 
-<div *ngIf="locations">
+<div class="padding" *ngIf="locations">
   <span *ngFor="let location of locations; trackBy: trackLocations">
     <app-card
     class="challenge-card"
@@ -8,7 +8,7 @@
     [category]="challenge.challengeCategory"
     (click)="openInfo(location, challenge)"
     >
-      <img class="category-icon" [src]="'/assets/icons/' + CategoryIcons[challenge.challengeCategory]" [alt]="Categories[challenge.challengeCategory]">
+      <mat-icon class="category-icon" [svgIcon]="CategoryIcons[challenge.challengeCategory]"></mat-icon>
       <app-challenge-title [category]="challenge.challengeCategory">
         <!-- <span class="distance">{{ getLocationDistance(location) }}</span> -->
         {{challenge.challengeTitle}}
