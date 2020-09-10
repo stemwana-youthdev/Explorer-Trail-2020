@@ -10,7 +10,7 @@ import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.en
 export class ChallengeFilterComponent implements OnInit {
   Categories = Categories;
   CategoryIcons = LargeCategoryIcons;
-  filter: number[] = [0, 1, 2, 3];
+  filter: number[] = [];
 
   @Output() filterChanged = new EventEmitter<number[]>();
 
@@ -22,12 +22,13 @@ export class ChallengeFilterComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    // TODO: init from localstorage
+    const filter = JSON.parse(localStorage.getItem('filter'));
+    this.filter = filter ?? [1, 2, 3, 4];
     this.filterChanged.emit(this.filter);
   }
 
   change(filter: number[]): void {
-    // TODO: save to localstorage
+    localStorage.setItem('filter', JSON.stringify(filter));
     this.filter = filter;
     this.filterChanged.emit(filter);
   }
