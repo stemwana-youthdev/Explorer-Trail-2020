@@ -71,7 +71,11 @@
       height: 40px;
       margin: 0 auto 6px;
 
-      transition: 0.1s filter, 0.1s transform;
+      transition: 0.1s transform;
+
+      ::ng-deep g#Map-View {
+        transition: 0.1s fill;
+      }
     }
 
     .category-text {
@@ -99,8 +103,11 @@
     }
 
     .category-icon {
-      filter: saturate(0) brightness(50);
       transform: translateY(3px);
+
+      ::ng-deep g#Map-View {
+        fill: #ffffff;
+      }
     }
 
     .category-text {
