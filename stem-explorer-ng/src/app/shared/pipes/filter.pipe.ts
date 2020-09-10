@@ -7,7 +7,9 @@ export class FilterPipe implements PipeTransform {
 
   transform(value: any[], filter: any[]) {
     filter = filter.map(Number);
-    return value.filter(item => filter.includes(item.category));
+    return value.filter((item) =>
+      filter.includes(item.category ?? item.challengeCategory)
+    );
   }
 
 }

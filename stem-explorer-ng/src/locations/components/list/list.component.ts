@@ -55,14 +55,12 @@ export class ListComponent implements OnInit {
     this.filter$.pipe(map(res => this.filter = res)).subscribe();
   }
 
-  trackLocations(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackLocations(_: number, item: Location) {
+    return item?.uid;
   }
 
-  trackChallenges(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackChallenges(_: number, item: LocationChallenge) {
+    return item?.challengeId;
   }
 
   /**
