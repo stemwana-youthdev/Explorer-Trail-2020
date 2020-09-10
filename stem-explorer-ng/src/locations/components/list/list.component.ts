@@ -9,7 +9,7 @@ import { Categories } from 'src/app/shared/enums/categories.enum';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
-import { LoadLocationsData } from 'src/locations/store/locations.actions';
+import { LoadLastFilter, LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
@@ -49,6 +49,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
+    this.store.dispatch(new LoadLastFilter());
     this.store.dispatch(new VisitedHomepage());
 
     this.getLocations();

@@ -11,7 +11,7 @@ import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { MapConfigService } from 'src/locations/services/map-config.service';
-import { LoadLocationsData } from 'src/locations/store/locations.actions';
+import { LoadLastFilter, LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
@@ -66,6 +66,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
+    this.store.dispatch(new LoadLastFilter());
     this.getLocations();
   }
 

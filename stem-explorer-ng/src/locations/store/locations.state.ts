@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Location } from '../models/location';
 import { LocationApiService } from '../services/locations-api.service';
-import { FilterLocations, LoadLocationsData } from './locations.actions';
+import { FilterLocations, LoadLastFilter, LoadLocationsData } from './locations.actions';
 
 export interface LocationsStateModel {
   locations: Location[];
@@ -55,11 +55,22 @@ export class LocationsState {
     }
   }
 
+  @Action(LoadLastFilter)
+  public loadLastFilter(ctx: StateContext<LocationsStateModel>) {
+    const filter = localStorage.getItem('filter');
+    if (filter) {
+      ctx.patchState({
+        filter: JSON.parse(filter),
+      });
+    }
+  }
+
   @Action(FilterLocations)
   public filterLocations(
     { patchState }: StateContext<LocationsStateModel>,
     action: FilterLocations
   ) {
+    localStorage.setItem('filter', JSON.stringify(action.filter));
     patchState({
       filter: action.filter
     });
