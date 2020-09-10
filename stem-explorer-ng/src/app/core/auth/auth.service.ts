@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Profile } from 'src/app/shared/models/profile';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -218,7 +219,21 @@ export class AuthService {
     this.getToken().subscribe(
       () => {
         if (!newUser) {
-          this.getProfile().subscribe();
+          this.getProfile().subscribe({
+            error: async (res: HttpErrorResponse) => {
+              if (res?.status === 404) {
+                const profile: Profile = {
+                  id: null,
+                  email: user.email,
+                  userId: user.uid,
+                  profileCompleted: false,
+                };
+                this.createProfile(profile);
+              } else {
+                console.error(res);
+              }
+            },
+          });
         }
       }
     );
