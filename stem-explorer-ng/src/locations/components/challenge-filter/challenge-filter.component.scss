@@ -1,44 +1,133 @@
 @use 'src/app/styles/variables' as *;
 
+:host {
+  display: block;
+  position: fixed;
+  top: 56px;
+  left: 0px;
+  right: 0px;
+  z-index: 10;
+
+  height: 83px;
+  background: rgba(0, 0, 0, 0.18);
+
+  @media (min-width: 600px) {
+    top: 64px;
+  }
+}
+
 .mat-button-toggle-group {
-    width: 100%;
+  display: flex;
+
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  max-width: 365px;
+  margin: 5px auto;
+
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+
+  span, .mat-button-toggle {
+    flex-shrink: 1;
     border: none;
-    border-radius: 0;
-    top: 56px;
-    position: fixed;
-    z-index: 9;
-}
+    border-radius: 3px;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);
+  }
 
-.mat-button-toggle-group span {
-    background-color: tint(80%, $primary-black);
-    color: white;
-    font-size: 35px;
-    padding: 5px;
-}
+  span {
+    width: 49px;
+    background: #282828;
 
-.mat-button-toggle {
-    color: white;
-    background-color: tint(80%, $primary-black);
-    width: 100%;
-    font-size: 20px;
+    img {
+      display: block;
+      margin: 26px auto;
+      height: 21px;
+    }
+  }
+
+  .mat-button-toggle {
+    width: 74px;
+    margin-left: 5px;
+    background: #ffffff;
+
+    ::ng-deep .mat-button-toggle-label-content {
+      display: block;
+      padding: 2px 0 0;
+      margin: 3px;
+      line-height: initial;
+      border-radius: 2px;
+
+      transition: 0.1s background-color;
+    }
+
+    ::ng-deep .mat-ripple {
+      border-radius: 3px;
+    }
+
+    .category-icon {
+      display: block;
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 6px;
+
+      transition: 0.1s transform;
+
+      ::ng-deep g#Map-View {
+        transition: 0.1s fill;
+      }
+    }
+
+    .category-text {
+      color: #ffffff;
+      line-height: 13px;
+      font-size: 10px;
+      padding: 3px;
+      border-radius: 2px;
+      box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);
+
+      transition: 0.1s box-shadow;
+    }
+  }
 }
 
 @mixin coloured-button($color) {
-    background-color: $color;
+  .category-text {
+    background: $color;
+  }
+
+  &.mat-button-toggle-checked {
+    ::ng-deep .mat-button-toggle-label-content {
+      background-color: $color;
+      box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);
+    }
+
+    .category-icon {
+      transform: translateY(3px);
+
+      ::ng-deep g#Map-View {
+        fill: #ffffff;
+      }
+    }
+
+    .category-text {
+      box-shadow: none;
+    }
+  }
 }
 
-.mat-button-toggle-checked.green {
-    @include coloured-button($primary-green)
+.mat-button-toggle.green {
+  @include coloured-button($primary-green);
 }
 
-.mat-button-toggle-checked.blue {
-    @include coloured-button($primary-blue)
+.mat-button-toggle.blue {
+  @include coloured-button($primary-blue);
 }
 
-.mat-button-toggle-checked.orange {
-    @include coloured-button($primary-orange)
+.mat-button-toggle.orange {
+  @include coloured-button($primary-orange);
 }
 
-.mat-button-toggle-checked.purple {
-    @include coloured-button($primary-purple)
+.mat-button-toggle.purple {
+  @include coloured-button($primary-purple);
 }

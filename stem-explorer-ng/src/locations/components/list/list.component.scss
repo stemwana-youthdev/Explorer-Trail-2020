@@ -1,3 +1,8 @@
+.padding {
+  padding-top: 83px;
+  padding-bottom: 70px
+}
+
 .challenge-card {
   cursor: pointer;
 }
@@ -8,12 +13,8 @@
 }
 
 .category-icon {
+  width: 3rem;
   height: 3rem;
   margin-left: 1rem;
   float: right;
-}
-
-.list-container {
-  padding-top: 48px;
-  padding-bottom: 70px
 }
