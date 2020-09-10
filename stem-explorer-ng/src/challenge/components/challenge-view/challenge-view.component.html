@@ -30,21 +30,22 @@
       Instructions
     </h3>
     <p>{{ selectedLevel.instructions }}</p>
-      <app-button
-        *ngIf="selectedLevel.hint"
-        color="pink"
-        (click)="getHint()"
-        aria-label="Get hint"
-        [value]="'Get Hint'"
-      ></app-button>
+    <h4>Question</h4>
+    <p>{{ selectedLevel.question }}</p>
   </ng-container>
 
   <app-button
     [category]="challenge.category"
     (click)="enterAnswer()"
-    style="position: relative; top: 10px;"
     aria-label="Answer here"
     [value]="'Enter Answer'"
+  ></app-button>
+  <app-button
+    *ngIf="selectedLevel.hint"
+    color="pink"
+    (click)="getHint()"
+    aria-label="Get hint"
+    [value]="'Get Hint'"
   ></app-button>
 
   <p *ngIf="selectedLevel.complete">Awesome work! This level is completed!</p>
