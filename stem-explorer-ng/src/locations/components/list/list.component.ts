@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Observable } from 'rxjs';
@@ -12,8 +11,6 @@ import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
-
 
 /*
 * Component to show the challenges in a list view
@@ -31,12 +28,10 @@ export class ListComponent implements OnInit {
   userLocation: google.maps.LatLngLiteral;
 
   constructor(
-
     public dialog: MatDialog,
     private store: Store,
     private gtmService: GoogleTagManagerService,
     private geolocation: GeolocationService,
-    private router: Router
   ) {
     this.geolocation.getPosition().then(pos => {
       if (pos) {
@@ -64,10 +59,6 @@ export class ListComponent implements OnInit {
   trackChallenges(idx, item) {
     if (!item) { return null; }
     return idx;
-  }
-
-  navigateToMap() {
-    this.router.navigateByUrl('/');
   }
 
   /**

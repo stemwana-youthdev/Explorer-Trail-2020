@@ -24,8 +24,6 @@
 
   <button mat-flat-button *ngIf="!data.isCorrect" mat-dialog-close="try-again"
     [class]="cssClass">Try Again</button>
-  <button mat-flat-button mat-dialog-close (click)="toHome()"
-    [class]="cssClass">Back to Home</button>
 
   <ng-container *ngIf="auth.user$ | async; else guest">
     <button mat-flat-button
@@ -33,7 +31,10 @@
       [class]="cssClass"
     >Next Level</button>
   </ng-container>
-  
+
+  <button mat-flat-button mat-dialog-close (click)="toHome()"
+  [class]="cssClass">Back to Home</button>
+
   <ng-template #guest>
     <button mat-flat-button
       mat-dialog-close [class]="cssClass" (click)="toLogin()">
