@@ -7,7 +7,7 @@
     <mat-icon svgIcon="FILTER-filter"></mat-icon>
   </span>
   <mat-menu #extraFilters="matMenu">
-    <label mat-menu-item>
+    <label mat-menu-item (click)="$event.stopPropagation()">
       <span>Show Completed Challenges</span>
       <mat-checkbox [checked]="true"></mat-checkbox>
     </label>
