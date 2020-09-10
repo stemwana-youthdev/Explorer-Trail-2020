@@ -2,16 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow } from '@angular/google-maps';
 import { MapMarker } from '@angular/google-maps/map-marker/map-marker';
 import { MatDialog } from '@angular/material/dialog';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { MapConfigService } from 'src/locations/services/map-config.service';
-import { LoadLastFilter, LoadLocationsData } from 'src/locations/store/locations.actions';
+import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
@@ -23,7 +22,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
+  public filter: number[];
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
   locations: Location[] = [];
   zoom = 16;
@@ -66,7 +65,6 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadLocationsData());
-    this.store.dispatch(new LoadLastFilter());
     this.getLocations();
   }
 
@@ -76,6 +74,10 @@ export class MapComponent implements OnInit {
 
   trackChallenges(_: number, item: LocationChallenge) {
     return item?.challengeId;
+  }
+
+  filterChanged(filter: number[]) {
+    this.filter = filter;
   }
 
   /**

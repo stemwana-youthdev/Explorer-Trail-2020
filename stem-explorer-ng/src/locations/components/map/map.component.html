@@ -1,4 +1,4 @@
-<app-challenge-filter></app-challenge-filter>
+<app-challenge-filter (filterChanged)="filterChanged($event)"></app-challenge-filter>
 
 <span class="challenge-map">
   <google-map
@@ -10,7 +10,7 @@
     (tilesloaded)="tilesLoaded = true"
     >
     <map-marker
-      *ngFor="let location of locations | filterLocations:(filter$ | async); trackBy: trackLocations"
+      *ngFor="let location of locations | filterLocations:(filter); trackBy: trackLocations"
       #markerElem
       [position]="location.position"
       [title]="location.name"

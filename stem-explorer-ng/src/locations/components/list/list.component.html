@@ -1,10 +1,10 @@
-<app-challenge-filter></app-challenge-filter>
+<app-challenge-filter (filterChanged)="filterChanged($event)"></app-challenge-filter>
 
 <div class="padding" *ngIf="locations">
-  <span *ngFor="let location of locations | filterLocations:(filter$ | async); trackBy: trackLocations">
+  <span *ngFor="let location of locations; trackBy: trackLocations">
     <app-card
     class="challenge-card"
-    *ngFor="let challenge of location.locationChallenges | filter:(filter$ | async); trackBy: trackChallenges"
+    *ngFor="let challenge of location.locationChallenges | filter:(filter); trackBy: trackChallenges"
     [category]="challenge.challengeCategory"
     (click)="openInfo(location, challenge)"
     >
