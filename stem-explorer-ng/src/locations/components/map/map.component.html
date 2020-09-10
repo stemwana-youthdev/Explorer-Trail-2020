@@ -10,7 +10,7 @@
     (tilesloaded)="tilesLoaded = true"
     >
     <map-marker
-      *ngFor="let location of locations; trackBy: trackLocations"
+      *ngFor="let location of locations | filterLocations:(filter$ | async); trackBy: trackLocations"
       #markerElem
       [position]="location.position"
       [title]="location.name"

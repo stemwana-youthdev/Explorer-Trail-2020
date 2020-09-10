@@ -69,14 +69,12 @@ export class MapComponent implements OnInit {
     this.getLocations();
   }
 
-  trackLocations(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackLocations(_: number, item: Location) {
+    return item?.uid;
   }
 
-  trackChallenges(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackChallenges(_: number, item: LocationChallenge) {
+    return item?.challengeId;
   }
 
   /**
