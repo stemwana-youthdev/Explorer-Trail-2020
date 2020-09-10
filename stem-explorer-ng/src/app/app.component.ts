@@ -60,6 +60,7 @@ function registerIcons(
   domSanitizer: DomSanitizer
 ) {
   const iconArr: { name: SvgIcon; file: string }[] = [
+    { name: 'FILTER-filter' , file: 'FILTER-filter.svg'},
     { name: 'FILTER-S' , file: 'FILTER-S.svg'},
     { name: 'FILTER-T' , file: 'FILTER-T'},
     { name: 'FILTER-E' , file: 'FILTER-E'},
