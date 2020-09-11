@@ -22,6 +22,7 @@ import { ImageService } from './services/image.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ProfileReminderService } from './services/profile-reminder.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     StemColorsService,
     GeolocationService,
     ImageService,
+    ProfileReminderService,
   ],
   exports: [
     TruncatePipe,
