@@ -39,7 +39,7 @@ export class ProfileReminderService {
     /** @todo use message service when it is implemented */
     this.snackbar.open(
       'Please take the time to give us some of your details. It helps us make STEM more engaging for everyone.',
-      null,
+      'Close',
       { duration: 10000 }
     );
   }
