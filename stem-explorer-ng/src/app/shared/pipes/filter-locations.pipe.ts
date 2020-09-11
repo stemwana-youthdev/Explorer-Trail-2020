@@ -9,8 +9,11 @@ export class FilterLocationsPipe implements PipeTransform {
 
   transform(value: Location[], filter: Filter) {
     return value.filter((item) =>
-      item.locationChallenges.some((challenge) =>
-        filter.categories.includes(challenge.challengeCategory)
+      item.locationChallenges.some(
+        (challenge) =>
+          filter.categories.includes(challenge.challengeCategory) &&
+          (filter.showCompleted ||
+            !challenge.challengeLevels.every((level) => level.complete))
       )
     );
   }
