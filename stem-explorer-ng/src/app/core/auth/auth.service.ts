@@ -6,8 +6,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 import { Profile } from 'src/app/shared/models/profile';
+import { ProfileReminderService } from 'src/app/shared/services/profile-reminder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private api: ApiService,
-    private router: Router
+    private profileReminder: ProfileReminderService,
   ) {
     if (localStorage.getItem('currentUser') !== null) {
       this._user = JSON.parse(localStorage.getItem('currentUser'));
@@ -59,7 +59,6 @@ export class AuthService {
 
   /**
    * @todo is this needed?
-   * @param user
    */
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
@@ -91,7 +90,7 @@ export class AuthService {
       this.createProfile(profile);
     } else {
       this.setUser(credential.user);
-      this.router.navigate(['/']);
+      this.profileReminder.remindUser();
     }
 
     return this.updateUserData(credential.user);
@@ -106,7 +105,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
     this.user$ = of(null);
-    this.router.navigate(['/']);
+    this.profileReminder.remindUser();
   }
 
   /**
@@ -171,7 +170,7 @@ export class AuthService {
       return obs;
     } else {
       // @todo error handling
-      console.warn('Profile error!')
+      console.warn('Profile error!');
       return;
     }
   }
@@ -199,7 +198,7 @@ export class AuthService {
         this.setUser(user);
       }
     ).catch(() => {
-      console.warn('update photo error')
+      console.warn('update photo error');
     });
   }
 
@@ -250,7 +249,7 @@ export class AuthService {
         this.api.createProfile(profile, token).pipe(map((success) => {
           if (success) {
             localStorage.setItem('profile', JSON.stringify(success));
-            this.router.navigate(['/']);
+            this.profileReminder.remindUser();
           }
         })).subscribe();
       }
