@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Filter } from 'src/locations/models/filter';
 
 @Component({
   selector: 'app-challenge-filter',
@@ -10,9 +12,9 @@ import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.en
 export class ChallengeFilterComponent implements OnInit {
   Categories = Categories;
   CategoryIcons = LargeCategoryIcons;
-  filter: number[] = [];
+  filter: Filter;
 
-  @Output() filterChanged = new EventEmitter<number[]>();
+  @Output() filterChanged = new EventEmitter<Filter>();
 
   buttons = [
     {category: 'S', value: 0, colorClass: 'green'},
@@ -22,14 +24,28 @@ export class ChallengeFilterComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    const filter = JSON.parse(localStorage.getItem('filter'));
-    this.filter = filter ?? [1, 2, 3, 4];
+    const filter: Partial<Filter> = JSON.parse(localStorage.getItem('filter'));
+    this.filter = {
+      categories: filter?.categories ?? [1, 2, 3, 4],
+      showCompleted: filter?.showCompleted ?? true,
+    };
     this.filterChanged.emit(this.filter);
   }
 
-  change(filter: number[]): void {
-    localStorage.setItem('filter', JSON.stringify(filter));
-    this.filter = filter;
-    this.filterChanged.emit(filter);
+  categoriesChange(categories: number[]) {
+    this.filterChange({ categories });
+  }
+
+  showCompletedChange(event: MatCheckboxChange) {
+    this.filterChange({ showCompleted: event.checked });
+  }
+
+  filterChange(change: Partial<Filter>) {
+    this.filter = {
+      ...this.filter,
+      ...change,
+    };
+    localStorage.setItem('filter', JSON.stringify(this.filter));
+    this.filterChanged.emit(this.filter);
   }
 }
