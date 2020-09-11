@@ -26,7 +26,7 @@ export class ChallengeFilterComponent implements OnInit {
   ngOnInit(): void {
     const filter: Partial<Filter> = JSON.parse(localStorage.getItem('filter'));
     this.filter = {
-      categories: filter?.categories ?? [1, 2, 3, 4],
+      categories: filter?.categories ?? [0, 1, 2, 3],
       showCompleted: filter?.showCompleted ?? true,
     };
     this.filterChanged.emit(this.filter);
