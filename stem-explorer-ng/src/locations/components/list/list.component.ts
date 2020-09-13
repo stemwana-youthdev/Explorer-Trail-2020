@@ -11,6 +11,7 @@ import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Filter } from 'src/locations/models/filter';
 
 /*
 * Component to show the challenges in a list view
@@ -24,7 +25,7 @@ export class ListComponent implements OnInit {
   locations: Location[] = [];
   Categories: any = Categories;
   CategoryIcons: any = LargeCategoryIcons;
-  filter: number[] = [];
+  filter: Filter;
   userLocation: google.maps.LatLngLiteral;
 
   constructor(
@@ -58,7 +59,7 @@ export class ListComponent implements OnInit {
     return item?.challengeId;
   }
 
-  filterChanged(filter: number[]) {
+  filterChanged(filter: Filter) {
     this.filter = filter;
   }
 
