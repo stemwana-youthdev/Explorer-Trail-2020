@@ -14,7 +14,7 @@ import { MapConfigService } from 'src/locations/services/map-config.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
+import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
   options: google.maps.MapOptions;
   location: Location;
   Colour = StemColours;
-  Icon = CategoryIcons;
+  Icon = LargeCategoryIcons;
   locationAccess = false;
   tilesLoaded = false;
   distance: string;
