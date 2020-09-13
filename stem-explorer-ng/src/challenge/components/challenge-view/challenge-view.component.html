@@ -33,6 +33,8 @@
     <h4>Question</h4>
     <p>{{ selectedLevel.question }}</p>
   </ng-container>
+  
+  <h3 [class]="Colour[challenge.category] + ' center'" *ngIf="selectedLevel.complete">Awesome work! You've completed this level!</h3>
 
   <app-button
     [category]="challenge.category"
@@ -48,5 +50,4 @@
     [value]="'Get Hint'"
   ></app-button>
 
-  <h3 [class]="Colour[challenge.category] + ' center'" *ngIf="selectedLevel.complete">Awesome work! You've completed this level!</h3>
 </div>
