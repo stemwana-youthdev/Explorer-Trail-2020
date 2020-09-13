@@ -22,6 +22,7 @@ import { ImageService } from './services/image.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     InputComponent,
     SortByPipe,
     ProfilePictureComponent,
+    FilterLocationsPipe,
   ],
   imports: [
     CommonModule,
@@ -72,6 +74,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     FlexLayoutModule,
     ReactiveFormsModule,
     ZXingScannerModule,
+    FilterLocationsPipe,
   ],
 })
 export class SharedModule { }

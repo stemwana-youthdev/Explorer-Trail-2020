@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { FilterLocations } from 'src/locations/store/locations.actions';
-import { LocationsState } from 'src/locations/store/locations.state';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 
@@ -12,10 +8,11 @@ import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.en
   styleUrls: ['./challenge-filter.component.scss']
 })
 export class ChallengeFilterComponent implements OnInit {
-  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
-
   Categories = Categories;
   CategoryIcons = LargeCategoryIcons;
+  filter: number[] = [];
+
+  @Output() filterChanged = new EventEmitter<number[]>();
 
   buttons = [
     {category: 'S', value: 0, colorClass: 'green'},
@@ -24,12 +21,15 @@ export class ChallengeFilterComponent implements OnInit {
     {category: 'M', value: 3, colorClass: 'purple'}
   ];
 
-  constructor(private store: Store) { }
-
   ngOnInit(): void {
+    const filter = JSON.parse(localStorage.getItem('filter'));
+    this.filter = filter ?? [1, 2, 3, 4];
+    this.filterChanged.emit(this.filter);
   }
 
   change(filter: number[]): void {
-    this.store.dispatch(new FilterLocations(filter));
+    localStorage.setItem('filter', JSON.stringify(filter));
+    this.filter = filter;
+    this.filterChanged.emit(filter);
   }
 }
