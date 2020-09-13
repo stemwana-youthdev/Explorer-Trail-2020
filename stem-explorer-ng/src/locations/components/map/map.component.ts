@@ -15,6 +15,7 @@ import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { Router } from '@angular/router';
+import { Filter } from 'src/locations/models/filter';
 
 @Component({
   selector: 'app-map',
@@ -22,7 +23,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  public filter: number[];
+  public filter: Filter;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
   locations: Location[] = [];
   zoom = 16;
@@ -76,7 +77,7 @@ export class MapComponent implements OnInit {
     return item?.challengeId;
   }
 
-  filterChanged(filter: number[]) {
+  filterChanged(filter: Filter) {
     this.filter = filter;
   }
 
