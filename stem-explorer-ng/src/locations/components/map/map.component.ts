@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrateg
 import { MapInfoWindow } from '@angular/google-maps';
 import { MapMarker } from '@angular/google-maps/map-marker/map-marker';
 import { MatDialog } from '@angular/material/dialog';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
@@ -14,9 +13,10 @@ import { MapConfigService } from 'src/locations/services/map-config.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
+import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { Router } from '@angular/router';
 import { LocationApiService } from 'src/locations/services/locations-api.service';
+import { Filter } from 'src/locations/models/filter';
 
 @Component({
   selector: 'app-map',
@@ -24,7 +24,7 @@ import { LocationApiService } from 'src/locations/services/locations-api.service
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
+  public filter: Filter;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
   locations: Location[] = [];
   zoom = 16;
@@ -33,7 +33,7 @@ export class MapComponent implements OnInit {
   options: google.maps.MapOptions;
   location: Location;
   Colour = StemColours;
-  Icon = CategoryIcons;
+  Icon = LargeCategoryIcons;
   locationAccess = false;
   tilesLoaded = false;
   distance: string;
@@ -71,14 +71,16 @@ export class MapComponent implements OnInit {
     this.getLocations();
   }
 
-  trackLocations(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackLocations(_: number, item: Location) {
+    return item?.uid;
   }
 
-  trackChallenges(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackChallenges(_: number, item: LocationChallenge) {
+    return item?.challengeId;
+  }
+
+  filterChanged(filter: Filter) {
+    this.filter = filter;
   }
 
   /**

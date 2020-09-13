@@ -1,12 +1,39 @@
 #!/bin/sh
 
-# If you want to clear the database (and any other docker volumes) run:
-# docker-compose down --volumes
+# By default this script wipes the database and then fills it with some example content
+# To skip wiping the DB, run `./db-seed.sh keep`
 
 # Open a SQL prompt in the Docker container
-# and send some sql into it
-docker exec -i explorer-trail-2020_explorer_trail_db_1 \
-psql -d StemExplorer -U stem << EOF
+db_connection() {
+  docker exec -i explorer-trail-2020_explorer_trail_db_1 \
+    psql -d StemExplorer -U stem
+}
+
+# Clean the database
+if [ "$1" != "keep" ]; then
+  # Everything inside of the brackets has it's stdout piped to db_connection
+  {
+    tables=(
+      Progress
+      Profiles
+      Users
+      ChallengeLevels
+      Challenges
+      Locations
+      ExternalContent
+    )
+    for table in "${tables[@]}"; do
+      # Log some stuff to stderr so that it isn't sent to db_connection
+      echo Clearing \"$table\" table contents >&2
+
+      echo DELETE FROM \"$table\"\;
+    done
+  } | db_connection
+fi
+
+# Add some example content
+echo Inserting example content >&2
+db_connection << EOF
 
 DELETE FROM "Locations";
 INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "Url", "GooglePlaceId", "Phone", "Email")

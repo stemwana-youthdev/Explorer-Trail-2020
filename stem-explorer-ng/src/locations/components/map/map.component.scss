@@ -33,4 +33,13 @@ button {
   &.purple {
     background-color: $primary-purple;
   }
+
+  mat-icon {
+    margin: -1rem -1.5rem -1rem 1rem;
+    width: 2rem;
+    height: 2rem;
+    ::ng-deep #Map-View {
+      fill: #ffffff;
+    }
+  }
 }
