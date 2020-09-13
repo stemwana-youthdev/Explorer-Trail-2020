@@ -1,4 +1,4 @@
-<app-challenge-filter></app-challenge-filter>
+<app-challenge-filter (filterChanged)="filterChanged($event)"></app-challenge-filter>
 
 <span class="challenge-map">
   <google-map
@@ -10,7 +10,7 @@
     (tilesloaded)="tilesLoaded = true"
     >
     <map-marker
-      *ngFor="let location of locations; trackBy: trackLocations"
+      *ngFor="let location of locations | filterLocations:(filter); trackBy: trackLocations"
       #markerElem
       [position]="location.position"
       [title]="location.name"
@@ -31,7 +31,7 @@
         <ng-container *ngFor="let challenge of location.locationChallenges; trackBy: trackChallenges">
           <button mat-flat-button class="{{Colour[challenge.challengeCategory]}}"
             (click)="openChallenge(location, challenge)">
-            View Challenge <mat-icon>{{Icon[challenge.challengeCategory]}}</mat-icon>
+            View Challenge <mat-icon [svgIcon]="Icon[challenge.challengeCategory]"></mat-icon>
           </button>
         </ng-container>
       </div>

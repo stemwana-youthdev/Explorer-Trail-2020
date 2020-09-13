@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
@@ -12,6 +11,7 @@ import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Filter } from 'src/locations/models/filter';
 
 /*
 * Component to show the challenges in a list view
@@ -22,11 +22,10 @@ import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.en
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
   locations: Location[] = [];
   Categories: any = Categories;
   CategoryIcons: any = LargeCategoryIcons;
-  filter: number[] = [];
+  filter: Filter;
   userLocation: google.maps.LatLngLiteral;
 
   constructor(
@@ -50,17 +49,18 @@ export class ListComponent implements OnInit {
     this.store.dispatch(new VisitedHomepage());
 
     this.getLocations();
-    this.filter$.pipe(map(res => this.filter = res)).subscribe();
   }
 
-  trackLocations(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackLocations(_: number, item: Location) {
+    return item?.uid;
   }
 
-  trackChallenges(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackChallenges(_: number, item: LocationChallenge) {
+    return item?.challengeId;
+  }
+
+  filterChanged(filter: Filter) {
+    this.filter = filter;
   }
 
   /**

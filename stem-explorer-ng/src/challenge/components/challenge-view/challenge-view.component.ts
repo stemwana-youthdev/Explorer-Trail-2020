@@ -127,11 +127,13 @@ export class ChallengeViewComponent implements OnInit {
   }
 
   private async saveResult(result: boolean) {
-    if (this.authService.user$) {
+    if (this.profile) {
       const token = JSON.parse(localStorage.getItem('token'));
       await this.api
         .levelCompleted(token, this.profile.id, this.selectedLevel.id, result)
         .toPromise();
+    } else if (result) {
+      this.authService.recordGuestCompleted(this.selectedLevel.id);
     }
   }
 

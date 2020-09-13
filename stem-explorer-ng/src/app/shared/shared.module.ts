@@ -23,6 +23,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ProfileReminderService } from './services/profile-reminder.service';
+import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ProfileReminderService } from './services/profile-reminder.service';
     InputComponent,
     SortByPipe,
     ProfilePictureComponent,
+    FilterLocationsPipe,
   ],
   imports: [
     CommonModule,
@@ -74,6 +76,7 @@ import { ProfileReminderService } from './services/profile-reminder.service';
     FlexLayoutModule,
     ReactiveFormsModule,
     ZXingScannerModule,
+    FilterLocationsPipe,
   ],
 })
 export class SharedModule { }
