@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { MapInfoWindow } from '@angular/google-maps';
 import { MapMarker } from '@angular/google-maps/map-marker/map-marker';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { CategoryIcons } from 'src/app/shared/enums/category-icons.enum';
 import { Router } from '@angular/router';
+import { LocationApiService } from 'src/locations/services/locations-api.service';
 
 @Component({
   selector: 'app-map',
@@ -43,6 +44,7 @@ export class MapComponent implements OnInit {
     private gtmService: GoogleTagManagerService,
     private mapConfig: MapConfigService,
     private geolocation: GeolocationService,
+    private api: LocationApiService,
     private router: Router
   ) {
     this.options = this.mapConfig.mapOptions();
@@ -65,7 +67,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new LoadLocationsData());
+    // this.store.dispatch(new LoadLocationsData());
     this.getLocations();
   }
 
@@ -125,7 +127,8 @@ export class MapComponent implements OnInit {
       icon: {
         url: `/assets/icons/${iconUrl}`,
         scaledSize: new google.maps.Size(30, 48)
-      }
+      },
+      animation: google.maps.Animation.DROP
     };
   }
 
@@ -144,9 +147,12 @@ export class MapComponent implements OnInit {
    * Gets all locations from API
    */
   private getLocations(): void {
-    this.store.select(LocationsState.locations).pipe(map(res => {
+    this.api.getLocations().subscribe((res) => {
       this.locations = res;
-    })).subscribe();
+    })
+    // this.store.select(LocationsState.locations).pipe(map(res => {
+    //   this.locations = res;
+    // })).subscribe();
   }
 
   /**

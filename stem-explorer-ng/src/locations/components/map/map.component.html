@@ -9,7 +9,7 @@
     [options]="options"
     (tilesloaded)="tilesLoaded = true"
     >
-    <map-marker
+    <!-- <map-marker
       *ngFor="let location of locations; trackBy: trackLocations"
       #markerElem
       [position]="location.position"
@@ -17,7 +17,7 @@
       [options]="getMarkerOptions(location)"
       (mapClick)="click(markerElem, location)"
       >
-    </map-marker>
+    </map-marker> -->
 
     <map-marker [position]="userLocation" *ngIf="userLocation" [options]="userMarkerPoint()">
     </map-marker>
