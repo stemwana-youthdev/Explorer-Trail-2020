@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -20,6 +20,7 @@ export class AuthService {
   token: string;
   token$: Observable<string>;
   profile: Profile;
+  guestCompleted: number[] = [];
 
   actionCodeSettings = {
     url: 'https://explorer-trial-ui.herokuapp.com/'
@@ -74,6 +75,36 @@ export class AuthService {
   }
 
   /**
+   * Record guest progress locally so that they can save it when they login
+   * Only call if the answer was successful
+   */
+  recordGuestCompleted(levelId: number) {
+    this.guestCompleted.push(levelId);
+  }
+
+  /**
+   * Gets called whenever a profile is created to save the user's progress to their new profile
+   */
+  async saveGuestCompleted() {
+    if (this.guestCompleted.length > 0) {
+      const token = await this.getToken().pipe(take(1)).toPromise();
+      const profile = await this.getProfile(token).toPromise();
+
+      // Run all of the requests at the same time
+      await Promise.all(
+        this.guestCompleted.map(
+          async (levelId) => {
+            await this.api
+              .levelCompleted(token, profile.id, levelId, true)
+              .toPromise();
+          }
+        )
+      );
+      this.guestCompleted = [];
+    }
+  }
+
+  /**
    * Sign in and register with google method. If new user, send the email vertification
    * and create a profile.
    */
@@ -92,6 +123,7 @@ export class AuthService {
     } else {
       this.setUser(credential.user);
       this.router.navigate(['/']);
+      this.saveGuestCompleted();
     }
 
     return this.updateUserData(credential.user);
@@ -146,6 +178,7 @@ export class AuthService {
         return res;
       }
     );
+    this.saveGuestCompleted();
     return obs;
   }
 
@@ -251,6 +284,7 @@ export class AuthService {
           if (success) {
             localStorage.setItem('profile', JSON.stringify(success));
             this.router.navigate(['/']);
+            this.saveGuestCompleted();
           }
         })).subscribe();
       }
