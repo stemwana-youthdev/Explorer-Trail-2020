@@ -73,6 +73,12 @@ namespace StemExplorerAPI.Controllers
                     return Unauthorized();
                 }
 
+                var oldProfile = await _profileService.GetProfile(profileDto.UserId);
+                if (oldProfile != null)
+                {
+                    return Conflict();
+                }
+
                 var profileId = await _profileService.CreateProfile(profileDto);
                 return CreatedAtRoute("GetProfile", profileDto);
             }
