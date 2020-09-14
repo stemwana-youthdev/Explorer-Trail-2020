@@ -32,15 +32,15 @@ export class CameraComponent {
     this.hasDevices = Boolean(devices && devices.length);
 
     this.availableDevices.forEach(mediaDevice => {
-      console.warn(mediaDevice)
+      console.warn(mediaDevice);
       if (mediaDevice.label.toLowerCase().includes('back')) {
         this.currentDevice = mediaDevice;
-        console.warn('selected device', this.currentDevice)
+        console.warn('selected device', this.currentDevice);
         return;
       }
     });
     this.currentDevice = devices[1] || null;
-    console.warn('selected device', this.currentDevice)
+    console.warn('selected device', this.currentDevice);
   }
 
   toMap() {
