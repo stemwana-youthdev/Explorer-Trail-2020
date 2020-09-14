@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200608095111_InitialMigration.cs" />
     <Compile Remove="Migrations\20200608095111_InitialMigration.Designer.cs" />
+    <Content Update="nlog.config" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
