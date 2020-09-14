@@ -60,7 +60,6 @@ export class AuthService {
 
   /**
    * @todo is this needed?
-   * @param user
    */
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
@@ -204,7 +203,7 @@ export class AuthService {
       return obs;
     } else {
       // @todo error handling
-      console.warn('Profile error!')
+      console.warn('Profile error!');
       return;
     }
   }
@@ -232,7 +231,7 @@ export class AuthService {
         this.setUser(user);
       }
     ).catch(() => {
-      console.warn('update photo error')
+      console.warn('update photo error');
     });
   }
 
