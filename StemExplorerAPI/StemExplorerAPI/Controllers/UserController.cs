@@ -17,30 +17,19 @@ namespace StemExplorerAPI.Controllers
     public class UserContoller : ControllerBase
     {
         private IUserService _userService;
-        private IProfileService _profileService;
+        private IFirebaseTokenService _firebaseTokenService;
 
-        private string userId
-        {
-            get
-            {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return identity.FindFirst("user_id").Value;
-            }
-        }
-
-        public UserContoller(
-            IUserService userService,
-            IProfileService profileService
-        )
+        public UserContoller(IUserService userService, IFirebaseTokenService firebaseTokenService)
         {
             _userService = userService;
-            _profileService = profileService;
+            _firebaseTokenService = firebaseTokenService;
         }
 
         [HttpGet("CurrentUser")]
         [Authorize]
         public async Task<UserDto> GetCurrentUser()
         {
+            var userId = _firebaseTokenService.GetTokenData(HttpContext).UserId;
             return await _userService.GetUser(userId);
         }
 
@@ -49,6 +38,7 @@ namespace StemExplorerAPI.Controllers
         public async Task<UserDto> RegisterUser(UserDto userInfo)
         {
             // Use the user's actual userId
+            var userId = _firebaseTokenService.GetTokenData(HttpContext).UserId;
             userInfo.Id = userId;
             return await _userService.CreateUser(userInfo);
         }
@@ -58,6 +48,7 @@ namespace StemExplorerAPI.Controllers
         public async Task<UserDto> PutCurrentUser(UserDto userInfo)
         {
             // Use the user's actual userId
+            var userId = _firebaseTokenService.GetTokenData(HttpContext).UserId;
             userInfo.Id = userId;
             await _userService.UpdateUser(userInfo);
             return await _userService.GetUser(userInfo.Id);

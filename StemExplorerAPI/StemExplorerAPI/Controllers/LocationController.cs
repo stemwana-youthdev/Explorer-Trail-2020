@@ -17,22 +17,11 @@ namespace StemExplorerAPI.Controllers
     {
         private readonly ILocationService _locationService;
         private readonly ILogger _logger;
-        private readonly IProfileService _profileService;
 
-        public LocationController(ILogger<LocationController> logger, ILocationService locationService, IProfileService profileService)
+        public LocationController(ILogger<LocationController> logger, ILocationService locationService)
         {
             _logger = logger;
             _locationService = locationService;
-            _profileService = profileService;
-        }
-
-        private string userId
-        {
-            get
-            {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return identity.FindFirst("user_id").Value;
-            }
         }
 
         // GET: api/Location

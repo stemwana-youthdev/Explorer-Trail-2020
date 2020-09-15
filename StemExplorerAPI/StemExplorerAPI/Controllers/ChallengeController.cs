@@ -16,23 +16,12 @@ namespace StemExplorerAPI.Controllers
     public class ChallengeController : ControllerBase
     {
         private readonly IChallengeService _challengeService;
-        private readonly IProfileService _profileService;
         private readonly ILogger _logger;
 
-        private string userId
-        {
-            get
-            {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return identity.FindFirst("user_id").Value;
-            }
-        }
-
-        public ChallengeController(ILogger<LocationController> logger, IChallengeService challengeService, IProfileService profileService)
+        public ChallengeController(ILogger<LocationController> logger, IChallengeService challengeService)
         {
             _logger = logger;
             _challengeService = challengeService;
-            _profileService = profileService;
         }
 
         // GET: api/Challenge
