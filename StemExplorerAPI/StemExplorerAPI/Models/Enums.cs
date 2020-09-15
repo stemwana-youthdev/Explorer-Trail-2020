@@ -15,14 +15,6 @@ namespace StemExplorerAPI.Models
             Mathematics
         }
 
-        public enum ChallengeDifficulty
-        {
-            Easy,
-            Medium,
-            Hard,
-            Expert
-        }
-
         public enum AnswerType
         {
             Multichoice,

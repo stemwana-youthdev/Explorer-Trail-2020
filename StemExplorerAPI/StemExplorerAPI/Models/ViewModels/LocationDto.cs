@@ -40,7 +40,7 @@ namespace StemExplorerAPI.Models.ViewModels
     {
         [JsonIgnore]
         public int Id { get; set; }
-        public Enums.ChallengeDifficulty Difficulty { get; set; }
+        public int Difficulty { get; set; }
         public bool Complete { get; set; }
     }
 }

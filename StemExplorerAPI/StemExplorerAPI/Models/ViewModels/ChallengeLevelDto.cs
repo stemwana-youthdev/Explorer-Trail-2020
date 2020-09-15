@@ -13,7 +13,7 @@ namespace StemExplorerAPI.Models.ViewModels
         [JsonProperty("uid")]
         public int Id { get; set; }
         public string QuestionText { get; set; }
-        public Enums.ChallengeDifficulty Difficulty { get; set; }
+        public int Difficulty { get; set; }
         public string Instructions { get; set; }
         public Enums.AnswerType AnswerType { get; set; }
         public List<string> PossibleAnswers { get; set; }
