@@ -11,7 +11,6 @@ export class ProfileReminderService {
   ) { }
 
   public checkCompleted(profile: Profile) {
-    debugger;
     if (profile.profileCompleted) {
       return;
     }
