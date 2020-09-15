@@ -1,24 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Profile } from '../models/profile';
 
 @Injectable()
 export class ProfileReminderService {
   constructor(
-    private auth: AuthService,
     private router: Router,
     private snackbar: MatSnackBar,
-  ) {
-    this.checkCompleted();
-  }
+  ) { }
 
-  private async checkCompleted() {
-    if (!this.auth._user) {
-      return;
-    }
-
-    const profile = await this.auth.getProfile().toPromise();
+  public checkCompleted(profile: Profile) {
     if (profile.profileCompleted) {
       return;
     }
