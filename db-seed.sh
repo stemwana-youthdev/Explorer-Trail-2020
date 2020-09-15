@@ -35,15 +35,23 @@ fi
 echo Inserting example content >&2
 db_connection << EOF
 
-INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "GooglePlaceId", "Url", "Phone", "Email")
+INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "GooglePlaceId", "Url", "Phone", "Email", "Featured", "Address", "FeaturedImage", "FeaturedText", "OfferText", "Order")
 VALUES (1, 'Basestation', -37.6865807, 176.1649332, 'ChIJ905i8dzbbW0RIvN_2Wp8sJQ',
-        'https://www.basestation.nz/en', '0800000577', 'info@basestation.nz'),
+        'https://www.basestation.nz/en', '0800000577', 'info@basestation.nz',
+        true, '148 Durham Street', 'https://www.downtowntauranga.co.nz/vdb/image/5506_562_530',
+        'Basestation offers coworking at its best. With flexible hot desks, meeting rooms and event hire, it''s the perfect space to build good ideaas into great enterprises by sharing time and space with the right combination of established enterprise owners, talented entrepreneurs, freelancers, small businesses and teams.',
+        'Contact thre friendly team for a tour or free trial.', 1),
        (2, 'Trustpower', -37.6865807, 176.1649332, 'ChIJgxvxUurYbW0RuC2eHkOaUQA',
-        'https://www.trustpower.co.nz/', '0800878787', 'info@trustpower.co.nz'),
+        'https://www.trustpower.co.nz/', '0800878787', 'info@trustpower.co.nz',
+        false, null, null, null, null, 0),
        (3, 'i-SITE', -37.6835924, 176.1677695, 'ChIJn9OKit3bbW0ROSguplmSk5U',
-        'https://www.newzealand.com/in/plan/business/tauranga-i-size-visitor-information-centre/', '075788103', 'tauranga@newzealand.com'),
+        'https://www.newzealand.com/in/plan/business/tauranga-i-size-visitor-information-centre/', '075788103', 'tauranga@newzealand.com',
+        false, null, null, null, null, 0),
        (4, 'Tauranga City Library', -37.6828031, 176.1664596, 'ChIJD5sBYefbbW0RP-oj-NNSuoA',
-        'https://library.tauranga.govt.nz/', '075777177', 'library@tauranga.govt.nz');
+        'https://library.tauranga.govt.nz/', '075777177', 'library@tauranga.govt.nz',
+        true, '91 Willow Street', 'https://library.tauranga.govt.nz/portals/9/data/about_us/images/tauranga_library.jpg',
+        'We have books, books, and even more books. Gotta read ''em all!',
+        'Free book hire, for a limited time only.', 2);
 
 INSERT INTO "Challenges" ("Id", "Title", "Description", "Category", "LocationId")
 VALUES (1, 'Day of the Week',
