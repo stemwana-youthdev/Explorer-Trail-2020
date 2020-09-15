@@ -38,6 +38,7 @@ export class AuthService {
       this._user = JSON.parse(localStorage.getItem('currentUser'));
       this.user$ = of(this._user);
       this.getToken().subscribe();
+      this.getProfile().subscribe((profile) => this.profileReminder.checkCompleted(profile))
     }
   }
 
