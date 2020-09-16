@@ -1,6 +1,7 @@
 export type SvgIcon =
 | 'FILTER-filter'
 | 'google-login'
+| 'facebook-login'
 | 'AMEN-food'
 | 'AMEN-magnifying-glass'
 | 'AMEN-mail'
