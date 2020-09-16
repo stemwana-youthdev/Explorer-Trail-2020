@@ -45,7 +45,7 @@ app-form-field {
   position: relative;
   float: right;
   top: -39px;
-  right: -10px;
+  right: 22px;
   font-size: 2rem;
   color: #fff;
 }
@@ -56,9 +56,15 @@ app-form-field {
   }
 }
 
-.levels-wrapper {
-  margin-right: 32px;
+.levels-wrapper mat-select {
+  padding: 0;
+
+  ::ng-deep .mat-select-trigger {
+    padding: 16px;
+    z-index: 1;
+  }
 }
+
 
 .instructions-header {
   margin-top: 20px;
