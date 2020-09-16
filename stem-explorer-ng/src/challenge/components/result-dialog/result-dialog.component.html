@@ -1,6 +1,6 @@
 <app-dialog inverted [category]="data.isCorrect ? data.category : ''">
   <h3>{{ data.title }}</h3>
-  <h4>{{ Levels[data.difficulty] }}</h4>
+  <h4>Level {{ data.difficulty }}</h4>
 
   <div class="message" *ngIf="data.isCorrect; else incorrectMessage">
     <mat-icon class="graphic">

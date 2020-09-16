@@ -19,7 +19,7 @@
     <mat-select [value]="selectedLevel.difficulty" [class]="Colour[challenge.category]"
       (selectionChange)="levelChange($event)" aria-label="Select Level">
       <mat-option *ngFor="let option of challenge.challengeLevels; trackBy: trackLevel" [value]="option.difficulty">
-        {{ Levels[option.difficulty] }}
+        Level {{ option.difficulty }}
       </mat-option>
     </mat-select>
     <mat-icon class="arrow">expand_more</mat-icon>

@@ -1,4 +1,3 @@
-import { Levels } from 'src/app/shared/enums/levels.enum';
 import { QuestionType } from 'src/app/shared/enums/answer-type.enum';
 
 export interface Challenge {
@@ -14,7 +13,7 @@ export interface ChallengeLevel {
     id: number;
     question: string;
     instructions: string;
-    difficulty: Levels;
+    difficulty: number;
     hint: string;
     questionType: QuestionType;
     answer: string[];

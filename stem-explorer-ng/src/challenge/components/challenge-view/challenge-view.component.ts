@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { Profile } from 'src/app/shared/models/profile';
 import { Challenge, ChallengeLevel } from 'src/challenge/models/challenge';
@@ -28,7 +27,6 @@ export class ChallengeViewComponent implements OnInit {
   Colour = StemColours;
   Categories = Categories;
   CategoryIcons = LargeCategoryIcons;
-  Levels = Levels;
   profile: Profile;
 
   constructor(
