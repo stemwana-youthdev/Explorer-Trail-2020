@@ -24,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ProfileReminderService } from './services/profile-reminder.service';
 import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
+import { VisibleDirective } from './directives/visible.directive';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
     SortByPipe,
     ProfilePictureComponent,
     FilterLocationsPipe,
+    VisibleDirective,
   ],
   imports: [
     CommonModule,
@@ -77,6 +79,7 @@ import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
     ReactiveFormsModule,
     ZXingScannerModule,
     FilterLocationsPipe,
+    VisibleDirective,
   ],
 })
 export class SharedModule { }
