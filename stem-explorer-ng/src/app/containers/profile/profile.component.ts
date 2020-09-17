@@ -60,6 +60,7 @@ export class ProfileComponent implements OnInit {
   regionChange({ value }: { value: string }) {
     this.cities =
       this.regions.find((region) => region.name === value)?.cities ?? [];
+    this.profileForm.controls.homeTown.setValue(null);
   }
 
   toMap() {
