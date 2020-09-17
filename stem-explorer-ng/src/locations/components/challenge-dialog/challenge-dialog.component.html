@@ -31,7 +31,7 @@
           aria-label="Location Phone Number"
         ></app-contact-info>
         <app-contact-info *ngIf="data.location?.email"
-          [link]="data.location?.email"
+          [link]="'mailto:' + data.location?.email"
           [category]="challenge.challengeCategory"
           icon="mail_outline"
           [label]="data.location?.email"
