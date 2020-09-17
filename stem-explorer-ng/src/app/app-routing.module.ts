@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MapComponent } from 'src/locations/components/map/map.component';
+import { Map2Component } from 'src/locations/components/map/map2.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
 import { ProfileComponent } from './containers/profile/profile.component';
@@ -9,7 +9,7 @@ import { ForgotPasswordComponent } from './containers/forgot-password/forgot-pas
 import { CameraComponent } from './core/components/camera/camera.component';
 
 const routes: Routes = [
-  { path: '', component: MapComponent },
+  { path: '', component: Map2Component },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },

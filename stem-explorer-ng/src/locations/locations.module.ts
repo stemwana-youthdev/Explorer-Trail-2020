@@ -4,7 +4,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationsRoutingModule } from './locations-routing.module';
 import { NgxsModule } from '@ngxs/store';
 import { LocationsState } from './store/locations.state';
-import { MapComponent } from './components/map/map.component';
+import { Map2Component } from './components/map/map2.component';
 import { ChallengeDialogComponent } from './components/challenge-dialog/challenge-dialog.component';
 import { ChallengeFilterComponent } from './components/challenge-filter/challenge-filter.component';
 import { ListComponent } from './components/list/list.component';
@@ -19,7 +19,7 @@ import { BottomNavComponent } from './components/bottom-navigation/bottom-naviga
     NgxsModule.forFeature([LocationsState])
   ],
   declarations: [
-    MapComponent,
+    Map2Component,
     ListComponent,
     ChallengeDialogComponent,
     ChallengeFilterComponent,

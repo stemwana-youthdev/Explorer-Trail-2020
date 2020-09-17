@@ -44,6 +44,8 @@ import { CoreModule } from './core/core.module';
     ReactiveFormsModule,
     LocationsModule,
     ChallengeModule,
+    GoogleMapsModule,
+
   ],
   entryComponents: [
     SplashScreenComponent,

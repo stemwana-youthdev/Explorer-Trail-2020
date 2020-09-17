@@ -1,14 +1,26 @@
 @use 'src/app/styles/variables' as *;
 
-:host {
+#map {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .challenge-map {
-    flex: 1;
-  }
+  width: 100%;
 }
+
+// .challenge-map {
+//   height: 100%;
+//   width: 100%;
+// }
+
+// :host {
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+
+//   .challenge-map {
+//     flex: 1;
+//     height: 100%;
+//     width: 100%;
+//   }
+// }
 
 .marker-info {
   display: flex;
@@ -16,30 +28,30 @@
   margin: 8px 8px 18px 8px;
 }
 
-button {
-  padding: 5px 40px;
-  color: #fff;
-  margin-top: 5px;
-  width: 100%;
-  &.green {
-    background-color: $primary-green;
-  }
-  &.blue {
-    background-color: $primary-blue;
-  }
-  &.orange {
-    background-color: $primary-orange;
-  }
-  &.purple {
-    background-color: $primary-purple;
-  }
+// button {
+//   padding: 5px 40px;
+//   color: #fff;
+//   margin-top: 5px;
+//   width: 100%;
+//   &.green {
+//     background-color: $primary-green;
+//   }
+//   &.blue {
+//     background-color: $primary-blue;
+//   }
+//   &.orange {
+//     background-color: $primary-orange;
+//   }
+//   &.purple {
+//     background-color: $primary-purple;
+//   }
 
-  mat-icon {
-    margin: -1rem -1.5rem -1rem 1rem;
-    width: 2rem;
-    height: 2rem;
-    ::ng-deep #Map-View {
-      fill: #ffffff;
-    }
-  }
-}
+//   mat-icon {
+//     margin: -1rem -1.5rem -1rem 1rem;
+//     width: 2rem;
+//     height: 2rem;
+//     ::ng-deep #Map-View {
+//       fill: #ffffff;
+//     }
+//   }
+// }
