@@ -24,7 +24,7 @@
         aria-label="Location website"
       ></app-contact-info>
       <app-contact-info *ngIf="data.location?.phone"
-          [link]="data.location?.phone"
+          [link]="'tel:' + data.location?.phone"
           [category]="challenge.challengeCategory"
           icon="phone"
           [label]="data.location?.phone"
