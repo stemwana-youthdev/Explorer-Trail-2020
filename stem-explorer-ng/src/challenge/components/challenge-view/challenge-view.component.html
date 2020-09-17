@@ -2,6 +2,13 @@
   <div class="bouncer centered"></div>
 </ng-template>
 
+<div class="back-button"
+  <app-button
+    (click)="Back()"
+    [value]="'< Back'"
+  ></app-button>
+</div>
+
 <div class="challenge-details" *ngIf="challenge; else loading">
 
   <mat-icon class="category-icon" [svgIcon]="CategoryIcons[challenge.category]"></mat-icon>
