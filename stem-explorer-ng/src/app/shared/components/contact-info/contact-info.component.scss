@@ -1,12 +1,16 @@
 @use 'src/app/styles/variables' as *;
 
+:host {
+    display: flex;
+    // align-items: center;
+}
+
 a {
     text-decoration: none;
 }
 
 @mixin coloured-content($color) {
     color: $color;
-    position: absolute;
     padding: 3px;
 }
 
