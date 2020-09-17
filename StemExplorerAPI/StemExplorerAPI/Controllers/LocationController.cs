@@ -61,6 +61,21 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
+        // GET: api/Locations/Featured
+        [HttpGet("Featured")]
+        public async Task<IActionResult> GetFeaturedLocations()
+        {
+            try
+            {
+                return Ok(await _locationService.GetFeaturedLocations());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
         // POST: api/Location
         [HttpPost]
         public void Post([FromBody] string value)
