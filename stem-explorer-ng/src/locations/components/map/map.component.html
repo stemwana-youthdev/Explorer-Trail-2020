@@ -14,7 +14,7 @@
       #markerElem
       [position]="location.position"
       [title]="location.name"
-      [options]="getMarkerOptions(location)"
+      [options]="getMarkerOptions(location.challengeCount, location.locationChallenges)"
       (mapClick)="click(markerElem, location)"
       >
     </map-marker>

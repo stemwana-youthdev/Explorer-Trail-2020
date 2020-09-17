@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Categories } from 'src/app/shared/enums/categories.enum';
+import { LocationLevel } from '../models/location';
 
 @Injectable({ providedIn: 'root' })
 export class MapConfigService {
@@ -45,15 +46,35 @@ export class MapConfigService {
    * returns the map marker icon for the category for the map, or if multiple, returns the red pointer.
    * @param cat the challenge category enum value
    */
-  mapMarkerIcons(cat: number): string {
-    const icons = {
-      [Categories.Science]: 'map-marker-green.svg',
-      [Categories.Technology]: 'map-marker-blue.svg',
-      [Categories.Engineering]: 'map-marker-orange.svg',
-      [Categories.Maths]: 'map-marker-purple.svg',
-      4: 'MAP-red-point.svg'
-    };
+  mapMarkerIcons(category: number, levels: LocationLevel[] = []): string {
 
-    return icons[cat];
+    let icons;
+    let numCompleted = 0;
+
+    levels.forEach (level => {
+      if (level.complete === true) {
+        numCompleted++;
+      }
+    });
+
+    if (numCompleted === levels.length) {
+      icons = {
+        [Categories.Science]: 'map-green-gradient-inverted.svg',
+        [Categories.Technology]: 'map-blue-gradient-inverted.svg',
+        [Categories.Engineering]: 'map-orange-gradient-inverted.svg',
+        [Categories.Maths]: 'map-purple-gradient-inverted.svg',
+        4: 'MAP-red-point.svg'
+      };
+    }else {
+      icons = {
+        [Categories.Science]: 'map-marker-green.svg',
+        [Categories.Technology]: 'map-marker-blue.svg',
+        [Categories.Engineering]: 'map-marker-orange.svg',
+        [Categories.Maths]: 'map-marker-purple.svg',
+        4: 'MAP-red-point.svg'
+      };
+    }
+
+    return icons[category];
   }
 }

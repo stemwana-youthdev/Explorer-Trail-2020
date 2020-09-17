@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { Location, LocationChallenge } from 'src/locations/models/location';
+import { Location, LocationChallenge, LocationLevel } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { MapConfigService } from 'src/locations/services/map-config.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
@@ -116,10 +116,12 @@ export class MapComponent implements OnInit {
    * but otherwise will show an icon for that challenge category.
    * @param location location data object
    */
-  getMarkerOptions(location: Location): google.maps.MarkerOptions {
-    let iconUrl = this.mapConfig.mapMarkerIcons(4);
-    if (location.challengeCount === 1) {
-      iconUrl = this.mapConfig.mapMarkerIcons(location.locationChallenges[0].challengeCategory);
+  getMarkerOptions(count: number, challenges: LocationChallenge[]): google.maps.MarkerOptions {
+    let iconUrl: string;
+    if (count === 1) {
+      iconUrl = this.mapConfig.mapMarkerIcons(challenges[0].challengeCategory, challenges[0].challengeLevels);
+    }else {
+      iconUrl = this.mapConfig.mapMarkerIcons(4);
     }
     return {
       icon: {
