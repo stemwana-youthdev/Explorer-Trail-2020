@@ -15,7 +15,7 @@ export class VisibleDirective implements AfterViewInit, OnDestroy {
     this.observer?.disconnect();
 
     // If the browser does not support IntersectionObserver
-    if (!IntersectionObserver) {
+    if (!window.IntersectionObserver) {
       this.elementVisible.next(true);
       return;
     }
