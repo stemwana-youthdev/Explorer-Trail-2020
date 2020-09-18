@@ -19,6 +19,7 @@ import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
 import { CoreModule } from './core/core.module';
+import { FeaturedLocationsComponent } from './containers/featured-locations/featured-locations.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CoreModule } from './core/core.module';
     ProfileComponent,
     ForgotPasswordComponent,
     ProfilePhotoDialogComponent,
+    FeaturedLocationsComponent,
   ],
   imports: [
     GoogleMapsModule,

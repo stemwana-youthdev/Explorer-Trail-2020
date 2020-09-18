@@ -29,7 +29,7 @@ export class DrawerComponent implements OnInit {
     },
     {
       title: 'Featured Locations',
-      url: '/',
+      url: '/featured',
     },
   ];
 

@@ -1,0 +1,24 @@
+:host {
+  display: table;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 768px;
+}
+
+.location {
+  border-top: 5px solid #E6E6E6;
+  padding: 0 10px;
+  margin: 0 -10px;
+
+  img {
+    max-width: 100%;
+    min-height: 200px;
+    margin-bottom: 2rem;
+  }
+
+  app-button {
+    ::ng-deep button {
+      margin: 1rem 0;
+    }
+  }
+}
