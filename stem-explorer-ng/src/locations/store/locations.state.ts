@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Location } from '../models/location';
 import { LocationApiService } from '../services/locations-api.service';
-import { LoadLocationsData } from './locations.actions';
+import { InvalidateLocationsData, LoadLocationsData } from './locations.actions';
 
 export interface LocationsStateModel {
   locations: Location[];
@@ -46,5 +46,10 @@ export class LocationsState {
         )
       );
     }
+  }
+
+  @Action(InvalidateLocationsData)
+  public invaidateData(ctx: StateContext<LocationsStateModel>) {
+    ctx.patchState({ fetched: false });
   }
 }

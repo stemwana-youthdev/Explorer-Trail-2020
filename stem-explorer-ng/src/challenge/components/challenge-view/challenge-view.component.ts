@@ -13,6 +13,8 @@ import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component'
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Store } from '@ngxs/store';
+import { InvalidateLocationsData } from 'src/locations/store/locations.actions';
 
 @Component({
   selector: 'app-challenge-view',
@@ -37,6 +39,7 @@ export class ChallengeViewComponent implements OnInit {
     private api: ChallengeApiService,
     private gtmService: GoogleTagManagerService,
     private authService: AuthService,
+    private store: Store,
   ) {
     this.challengeId = +this.route.snapshot.params['id'];
     this.profile = JSON.parse(localStorage.getItem('profile'));
@@ -132,6 +135,7 @@ export class ChallengeViewComponent implements OnInit {
       await this.api
         .levelCompleted(token, this.profile.id, this.selectedLevel.id, result)
         .toPromise();
+      this.store.dispatch(new InvalidateLocationsData());
     } else if (result) {
       this.authService.recordGuestCompleted(this.selectedLevel.id);
     }
