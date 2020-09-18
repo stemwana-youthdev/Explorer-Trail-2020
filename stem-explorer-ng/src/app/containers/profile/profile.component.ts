@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   loggedIn: boolean;
   profile: Profile;
   profilePic: any;
@@ -47,20 +47,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profilePic = this.auth._user.photo;
     this.fetchRegions();
     this.setForm();
-
-    window.addEventListener('beforeunload', this.beforeUnload);
   }
 
-  ngOnDestroy() {
-    window.removeEventListener('beforeunload', this.beforeUnload);
-  }
-
-  beforeUnload = (ev: BeforeUnloadEvent) => {
-    if (this.profileForm.dirty) {
-      // https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event#Examples
-      ev.preventDefault();
-      ev.returnValue = '';
-    }
+  @HostListener('window:beforeunload')
+  canLeave(ev?: BeforeUnloadEvent) {
+    return !this.profileForm.dirty;
   }
 
   fetchRegions() {
