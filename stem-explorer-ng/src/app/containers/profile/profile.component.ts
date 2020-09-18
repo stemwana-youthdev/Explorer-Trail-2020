@@ -8,13 +8,14 @@ import { ImageService } from 'src/app/shared/services/image.service';
 import { Region } from 'src/app/shared/models/region';
 import { ConfigService } from 'src/app/core/config/config.service';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { CanLeave } from 'src/app/shared/guards/dirty-form.guard';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, CanLeave {
   loggedIn: boolean;
   profile: Profile;
   profilePic: any;
@@ -50,7 +51,7 @@ export class ProfileComponent implements OnInit {
   }
 
   @HostListener('window:beforeunload')
-  canLeave(ev?: BeforeUnloadEvent) {
+  canLeave() {
     return !this.profileForm.dirty;
   }
 
