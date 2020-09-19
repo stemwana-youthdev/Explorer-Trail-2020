@@ -25,6 +25,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ProfileReminderService } from './services/profile-reminder.service';
 import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
 import { VisibleDirective } from './directives/visible.directive';
+import { MessageService } from './services/message.service';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { VisibleDirective } from './directives/visible.directive';
     GeolocationService,
     ImageService,
     ProfileReminderService,
+    MessageService,
   ],
   exports: [
     TruncatePipe,
