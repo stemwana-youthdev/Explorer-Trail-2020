@@ -25,6 +25,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ProfileReminderService } from './services/profile-reminder.service';
 import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
 import { VisibleDirective } from './directives/visible.directive';
+import { MessageService } from './services/message.service';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
@@ -61,6 +62,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     GeolocationService,
     ImageService,
     ProfileReminderService,
+    MessageService,
   ],
   exports: [
     TruncatePipe,
