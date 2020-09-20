@@ -7,6 +7,7 @@ import { ProfileComponent } from './containers/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { ForgotPasswordComponent } from './containers/forgot-password/forgot-password.component';
 import { CameraComponent } from './core/components/camera/camera.component';
+import { FeaturedLocationsComponent } from './containers/featured-locations/featured-locations.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'camera', component: CameraComponent },
+  { path: 'featured', component: FeaturedLocationsComponent },
   // lazy loading
   {
     path: 'list',
