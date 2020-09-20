@@ -14,13 +14,11 @@ export class RegisterPageComponent {
   errorMessage = '';
   user: User;
 
-  passwordRegex = /(?=.*\d)(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])|(?=.*\d)(?=.*[!@#$%^&;*()_+}{:'"?/.,])|(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[!@#$%^&;*()_+}{:'"?/.,])|(?=.*[A-Z])(?=.*[!@#$%^&;*()_+}{:'"?/.,])/;
-
   registerForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex)]),
+    password: new FormControl('', [Validators.required, this.customValidator.validPassword]),
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: this.customValidator.matchPassword('password', 'confirmPassword') });
 
@@ -36,7 +34,7 @@ export class RegisterPageComponent {
   }
 
   get passwordError(): boolean {
-    return this.registerForm.controls.password.hasError('pattern')
+    return this.registerForm.controls.password.hasError('invalidPassword')
       && this.registerForm.controls.password.touched;
   }
 
