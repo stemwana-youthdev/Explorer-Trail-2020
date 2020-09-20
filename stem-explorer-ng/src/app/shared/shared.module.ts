@@ -21,10 +21,11 @@ import { ProfilePictureComponent } from './components/profile-picture/profile-pi
 import { ImageService } from './services/image.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ProfileReminderService } from './services/profile-reminder.service';
 import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
 import { VisibleDirective } from './directives/visible.directive';
+import { MessageService } from './services/message.service';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { VisibleDirective } from './directives/visible.directive';
     ProfilePictureComponent,
     FilterLocationsPipe,
     VisibleDirective,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -50,8 +52,6 @@ import { VisibleDirective } from './directives/visible.directive';
     GoogleMapsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    ZXingScannerModule,
-
   ],
   providers: [
     ApiService,
@@ -59,6 +59,7 @@ import { VisibleDirective } from './directives/visible.directive';
     GeolocationService,
     ImageService,
     ProfileReminderService,
+    MessageService,
   ],
   exports: [
     TruncatePipe,
@@ -77,9 +78,9 @@ import { VisibleDirective } from './directives/visible.directive';
     ProfilePictureComponent,
     FlexLayoutModule,
     ReactiveFormsModule,
-    ZXingScannerModule,
     FilterLocationsPipe,
     VisibleDirective,
+    ConfirmDialogComponent,
   ],
 })
 export class SharedModule { }

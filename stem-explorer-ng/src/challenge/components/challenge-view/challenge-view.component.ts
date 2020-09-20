@@ -13,7 +13,9 @@ import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component'
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 import { InvalidateLocationsData } from 'src/locations/store/locations.actions';
 
 @Component({
@@ -39,6 +41,7 @@ export class ChallengeViewComponent implements OnInit {
     private api: ChallengeApiService,
     private gtmService: GoogleTagManagerService,
     private authService: AuthService,
+    private router: Router,
     private store: Store,
   ) {
     this.challengeId = +this.route.snapshot.params['id'];
@@ -56,6 +59,15 @@ export class ChallengeViewComponent implements OnInit {
   trackLevel(idx, item) {
     if (!item) { return null; }
     return idx;
+  }
+
+  /**
+   * Takes user back to map/list view when Back button is pressed.
+   */
+  Back(): void {
+    this.router.navigateByUrl(
+      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    );
   }
 
   /**

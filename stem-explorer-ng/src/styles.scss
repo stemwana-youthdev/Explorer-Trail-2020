@@ -98,3 +98,9 @@ i, em {
   // background-color: white;
   overflow: hidden !important;  
 }
+
+button.mat-flat-button {
+  white-space: normal;
+  line-height: normal;
+  padding: 15px 5px;
+}

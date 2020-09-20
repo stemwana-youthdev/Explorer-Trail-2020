@@ -1,0 +1,7 @@
+<app-dialog color="red">
+  <h2>{{ data.message }}</h2>
+  <div class="buttons">
+    <app-button (click)="closeDialog(false)" value="No"></app-button>
+    <app-button (click)="closeDialog(true)" value="Yes"></app-button>
+  </div>
+</app-dialog>
