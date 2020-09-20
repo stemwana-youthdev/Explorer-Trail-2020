@@ -62,3 +62,7 @@
     @include coloured-dialog($secondary-pink)
 }
 
+.mat-dialog-content.red {
+    @include coloured-dialog($secondary-red)
+}
+
