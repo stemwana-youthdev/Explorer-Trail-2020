@@ -39,7 +39,7 @@ export class CameraComponent {
         return;
       }
     });
-    this.currentDevice = devices[1] || null;
+    this.currentDevice = devices[1] || devices[0] || null;
     console.warn('selected device', this.currentDevice);
   }
 

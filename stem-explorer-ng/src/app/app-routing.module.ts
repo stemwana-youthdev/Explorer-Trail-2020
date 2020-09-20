@@ -8,14 +8,21 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { ForgotPasswordComponent } from './containers/forgot-password/forgot-password.component';
 import { CameraComponent } from './core/components/camera/camera.component';
 import { DirtyFormGuard } from './shared/guards/dirty-form.guard';
+import { FeaturedLocationsComponent } from './containers/featured-locations/featured-locations.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], canDeactivate: [DirtyFormGuard] },
+  { 
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: [DirtyFormGuard]
+  },
   { path: 'camera', component: CameraComponent },
+  { path: 'featured', component: FeaturedLocationsComponent },
   // lazy loading
   {
     path: 'list',
