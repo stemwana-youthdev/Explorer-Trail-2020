@@ -21,7 +21,6 @@ import { ProfilePictureComponent } from './components/profile-picture/profile-pi
 import { ImageService } from './services/image.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ProfileReminderService } from './services/profile-reminder.service';
 import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
 import { VisibleDirective } from './directives/visible.directive';
@@ -53,8 +52,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     GoogleMapsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    ZXingScannerModule,
-
   ],
   providers: [
     ApiService,
@@ -81,7 +78,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     ProfilePictureComponent,
     FlexLayoutModule,
     ReactiveFormsModule,
-    ZXingScannerModule,
     FilterLocationsPipe,
     VisibleDirective,
     ConfirmDialogComponent,
