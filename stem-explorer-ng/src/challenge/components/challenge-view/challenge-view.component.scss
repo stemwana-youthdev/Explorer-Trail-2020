@@ -68,7 +68,32 @@ app-form-field {
   text-align: center;
 }
 
-.back-button {
-  width: 100%;
-  text-align: left;
+.back-container {
+  background-color: rgba(0,0,0,0.18);
+  display: block;
+  top: 56px;
+  left: 0;
+  right: 0px;
+  z-index: 10;
+  height: 45px;
+  cursor: pointer;
+
+  .back-text {
+    display: flex;
+    margin: 0 auto;
+    max-width: 768px;
+    width: 100%;
+    line-height: 45px;
+    height: 100%;
+    font-weight: 600;
+
+    @media only screen and (max-width: 768px) {
+      padding-left: 10px;
+    }
+
+    .mat-icon {
+      line-height: 46px;
+      padding-right: 5px;
+    }
+  }
 }

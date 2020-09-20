@@ -47,10 +47,6 @@ export class ChallengeViewComponent implements OnInit {
     this.profile = JSON.parse(localStorage.getItem('profile'));
   }
 
-  get lastHomepage() {
-    return this.store.selectSnapshot(LastHomepageState.lastHomepage)
-  }
-
   get currentLevelIsCompleted(): boolean {
     return this._levelIsCompleted;
   }
@@ -62,6 +58,15 @@ export class ChallengeViewComponent implements OnInit {
   trackLevel(idx, item) {
     if (!item) { return null; }
     return idx;
+  }
+
+  /**
+   * Takes user back to map/list view when Back button is pressed.
+   */
+  Back(): void {
+    this.router.navigateByUrl(
+      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    );
   }
 
   /**
@@ -213,13 +218,5 @@ export class ChallengeViewComponent implements OnInit {
       level: this.selectedLevel.difficulty
     };
     this.gtmService.pushTag(tag);
-  }
-  /**
-   * Takes user back to map/list view when Back button is pressed.
-   */
-  Back(): void {
-    this.router.navigateByUrl(
-      this.store.selectSnapshot(LastHomepageState.lastHomepage)
-    );
   }
 }

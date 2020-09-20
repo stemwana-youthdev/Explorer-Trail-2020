@@ -2,11 +2,11 @@
   <div class="bouncer centered"></div>
 </ng-template>
 
-<div class="back-button"
-  <app-button
-    (click)="Back()"
-    [value]="'< Back'"
-  ></app-button>
+<div class="back-container" (click)="Back()">
+  <div class="back-text" fxFlexLayout="row">
+      <mat-icon>chevron_left</mat-icon>
+      Back
+  </div>
 </div>
 
 <div class="challenge-details" *ngIf="challenge; else loading">
