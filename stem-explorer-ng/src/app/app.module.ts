@@ -4,8 +4,6 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { ChallengeModule } from 'src/challenge/challenge.module';
-import { LocationsModule } from 'src/locations/locations.module';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,8 +40,6 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
-    LocationsModule,
-    ChallengeModule,
   ],
   entryComponents: [
     SplashScreenComponent,
