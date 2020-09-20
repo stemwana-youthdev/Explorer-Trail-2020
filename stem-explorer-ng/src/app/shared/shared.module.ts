@@ -24,6 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileReminderService } from './services/profile-reminder.service';
 import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
 import { VisibleDirective } from './directives/visible.directive';
+import { MessageService } from './services/message.service';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { VisibleDirective } from './directives/visible.directive';
     ProfilePictureComponent,
     FilterLocationsPipe,
     VisibleDirective,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +59,7 @@ import { VisibleDirective } from './directives/visible.directive';
     GeolocationService,
     ImageService,
     ProfileReminderService,
+    MessageService,
   ],
   exports: [
     TruncatePipe,
@@ -76,6 +80,7 @@ import { VisibleDirective } from './directives/visible.directive';
     ReactiveFormsModule,
     FilterLocationsPipe,
     VisibleDirective,
+    ConfirmDialogComponent,
   ],
 })
 export class SharedModule { }

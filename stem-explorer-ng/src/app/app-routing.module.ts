@@ -6,13 +6,21 @@ import { RegisterPageComponent } from './containers/register-page/register-page.
 import { ProfileComponent } from './containers/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { ForgotPasswordComponent } from './containers/forgot-password/forgot-password.component';
+import { DirtyFormGuard } from './shared/guards/dirty-form.guard';
+import { FeaturedLocationsComponent } from './containers/featured-locations/featured-locations.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: [DirtyFormGuard]
+  },
+  { path: 'featured', component: FeaturedLocationsComponent },
   // lazy loading
   {
     path: 'list',

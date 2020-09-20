@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -8,13 +8,14 @@ import { ImageService } from 'src/app/shared/services/image.service';
 import { Region } from 'src/app/shared/models/region';
 import { ConfigService } from 'src/app/core/config/config.service';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { CanLeave } from 'src/app/shared/guards/dirty-form.guard';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, CanLeave {
   loggedIn: boolean;
   profile: Profile;
   profilePic: any;
@@ -47,6 +48,11 @@ export class ProfileComponent implements OnInit {
     this.profilePic = this.auth._user.photo;
     this.fetchRegions();
     this.setForm();
+  }
+
+  @HostListener('window:beforeunload')
+  canLeave() {
+    return !this.profileForm.dirty;
   }
 
   fetchRegions() {

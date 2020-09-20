@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Profile } from 'src/app/shared/models/profile';
 import { ProfileReminderService } from 'src/app/shared/services/profile-reminder.service';
 import { Router } from '@angular/router';
@@ -29,7 +28,6 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
     private api: ApiService,
     private router: Router,
     private profileReminder: ProfileReminderService,
@@ -47,33 +45,15 @@ export class AuthService {
    */
   authenticateUser() {
     return this.afAuth.authState.pipe(
-      switchMap(user => {
+      map(user => {
         if (user) {
           user.getIdTokenResult().then((res) => {
             localStorage.setItem('token', JSON.stringify(res.token));
             return res;
           });
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else {
-          return of(null);
         }
       })
     );
-  }
-
-  /**
-   * @todo is this needed?
-   */
-  private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-    const data = {
-      id: user.uid,
-      email: user.email,
-      photo: user.photoURL
-    };
-
-    return userRef.set(data, { merge: true });
   }
 
   /**
@@ -127,8 +107,6 @@ export class AuthService {
       this.profileReminder.remindUser();
       this.saveGuestCompleted();
     }
-
-    return this.updateUserData(credential.user);
   }
 
   /**
@@ -167,7 +145,6 @@ export class AuthService {
       // @todo: error handling
       console.warn('auth service registerEmail', err);
     });
-    return this.updateUserData(obs);
   }
 
   /**
