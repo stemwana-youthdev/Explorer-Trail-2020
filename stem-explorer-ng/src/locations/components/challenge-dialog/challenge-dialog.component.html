@@ -9,6 +9,7 @@
 
     <div class=contactInfo>
       <app-contact-info
+        *ngIf="data.location?.name"
         [category]="challenge.challengeCategory"
         icon="location_on"
         [label]="data.location.name"
@@ -16,7 +17,7 @@
         aria-label="Location address"
       ></app-contact-info>
       <br>
-      <app-contact-info
+      <app-contact-info *ngIf="data.location?.link"
         [link]="data.location.link"
         [category]="challenge.challengeCategory"
         icon="launch"
