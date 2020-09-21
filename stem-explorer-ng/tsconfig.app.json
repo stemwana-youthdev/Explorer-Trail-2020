@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": ["googlemaps"]
+    "outDir": "./out-tsc/app"
   },
   "files": [
     "src/main.ts",

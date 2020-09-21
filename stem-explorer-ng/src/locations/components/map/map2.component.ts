@@ -11,6 +11,8 @@ import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.en
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { MatDialog } from '@angular/material';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { MapIcon } from 'src/locations/models/map-icons.constant';
+import { MapInfoWindow } from '@angular/google-maps';
 
 @Component({
   selector: 'app-map',
@@ -20,7 +22,7 @@ import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.c
 })
 export class Map2Component implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
-  @ViewChild('mapInfoWindow', { static: false }) infoWindow: ElementRef;
+  @ViewChild('infoWindow', { static: false }) infoWindow: google.maps.InfoWindow;
   map: google.maps.Map;
   markers: any[] = [];
 
@@ -34,6 +36,8 @@ export class Map2Component implements OnInit, AfterViewInit {
   Colour = StemColours;
   Icon = LargeCategoryIcons;
   locationAccess = false;
+
+  // infoWindow: google.maps.InfoWindow;
 
   constructor(
     private mapConfig: MapConfigService,
@@ -83,9 +87,28 @@ export class Map2Component implements OnInit, AfterViewInit {
   }
 
   clickOnMarker(marker, location: Location): void {
+    console.warn('click on marker')
     this.getDistanceToLocation(location.position);
     this.location = location;
     // this.infoWindow.open(marker);
+
+    let buttons: string;
+    location.locationChallenges.forEach(c => {
+      if (!buttons) {
+        buttons = `<button mat-flat-button class="mat-flat-button ${this.Colour[c.challengeCategory]}">` +
+        `View Challenge <mat-icon [svgIcon]="Icon[c.challengeCategory]"></mat-icon></button>`;
+      } else {
+        buttons += `<button mat-flat-button class="mat-flat-button ${this.Colour[c.challengeCategory]}">` +
+        `View Challenge <mat-icon [svgIcon]="Icon[c.challengeCategory]"></mat-icon></button>`;
+      }
+    });
+
+    const infoW = new google.maps.InfoWindow({
+      content: `<div fxLayout="row" fxLayoutAlign="space-between"><h3>` +
+        `${location.name}</h3></div>` +
+        `${buttons}`
+    });
+    infoW.open(marker.getMap(), marker)
     this.addGtmTag('open location info', location.name);
   }
 
@@ -125,14 +148,16 @@ export class Map2Component implements OnInit, AfterViewInit {
 
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(loc.position),
+        title: loc.name,
         map: this.map,
+        icon: {
+          url: this.returnMapIcon(loc.locationChallenges),
+          scaledSize: new google.maps.Size(30, 48)
+        }
       });
 
-      const infoW = new google.maps.InfoWindow({
-        content: ``
-      });
       marker.addListener('click', () => {
-        infoW.open(marker.getMap(), marker);
+        this.clickOnMarker(marker, loc);
       });
 
       this.markers.push(marker);
@@ -146,6 +171,13 @@ export class Map2Component implements OnInit, AfterViewInit {
     this.markers.push(userMarker);
 
     this.markers.forEach(m => m.setMap(this.map));
+  }
+
+  returnMapIcon(challenges: LocationChallenge[]) {
+    if (challenges.length > 1) {
+      return MapIcon[4];
+    }
+    return MapIcon[challenges[0].challengeCategory];
   }
 
   /**
