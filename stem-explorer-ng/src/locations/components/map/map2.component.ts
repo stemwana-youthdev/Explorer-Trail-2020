@@ -25,6 +25,7 @@ export class Map2Component implements OnInit, AfterViewInit {
   @ViewChild('infoWindow', { static: false }) infoWindow: google.maps.InfoWindow;
   map: google.maps.Map;
   markers: any[] = [];
+  markersMap = new Map<number, google.maps.Marker>();
 
   filter: Filter;
   locations: Location[];
@@ -154,6 +155,10 @@ export class Map2Component implements OnInit, AfterViewInit {
 
     const filtered = this.filterLocations.transform(this.locations, this.filter);
     filtered.forEach(loc => {
+      if (this.markersMap.has(loc.uid)) {
+        // Don't create duplicate markers
+        return;
+      }
 
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(loc.position),
@@ -169,6 +174,7 @@ export class Map2Component implements OnInit, AfterViewInit {
         this.clickOnMarker(marker, loc);
       });
 
+      this.markersMap.set(loc.uid, marker);
       this.markers.push(marker);
     });
 
