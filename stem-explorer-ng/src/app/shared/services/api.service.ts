@@ -160,13 +160,13 @@ export class ApiService {
     );
   }
 
-  deleteProfile(token: string, profileId: number) {
+  deleteProfile(token: string) {
     const headers = {
       headers: { Authorization: `Bearer ${token}` },
     };
 
     return this.http.delete(
-      `${this.apiEndpoint}/Profile/${profileId}`,
+      `${this.apiEndpoint}/Profile`,
       headers
     );
   }

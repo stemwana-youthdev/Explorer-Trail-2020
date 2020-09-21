@@ -86,5 +86,24 @@ namespace StemExplorerAPI.Services
                 throw;
             }
         }
+
+        public async Task DeleteProfile(string userId)
+        {
+            try
+            {
+                var profile = await _context.Profiles
+                    .AsNoTracking()
+                    .Where(p => p.UserId == userId)
+                    .SingleOrDefaultAsync();
+                _context.Profiles.Remove(profile);
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
     }
 }

@@ -80,7 +80,10 @@ namespace StemExplorerAPI.Controllers
                 }
 
                 var profileId = await _profileService.CreateProfile(profileDto);
-                return CreatedAtRoute("GetProfile", profileDto);
+
+                // profileDto does not contain the profileId
+                var profile = await _profileService.GetProfile(actualUserId);
+                return CreatedAtRoute("GetProfile", profile);
             }
             catch (Exception ex)
             {
@@ -110,6 +113,32 @@ namespace StemExplorerAPI.Controllers
                 }
 
                 await _profileService.EditProfile(profileDto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+        // Delete: api/Profile
+        [HttpDelete()]
+        [Authorize]
+        public async Task<IActionResult> Delete()
+        {
+            try
+            {
+                var userId = _firebaseTokenService.GetTokenData(HttpContext).UserId;
+
+                var profile = await _profileService.GetProfile(userId);
+
+                if (profile == null)
+                {
+                    return NotFound();
+                }
+
+                await _profileService.DeleteProfile(userId);
                 return NoContent();
             }
             catch (Exception ex)

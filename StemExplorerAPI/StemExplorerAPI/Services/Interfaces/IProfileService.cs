@@ -10,5 +10,6 @@ namespace StemExplorerAPI.Services.Interfaces
         Task<int> CreateProfile(ProfileRequestDto profileDto);
         Task<ProfileDto> GetProfile(string userId);
         Task EditProfile(ProfileDto profile);
+        Task DeleteProfile(string userId);
     }
 }

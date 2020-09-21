@@ -138,7 +138,8 @@ export class AuthService {
     }
 
     try {
-      await this.api.deleteProfile(this.token, this.profile.id).toPromise();
+      const token = await this.getToken().pipe(take(1)).toPromise();
+      await this.api.deleteProfile(token).toPromise();
       await this.deleteFirebaseAccount();
     } catch (error) {
       console.error(error);
