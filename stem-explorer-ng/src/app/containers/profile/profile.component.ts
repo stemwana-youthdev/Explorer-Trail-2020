@@ -9,6 +9,7 @@ import { Region } from 'src/app/shared/models/region';
 import { ConfigService } from 'src/app/core/config/config.service';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { CanLeave } from 'src/app/shared/guards/dirty-form.guard';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 @Component({
   selector: 'app-profile',
@@ -40,6 +41,7 @@ export class ProfileComponent implements OnInit, CanLeave {
     private imageService: ImageService,
     private api: ApiService,
     private configService: ConfigService,
+    private gtmService: GoogleTagManagerService,
   ) { }
 
   ngOnInit(): void {
@@ -102,6 +104,7 @@ export class ProfileComponent implements OnInit, CanLeave {
     this.auth.updateProfile(updatedUser, this.profilePic).subscribe(
       () => {
         this.profileForm.markAsPristine();
+        this.addGtmTag();
         this.snackbar.open('Awesome! Profile updated!', 'Close', {
           duration: 3000
         });
@@ -119,5 +122,15 @@ export class ProfileComponent implements OnInit, CanLeave {
       const croppedURL = cropped.toDataURL('image/webp');
       this.profilePic = croppedURL;
     }
+  }
+
+  /**
+   * add tag to GTM on update profile
+   */
+  private addGtmTag(): void {
+    const gtmTag = {
+      event: 'update profile',
+    };
+    this.gtmService.pushTag(gtmTag);
   }
 }
