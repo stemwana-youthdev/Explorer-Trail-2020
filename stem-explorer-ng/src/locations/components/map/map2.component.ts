@@ -37,7 +37,7 @@ export class Map2Component implements OnInit, AfterViewInit {
   Icon = LargeCategoryIcons;
   locationAccess = false;
 
-  // infoWindow: google.maps.InfoWindow;
+  infoW: google.maps.InfoWindow;
 
   constructor(
     private mapConfig: MapConfigService,
@@ -92,23 +92,32 @@ export class Map2Component implements OnInit, AfterViewInit {
     this.location = location;
     // this.infoWindow.open(marker);
 
-    let buttons: string;
+    let buttons = '';
     location.locationChallenges.forEach(c => {
-      if (!buttons) {
-        buttons = `<button mat-flat-button class="mat-flat-button ${this.Colour[c.challengeCategory]}">` +
+      buttons += `<button mat-flat-button class="mat-flat-button ${this.Colour[c.challengeCategory]}"` +
+        ` data-challenge-id="${c.challengeId}">` +
         `View Challenge <mat-icon [svgIcon]="Icon[c.challengeCategory]"></mat-icon></button>`;
-      } else {
-        buttons += `<button mat-flat-button class="mat-flat-button ${this.Colour[c.challengeCategory]}">` +
-        `View Challenge <mat-icon [svgIcon]="Icon[c.challengeCategory]"></mat-icon></button>`;
-      }
     });
 
-    const infoW = new google.maps.InfoWindow({
+    this.infoW?.close();
+
+    this.infoW = new google.maps.InfoWindow({
       content: `<div fxLayout="row" fxLayoutAlign="space-between"><h3>` +
         `${location.name}</h3></div>` +
         `${buttons}`
     });
-    infoW.open(marker.getMap(), marker)
+    this.infoW.open(marker.getMap(), marker);
+    this.infoW.addListener('domready', () => {
+      const el = this.gmap.nativeElement as HTMLElement;
+      const btns = el.querySelectorAll('.mat-flat-button');
+      btns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const challengeId = +btn.getAttribute('data-challenge-id');
+          const challenge = location.locationChallenges.find((c) => c.challengeId === challengeId);
+          this.openChallenge(location, challenge);
+        });
+      });
+    });
     this.addGtmTag('open location info', location.name);
   }
 
