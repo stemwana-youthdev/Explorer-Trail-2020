@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Location } from '../models/location';
 import { LocationApiService } from '../services/locations-api.service';
-import { InvalidateLocationsData, LoadLocationsData } from './locations.actions';
+import { LevelCompleted, LoadLocationsData } from './locations.actions';
 
 export interface LocationsStateModel {
   locations: Location[];
@@ -48,8 +48,30 @@ export class LocationsState {
     }
   }
 
-  @Action(InvalidateLocationsData)
-  public invaidateData(ctx: StateContext<LocationsStateModel>) {
-    ctx.patchState({ fetched: false });
+  @Action(LevelCompleted)
+  public levelCompleted(ctx: StateContext<LocationsStateModel>, action: LevelCompleted) {
+    let { locations } = ctx.getState();
+    for (const location of locations) {
+      for (const challenge of location.locationChallenges) {
+        if (challenge.challengeId === action.challengeId) {
+          const newChallenge = {
+            ...challenge,
+            challengeLevels: challenge.challengeLevels.map((l) =>
+              l.difficulty === action.difficulty
+                ? { ...l, complete: true }
+                : l
+            ),
+          };
+          const newLocation = {
+            ...location,
+            locationChallenges: location.locationChallenges.map((c) =>
+              c === challenge ? newChallenge : c
+            ),
+          };
+          locations = locations.map((l) => (l === location ? newLocation : l));
+        }
+      }
+    }
+    ctx.patchState({ locations });
   }
 }
