@@ -16,6 +16,7 @@ import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.en
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { LevelCompleted } from 'src/locations/store/locations.actions';
 
 @Component({
   selector: 'app-challenge-view',
@@ -146,6 +147,11 @@ export class ChallengeViewComponent implements OnInit {
       await this.api
         .levelCompleted(token, this.profile.id, this.selectedLevel.id, result)
         .toPromise();
+      if (result) {
+        this.store.dispatch(
+          new LevelCompleted(this.selectedLevel.difficulty, this.challenge.id)
+        );
+      }
     } else if (result) {
       this.authService.recordGuestCompleted(this.selectedLevel.id);
     }
