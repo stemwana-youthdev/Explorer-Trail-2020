@@ -56,6 +56,10 @@ export class Map2Component implements OnInit, AfterViewInit {
           lat: pos.lat,
           lng: pos.lng
         };
+
+        if (this.userMarker) {
+          this.userMarker.setPosition(pos);
+        }
       }
     });
 
@@ -194,8 +198,6 @@ export class Map2Component implements OnInit, AfterViewInit {
         map: this.map,
         icon: '/assets/icons/personMarker.png'
       });
-    } else {
-      this.userMarker.setPosition(this.userLocation);
     }
     this.userMarker.setMap(this.map);
 
