@@ -18,6 +18,7 @@
       ></app-contact-info>
       <br>
       <app-contact-info *ngIf="data.location?.link"
+        class="truncate"
         [link]="data.location.link"
         [category]="challenge.challengeCategory"
         icon="launch"
@@ -32,6 +33,7 @@
           aria-label="Location Phone Number"
         ></app-contact-info>
         <app-contact-info *ngIf="data.location?.email"
+          class="truncate"
           [link]="'mailto:' + data.location?.email"
           [category]="challenge.challengeCategory"
           icon="mail_outline"
