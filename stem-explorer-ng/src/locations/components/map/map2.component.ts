@@ -118,7 +118,6 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clickOnMarker(marker, location: Location): void {
-    console.warn('click on marker')
     this.getDistanceToLocation(location.position);
     this.location = location;
     // this.infoWindow.open(marker);

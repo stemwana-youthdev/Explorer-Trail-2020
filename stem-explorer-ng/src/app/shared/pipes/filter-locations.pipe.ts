@@ -8,7 +8,6 @@ import { Location } from 'src/locations/models/location';
 export class FilterLocationsPipe implements PipeTransform {
 
   transform(value: Location[], filter: Filter) {
-    console.warn(filter)
     return value.filter((item) =>
       item.locationChallenges.some(
         (challenge) =>
