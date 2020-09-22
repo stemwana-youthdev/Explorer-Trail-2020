@@ -8,9 +8,11 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { Profile } from 'src/app/shared/models/profile';
 import { ProfileReminderService } from 'src/app/shared/services/profile-reminder.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   public readonly isLoggedIn: Observable<any>;
@@ -31,6 +33,7 @@ export class AuthService {
     private api: ApiService,
     private router: Router,
     private profileReminder: ProfileReminderService,
+    private dialog: MatDialog
   ) {
     if (localStorage.getItem('currentUser') !== null) {
       this._user = JSON.parse(localStorage.getItem('currentUser'));
@@ -112,13 +115,74 @@ export class AuthService {
   /**
    * sign out
    */
-  async signOut() {
+  async signOut(redirect = '/') {
     await this.afAuth.signOut();
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
     this.user$ = of(null);
-    this.router.navigate(['/']);
+    this.router.navigateByUrl(redirect);
+  }
+
+  /**
+   * delete the user's account
+   */
+  async deleteAccount() {
+    const dialog = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to delete your account?' },
+      panelClass: 'app-dialog',
+    });
+    const result = await dialog.afterClosed().toPromise();
+    if (!result) {
+      return;
+    }
+
+    try {
+      const token = await this.getToken().pipe(take(1)).toPromise();
+      await this.api.deleteProfile(token).toPromise();
+      await this.deleteFirebaseAccount();
+    } catch (error) {
+      console.error(error);
+      const errorDialog = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          message: `We couldn't delete your details from our system. Would you still like to delete your account?`,
+        },
+        panelClass: 'app-dialog',
+      });
+      const errorResult = await errorDialog.afterClosed().toPromise();
+      if (errorResult) {
+        await this.deleteFirebaseAccount();
+      }
+    }
+  }
+
+  /**
+   * delete the user's Firebase account
+   * does not delete their details from our backend
+   */
+  async deleteFirebaseAccount() {
+    try {
+      const user = await this.afAuth.currentUser;
+      await user.delete();
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('token');
+      localStorage.removeItem('profile');
+      this.user$ = of(null);
+      this.router.navigateByUrl('/');
+    } catch (error) {
+      console.error(error);
+      const errorDialog = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          message:
+            'There was an error while deleting your Firebase account. Would you like to sign in again and try again?',
+        },
+        panelClass: 'app-dialog',
+      });
+      const result = await errorDialog.afterClosed().toPromise();
+      if (result) {
+        await this.signOut('/login');
+      }
+    }
   }
 
   /**

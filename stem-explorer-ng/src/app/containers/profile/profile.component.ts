@@ -75,6 +75,10 @@ export class ProfileComponent implements OnInit, CanLeave {
     this.router.navigate(['/']);
   }
 
+  deleteAccount() {
+    this.auth.deleteAccount();
+  }
+
   get errorMessage(): boolean {
     return this.profileForm.dirty && !this.profileForm.valid;
   }

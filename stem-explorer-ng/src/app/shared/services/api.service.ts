@@ -159,4 +159,15 @@ export class ApiService {
       headers
     );
   }
+
+  deleteProfile(token: string) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    return this.http.delete(
+      `${this.apiEndpoint}/Profile`,
+      headers
+    );
+  }
 }
