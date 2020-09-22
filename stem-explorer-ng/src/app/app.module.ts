@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -31,7 +30,6 @@ import { FeaturedLocationsComponent } from './containers/featured-locations/feat
     FeaturedLocationsComponent,
   ],
   imports: [
-    GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
     CoreModule,
@@ -44,7 +42,6 @@ import { FeaturedLocationsComponent } from './containers/featured-locations/feat
     ReactiveFormsModule,
     LocationsModule,
     ChallengeModule,
-    GoogleMapsModule,
   ],
   entryComponents: [
     SplashScreenComponent,

@@ -28,6 +28,7 @@ import { LocationsState } from 'src/locations/store/locations.state';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-map',
@@ -51,7 +52,8 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
   Colour = StemColours;
   Icon = LargeCategoryIcons;
   locationAccess = false;
-  locationsSubscription: any;
+  locationsSubscription: Subscription;
+  tilesLoaded = false;
 
   infoW: google.maps.InfoWindow;
   userMarker: google.maps.Marker;
@@ -110,6 +112,12 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
 
   mapInit(): void {
     this.map = new google.maps.Map(this.gmap.nativeElement, this.mapConfig.mapOptions());
+    this.map.addListener('tilesloaded', () => {
+      this.tilesLoaded = true;
+    });
+    this.map.addListener('click', () => {
+      this.infoW?.close();
+    });
     this.setMapMarkers();
   }
 
@@ -119,7 +127,6 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clickOnMarker(marker, location: Location): void {
-    console.warn('click on marker')
     this.getDistanceToLocation(location.position);
     this.location = location;
     // this.infoWindow.open(marker);
