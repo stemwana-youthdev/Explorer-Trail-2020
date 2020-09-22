@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { GeolocationService } from '../../locations/services/geolocation.service';
 import { ButtonComponent } from './components/button/button.component';
@@ -44,7 +43,6 @@ import { StemColorsService } from './services/stem-colors.service';
     CommonModule,
     HttpClientModule,
     MaterialModule,
-    // GoogleMapsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     ZXingScannerModule
@@ -68,7 +66,6 @@ import { StemColorsService } from './services/stem-colors.service';
     InputComponent,
     SortByPipe,
     MaterialModule,
-    GoogleMapsModule,
     ProfilePictureComponent,
     FlexLayoutModule,
     ReactiveFormsModule,

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -31,7 +30,6 @@ import { CoreModule } from './core/core.module';
     ProfilePhotoDialogComponent,
   ],
   imports: [
-    GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
     CoreModule,
@@ -44,8 +42,6 @@ import { CoreModule } from './core/core.module';
     ReactiveFormsModule,
     LocationsModule,
     ChallengeModule,
-    GoogleMapsModule,
-
   ],
   entryComponents: [
     SplashScreenComponent,
