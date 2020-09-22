@@ -24,8 +24,7 @@ export class Map2Component implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
   @ViewChild('infoWindow', { static: false }) infoWindow: google.maps.InfoWindow;
   map: google.maps.Map;
-  markers: any[] = [];
-  markersMap = new Map<number, google.maps.Marker>();
+  markers = new Map<Location, google.maps.Marker>();
 
   filter: Filter;
   locations: Location[];
@@ -39,6 +38,7 @@ export class Map2Component implements OnInit, AfterViewInit {
   locationAccess = false;
 
   infoW: google.maps.InfoWindow;
+  userMarker: google.maps.Marker;
 
   constructor(
     private mapConfig: MapConfigService,
@@ -154,8 +154,19 @@ export class Map2Component implements OnInit, AfterViewInit {
     if (!this.locations) { return; }
 
     const filtered = this.filterLocations.transform(this.locations, this.filter);
+
+    // Delete markers that are no longer shown
+    this.markers.forEach((marker, loc) => {
+      const stillVisible = filtered.indexOf(loc) >= 0;
+      if (!stillVisible) {
+        marker.setMap(null);
+        this.markers.delete(loc);
+      }
+    });
+
+    // Add new markers
     filtered.forEach(loc => {
-      if (this.markersMap.has(loc.uid)) {
+      if (this.markers.has(loc)) {
         // Don't create duplicate markers
         return;
       }
@@ -174,16 +185,19 @@ export class Map2Component implements OnInit, AfterViewInit {
         this.clickOnMarker(marker, loc);
       });
 
-      this.markersMap.set(loc.uid, marker);
-      this.markers.push(marker);
+      this.markers.set(loc, marker);
     });
 
-    const userMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
-      map: this.map,
-      icon: '/assets/icons/personMarker.png'
-    });
-    this.markers.push(userMarker);
+    if (!this.userMarker) {
+      this.userMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
+        map: this.map,
+        icon: '/assets/icons/personMarker.png'
+      });
+    } else {
+      this.userMarker.setPosition(this.userLocation);
+    }
+    this.userMarker.setMap(this.map);
 
     this.markers.forEach(m => m.setMap(this.map));
   }
