@@ -110,6 +110,7 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
 
   mapInit(): void {
     this.map = new google.maps.Map(this.gmap.nativeElement, this.mapConfig.mapOptions());
+    this.setMapMarkers();
   }
 
   filterChanged(filter: Filter) {
