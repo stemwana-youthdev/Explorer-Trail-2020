@@ -16,7 +16,6 @@
         (click)="viewOnMap()"
         aria-label="Location address"
       ></app-contact-info>
-      <br>
       <app-contact-info *ngIf="data.location?.link"
         class="truncate"
         [link]="data.location.link"
@@ -41,7 +40,6 @@
           aria-label="Location Email"
         ></app-contact-info>
       </div>
-    <br><br>
 
     <div style="display: flex;">
       <app-button
