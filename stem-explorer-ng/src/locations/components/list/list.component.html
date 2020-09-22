@@ -10,7 +10,7 @@
     >
       <mat-icon class="category-icon" [svgIcon]="CategoryIcons[challenge.challengeCategory]"></mat-icon>
       <app-challenge-title [category]="challenge.challengeCategory">
-        <!-- <span class="distance">{{ getLocationDistance(location) }}</span> -->
+        <span class="distance" appVisible (elementVisible)="$event && getLocationDistance(location)">{{  distances[location.uid] }}</span>
         {{challenge.challengeTitle}}
       </app-challenge-title>
       <h4>{{Categories[challenge.challengeCategory]}}</h4>

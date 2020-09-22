@@ -118,6 +118,7 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
     this.map.addListener('click', () => {
       this.infoW?.close();
     });
+    this.setMapMarkers();
   }
 
   filterChanged(filter: Filter) {

@@ -16,6 +16,14 @@ namespace StemExplorerAPI.Models.Entities
         public string Phone { get; set; }
         public string Email { get; set; }
 
+        // The following will be set to null if the location is not featured
+        public bool Featured { get; set; }
+        public string Address { get; set; }
+        public string FeaturedImage { get; set; }
+        public string FeaturedText { get; set; }
+        public string OfferText { get; set; }
+        public int Order { get; set; }
+
         // EF relationship definition
         public ICollection<Challenge> Challenges { get; set; }
     }

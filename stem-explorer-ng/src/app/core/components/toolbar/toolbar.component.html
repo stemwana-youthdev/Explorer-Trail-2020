@@ -10,7 +10,7 @@
   
   <button mat-flat-button
     class="pink log-in"
-    *ngIf="!(auth.user$ | async); else loggedInBlock"
+    *ngIf="(auth.user$ | async) === null; else loggedInBlock"
     (click)="navigateToLogin()"
     aria-label="Log in">Log In</button>
   

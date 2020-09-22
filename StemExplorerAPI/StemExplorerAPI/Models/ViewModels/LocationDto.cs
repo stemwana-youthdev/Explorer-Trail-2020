@@ -19,6 +19,7 @@ namespace StemExplorerAPI.Models.ViewModels
         public string Phone { get; set; }
         public string Email { get; set; }
         public int ChallengeCount { get; set; }
+        public bool Featured { get; set; }
     }
 
     public class LocationPositionDto

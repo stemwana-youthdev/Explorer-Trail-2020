@@ -3,8 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { ChallengeModule } from 'src/challenge/challenge.module';
-import { LocationsModule } from 'src/locations/locations.module';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +16,7 @@ import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
 import { CoreModule } from './core/core.module';
+import { FeaturedLocationsComponent } from './containers/featured-locations/featured-locations.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +27,7 @@ import { CoreModule } from './core/core.module';
     ProfileComponent,
     ForgotPasswordComponent,
     ProfilePhotoDialogComponent,
+    FeaturedLocationsComponent,
   ],
   imports: [
     BrowserModule,
