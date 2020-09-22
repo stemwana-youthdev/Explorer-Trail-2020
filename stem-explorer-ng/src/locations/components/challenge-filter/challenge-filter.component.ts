@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { Filter } from 'src/locations/models/filter';
@@ -22,6 +23,8 @@ export class ChallengeFilterComponent implements OnInit {
     {category: 'E', value: 2, colorClass: 'orange'},
     {category: 'M', value: 3, colorClass: 'purple'}
   ];
+
+  constructor(private gtmService: GoogleTagManagerService) {}
 
   ngOnInit(): void {
     const filter: Partial<Filter> = JSON.parse(localStorage.getItem('filter'));
@@ -47,5 +50,18 @@ export class ChallengeFilterComponent implements OnInit {
     };
     localStorage.setItem('filter', JSON.stringify(this.filter));
     this.filterChanged.emit(this.filter);
+    this.addGtmTag(this.filter.categories);
+  }
+
+  /**
+   * add tag to GTM on set filter
+   * @param setFilters array of set filters
+   */
+  private addGtmTag(setFilters: number[]): void {
+    const gtmTag = {
+      event: 'set filter',
+      filter: setFilters,
+    };
+    this.gtmService.pushTag(gtmTag);
   }
 }

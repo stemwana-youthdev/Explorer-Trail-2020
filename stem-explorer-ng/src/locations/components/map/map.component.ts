@@ -91,7 +91,7 @@ export class MapComponent implements OnInit {
     this.getDistanceToLocation(location.position);
     this.location = location;
     this.infoWindow.open(marker);
-    this.addGtmTag('open location info', location.name);
+    this.addGtmTag('map marker click', location.name);
   }
 
   /**
@@ -110,7 +110,7 @@ export class MapComponent implements OnInit {
       },
       panelClass: 'app-dialog',
     });
-    this.addGtmTag('open challenge info', challenge.challengeTitle);
+    this.addGtmTag('view challenge', challenge.challengeTitle);
   }
 
   /**

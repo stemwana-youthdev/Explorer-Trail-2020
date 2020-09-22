@@ -139,6 +139,10 @@ export class ChallengeViewComponent implements OnInit {
 
     this.challenge.challengeLevels[idx] = completed;
     this.selectedLevel = completed;
+    // check if all levels are completed and add tag to GTM
+    if (idx === this.challenge.challengeLevels.length - 1) {
+      this.gtmTagChallengeComplete();
+    }
   }
 
   private async saveResult(result: boolean) {
@@ -222,6 +226,17 @@ export class ChallengeViewComponent implements OnInit {
       event,
       challengeTitle: this.challenge.title,
       level: this.selectedLevel.difficulty
+    };
+    this.gtmService.pushTag(tag);
+  }
+
+  /**
+   * add tag to GTM on challenge complete
+   */
+  private gtmTagChallengeComplete(): void {
+    const tag = {
+      event: 'challenge complete',
+      challengeTitle: this.challenge.title
     };
     this.gtmService.pushTag(tag);
   }
