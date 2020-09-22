@@ -80,7 +80,10 @@ namespace StemExplorerAPI.Controllers
                 }
 
                 var profileId = await _profileService.CreateProfile(profileDto);
-                return CreatedAtRoute("GetProfile", profileDto);
+                
+                // profileDto does not contain the profile id
+                var profile = await _profileService.GetProfile(profileDto.UserId);
+                return CreatedAtRoute("GetProfile", profile);
             }
             catch (Exception ex)
             {
