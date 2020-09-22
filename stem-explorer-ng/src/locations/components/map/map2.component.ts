@@ -24,7 +24,7 @@ export class Map2Component implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
   @ViewChild('infoWindow', { static: false }) infoWindow: google.maps.InfoWindow;
   map: google.maps.Map;
-  markers: any[] = [];
+  markers = new Map<Location, google.maps.Marker>();
 
   filter: Filter;
   locations: Location[];
@@ -38,6 +38,7 @@ export class Map2Component implements OnInit, AfterViewInit {
   locationAccess = false;
 
   infoW: google.maps.InfoWindow;
+  userMarker: google.maps.Marker;
 
   constructor(
     private mapConfig: MapConfigService,
@@ -55,6 +56,10 @@ export class Map2Component implements OnInit, AfterViewInit {
           lat: pos.lat,
           lng: pos.lng
         };
+
+        if (this.userMarker) {
+          this.userMarker.setPosition(pos);
+        }
       }
     });
 
@@ -153,7 +158,22 @@ export class Map2Component implements OnInit, AfterViewInit {
     if (!this.locations) { return; }
 
     const filtered = this.filterLocations.transform(this.locations, this.filter);
+
+    // Delete markers that are no longer shown
+    this.markers.forEach((marker, loc) => {
+      const stillVisible = filtered.indexOf(loc) >= 0;
+      if (!stillVisible) {
+        marker.setMap(null);
+        this.markers.delete(loc);
+      }
+    });
+
+    // Add new markers
     filtered.forEach(loc => {
+      if (this.markers.has(loc)) {
+        // Don't create duplicate markers
+        return;
+      }
 
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(loc.position),
@@ -169,15 +189,17 @@ export class Map2Component implements OnInit, AfterViewInit {
         this.clickOnMarker(marker, loc);
       });
 
-      this.markers.push(marker);
+      this.markers.set(loc, marker);
     });
 
-    const userMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
-      map: this.map,
-      icon: '/assets/icons/personMarker.png'
-    });
-    this.markers.push(userMarker);
+    if (!this.userMarker) {
+      this.userMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
+        map: this.map,
+        icon: '/assets/icons/personMarker.png'
+      });
+    }
+    this.userMarker.setMap(this.map);
 
     this.markers.forEach(m => m.setMap(this.map));
   }
