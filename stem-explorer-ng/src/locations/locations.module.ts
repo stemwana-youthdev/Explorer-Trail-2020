@@ -7,7 +7,7 @@ import { ChallengeDialogComponent } from './components/challenge-dialog/challeng
 import { ChallengeFilterComponent } from './components/challenge-filter/challenge-filter.component';
 import { ChallengeProgressComponent } from './components/challenge-progress/challenge-progress.component';
 import { ListComponent } from './components/list/list.component';
-import { Map2Component } from './components/map/map2.component';
+import { MapComponent } from './components/map/map.component';
 import { LocationsRoutingModule } from './locations-routing.module';
 import { LocationsState } from './store/locations.state';
 
@@ -19,7 +19,7 @@ import { LocationsState } from './store/locations.state';
     NgxsModule.forFeature([LocationsState])
   ],
   declarations: [
-    Map2Component,
+    MapComponent,
     ListComponent,
     ChallengeDialogComponent,
     ChallengeFilterComponent,
