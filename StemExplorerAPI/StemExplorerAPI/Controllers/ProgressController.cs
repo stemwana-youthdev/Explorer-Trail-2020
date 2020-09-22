@@ -21,15 +21,6 @@ namespace StemExplorerAPI.Controllers
         private readonly IProgressService _progressService;
         private readonly ILogger _logger;
 
-        private string userId
-        {
-            get
-            {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return identity.FindFirst("user_id").Value;
-            }
-        }
-
         public ProgressController(
             IProgressService progressService,
             ILogger<ProgressController> logger

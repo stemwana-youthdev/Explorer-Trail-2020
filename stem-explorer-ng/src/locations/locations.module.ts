@@ -28,3 +28,9 @@ import { LocationsState } from './store/locations.state';
   ]
 })
 export class LocationsModule {}
+
+// Load the camera module in the background so that it is already loaded
+// Wait 5s to minimise the impact on initial load times
+setTimeout(() => {
+  import('src/camera/camera.module');
+}, 5000);

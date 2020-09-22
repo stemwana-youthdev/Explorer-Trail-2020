@@ -16,18 +16,9 @@ namespace StemExplorerAPI.Controllers
     {
         private readonly IChallengeLevelService _challengeLevelService;
 
-        public ChallengeLevelController(IChallengeLevelService challengeLevelService, IProfileService profileService)
+        public ChallengeLevelController(IChallengeLevelService challengeLevelService)
         {
             _challengeLevelService = challengeLevelService;
-        }
-
-        private string userId
-        {
-            get
-            {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return identity.FindFirst("user_id").Value;
-            }
         }
 
         [HttpGet]
