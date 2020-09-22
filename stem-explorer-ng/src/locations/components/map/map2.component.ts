@@ -27,6 +27,7 @@ import { Store } from '@ngxs/store';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 
 @Component({
   selector: 'app-map',
@@ -87,6 +88,7 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new VisitedHomepage());
     this.getLocations();
   }
 
