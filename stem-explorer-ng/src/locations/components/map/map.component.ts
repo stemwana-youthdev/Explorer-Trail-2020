@@ -52,6 +52,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   Icon = LargeCategoryIcons;
   locationAccess = false;
   locationsSubscription: any;
+  tilesLoaded = false;
 
   infoW: google.maps.InfoWindow;
   userMarker: google.maps.Marker;
@@ -110,6 +111,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   mapInit(): void {
     this.map = new google.maps.Map(this.gmap.nativeElement, this.mapConfig.mapOptions());
+    this.map.addListener('tilesloaded', () => {
+      this.tilesLoaded = true;
+    });
+    this.map.addListener('click', () => {
+      this.infoW?.close();
+    });
     this.setMapMarkers();
   }
 
@@ -119,7 +126,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clickOnMarker(marker, location: Location): void {
-    console.warn('click on marker')
     this.getDistanceToLocation(location.position);
     this.location = location;
 
