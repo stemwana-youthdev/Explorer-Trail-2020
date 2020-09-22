@@ -1,0 +1,11 @@
+.buttons {
+  display: flex;
+
+  app-button {
+    flex-grow: 1;
+
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
+}

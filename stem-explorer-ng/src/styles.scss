@@ -77,6 +77,11 @@ i, em {
   padding-top: 0;
   padding-bottom: 0;
   border-radius: 0;
+  overflow-x: hidden;
+
+  .mat-dialog-content {
+    overflow-x: hidden;
+  }
 }
 
 .app-dialog {
@@ -106,4 +111,9 @@ i, em {
 .gm-style .gm-style-iw-d {
   width: 250px !important;
   min-height: 110px !important;
+}
+button.mat-flat-button {
+  white-space: normal;
+  line-height: normal;
+  padding: 15px 5px;
 }

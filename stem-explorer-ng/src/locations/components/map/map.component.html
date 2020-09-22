@@ -8,6 +8,7 @@
     width="100%"
     [options]="options"
     (tilesloaded)="tilesLoaded = true"
+    (mapClick)="infoWindow.close()"
     >
     <map-marker
       *ngFor="let location of locations | filterLocations:(filter); trackBy: trackLocations"

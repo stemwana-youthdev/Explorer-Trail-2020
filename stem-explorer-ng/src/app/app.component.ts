@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { Store } from '@ngxs/store';
 import { VisitedHomepage } from './store/last-homepage/last-homepage.actions';
+import { ProfileReminderService } from './shared/services/profile-reminder.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private store: Store,
+    _: ProfileReminderService,
     matIconRegistry: MatIconRegistry,
     domSanitizer: DomSanitizer
   ) {

@@ -34,8 +34,7 @@ fi
 # Add some example content
 echo Inserting example content >&2
 db_connection << EOF
-
-DELETE FROM "Locations";
+s
 INSERT INTO "Locations" ("LocationId", "Name", "Latitude", "Longitude", "Url", "GooglePlaceId", "Phone", "Email")
 VALUES (1,'Basestation','-37.6859551','176.16733','www.basestation.nz/en','ChIJ905i8dzbbW0RIvN_2Wp8sJQ','073456789','fred.smith@test.com'),
         (2,'Trustpower','-37.6857656','176.16797','www.trustpower.co.nz/','ChIJgxvxUurYbW0RuC2eHkOaUQA',NULL,NULL),

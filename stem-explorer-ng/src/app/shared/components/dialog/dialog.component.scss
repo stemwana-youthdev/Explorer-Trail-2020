@@ -10,6 +10,11 @@
 }
 
 .close-button {
+    background-color: white;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
     position: absolute;
     display: block;
     right: -12px;
@@ -60,5 +65,9 @@
 
 .mat-dialog-content.pink {
     @include coloured-dialog($secondary-pink)
+}
+
+.mat-dialog-content.red {
+    @include coloured-dialog($secondary-red)
 }
 
