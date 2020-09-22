@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -17,6 +16,8 @@ import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
 import { CoreModule } from './core/core.module';
+import { ChallengeModule } from 'src/challenge/challenge.module';
+import { LocationsModule } from 'src/locations/locations.module';
 import { FeaturedLocationsComponent } from './containers/featured-locations/featured-locations.component';
 
 @NgModule({
@@ -31,7 +32,6 @@ import { FeaturedLocationsComponent } from './containers/featured-locations/feat
     FeaturedLocationsComponent,
   ],
   imports: [
-    GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
     CoreModule,
@@ -42,6 +42,8 @@ import { FeaturedLocationsComponent } from './containers/featured-locations/feat
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
+    LocationsModule,
+    ChallengeModule,
   ],
   entryComponents: [
     SplashScreenComponent,

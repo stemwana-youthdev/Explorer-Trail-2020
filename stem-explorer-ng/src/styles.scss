@@ -104,6 +104,14 @@ i, em {
   overflow: hidden !important;  
 }
 
+.app-dialog .mat-dialog-content {
+  max-height: none;
+}
+
+.gm-style .gm-style-iw-d {
+  width: 250px !important;
+  min-height: 110px !important;
+}
 button.mat-flat-button {
   white-space: normal;
   line-height: normal;

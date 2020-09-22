@@ -1,72 +1,104 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MapInfoWindow } from '@angular/google-maps';
-import { MapMarker } from '@angular/google-maps/map-marker/map-marker';
-import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngxs/store';
-import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { map } from 'rxjs/operators';
-import { ChallengeDialogType } from 'src/app/shared/enums/challenge-dialog-type.enum';
-import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { Location, LocationChallenge } from 'src/locations/models/location';
-import { GeolocationService } from 'src/locations/services/geolocation.service';
+import {
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  Component,
+  OnDestroy,
+  ComponentFactoryResolver,
+  ApplicationRef,
+  Injector,
+  ViewContainerRef,
+  TemplateRef,
+} from '@angular/core';
 import { MapConfigService } from 'src/locations/services/map-config.service';
-import { LoadLocationsData } from 'src/locations/store/locations.actions';
-import { LocationsState } from 'src/locations/store/locations.state';
-import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
-import { Router } from '@angular/router';
+import { Location, LocationChallenge } from '../../models/location';
 import { Filter } from 'src/locations/models/filter';
+import { FilterLocationsPipe } from 'src/app/shared/pipes/filter-locations.pipe';
+import { GeolocationService } from 'src/locations/services/geolocation.service';
+import { map } from 'rxjs/operators';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
+import { MatDialog } from '@angular/material';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
+import { MapIcon } from 'src/locations/models/map-icons.constant';
+import { Store } from '@ngxs/store';
+import { LocationsState } from 'src/locations/store/locations.state';
+import { LoadLocationsData } from 'src/locations/store/locations.actions';
+import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
+  providers: [FilterLocationsPipe]
 })
-export class MapComponent implements OnInit {
-  public filter: Filter;
-  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
-  locations: Location[] = [];
-  zoom = 16;
-  center: google.maps.LatLngLiteral;
-  userLocation: google.maps.LatLngLiteral;
-  options: google.maps.MapOptions;
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
+  @ViewChild('infoWindow', { static: false }) infoWindow: TemplateRef<unknown>;
+  map: google.maps.Map;
+  markers = new Map<Location, google.maps.Marker>();
+
+  filter: Filter;
+  locations: Location[];
   location: Location;
+  distance: string;
+  userLocation: google.maps.LatLngLiteral;
+  userLocationLat: number;
+  userLocationLng: number;
   Colour = StemColours;
   Icon = LargeCategoryIcons;
   locationAccess = false;
+  locationsSubscription: any;
   tilesLoaded = false;
-  distance: string;
+
+  infoW: google.maps.InfoWindow;
+  userMarker: google.maps.Marker;
+  portal: TemplatePortal<any>;
 
   constructor(
-    private store: Store,
-    private dialog: MatDialog,
-    private gtmService: GoogleTagManagerService,
     private mapConfig: MapConfigService,
+    private store: Store,
+    private filterLocations: FilterLocationsPipe,
     private geolocation: GeolocationService,
-    private router: Router
+    private gtmService: GoogleTagManagerService,
+    private dialog: MatDialog,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
+    private defaultInjector: Injector,
+    private viewContainerRef: ViewContainerRef,
   ) {
-    this.options = this.mapConfig.mapOptions();
-    this.geolocation.getMapCentre().then(pos => {
-      this.center = {
-        lat: pos.lat,
-        lng: pos.lng
-      };
-    });
     this.geolocation.getPosition().then(pos => {
       if (pos) {
+        this.userLocationLat = pos.lat;
+        this.userLocationLng = pos.lng;
         this.userLocation = {
           lat: pos.lat,
           lng: pos.lng
         };
+
+        if (this.userMarker) {
+          this.userMarker.setPosition(pos);
+        }
       }
     });
 
     this.locationAccess = !navigator.geolocation;
   }
 
-  ngOnInit() {
-    this.store.dispatch(new LoadLocationsData());
+  ngOnInit(): void {
+    this.store.dispatch(new VisitedHomepage());
     this.getLocations();
+  }
+
+  ngAfterViewInit(): void {
+    this.mapInit();
+  }
+
+  ngOnDestroy(): void {
+    this.locationsSubscription?.unsubscribe();
   }
 
   trackLocations(_: number, item: Location) {
@@ -77,21 +109,51 @@ export class MapComponent implements OnInit {
     return item?.challengeId;
   }
 
-  filterChanged(filter: Filter) {
-    this.filter = filter;
+  mapInit(): void {
+    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapConfig.mapOptions());
+    this.map.addListener('tilesloaded', () => {
+      this.tilesLoaded = true;
+    });
+    this.map.addListener('click', () => {
+      this.infoW?.close();
+    });
+    this.setMapMarkers();
   }
 
-  /**
-   * Method for when a user clicks on a map marker on the map. Shows the location details and the list of challenges
-   * and gets the distance from user's current position to the location.
-   * @param marker google MapMarker object
-   * @param location location of mapmarker
-   */
-  click(marker: MapMarker, location: Location): void {
+  filterChanged(filter: Filter) {
+    this.filter = filter;
+    this.setMapMarkers();
+  }
+
+  clickOnMarker(marker, location: Location): void {
     this.getDistanceToLocation(location.position);
     this.location = location;
-    this.infoWindow.open(marker);
-    this.addGtmTag('map marker click', location.name);
+
+    this.infoW?.close();
+    this.portal?.detach();
+
+    this.infoW = new google.maps.InfoWindow({
+      content: '<div id="info-window-container"></div>'
+    });
+    this.infoW.open(marker.getMap(), marker);
+
+    this.infoW.addListener('domready', () => {
+      const el = this.gmap.nativeElement as HTMLElement;
+      const container = el.querySelector('#info-window-container');
+      // Dom Portals allow us to display Angular components inside
+      // non-Angular DOM elements
+      const portalOutlet = new DomPortalOutlet(
+        container,
+        this.componentFactoryResolver,
+        this.appRef,
+        this.defaultInjector
+      );
+      const portal = new TemplatePortal(this.infoWindow, this.viewContainerRef);
+      portal.attach(portalOutlet);
+      this.portal = portal;
+    });
+
+    this.addGtmTag('open location info', location.name);
   }
 
   /**
@@ -106,49 +168,81 @@ export class MapComponent implements OnInit {
       data: {
         challenge,
         location,
-        dialogType: ChallengeDialogType.Preview,
       },
       panelClass: 'app-dialog',
     });
-    this.addGtmTag('view challenge', challenge.challengeTitle);
+    this.addGtmTag('open challenge info', challenge.challengeTitle);
   }
 
   /**
-   * Method for getting the map marker icon. Checks if the location has more then one challenge, and if so will show a different icon
-   * but otherwise will show an icon for that challenge category.
-   * @param location location data object
-   */
-  getMarkerOptions(location: Location): google.maps.MarkerOptions {
-    let iconUrl = this.mapConfig.mapMarkerIcons(4);
-    if (location.challengeCount === 1) {
-      iconUrl = this.mapConfig.mapMarkerIcons(location.locationChallenges[0].challengeCategory);
-    }
-    return {
-      icon: {
-        url: `/assets/icons/${iconUrl}`,
-        scaledSize: new google.maps.Size(30, 48)
-      }
-    };
-  }
-
-  /**
-   * Gets an icon to show the users position on the map.
-   */
-  userMarkerPoint(): google.maps.MarkerOptions {
-    return {
-      icon: {
-        url: '/assets/icons/personMarker.png'
-      }
-    };
-  }
-
-  /**
-   * Gets all locations from API
+   * Gets all locations from store
    */
   private getLocations(): void {
-    this.store.select(LocationsState.locations).pipe(map(res => {
-      this.locations = res;
-    })).subscribe();
+    this.store.dispatch(new LoadLocationsData());
+
+    this.locationsSubscription = this.store
+      .select(LocationsState.locations)
+      .subscribe((res) => {
+        this.locations = res;
+        this.setMapMarkers();
+      });
+  }
+
+  private setMapMarkers(): void {
+    if (!this.locations || !this.filter) { return; }
+
+    const filtered = this.filterLocations.transform(this.locations, this.filter);
+
+    // Delete markers that are no longer shown
+    this.markers.forEach((marker, loc) => {
+      const stillVisible = filtered.indexOf(loc) >= 0;
+      if (!stillVisible) {
+        marker.setMap(null);
+        this.markers.delete(loc);
+      }
+    });
+
+    // Add new markers
+    filtered.forEach(loc => {
+      if (this.markers.has(loc)) {
+        // Don't create duplicate markers
+        return;
+      }
+
+      const marker = new google.maps.Marker({
+        position: new google.maps.LatLng(loc.position),
+        title: loc.name,
+        map: this.map,
+        icon: {
+          url: this.returnMapIcon(loc.locationChallenges),
+          scaledSize: new google.maps.Size(30, 48)
+        }
+      });
+
+      marker.addListener('click', () => {
+        this.clickOnMarker(marker, loc);
+      });
+
+      this.markers.set(loc, marker);
+    });
+
+    if (!this.userMarker) {
+      this.userMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
+        map: this.map,
+        icon: '/assets/icons/personMarker.png'
+      });
+    }
+    this.userMarker.setMap(this.map);
+
+    this.markers.forEach(m => m.setMap(this.map));
+  }
+
+  returnMapIcon(challenges: LocationChallenge[]) {
+    if (challenges.length > 1) {
+      return MapIcon[4];
+    }
+    return MapIcon[challenges[0].challengeCategory];
   }
 
   /**
