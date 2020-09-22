@@ -115,6 +115,9 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
     this.map.addListener('tilesloaded', () => {
       this.tilesLoaded = true;
     });
+    this.map.addListener('click', () => {
+      this.infoW?.close();
+    });
   }
 
   filterChanged(filter: Filter) {
