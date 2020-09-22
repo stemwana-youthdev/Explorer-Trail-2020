@@ -1,6 +1,5 @@
-import { OnInit, AfterViewInit, ViewChild, ElementRef, Component, Input } from '@angular/core';
+import { OnInit, AfterViewInit, ViewChild, ElementRef, Component, OnDestroy } from '@angular/core';
 import { MapConfigService } from 'src/locations/services/map-config.service';
-import { LocationApiService } from 'src/locations/services/locations-api.service';
 import { Location, LocationChallenge } from '../../models/location';
 import { Filter } from 'src/locations/models/filter';
 import { FilterLocationsPipe } from 'src/app/shared/pipes/filter-locations.pipe';
@@ -12,7 +11,9 @@ import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { MatDialog } from '@angular/material';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { MapIcon } from 'src/locations/models/map-icons.constant';
-import { MapInfoWindow } from '@angular/google-maps';
+import { Store } from '@ngxs/store';
+import { LocationsState } from 'src/locations/store/locations.state';
+import { LoadLocationsData } from 'src/locations/store/locations.actions';
 
 @Component({
   selector: 'app-map',
@@ -20,11 +21,11 @@ import { MapInfoWindow } from '@angular/google-maps';
   styleUrls: ['./map.component.scss'],
   providers: [FilterLocationsPipe]
 })
-export class Map2Component implements OnInit, AfterViewInit {
+export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
   @ViewChild('infoWindow', { static: false }) infoWindow: google.maps.InfoWindow;
   map: google.maps.Map;
-  markers: any[] = [];
+  markers = new Map<Location, google.maps.Marker>();
 
   filter: Filter;
   locations: Location[];
@@ -36,12 +37,14 @@ export class Map2Component implements OnInit, AfterViewInit {
   Colour = StemColours;
   Icon = LargeCategoryIcons;
   locationAccess = false;
+  locationsSubscription: any;
 
   infoW: google.maps.InfoWindow;
+  userMarker: google.maps.Marker;
 
   constructor(
     private mapConfig: MapConfigService,
-    private api: LocationApiService,
+    private store: Store,
     private filterLocations: FilterLocationsPipe,
     private geolocation: GeolocationService,
     private gtmService: GoogleTagManagerService,
@@ -55,6 +58,10 @@ export class Map2Component implements OnInit, AfterViewInit {
           lat: pos.lat,
           lng: pos.lng
         };
+
+        if (this.userMarker) {
+          this.userMarker.setPosition(pos);
+        }
       }
     });
 
@@ -67,6 +74,10 @@ export class Map2Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.mapInit();
+  }
+
+  ngOnDestroy(): void {
+    this.locationsSubscription?.unsubscribe();
   }
 
   trackLocations(_: number, item: Location) {
@@ -140,20 +151,39 @@ export class Map2Component implements OnInit, AfterViewInit {
   }
 
   /**
-   * Gets all locations from API
+   * Gets all locations from store
    */
   private getLocations(): void {
-    this.api.getLocations().subscribe((res) => {
-      this.locations = res;
-      this.setMapMarkers();
-    });
+    this.store.dispatch(new LoadLocationsData());
+
+    this.locationsSubscription = this.store
+      .select(LocationsState.locations)
+      .subscribe((res) => {
+        this.locations = res;
+        this.setMapMarkers();
+      });
   }
 
   private setMapMarkers(): void {
     if (!this.locations) { return; }
 
     const filtered = this.filterLocations.transform(this.locations, this.filter);
+
+    // Delete markers that are no longer shown
+    this.markers.forEach((marker, loc) => {
+      const stillVisible = filtered.indexOf(loc) >= 0;
+      if (!stillVisible) {
+        marker.setMap(null);
+        this.markers.delete(loc);
+      }
+    });
+
+    // Add new markers
     filtered.forEach(loc => {
+      if (this.markers.has(loc)) {
+        // Don't create duplicate markers
+        return;
+      }
 
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(loc.position),
@@ -169,15 +199,17 @@ export class Map2Component implements OnInit, AfterViewInit {
         this.clickOnMarker(marker, loc);
       });
 
-      this.markers.push(marker);
+      this.markers.set(loc, marker);
     });
 
-    const userMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
-      map: this.map,
-      icon: '/assets/icons/personMarker.png'
-    });
-    this.markers.push(userMarker);
+    if (!this.userMarker) {
+      this.userMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
+        map: this.map,
+        icon: '/assets/icons/personMarker.png'
+      });
+    }
+    this.userMarker.setMap(this.map);
 
     this.markers.forEach(m => m.setMap(this.map));
   }
