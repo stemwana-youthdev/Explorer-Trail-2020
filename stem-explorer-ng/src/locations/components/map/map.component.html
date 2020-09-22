@@ -41,18 +41,18 @@
 
 <div #mapContainer id="map"></div>
 
-<div #infoWindow class="marker-info" *ngIf="location">
+<ng-template #infoWindow>
   <div fxLayout="row" fxLayoutAlign="space-between">
     <h3>{{ location.name }}</h3>
-    <!-- <h3 *ngIf="distance">{{ distance }}</h3> -->
+    <h3 *ngIf="distance">{{ distance }}</h3>
   </div>
-  <!-- <ng-container *ngFor="let challenge of location.locationChallenges; trackBy: trackChallenges">
+  <ng-container *ngFor="let challenge of location.locationChallenges; trackBy: trackChallenges">
     <button mat-flat-button class="{{Colour[challenge.challengeCategory]}}"
       (click)="openChallenge(location, challenge)">
       View Challenge <mat-icon [svgIcon]="Icon[challenge.challengeCategory]"></mat-icon>
     </button>
-  </ng-container> -->
-</div>
+  </ng-container>
+</ng-template>
 
 <!-- <div class="bouncer centered" *ngIf="!tilesLoaded || !locations?.length"></div> -->
 

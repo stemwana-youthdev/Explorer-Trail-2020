@@ -1,4 +1,16 @@
-import { OnInit, AfterViewInit, ViewChild, ElementRef, Component, OnDestroy } from '@angular/core';
+import {
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  Component,
+  OnDestroy,
+  ComponentFactoryResolver,
+  ApplicationRef,
+  Injector,
+  ViewContainerRef,
+  TemplateRef,
+} from '@angular/core';
 import { MapConfigService } from 'src/locations/services/map-config.service';
 import { Location, LocationChallenge } from '../../models/location';
 import { Filter } from 'src/locations/models/filter';
@@ -14,6 +26,7 @@ import { MapIcon } from 'src/locations/models/map-icons.constant';
 import { Store } from '@ngxs/store';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
+import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-map',
@@ -23,7 +36,7 @@ import { LoadLocationsData } from 'src/locations/store/locations.actions';
 })
 export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
-  @ViewChild('infoWindow', { static: false }) infoWindow: google.maps.InfoWindow;
+  @ViewChild('infoWindow', { static: false }) infoWindow: TemplateRef<unknown>;
   map: google.maps.Map;
   markers = new Map<Location, google.maps.Marker>();
 
@@ -41,6 +54,7 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
 
   infoW: google.maps.InfoWindow;
   userMarker: google.maps.Marker;
+  portal: TemplatePortal<any>;
 
   constructor(
     private mapConfig: MapConfigService,
@@ -49,6 +63,10 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
     private geolocation: GeolocationService,
     private gtmService: GoogleTagManagerService,
     private dialog: MatDialog,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
+    private defaultInjector: Injector,
+    private viewContainerRef: ViewContainerRef,
   ) {
     this.geolocation.getPosition().then(pos => {
       if (pos) {
@@ -103,32 +121,30 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
     this.location = location;
     // this.infoWindow.open(marker);
 
-    let buttons = '';
-    location.locationChallenges.forEach(c => {
-      buttons += `<button mat-flat-button class="mat-flat-button ${this.Colour[c.challengeCategory]}"` +
-        ` data-challenge-id="${c.challengeId}">` +
-        `View Challenge <mat-icon [svgIcon]="Icon[c.challengeCategory]"></mat-icon></button>`;
-    });
-
     this.infoW?.close();
+    this.portal?.detach();
 
     this.infoW = new google.maps.InfoWindow({
-      content: `<div fxLayout="row" fxLayoutAlign="space-between"><h3>` +
-        `${location.name}</h3></div>` +
-        `${buttons}`
+      content: '<div id="info-window-container"></div>'
     });
     this.infoW.open(marker.getMap(), marker);
+
     this.infoW.addListener('domready', () => {
       const el = this.gmap.nativeElement as HTMLElement;
-      const btns = el.querySelectorAll('.mat-flat-button');
-      btns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const challengeId = +btn.getAttribute('data-challenge-id');
-          const challenge = location.locationChallenges.find((c) => c.challengeId === challengeId);
-          this.openChallenge(location, challenge);
-        });
-      });
+      const container = el.querySelector('#info-window-container');
+      // Dom Portals allow us to display Angular components inside
+      // non-Angular DOM elements
+      const portalOutlet = new DomPortalOutlet(
+        container,
+        this.componentFactoryResolver,
+        this.appRef,
+        this.defaultInjector
+      );
+      const portal = new TemplatePortal(this.infoWindow, this.viewContainerRef);
+      portal.attach(portalOutlet);
+      this.portal = portal;
     });
+
     this.addGtmTag('open location info', location.name);
   }
 
@@ -165,7 +181,7 @@ export class Map2Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private setMapMarkers(): void {
-    if (!this.locations) { return; }
+    if (!this.locations || !this.filter) { return; }
 
     const filtered = this.filterLocations.transform(this.locations, this.filter);
 
