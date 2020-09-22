@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit, CanLeave {
     this.auth.updateProfile(updatedUser, this.profilePic).subscribe(
       () => {
         this.profileForm.markAsPristine();
-        this.addGtmTag();
+        this.addGtmTag('update profile');
         this.snackbar.open('Awesome! Profile updated!', 'Close', {
           duration: 3000
         });
@@ -127,10 +127,7 @@ export class ProfileComponent implements OnInit, CanLeave {
   /**
    * add tag to GTM on update profile
    */
-  private addGtmTag(): void {
-    const gtmTag = {
-      event: 'update profile',
-    };
-    this.gtmService.pushTag(gtmTag);
+  private addGtmTag(event: string) {
+    this.gtmService.pushTag({ event });
   }
 }
