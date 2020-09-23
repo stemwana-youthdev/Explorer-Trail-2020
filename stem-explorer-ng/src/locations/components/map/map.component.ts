@@ -192,15 +192,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.locations || !this.filter) { return; }
 
     const filtered = this.filterLocations.transform(this.locations, this.filter);
-
     // Delete markers that are no longer shown
-    this.markers.forEach((marker, loc) => {
-      const stillVisible = filtered.indexOf(loc) >= 0;
-      if (!stillVisible) {
-        marker.setMap(null);
-        this.markers.delete(loc);
-      }
-    });
+    this.deleteHiddenMarkers(filtered);
 
     // Add new markers
     filtered.forEach(loc => {
@@ -209,23 +202,28 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         return;
       }
 
-      const marker = new google.maps.Marker({
-        position: new google.maps.LatLng(loc.position),
-        title: loc.name,
-        map: this.map,
-        icon: {
-          url: this.returnMapIcon(loc.locationChallenges),
-          scaledSize: new google.maps.Size(30, 48)
-        }
-      });
-
+      const marker = this.mapConfig.addMarker(loc);
       marker.addListener('click', () => {
         this.clickOnMarker(marker, loc);
       });
-
       this.markers.set(loc, marker);
     });
 
+    this.addUserMarker();
+    this.markers.forEach(m => m.setMap(this.map));
+  }
+
+  private deleteHiddenMarkers(locations: Location[]) {
+    this.markers.forEach((marker, loc) => {
+      const stillVisible = locations.indexOf(loc) >= 0;
+      if (!stillVisible) {
+        marker.setMap(null);
+        this.markers.delete(loc);
+      }
+    });
+  }
+
+  private addUserMarker() {
     if (!this.userMarker) {
       this.userMarker = new google.maps.Marker({
         position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
@@ -234,15 +232,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
     this.userMarker.setMap(this.map);
-
-    this.markers.forEach(m => m.setMap(this.map));
-  }
-
-  returnMapIcon(challenges: LocationChallenge[]) {
-    if (challenges.length > 1) {
-      return MapIcon[4];
-    }
-    return MapIcon[challenges[0].challengeCategory];
   }
 
   /**
