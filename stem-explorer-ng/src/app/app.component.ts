@@ -76,6 +76,7 @@ function registerIcons(
     { name: 'STEM-plus-sign', file: 'STEM-plus-sign.svg'},
     { name: 'STEM-robot', file: 'STEM-robot.svg'},
     { name: 'QR-Code' , file: 'QR-Code.svg'},
+    { name: 'QR-Code-2' , file: 'QR-Code-2.svg'},
     { name: 'MAP-light-blue-point' , file: 'MAP-light-blue-point.svg'},
     { name: 'MAP-light-green-point' , file: 'MAP-light-green-point.svg'},
     { name: 'MAP-light-orange-point' , file: 'MAP-light-orange-point.svg'},

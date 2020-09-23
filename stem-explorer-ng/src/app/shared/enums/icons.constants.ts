@@ -27,6 +27,7 @@ export type SvgIcon =
 | 'MAP-purple-point'
 | 'MAP-red-point'
 | 'QR-Code'
+| 'QR-Code-2'
 | 'STEM-beaker'
 | 'STEM-Nut'
 | 'STEM-robot'
