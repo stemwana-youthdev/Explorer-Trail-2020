@@ -42,7 +42,7 @@ export class ChallengeDialogComponent implements OnInit {
       this.viewOnMap();
     } else {
       (window as any).open('https://www.google.com/maps/dir/?api=1&destination=' + `${this.data.location.name}`, '_blank');
-      this.addGtmTag('get directions');
+      this.addGtmTag(this.data.location.name);
     }
   }
 
@@ -51,9 +51,14 @@ export class ChallengeDialogComponent implements OnInit {
   }
 
   /**
-   * add tag to GTM on the card click
+   * add tag to GTM on get directions
+   * @param location location name
    */
-  private addGtmTag(event: string) {
-    this.gtmService.pushTag({ event });
+  private addGtmTag(location: string): void {
+    const gtmTag = {
+      event: 'get directions',
+      location
+    };
+    this.gtmService.pushTag(gtmTag);
   }
 }
