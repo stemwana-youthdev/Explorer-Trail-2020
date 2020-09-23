@@ -25,9 +25,7 @@ export class ChallengeApiService {
    * @param answer the user's answer attempt
    */
   checkAnswer(level: ChallengeLevel, answer: string): boolean {
-    let result: boolean;
-    level.answer.forEach((a) => result = a.toLowerCase().trim() === answer.toLowerCase().trim());
-    return result;
+    return level.answer.some((a) => a.toLowerCase().trim() === answer.toLowerCase().trim());
   }
 
   levelCompleted(token: string, profileId: number, levelId: number, correct: boolean) {
