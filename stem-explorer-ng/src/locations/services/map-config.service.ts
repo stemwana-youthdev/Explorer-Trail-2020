@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { LocationLevel } from '../models/location';
+import { Location, LocationChallenge } from '../models/location';
+import { MapIcon, MapIconInverted } from '../models/map-icons.constant';
 
 @Injectable({ providedIn: 'root' })
 export class MapConfigService {
@@ -46,39 +46,41 @@ export class MapConfigService {
     };
   }
 
-  /**
-   * returns the map marker icon for the category for the map, or if multiple, returns the red pointer.
-   * @param cat the challenge category enum value
-   */
-  mapMarkerIcons(category: number, levels: LocationLevel[] = []): string {
-
-    let icons;
-    let numCompleted = 0;
-
-    levels.forEach (level => {
-      if (level.complete === true) {
-        numCompleted++;
+  addMarker(location: Location): google.maps.Marker {
+    const marker = new google.maps.Marker({
+      position: new google.maps.LatLng(location.position),
+      title: location.name,
+      icon: {
+        url: this.returnMapIcon(location.locationChallenges),
+        scaledSize: new google.maps.Size(30, 48)
       }
     });
 
-    if (numCompleted === levels.length) {
-      icons = {
-        [Categories.Science]: 'map-green-gradient-inverted.svg',
-        [Categories.Technology]: 'map-blue-gradient-inverted.svg',
-        [Categories.Engineering]: 'map-orange-gradient-inverted.svg',
-        [Categories.Maths]: 'map-purple-gradient-inverted.svg',
-        4: 'MAP-red-point.svg'
-      };
-    }else {
-      icons = {
-        [Categories.Science]: 'map-marker-green.svg',
-        [Categories.Technology]: 'map-marker-blue.svg',
-        [Categories.Engineering]: 'map-marker-orange.svg',
-        [Categories.Maths]: 'map-marker-purple.svg',
-        4: 'MAP-red-point.svg'
-      };
-    }
+    return marker;
+  }
 
-    return icons[category];
+  returnMapIcon(challenges: LocationChallenge[]): string {
+    let marker: string;
+
+    if (challenges.length > 1) {
+      let numCompleted = 0;
+      let levelsCount = 0;
+      challenges.forEach(c => {
+        levelsCount = c.challengeLevels.length;
+        c.challengeLevels.forEach(l => {
+          if (l.complete) { numCompleted++; }
+        });
+      });
+      marker = numCompleted === levelsCount ? MapIconInverted[4] : MapIcon[4];
+    } else {
+      challenges[0].challengeLevels.forEach(l => {
+        if (l.complete) {
+          marker = MapIconInverted[challenges[0].challengeCategory];
+        } else {
+          marker = MapIcon[challenges[0].challengeCategory];
+        }
+      });
+    }
+    return marker;
   }
 }
