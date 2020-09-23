@@ -31,4 +31,6 @@ export type SvgIcon =
 | 'STEM-beaker'
 | 'STEM-Nut'
 | 'STEM-robot'
-| 'STEM-plus-sign';
+| 'STEM-plus-sign'
+| 'list-view'
+| 'map-white';
