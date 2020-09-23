@@ -2,6 +2,13 @@
   <div class="bouncer centered"></div>
 </ng-template>
 
+<div class="back-container" (click)="Back()">
+  <div class="back-text" fxFlexLayout="row">
+      <mat-icon>chevron_left</mat-icon>
+      Back
+  </div>
+</div>
+
 <div class="challenge-details" *ngIf="challenge; else loading">
 
   <mat-icon class="category-icon" [svgIcon]="CategoryIcons[challenge.category]"></mat-icon>
@@ -30,23 +37,24 @@
       Instructions
     </h3>
     <p>{{ selectedLevel.instructions }}</p>
-
-    <h3 [class]="Colour[challenge.category] + ' center'" *ngIf="selectedLevel.complete">Awesome work! You've completed this level!</h3>
-
-    <app-button
-      *ngIf="selectedLevel.hint"
-      color="pink"
-      (click)="getHint()"
-      aria-label="Get hint"
-      [value]="'Get Hint'"
-    ></app-button>
+    <h4>Question</h4>
+    <p>{{ selectedLevel.question }}</p>
   </ng-container>
+  
+  <h3 [class]="Colour[challenge.category] + ' center'" *ngIf="selectedLevel.complete">Awesome work! You've completed this level!</h3>
 
   <app-button
     [category]="challenge.category"
     (click)="enterAnswer()"
-    style="position: relative; top: 10px;"
     aria-label="Answer here"
     [value]="'Enter Answer'"
   ></app-button>
+  <app-button
+    *ngIf="selectedLevel.hint"
+    color="pink"
+    (click)="getHint()"
+    aria-label="Get hint"
+    [value]="'Get Hint'"
+  ></app-button>
+
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -8,13 +8,15 @@ import { ImageService } from 'src/app/shared/services/image.service';
 import { Region } from 'src/app/shared/models/region';
 import { ConfigService } from 'src/app/core/config/config.service';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { CanLeave } from 'src/app/shared/guards/dirty-form.guard';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, CanLeave {
   loggedIn: boolean;
   profile: Profile;
   profilePic: any;
@@ -39,6 +41,7 @@ export class ProfileComponent implements OnInit {
     private imageService: ImageService,
     private api: ApiService,
     private configService: ConfigService,
+    private gtmService: GoogleTagManagerService,
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +50,11 @@ export class ProfileComponent implements OnInit {
     this.profilePic = this.auth._user.photo;
     this.fetchRegions();
     this.setForm();
+  }
+
+  @HostListener('window:beforeunload')
+  canLeave() {
+    return !this.profileForm.dirty;
   }
 
   fetchRegions() {
@@ -60,6 +68,7 @@ export class ProfileComponent implements OnInit {
   regionChange({ value }: { value: string }) {
     this.cities =
       this.regions.find((region) => region.name === value)?.cities ?? [];
+    this.profileForm.controls.homeTown.setValue(null);
   }
 
   toMap() {
@@ -95,6 +104,7 @@ export class ProfileComponent implements OnInit {
     this.auth.updateProfile(updatedUser, this.profilePic).subscribe(
       () => {
         this.profileForm.markAsPristine();
+        this.addGtmTag('update profile');
         this.snackbar.open('Awesome! Profile updated!', 'Close', {
           duration: 3000
         });
@@ -112,5 +122,12 @@ export class ProfileComponent implements OnInit {
       const croppedURL = cropped.toDataURL('image/webp');
       this.profilePic = croppedURL;
     }
+  }
+
+  /**
+   * add tag to GTM on update profile
+   */
+  private addGtmTag(event: string) {
+    this.gtmService.pushTag({ event });
   }
 }

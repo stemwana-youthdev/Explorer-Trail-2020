@@ -1,4 +1,4 @@
-@import './../../../styles/variables';
+@import './../../../app/styles/variables';
 
 .mat-icon-button.close-camera {
   position: fixed;
@@ -34,5 +34,12 @@
   border: 1px solid #000;
   border-radius: 5px;
   margin: 20px;
-  height: 100%;
+  height: 80%;
 } 
+
+.camera-container {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}

@@ -22,11 +22,13 @@ namespace StemExplorerAPI.Controllers
     {
         private readonly IProfileService _profileService;
         private readonly ILogger _logger;
+        private readonly IFirebaseTokenService _firebaseTokenService;
 
-        public ProfileController(IProfileService profileService, ILogger<ProfileController> logger)
+        public ProfileController(IProfileService profileService, ILogger<ProfileController> logger, IFirebaseTokenService firebaseTokenService)
         {
             _profileService = profileService;
             _logger = logger;
+            _firebaseTokenService = firebaseTokenService;
         }
 
         // GET: api/Profile
@@ -36,6 +38,12 @@ namespace StemExplorerAPI.Controllers
         {
             try
             {
+                var actualUserId = _firebaseTokenService.GetTokenData(HttpContext).UserId;
+                if (userId != actualUserId)
+                {
+                    return Unauthorized();
+                }
+
                 var profile = await _profileService.GetProfile(userId);
 
                 if (profile == null)
@@ -59,8 +67,23 @@ namespace StemExplorerAPI.Controllers
         {
             try
             {
+                var actualUserId = _firebaseTokenService.GetTokenData(HttpContext).UserId;
+                if (profileDto.UserId != actualUserId)
+                {
+                    return Unauthorized();
+                }
+
+                var oldProfile = await _profileService.GetProfile(profileDto.UserId);
+                if (oldProfile != null)
+                {
+                    return Conflict();
+                }
+
                 var profileId = await _profileService.CreateProfile(profileDto);
-                return CreatedAtRoute("GetProfile", profileDto);
+                
+                // profileDto does not contain the profile id
+                var profile = await _profileService.GetProfile(profileDto.UserId);
+                return CreatedAtRoute("GetProfile", profile);
             }
             catch (Exception ex)
             {
@@ -76,6 +99,12 @@ namespace StemExplorerAPI.Controllers
         {
             try
             {
+                var actualUserId = _firebaseTokenService.GetTokenData(HttpContext).UserId;
+                if (profileDto.UserId != actualUserId)
+                {
+                    return Unauthorized();
+                }
+
                 var profile = await _profileService.GetProfile(profileDto.UserId);
 
                 if (profile == null)

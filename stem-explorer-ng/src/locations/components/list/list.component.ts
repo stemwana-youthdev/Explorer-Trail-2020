@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
@@ -13,6 +11,7 @@ import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Filter } from 'src/locations/models/filter';
 
 /*
 * Component to show the challenges in a list view
@@ -23,19 +22,18 @@ import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.en
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
   locations: Location[] = [];
   Categories: any = Categories;
   CategoryIcons: any = LargeCategoryIcons;
-  filter: number[] = [];
+  filter: Filter;
   userLocation: google.maps.LatLngLiteral;
+  distances: string[] = [];
 
   constructor(
     public dialog: MatDialog,
     private store: Store,
     private gtmService: GoogleTagManagerService,
     private geolocation: GeolocationService,
-    private router: Router
   ) {
     this.geolocation.getPosition().then(pos => {
       if (pos) {
@@ -52,17 +50,18 @@ export class ListComponent implements OnInit {
     this.store.dispatch(new VisitedHomepage());
 
     this.getLocations();
-    this.filter$.pipe(map(res => this.filter = res)).subscribe();
   }
 
-  trackLocations(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackLocations(_: number, item: Location) {
+    return item?.uid;
   }
 
-  trackChallenges(idx, item) {
-    if (!item) { return null; }
-    return idx;
+  trackChallenges(_: number, item: LocationChallenge) {
+    return item?.challengeId;
+  }
+
+  filterChanged(filter: Filter) {
+    this.filter = filter;
   }
 
   /**
@@ -80,17 +79,27 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * @todo finish this to show distance to location in the list. Currently polling too much.
    * @param location location data object
    */
-  getLocationDistance(location: Location): string {
-    const distance = '';
-    // if (this.userLocation) {
-    //   this.geolocation.getDistance(location.position, this.userLocation).pipe(
-    //     map(res => distance = res)
-    //   ).subscribe();
-    // }
-    return distance;
+  getLocationDistance(location: Location) {
+    // Don't get the distance more than once
+    if (this.distances[location.uid] === undefined) {
+      this.distances[location.uid] = '';
+      // Don't use this.userLocation because it may not be set when this method is called
+      this.geolocation.getPosition().then((userLocation) => {
+        this.geolocation
+          .getDistance(location.position, userLocation)
+          .pipe(
+            map((res) => {
+              // This is required to have angular detect that the array has changed.
+              const newDistances = Array.from(this.distances);
+              newDistances[location.uid] = res;
+              this.distances = newDistances;
+            })
+          )
+          .subscribe();
+      });
+    }
   }
 
   /**

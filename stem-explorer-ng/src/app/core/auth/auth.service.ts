@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 import { Profile } from 'src/app/shared/models/profile';
+import { ProfileReminderService } from 'src/app/shared/services/profile-reminder.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,7 @@ export class AuthService {
   token: string;
   token$: Observable<string>;
   profile: Profile;
+  guestCompleted: number[] = [];
 
   actionCodeSettings = {
     url: 'https://explorer-trial-ui.herokuapp.com/'
@@ -27,14 +28,15 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private profileReminder: ProfileReminderService,
   ) {
     if (localStorage.getItem('currentUser') !== null) {
       this._user = JSON.parse(localStorage.getItem('currentUser'));
       this.user$ = of(this._user);
       this.getToken().subscribe();
+      this.getProfile().subscribe((profile) => this.profileReminder.checkCompleted(profile))
     }
   }
 
@@ -43,34 +45,45 @@ export class AuthService {
    */
   authenticateUser() {
     return this.afAuth.authState.pipe(
-      switchMap(user => {
+      map(user => {
         if (user) {
           user.getIdTokenResult().then((res) => {
             localStorage.setItem('token', JSON.stringify(res.token));
             return res;
           });
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else {
-          return of(null);
         }
       })
     );
   }
 
   /**
-   * @todo is this needed?
-   * @param user
+   * Record guest progress locally so that they can save it when they login
+   * Only call if the answer was successful
    */
-  private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+  recordGuestCompleted(levelId: number) {
+    this.guestCompleted.push(levelId);
+  }
 
-    const data = {
-      id: user.uid,
-      email: user.email,
-      photo: user.photoURL
-    };
+  /**
+   * Gets called whenever a profile is created to save the user's progress to their new profile
+   */
+  async saveGuestCompleted() {
+    if (this.guestCompleted.length > 0) {
+      const token = await this.getToken().pipe(take(1)).toPromise();
+      const profile = await this.getProfile(token).toPromise();
 
-    return userRef.set(data, { merge: true });
+      // Run all of the requests at the same time
+      await Promise.all(
+        this.guestCompleted.map(
+          async (levelId) => {
+            await this.api
+              .levelCompleted(token, profile.id, levelId, true)
+              .toPromise();
+          }
+        )
+      );
+      this.guestCompleted = [];
+    }
   }
 
   /**
@@ -91,10 +104,9 @@ export class AuthService {
       this.createProfile(profile);
     } else {
       this.setUser(credential.user);
-      this.router.navigate(['/']);
+      this.profileReminder.remindUser();
+      this.saveGuestCompleted();
     }
-
-    return this.updateUserData(credential.user);
   }
 
   /**
@@ -133,7 +145,6 @@ export class AuthService {
       // @todo: error handling
       console.warn('auth service registerEmail', err);
     });
-    return this.updateUserData(obs);
   }
 
   /**
@@ -146,6 +157,7 @@ export class AuthService {
         return res;
       }
     );
+    this.saveGuestCompleted();
     return obs;
   }
 
@@ -171,7 +183,7 @@ export class AuthService {
       return obs;
     } else {
       // @todo error handling
-      console.warn('Profile error!')
+      console.warn('Profile error!');
       return;
     }
   }
@@ -199,7 +211,7 @@ export class AuthService {
         this.setUser(user);
       }
     ).catch(() => {
-      console.warn('update photo error')
+      console.warn('update photo error');
     });
   }
 
@@ -250,7 +262,8 @@ export class AuthService {
         this.api.createProfile(profile, token).pipe(map((success) => {
           if (success) {
             localStorage.setItem('profile', JSON.stringify(success));
-            this.router.navigate(['/']);
+            this.profileReminder.remindUser();
+            this.saveGuestCompleted();
           }
         })).subscribe();
       }

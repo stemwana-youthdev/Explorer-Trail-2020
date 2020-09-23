@@ -4,6 +4,8 @@ import { LocationLevel } from '../models/location';
 
 @Injectable({ providedIn: 'root' })
 export class MapConfigService {
+  mapCentre = new google.maps.LatLng(-37.6854709, 176.1673285);
+
   constructor() {}
 
   /**
@@ -11,12 +13,14 @@ export class MapConfigService {
    */
   mapOptions(): google.maps.MapOptions {
     return {
+      center: this.mapCentre,
+      zoom: 16,
       scrollwheel: true,
       disableDefaultUI: true,
       disableDoubleClickZoom: true,
       maxZoom: 18,
       minZoom: 8,
-      gestureHandling: 'auto', // for gesture controls
+      gestureHandling: 'auto',
       styles: [
         {
           featureType: 'poi',

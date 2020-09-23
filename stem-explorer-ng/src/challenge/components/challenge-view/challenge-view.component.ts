@@ -13,6 +13,10 @@ import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component'
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { LevelCompleted } from 'src/locations/store/locations.actions';
 
 @Component({
   selector: 'app-challenge-view',
@@ -37,6 +41,8 @@ export class ChallengeViewComponent implements OnInit {
     private api: ChallengeApiService,
     private gtmService: GoogleTagManagerService,
     private authService: AuthService,
+    private router: Router,
+    private store: Store,
   ) {
     this.challengeId = +this.route.snapshot.params['id'];
     this.profile = JSON.parse(localStorage.getItem('profile'));
@@ -53,6 +59,15 @@ export class ChallengeViewComponent implements OnInit {
   trackLevel(idx, item) {
     if (!item) { return null; }
     return idx;
+  }
+
+  /**
+   * Takes user back to map/list view when Back button is pressed.
+   */
+  Back(): void {
+    this.router.navigateByUrl(
+      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    );
   }
 
   /**
@@ -124,14 +139,25 @@ export class ChallengeViewComponent implements OnInit {
 
     this.challenge.challengeLevels[idx] = completed;
     this.selectedLevel = completed;
+    // check if all levels are completed and add tag to GTM
+    if (idx === this.challenge.challengeLevels.length - 1) {
+      this.gtmTagChallengeComplete();
+    }
   }
 
   private async saveResult(result: boolean) {
-    if (this.authService.user$) {
+    if (this.profile) {
       const token = JSON.parse(localStorage.getItem('token'));
       await this.api
         .levelCompleted(token, this.profile.id, this.selectedLevel.id, result)
         .toPromise();
+      if (result) {
+        this.store.dispatch(
+          new LevelCompleted(this.selectedLevel.difficulty, this.challenge.id)
+        );
+      }
+    } else if (result) {
+      this.authService.recordGuestCompleted(this.selectedLevel.id);
     }
   }
 
@@ -200,6 +226,17 @@ export class ChallengeViewComponent implements OnInit {
       event,
       challengeTitle: this.challenge.title,
       level: this.selectedLevel.difficulty
+    };
+    this.gtmService.pushTag(tag);
+  }
+
+  /**
+   * add tag to GTM on challenge complete
+   */
+  private gtmTagChallengeComplete(): void {
+    const tag = {
+      event: 'challenge complete',
+      challengeTitle: this.challenge.title
     };
     this.gtmService.pushTag(tag);
   }

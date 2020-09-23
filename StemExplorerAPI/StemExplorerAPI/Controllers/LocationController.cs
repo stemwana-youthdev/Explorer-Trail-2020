@@ -17,22 +17,11 @@ namespace StemExplorerAPI.Controllers
     {
         private readonly ILocationService _locationService;
         private readonly ILogger _logger;
-        private readonly IProfileService _profileService;
 
-        public LocationController(ILogger<LocationController> logger, ILocationService locationService, IProfileService profileService)
+        public LocationController(ILogger<LocationController> logger, ILocationService locationService)
         {
             _logger = logger;
             _locationService = locationService;
-            _profileService = profileService;
-        }
-
-        private string userId
-        {
-            get
-            {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return identity.FindFirst("user_id").Value;
-            }
         }
 
         // GET: api/Location
@@ -64,6 +53,21 @@ namespace StemExplorerAPI.Controllers
                 }
 
                 return Ok(location);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+        // GET: api/Locations/Featured
+        [HttpGet("Featured")]
+        public async Task<IActionResult> GetFeaturedLocations()
+        {
+            try
+            {
+                return Ok(await _locationService.GetFeaturedLocations());
             }
             catch (Exception ex)
             {

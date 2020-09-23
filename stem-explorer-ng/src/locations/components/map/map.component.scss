@@ -1,13 +1,8 @@
 @use 'src/app/styles/variables' as *;
 
-:host {
+#map {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .challenge-map {
-    flex: 1;
-  }
+  width: 100%;
 }
 
 .marker-info {
@@ -16,8 +11,14 @@
   margin: 8px 8px 18px 8px;
 }
 
+.info-title {
+  & div:first-child {
+    padding-right: 5px;
+  }
+}
+
 button {
-  padding: 5px 40px;
+  padding: 8px 30px 4px 30px;
   color: #fff;
   margin-top: 5px;
   width: 100%;
@@ -32,5 +33,21 @@ button {
   }
   &.purple {
     background-color: $primary-purple;
+  }
+
+  mat-icon {
+    margin-left: 5px;
+    margin-bottom: 7px;
+
+    ::ng-deep #Map-View {
+      fill: #ffffff;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    padding: 8px 25px;
+    mat-icon {
+      display: none;
+    }
   }
 }

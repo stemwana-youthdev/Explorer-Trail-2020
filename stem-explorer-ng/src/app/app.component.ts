@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { Store } from '@ngxs/store';
 import { VisitedHomepage } from './store/last-homepage/last-homepage.actions';
+import { ProfileReminderService } from './shared/services/profile-reminder.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private store: Store,
+    _: ProfileReminderService,
     matIconRegistry: MatIconRegistry,
     domSanitizer: DomSanitizer
   ) {
@@ -60,6 +62,7 @@ function registerIcons(
   domSanitizer: DomSanitizer
 ) {
   const iconArr: { name: SvgIcon; file: string }[] = [
+    { name: 'FILTER-filter' , file: 'FILTER-filter.svg'},
     { name: 'FILTER-S' , file: 'FILTER-S.svg'},
     { name: 'FILTER-T' , file: 'FILTER-T'},
     { name: 'FILTER-E' , file: 'FILTER-E'},
@@ -73,11 +76,13 @@ function registerIcons(
     { name: 'STEM-plus-sign', file: 'STEM-plus-sign.svg'},
     { name: 'STEM-robot', file: 'STEM-robot.svg'},
     { name: 'QR-Code' , file: 'QR-Code.svg'},
+    { name: 'QR-Code-2' , file: 'QR-Code-2.svg'},
     { name: 'MAP-light-blue-point' , file: 'MAP-light-blue-point.svg'},
     { name: 'MAP-light-green-point' , file: 'MAP-light-green-point.svg'},
     { name: 'MAP-light-orange-point' , file: 'MAP-light-orange-point.svg'},
     { name: 'MAP-purple-point' , file: 'MAP-purple-point.svg'},
     { name: 'MAP-red-point' , file: 'MAP-red-point.svg'},
+    { name: 'map-white', file: 'map-marker-white.svg' },
     { name: 'AMEN-food' , file: 'AMEN-food.svg'},
     { name: 'AMEN-magnifying-glass' , file: 'AMEN-magnifying-glass.svg'},
     { name: 'AMEN-mail' , file: 'AMEN-mail.svg'},
@@ -87,6 +92,7 @@ function registerIcons(
     { name: 'AMEN-wheelchair' , file: 'AMEN-wheelchair.svg'},
     { name: 'AMEN-wifi' , file: 'wifi-food.svg'},
     { name: 'google-login' , file: 'google-login.svg'},
+    { name: 'list-view', file: 'list-view.svg' }
   ];
 
   iconArr.forEach(item => {

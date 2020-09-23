@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { FilterLocations } from 'src/locations/store/locations.actions';
-import { LocationsState } from 'src/locations/store/locations.state';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Filter } from 'src/locations/models/filter';
 
 @Component({
   selector: 'app-challenge-filter',
@@ -12,10 +11,11 @@ import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.en
   styleUrls: ['./challenge-filter.component.scss']
 })
 export class ChallengeFilterComponent implements OnInit {
-  @Select(LocationsState.locationFilter) public filter$: Observable<number[]>;
-
   Categories = Categories;
   CategoryIcons = LargeCategoryIcons;
+  filter: Filter;
+
+  @Output() filterChanged = new EventEmitter<Filter>();
 
   buttons = [
     {category: 'S', value: 0, colorClass: 'green'},
@@ -24,12 +24,44 @@ export class ChallengeFilterComponent implements OnInit {
     {category: 'M', value: 3, colorClass: 'purple'}
   ];
 
-  constructor(private store: Store) { }
+  constructor(private gtmService: GoogleTagManagerService) {}
 
   ngOnInit(): void {
+    const filter: Partial<Filter> = JSON.parse(localStorage.getItem('filter'));
+    this.filter = {
+      categories: filter?.categories ?? [0, 1, 2, 3],
+      showCompleted: filter?.showCompleted ?? true,
+    };
+    this.filterChanged.emit(this.filter);
   }
 
-  change(filter: number[]): void {
-    this.store.dispatch(new FilterLocations(filter));
+  categoriesChange(categories: number[]) {
+    this.filterChange({ categories });
+  }
+
+  showCompletedChange(event: MatCheckboxChange) {
+    this.filterChange({ showCompleted: event.checked });
+  }
+
+  filterChange(change: Partial<Filter>) {
+    this.filter = {
+      ...this.filter,
+      ...change,
+    };
+    localStorage.setItem('filter', JSON.stringify(this.filter));
+    this.filterChanged.emit(this.filter);
+    this.addGtmTag(this.filter.categories);
+  }
+
+  /**
+   * add tag to GTM on set filter
+   * @param setFilters array of set filters
+   */
+  private addGtmTag(setFilters: number[]): void {
+    const gtmTag = {
+      event: 'set filter',
+      filter: setFilters,
+    };
+    this.gtmService.pushTag(gtmTag);
   }
 }

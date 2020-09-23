@@ -1,15 +1,21 @@
 <mat-button-toggle-group
   #group="matButtonToggleGroup"
-  [value]="filter$ | async"
+  [value]="filter?.categories"
   multiple
 >
-  <span aria-label="Extra filters">
-    <img src="/assets/icons/FILTER-filter.svg" alt="Filter icon">
+  <span aria-label="Extra filters" [matMenuTriggerFor]="extraFilters">
+    <mat-icon svgIcon="FILTER-filter"></mat-icon>
   </span>
+  <mat-menu #extraFilters="matMenu">
+    <label mat-menu-item (click)="$event.stopPropagation()">
+      <span>Show Completed Challenges</span>
+      <mat-checkbox [checked]="filter?.showCompleted" (change)="showCompletedChange($event)"></mat-checkbox>
+    </label>
+  </mat-menu>
   <mat-button-toggle *ngFor='let button of buttons'
     [value]="button.value"
     [class]="button.colorClass"
-    (change)="change(group.value)"
+    (change)="categoriesChange(group.value)"
     aria-label="Filter by {{button.category}}"
   >
     <mat-icon class="category-icon" [svgIcon]="CategoryIcons[button.value]"></mat-icon>

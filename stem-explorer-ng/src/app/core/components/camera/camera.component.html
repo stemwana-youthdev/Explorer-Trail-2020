@@ -1,7 +1,0 @@
-<h3 class="error-message" *ngIf="!hasPermission">{{ errorMessage }}</h3>
-
-<zxing-scanner [device]="currentDevice" (scanSuccess)="scanSuccess($event)"
-[formats]="formatEnabled" (permissionResponse)="onHasPermission($event)"
-(camerasFound)="onCamerasFound($event)"></zxing-scanner>
-
-<app-button class="home-button" color="pink" (click)="toMap()" aria-label="Go to map" value="BACK TO MAP"></app-button>

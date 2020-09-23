@@ -112,7 +112,19 @@ namespace StemExplorerAPI.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Featured")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FeaturedImage")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FeaturedText")
                         .HasColumnType("text");
 
                     b.Property<string>("GooglePlaceId")
@@ -126,6 +138,12 @@ namespace StemExplorerAPI.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<string>("OfferText")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Phone")
                         .HasColumnType("text");
@@ -228,7 +246,7 @@ namespace StemExplorerAPI.Migrations
             modelBuilder.Entity("StemExplorerAPI.Models.Entities.ChallengeLevel", b =>
                 {
                     b.HasOne("StemExplorerAPI.Models.Entities.Challenge", "Challenge")
-                        .WithMany("ChallengeLevel")
+                        .WithMany("ChallengeLevels")
                         .HasForeignKey("ChallengeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

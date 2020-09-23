@@ -1,0 +1,4 @@
+{
+  "result-success": ["Well Done! Correct answer!", "Good Job! You choose the right answer!", "Looks like you're a genius!"],
+  "result-failure": ["Oops! Wrong Answer", "Better luck next time", "Stay in school, kid!"]
+}
