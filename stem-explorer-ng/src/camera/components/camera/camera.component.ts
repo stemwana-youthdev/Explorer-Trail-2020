@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BarcodeFormat } from '@zxing/library';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { ChallengeApiService } from 'src/challenge/services/challenge-api.service';
 
 @Component({
   selector: 'app-camera',
@@ -25,8 +24,7 @@ export class CameraComponent {
   constructor(
     private router: Router,
     private gtmService: GoogleTagManagerService,
-    private snackBar: MatSnackBar,
-    private api: ChallengeApiService,
+    private snackBar: MatSnackBar
   ) { }
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
@@ -61,7 +59,6 @@ export class CameraComponent {
     }
 
     const challengeId = match[3];
-    this.gtmTag('QR scan success', Number(challengeId));
     this.router.navigate([`challenge/${challengeId}`]);
   }
 
@@ -75,19 +72,8 @@ export class CameraComponent {
   /**
    * push event to the google tag manager
    * @param event string describing event
-   * @param challengeId challenge ID
    */
   private async gtmTag(event: string, challengeId?: number) {
-    if (challengeId) {
-      const challenge = await this.api.getChallenge(challengeId).toPromise();
-      const gtmTag = {
-        event,
-        challenge: challenge.title,
-      };
-      this.gtmService.pushTag(gtmTag);
-    }
-    else {
-      this.gtmService.pushTag({ event });
-    }
+    this.gtmService.pushTag({ event });
   }
 }
