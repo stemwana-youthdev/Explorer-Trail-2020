@@ -76,11 +76,13 @@ function registerIcons(
     { name: 'STEM-plus-sign', file: 'STEM-plus-sign.svg'},
     { name: 'STEM-robot', file: 'STEM-robot.svg'},
     { name: 'QR-Code' , file: 'QR-Code.svg'},
+    { name: 'QR-Code-2' , file: 'QR-Code-2.svg'},
     { name: 'MAP-light-blue-point' , file: 'MAP-light-blue-point.svg'},
     { name: 'MAP-light-green-point' , file: 'MAP-light-green-point.svg'},
     { name: 'MAP-light-orange-point' , file: 'MAP-light-orange-point.svg'},
     { name: 'MAP-purple-point' , file: 'MAP-purple-point.svg'},
     { name: 'MAP-red-point' , file: 'MAP-red-point.svg'},
+    { name: 'map-white', file: 'map-marker-white.svg' },
     { name: 'AMEN-food' , file: 'AMEN-food.svg'},
     { name: 'AMEN-magnifying-glass' , file: 'AMEN-magnifying-glass.svg'},
     { name: 'AMEN-mail' , file: 'AMEN-mail.svg'},
@@ -90,6 +92,7 @@ function registerIcons(
     { name: 'AMEN-wheelchair' , file: 'AMEN-wheelchair.svg'},
     { name: 'AMEN-wifi' , file: 'wifi-food.svg'},
     { name: 'google-login' , file: 'google-login.svg'},
+    { name: 'list-view', file: 'list-view.svg' }
   ];
 
   iconArr.forEach(item => {

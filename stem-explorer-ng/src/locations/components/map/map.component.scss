@@ -5,31 +5,20 @@
   width: 100%;
 }
 
-// .challenge-map {
-//   height: 100%;
-//   width: 100%;
-// }
-
-// :host {
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-
-//   .challenge-map {
-//     flex: 1;
-//     height: 100%;
-//     width: 100%;
-//   }
-// }
-
 .marker-info {
   display: flex;
   flex-direction: column;
   margin: 8px 8px 18px 8px;
 }
 
+.info-title {
+  & div:first-child {
+    padding-right: 5px;
+  }
+}
+
 button {
-  padding: 5px 40px;
+  padding: 8px 30px 4px 30px;
   color: #fff;
   margin-top: 5px;
   width: 100%;
@@ -47,11 +36,18 @@ button {
   }
 
   mat-icon {
-    margin: -1rem -1.5rem -1rem 1rem;
-    width: 2rem;
-    height: 2rem;
+    margin-left: 5px;
+    margin-bottom: 7px;
+
     ::ng-deep #Map-View {
       fill: #ffffff;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    padding: 8px 25px;
+    mat-icon {
+      display: none;
     }
   }
 }

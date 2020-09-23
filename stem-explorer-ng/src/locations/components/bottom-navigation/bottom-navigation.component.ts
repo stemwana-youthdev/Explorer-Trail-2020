@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
   selector: 'app-bottom-nav',
   template: `
     <button mat-fab class="left" (click)="leftNav()">
-      <mat-icon>{{ leftIcon }}</mat-icon>
+      <mat-icon svgIcon="{{ leftIcon }}"></mat-icon>
     </button>
     <button mat-fab class="right" (click)="openCamera()">
-      <mat-icon svgIcon="QR-Code"></mat-icon>
+      <mat-icon svgIcon="QR-Code-2"></mat-icon>
     </button>
   `,
   styleUrls: ['bottom-navigation.component.scss']

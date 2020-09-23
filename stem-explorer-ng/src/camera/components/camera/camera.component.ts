@@ -35,12 +35,10 @@ export class CameraComponent {
       console.warn(mediaDevice);
       if (mediaDevice.label.toLowerCase().includes('back')) {
         this.currentDevice = mediaDevice;
-        console.warn('selected device', this.currentDevice);
         return;
       }
     });
     this.currentDevice = devices[1] || devices[0] || null;
-    console.warn('selected device', this.currentDevice);
   }
 
   toMap() {
