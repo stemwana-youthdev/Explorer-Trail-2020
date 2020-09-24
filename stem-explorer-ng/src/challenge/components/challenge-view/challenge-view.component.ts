@@ -141,7 +141,7 @@ export class ChallengeViewComponent implements OnInit {
     this.selectedLevel = completed;
     // check if all levels are completed and add tag to GTM
     if (idx === this.challenge.challengeLevels.length - 1) {
-      this.gtmTagChallengeComplete();
+      this.gtmTagWithoutLevel('challenge complete');
     }
   }
 
@@ -172,6 +172,7 @@ export class ChallengeViewComponent implements OnInit {
 
     this.challenge = challenge;
     this.selectedLevel = challenge.challengeLevels.find((level) => !level.complete) ?? challenge.challengeLevels[0];
+    this.gtmTagWithoutLevel('successful QR scan');
   }
 
   /**
@@ -233,9 +234,9 @@ export class ChallengeViewComponent implements OnInit {
   /**
    * add tag to GTM on challenge complete
    */
-  private gtmTagChallengeComplete(): void {
+  private gtmTagWithoutLevel(event: string): void {
     const tag = {
-      event: 'challenge complete',
+      event,
       challengeTitle: this.challenge.title
     };
     this.gtmService.pushTag(tag);
