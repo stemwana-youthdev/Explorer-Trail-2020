@@ -57,6 +57,7 @@ app-form-field {
 }
 
 .levels-wrapper mat-select {
+  border-radius: 5px;
   padding: 0;
 
   ::ng-deep .mat-select-trigger {
