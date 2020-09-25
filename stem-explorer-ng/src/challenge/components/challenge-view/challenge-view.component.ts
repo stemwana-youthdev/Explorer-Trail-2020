@@ -110,9 +110,9 @@ export class ChallengeViewComponent implements OnInit {
     });
     this.gtmTag('answer attempt');
 
-    answerDialog.afterClosed().subscribe(response => {
+    answerDialog.afterClosed().subscribe(async (response) => {
       if (response !== undefined && response.length) {
-        const result = this.api.checkAnswer(this.selectedLevel, response);
+        const result = await this.api.checkAnswer(this.selectedLevel, response).toPromise();
 
         if (result) {
           this.markLevelCompleted();
