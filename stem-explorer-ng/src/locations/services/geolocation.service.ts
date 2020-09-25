@@ -53,17 +53,12 @@ export class GeolocationService {
   getDistance(
     position: google.maps.LatLngLiteral,
     userPos: google.maps.LatLngLiteral
-  ): Observable<string> {
+  ): number {
     if (!userPos) { return; }
-    const route = {
-      origin: userPos,
-      destination: position,
-      travelMode: this.isInCBD(userPos) ?
-        google.maps.TravelMode.WALKING
-        : google.maps.TravelMode.DRIVING
-    };
-
-    return this.getRoute(route).pipe(map(res => res.routes[0].legs[0].distance.text));
+    return google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(position),
+      new google.maps.LatLng(userPos)
+    );
   }
 
   /**
