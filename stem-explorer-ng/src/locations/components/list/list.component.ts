@@ -105,6 +105,9 @@ export class ListComponent implements OnInit {
   private getLocations(): void {
     this.store.select(LocationsState.locations).pipe(map(res => {
       this.locations = res;
+      for (const location of res) {
+        this.getLocationDistance(location);
+      }
     })).subscribe();
   }
 

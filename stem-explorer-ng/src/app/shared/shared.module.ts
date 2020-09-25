@@ -25,6 +25,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { VisibleDirective } from './directives/visible.directive';
 import { ProfileReminderService } from './services/profile-reminder.service';
 import { MessageService } from './services/message.service';
+import { SortByDistancePipe } from './pipes/sort-by-distance.pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MessageService } from './services/message.service';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    SortByDistancePipe,
     ProfilePictureComponent,
     FilterLocationsPipe,
     VisibleDirective,
@@ -71,6 +73,7 @@ import { MessageService } from './services/message.service';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    SortByDistancePipe,
     MaterialModule,
     ProfilePictureComponent,
     FlexLayoutModule,
