@@ -44,7 +44,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   filter: Filter;
   locations: Location[];
   location: Location;
-  distance: string;
+  distance: number;
   userLocation: google.maps.LatLngLiteral;
   userLocationLat: number;
   userLocationLng: number;
@@ -242,12 +242,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param position the lat and lng object of a location
    */
   private getDistanceToLocation(position: google.maps.LatLngLiteral): void {
-    this.distance = '';
+    this.distance = null;
 
     if (this.userLocation) {
-      this.geolocation.getDistance(position, this.userLocation).pipe(
-        map(res => this.distance = res)
-      ).subscribe();
+      this.distance = this.geolocation.getDistance(position, this.userLocation);
     }
   }
 
