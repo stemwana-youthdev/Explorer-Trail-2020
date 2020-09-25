@@ -10,6 +10,7 @@ import { SplashScreenComponent } from './components/splash-screen/splash-screen.
 import { Store } from '@ngxs/store';
 import { VisitedHomepage } from './store/last-homepage/last-homepage.actions';
 import { ProfileReminderService } from './shared/services/profile-reminder.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +25,11 @@ export class AppComponent implements OnInit {
     private dialog: MatDialog,
     private store: Store,
     _: ProfileReminderService,
+    snackbar: MatSnackBar,
     matIconRegistry: MatIconRegistry,
     domSanitizer: DomSanitizer
   ) {
+    showIosChromeWarning(snackbar);
     registerIcons(matIconRegistry, domSanitizer);
   }
 
@@ -55,6 +58,21 @@ export class AppComponent implements OnInit {
     this.store.dispatch(new VisitedHomepage());
   }
 
+}
+
+function showIosChromeWarning(snackbar: MatSnackBar) {
+  // https://developer.chrome.com/multidevice/user-agent
+  if (navigator.userAgent.includes('CriOS/')) {
+    snackbar.open(
+      'Apple prevents the use of a camera within an app running in Chrome, ' +
+        'please use Safari or scan the QR codes directly from your phone.',
+      'Close',
+      {
+        politeness: 'assertive',
+        duration: 10_000,
+      }
+    );
+  }
 }
 
 function registerIcons(
