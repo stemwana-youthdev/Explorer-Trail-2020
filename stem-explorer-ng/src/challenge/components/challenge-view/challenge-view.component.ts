@@ -64,7 +64,7 @@ export class ChallengeViewComponent implements OnInit {
   /**
    * Takes user back to map/list view when Back button is pressed.
    */
-  Back(): void {
+  back(): void {
     this.router.navigateByUrl(
       this.store.selectSnapshot(LastHomepageState.lastHomepage)
     );
@@ -187,7 +187,7 @@ export class ChallengeViewComponent implements OnInit {
         title: this.challenge.title,
         category: this.challenge.category,
         isCorrect: success,
-        hasNextLevel: this.hasNextLevel()
+        hasNext: this.hasNextLevel()
       },
       panelClass: 'app-dialog'
     });
@@ -214,7 +214,7 @@ export class ChallengeViewComponent implements OnInit {
    */
   private hasNextLevel(): boolean {
     const idx = this.challenge.challengeLevels.indexOf(this.selectedLevel);
-    return (idx + 1 > this.challenge.challengeLevels.length);
+    return idx + 1 > this.challenge.challengeLevels.length;
   }
 
   /**
