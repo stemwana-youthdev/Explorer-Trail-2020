@@ -10,5 +10,6 @@ namespace StemExplorerAPI.Services.Interfaces
     {
         Task<List<LocationDto>> GetLocations(int? profileId);
         Task<LocationDto> GetLocationById(int locationId);
+        Task<List<FeaturedLocationDto>> GetFeaturedLocations();
     }
 }

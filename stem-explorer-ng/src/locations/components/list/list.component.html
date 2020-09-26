@@ -1,7 +1,7 @@
 <app-challenge-filter (filterChanged)="filterChanged($event)"></app-challenge-filter>
 
 <div class="padding" *ngIf="locations">
-  <span *ngFor="let location of locations; trackBy: trackLocations">
+  <span *ngFor="let location of locations | sortByDistance:distances; trackBy: trackLocations">
     <app-card
     class="challenge-card"
     *ngFor="let challenge of location.locationChallenges | filter:(filter); trackBy: trackChallenges"
@@ -10,7 +10,7 @@
     >
       <mat-icon class="category-icon" [svgIcon]="CategoryIcons[challenge.challengeCategory]"></mat-icon>
       <app-challenge-title [category]="challenge.challengeCategory">
-        <!-- <span class="distance">{{ getLocationDistance(location) }}</span> -->
+        <span class="distance">{{ distances[location.uid] | largeDistance }}</span>
         {{challenge.challengeTitle}}
       </app-challenge-title>
       <h4>{{Categories[challenge.challengeCategory]}}</h4>
@@ -22,4 +22,4 @@
 
 <div class="bouncer centered" *ngIf="!locations?.length"></div>
 
-<app-bottom-nav leftIcon="location_on" leftRoute=""></app-bottom-nav>
+<app-bottom-nav leftIcon="map-white" leftRoute=""></app-bottom-nav>

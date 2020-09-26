@@ -8,9 +8,7 @@ export class ConfigService {
 
   constructor() {
     // Read environment variables from browser window
-    const browserWindow = window || {};
-    // tslint:disable-next-line: no-string-literal
-    const browserWindowEnv = browserWindow['env'] || {};
+    const browserWindowEnv = (window || {}).env || {};
     this.config = browserWindowEnv;
   }
 

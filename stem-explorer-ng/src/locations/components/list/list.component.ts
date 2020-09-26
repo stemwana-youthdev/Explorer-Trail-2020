@@ -27,6 +27,7 @@ export class ListComponent implements OnInit {
   CategoryIcons: any = LargeCategoryIcons;
   filter: Filter;
   userLocation: google.maps.LatLngLiteral;
+  distances: number[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -78,17 +79,24 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * @todo finish this to show distance to location in the list. Currently polling too much.
    * @param location location data object
    */
-  getLocationDistance(location: Location): string {
-    const distance = '';
-    // if (this.userLocation) {
-    //   this.geolocation.getDistance(location.position, this.userLocation).pipe(
-    //     map(res => distance = res)
-    //   ).subscribe();
-    // }
-    return distance;
+  getLocationDistance(location: Location) {
+    // Don't get the distance more than once
+    if (this.distances[location.uid] === undefined) {
+      this.distances[location.uid] = null;
+      // Don't use this.userLocation because it may not be set when this method is called
+      this.geolocation.getPosition().then((userLocation) => {
+        const res = this.geolocation.getDistance(
+          location.position,
+          userLocation
+        );
+        // This is required to have angular detect that the array has changed.
+        const newDistances = Array.from(this.distances);
+        newDistances[location.uid] = res;
+        this.distances = newDistances;
+      });
+    }
   }
 
   /**
@@ -97,6 +105,9 @@ export class ListComponent implements OnInit {
   private getLocations(): void {
     this.store.select(LocationsState.locations).pipe(map(res => {
       this.locations = res;
+      for (const location of res) {
+        this.getLocationDistance(location);
+      }
     })).subscribe();
   }
 

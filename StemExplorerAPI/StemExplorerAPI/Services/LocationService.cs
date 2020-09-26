@@ -38,7 +38,9 @@ namespace StemExplorerAPI.Services
                             Lat = l.Latitude ?? null,
                             Lng = l.Longitude ?? null,
                         },
-                        LocationChallenges = l.Challenges.Select(lc => new LocationChallenge
+                        LocationChallenges = l.Challenges
+                            .Where(lc => lc.ChallengeLevels.Count > 0)
+                            .Select(lc => new LocationChallenge
                         {
                             ChallengeId = lc.Id,
                             ChallengeCategory = lc.Category,
@@ -54,7 +56,8 @@ namespace StemExplorerAPI.Services
                         Link = l.Url,
                         Phone = l.Phone,
                         Email = l.Email,
-                        ChallengeCount = l.Challenges.Count()
+                        ChallengeCount = l.Challenges.Count(),
+                        Featured = l.Featured,
                     })
                     .ToListAsync();
 
@@ -108,8 +111,47 @@ namespace StemExplorerAPI.Services
                             ChallengeCategory = lc.Category
                         }).ToList(),
                         Link = location.Url,
-                        ChallengeCount = location.Challenges.Count()
+                        ChallengeCount = location.Challenges.Count(),
+                        Featured = location.Featured,
                     }).SingleOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<List<FeaturedLocationDto>> GetFeaturedLocations()
+        {
+            try
+            {
+                var locations = await _context.Locations
+                    .AsNoTracking()
+                    .Where(l => l.Featured)
+                    .Select(l => new FeaturedLocationDto
+                    {
+                        Id = l.LocationId,
+                        Name = l.Name,
+                        GooglePlaceId = l.GooglePlaceId ?? null,
+                        Position = new LocationPositionDto
+                        {
+                            Lat = l.Latitude ?? null,
+                            Lng = l.Longitude ?? null,
+                        },
+                        Link = l.Url,
+                        Phone = l.Phone,
+                        Email = l.Email,
+                        Featured = l.Featured,
+                        Address = l.Address,
+                        FeaturedImage = l.FeaturedImage,
+                        FeaturedText = l.FeaturedText,
+                        OfferText = l.OfferText,
+                        Order = l.Order,
+                    })
+                    .ToListAsync();
+
+                return locations;
             }
             catch (Exception ex)
             {

@@ -1,44 +1,25 @@
 <app-challenge-filter (filterChanged)="filterChanged($event)"></app-challenge-filter>
 
-<span class="challenge-map">
-  <google-map
-    [center]="center"
-    [zoom]="zoom"
-    height="100%"
-    width="100%"
-    [options]="options"
-    (tilesloaded)="tilesLoaded = true"
-    >
-    <map-marker
-      *ngFor="let location of locations | filterLocations:(filter); trackBy: trackLocations"
-      #markerElem
-      [position]="location.position"
-      [title]="location.name"
-      [options]="getMarkerOptions(location)"
-      (mapClick)="click(markerElem, location)"
-      >
-    </map-marker>
+<div #mapContainer id="map"></div>
 
-    <map-marker [position]="userLocation" *ngIf="userLocation" [options]="userMarkerPoint()">
-    </map-marker>
-
-    <map-info-window>
-      <div class="marker-info" *ngIf="location">
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <h3>{{ location.name }}</h3>
-          <h3 *ngIf="distance">{{ distance }}</h3>
-        </div>
-        <ng-container *ngFor="let challenge of location.locationChallenges; trackBy: trackChallenges">
-          <button mat-flat-button class="{{Colour[challenge.challengeCategory]}}"
-            (click)="openChallenge(location, challenge)">
-            View Challenge <mat-icon [svgIcon]="Icon[challenge.challengeCategory]"></mat-icon>
-          </button>
-        </ng-container>
-      </div>
-    </map-info-window>
-  </google-map>
-</span>
+<ng-template #infoWindow>
+  <div class="info-title" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h3>{{ location.name }}</h3>
+    </div>
+    <div>
+      <h3 *ngIf="distance">{{ distance | largeDistance }}</h3>
+    </div>
+  </div>
+  <ng-container *ngFor="let challenge of location.locationChallenges; trackBy: trackChallenges">
+    <button mat-flat-button class="{{Colour[challenge.challengeCategory]}}"
+      (click)="openChallenge(location, challenge)">
+      View Challenge
+      <mat-icon [svgIcon]="Icon[challenge.challengeCategory]"></mat-icon>
+    </button>
+  </ng-container>
+</ng-template>
 
 <div class="bouncer centered" *ngIf="!tilesLoaded || !locations?.length"></div>
 
-<app-bottom-nav leftIcon="list" leftRoute="list"></app-bottom-nav>
+<app-bottom-nav leftIcon="list-view" leftRoute="list"></app-bottom-nav>

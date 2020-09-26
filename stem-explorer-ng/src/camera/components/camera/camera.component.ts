@@ -35,12 +35,10 @@ export class CameraComponent {
       console.warn(mediaDevice);
       if (mediaDevice.label.toLowerCase().includes('back')) {
         this.currentDevice = mediaDevice;
-        console.warn('selected device', this.currentDevice);
         return;
       }
     });
-    this.currentDevice = devices[1] || null;
-    console.warn('selected device', this.currentDevice);
+    this.currentDevice = devices[1] || devices[0] || null;
   }
 
   toMap() {
@@ -60,7 +58,6 @@ export class CameraComponent {
       return;
     }
 
-    this.gtmTag('QR scan success');
     const challengeId = match[3];
     this.router.navigate([`challenge/${challengeId}`]);
   }
@@ -76,7 +73,7 @@ export class CameraComponent {
    * push event to the google tag manager
    * @param event string describing event
    */
-  private gtmTag(event: string) {
+  private async gtmTag(event: string, challengeId?: number) {
     this.gtmService.pushTag({ event });
   }
 }

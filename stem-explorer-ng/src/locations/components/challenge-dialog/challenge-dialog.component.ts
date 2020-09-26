@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 import { Router } from '@angular/router';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
@@ -23,7 +24,8 @@ export class ChallengeDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
-    private router: Router
+    private router: Router,
+    private gtmService: GoogleTagManagerService,
   ) {
     this.challenge = this.data.challenge;
   }
@@ -40,10 +42,23 @@ export class ChallengeDialogComponent implements OnInit {
       this.viewOnMap();
     } else {
       (window as any).open('https://www.google.com/maps/dir/?api=1&destination=' + `${this.data.location.name}`, '_blank');
+      this.addGtmTag(this.data.location.name);
     }
   }
 
   viewOnMap() {
     (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
+  }
+
+  /**
+   * add tag to GTM on get directions
+   * @param location location name
+   */
+  private addGtmTag(location: string): void {
+    const gtmTag = {
+      event: 'get directions',
+      location
+    };
+    this.gtmService.pushTag(gtmTag);
   }
 }
