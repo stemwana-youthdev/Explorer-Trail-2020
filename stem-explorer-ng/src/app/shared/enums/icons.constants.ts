@@ -34,4 +34,5 @@ export type SvgIcon =
 | 'STEM-robot'
 | 'STEM-plus-sign'
 | 'list-view'
+| 'facebook-login'
 | 'map-white';
