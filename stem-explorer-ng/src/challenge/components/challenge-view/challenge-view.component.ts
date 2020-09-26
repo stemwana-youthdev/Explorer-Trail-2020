@@ -64,7 +64,7 @@ export class ChallengeViewComponent implements OnInit {
   /**
    * Takes user back to map/list view when Back button is pressed.
    */
-  Back(): void {
+  back(): void {
     this.router.navigateByUrl(
       this.store.selectSnapshot(LastHomepageState.lastHomepage)
     );
