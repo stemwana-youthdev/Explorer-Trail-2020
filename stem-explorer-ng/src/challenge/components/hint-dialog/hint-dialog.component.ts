@@ -26,7 +26,13 @@ export class HintDialogComponent {
       // Regex from https://regexr.com/39nr7
       // Select links such as 'http://test.com/hi', 'example.nz' and 'https://youtu.be/sdlkajldkfjas'
       /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi,
-      (linkUrl) => `<a href="${linkUrl}" target="_blank">${linkUrl}</a>`
+      (text) => {
+        let url = text;
+        if (!/^https?:\/\//.test(url)) {
+          url = `https://${url}`;
+        }
+        return `<a href="${url}" target="_blank">${text}</a>`;
+      }
     );
     return withLinks;
   }
