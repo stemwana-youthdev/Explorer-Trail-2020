@@ -3,5 +3,5 @@
 </span>
 
 <div [class]="'progress ' + colorClass">
-  <div *ngFor="let level of levels" [class]="level.complete ? 'complete' : ''">{{ level.difficulty }}</div>
+  <div *ngFor="let level of shownLevels" [class]="level.complete ? 'complete' : ''">{{ level.difficulty }}</div>
 </div>
