@@ -1,8 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler, APP_INITIALIZER } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import * as Sentry from '@sentry/angular';
+
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,6 +52,24 @@ import { FeaturedLocationsComponent } from './containers/featured-locations/feat
     SplashScreenComponent,
   ],
   bootstrap: [AppComponent],
-  providers: [{provide: 'googleTagManagerId', useValue: 'GTM-W79HP9V'}]
+  providers: [
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: false,
+      }),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
+    { provide: 'googleTagManagerId', useValue: 'GTM-W79HP9V' },
+  ]
 })
 export class AppModule { }

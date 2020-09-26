@@ -58,7 +58,6 @@ export class CameraComponent {
       return;
     }
 
-    this.gtmTag('QR scan success');
     const challengeId = match[3];
     this.router.navigate([`challenge/${challengeId}`]);
   }
@@ -74,7 +73,7 @@ export class CameraComponent {
    * push event to the google tag manager
    * @param event string describing event
    */
-  private gtmTag(event: string) {
+  private async gtmTag(event: string, challengeId?: number) {
     this.gtmService.pushTag({ event });
   }
 }

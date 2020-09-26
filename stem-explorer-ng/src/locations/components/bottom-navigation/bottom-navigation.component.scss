@@ -5,6 +5,7 @@ button.mat-fab {
 
   position: fixed;
   bottom: 1rem;
+  z-index: 1;
 
   &.left {
     left: 1rem;

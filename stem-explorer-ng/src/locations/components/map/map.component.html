@@ -8,7 +8,7 @@
       <h3>{{ location.name }}</h3>
     </div>
     <div>
-      <h3 *ngIf="distance">{{ distance }}</h3>
+      <h3 *ngIf="distance">{{ distance | largeDistance }}</h3>
     </div>
   </div>
   <ng-container *ngFor="let challenge of location.locationChallenges; trackBy: trackChallenges">

@@ -58,9 +58,13 @@ export class ChallengeFilterComponent implements OnInit {
    * @param setFilters array of set filters
    */
   private addGtmTag(setFilters: number[]): void {
+    const filters = [1, 1, 1, 1];
+    setFilters.forEach(element => {
+      filters[element] = 0;
+    });
     const gtmTag = {
       event: 'set filter',
-      filter: setFilters,
+      filter: filters,
     };
     this.gtmService.pushTag(gtmTag);
   }

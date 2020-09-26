@@ -10,7 +10,7 @@ export class CustomValidationService {
       /[a-z]/,
       /[A-Z]/,
       /[0-9]/,
-      /[!@#$%^&*()_+-=}{\]\[:;'"?/.,<>\\\|~`]/,
+      /[!@#\$%\^&\*\(\)_\+\-=}{\]\[:;'"\?/\.,<>\\\|~`]/,
     ];
     return charTypes.filter((regex) => regex.test(password)).length;
   }

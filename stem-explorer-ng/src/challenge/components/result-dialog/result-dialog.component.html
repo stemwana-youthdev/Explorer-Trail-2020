@@ -29,7 +29,9 @@
     <button mat-flat-button *ngIf="data.hasNext"
       mat-dialog-close="next-level"
       [class]="cssClass"
+      *ngIf="!data.hasNext"
     >Next Level</button>
+    <h3 *ngIf="data.hasNext" class="challenge-complete">You have completed this challenge</h3>
   </ng-container>
 
   <button mat-flat-button mat-dialog-close (click)="toHome()"

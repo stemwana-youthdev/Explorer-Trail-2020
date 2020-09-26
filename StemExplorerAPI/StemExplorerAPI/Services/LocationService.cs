@@ -38,7 +38,9 @@ namespace StemExplorerAPI.Services
                             Lat = l.Latitude ?? null,
                             Lng = l.Longitude ?? null,
                         },
-                        LocationChallenges = l.Challenges.Select(lc => new LocationChallenge
+                        LocationChallenges = l.Challenges
+                            .Where(lc => lc.ChallengeLevels.Count > 0)
+                            .Select(lc => new LocationChallenge
                         {
                             ChallengeId = lc.Id,
                             ChallengeCategory = lc.Category,
