@@ -31,6 +31,15 @@ export class HintDialogComponent {
         if (!/^https?:\/\//.test(url)) {
           url = `https://${url}`;
         }
+
+        const youtubeMatch = url.match(
+          /youtube.com\/watch\?(.*&)+v=([A-Za-z0-9_-]{11})/
+        );
+        if (youtubeMatch) {
+          const videoId = youtubeMatch[1];
+          text = `youtu.be/${videoId}`;
+        }
+
         return `<a href="${url}" target="_blank">${text}</a>`;
       }
     );
