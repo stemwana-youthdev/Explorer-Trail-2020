@@ -110,6 +110,7 @@ function registerIcons(
     { name: 'AMEN-wheelchair' , file: 'AMEN-wheelchair.svg'},
     { name: 'AMEN-wifi' , file: 'wifi-food.svg'},
     { name: 'google-login' , file: 'google-login.svg'},
+    { name: 'facebook-login' , file: 'facebook-login.svg'},
     { name: 'list-view', file: 'list-view.svg' }
   ];
 

@@ -92,6 +92,15 @@ export class AuthService {
    */
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
+    return await this.providerSignin(provider);
+  }
+
+  async facebookSignin() {
+    const provider = new auth.FacebookAuthProvider();
+    return await this.providerSignin(provider);
+  }
+
+  async providerSignin(provider: auth.AuthProvider) {
     const credential = await this.afAuth.signInWithPopup(provider);
     if (credential.additionalUserInfo.isNewUser) {
       this.setUser(credential.user, true);

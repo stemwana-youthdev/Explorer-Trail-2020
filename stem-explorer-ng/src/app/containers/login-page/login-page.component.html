@@ -5,7 +5,8 @@
       <mat-icon svgIcon="google-login"></mat-icon>
       &nbsp;Log in with Google
     </button>
-    <button mat-raised-button class="auth-button">
+    <button mat-raised-button (click)="auth.facebookSignin()" class="auth-button">
+      <mat-icon svgIcon="facebook-login"></mat-icon>
       &nbsp;Log in with Facebook
     </button>
   </div>
