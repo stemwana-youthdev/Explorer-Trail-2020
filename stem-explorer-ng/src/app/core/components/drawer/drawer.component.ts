@@ -27,10 +27,10 @@ export class DrawerComponent implements OnInit {
       title: 'Home',
       home: true,
     },
-    {
-      title: 'Featured Locations',
-      url: '/featured',
-    },
+    // {
+    //   title: 'Featured Locations',
+    //   url: '/featured',
+    // },
   ];
 
   externalContent: ExternalContent[];
