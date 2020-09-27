@@ -93,6 +93,7 @@ namespace StemExplorerAPI.Services
 
         private bool AnswerMatches(AnswerType answerType, string givenAnswer, string possibleAnswer)
         {
+            Console.WriteLine(answerType);
             switch (answerType)
             {
                 case AnswerType.Number:
@@ -105,6 +106,11 @@ namespace StemExplorerAPI.Services
                     {
                         return false;
                     }
+                case AnswerType.Contains:
+                    var given = NormalizeAnswer(givenAnswer);
+                    var possible = NormalizeAnswer(possibleAnswer);
+                    Console.WriteLine("{0}, {1}", given, possible);
+                    return given.Contains(possible);
                 default:
                     return NormalizeAnswer(givenAnswer) == NormalizeAnswer(possibleAnswer);
             }
