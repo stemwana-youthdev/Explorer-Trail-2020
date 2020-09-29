@@ -27,7 +27,8 @@ namespace StemExplorerAPI.Models
         {
             Multichoice,
             Number,
-            Text
+            Text,
+            Contains
         }
     }
 }

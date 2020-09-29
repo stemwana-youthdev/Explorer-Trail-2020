@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using static StemExplorerAPI.Models.Enums;
+
 namespace StemExplorerAPI.Services
 {
     public class ChallengeLevelService : IChallengeLevelService
@@ -86,11 +88,33 @@ namespace StemExplorerAPI.Services
         public async Task<bool> ValidateAnswer(int levelId, string givenAnswer)
         {
             var level = await _context.ChallengeLevels.SingleAsync(l => l.Id == levelId);
-            return level.Answers.Any(a => AnswerMatches(givenAnswer, a));
+            return level.Answers.Any(a => AnswerMatches(level.AnswerType, givenAnswer, a));
         }
 
-        private bool AnswerMatches(string givenAnswer, string possibleAnswer)
-            => NormalizeAnswer(givenAnswer) == NormalizeAnswer(possibleAnswer);
+        private bool AnswerMatches(AnswerType answerType, string givenAnswer, string possibleAnswer)
+        {
+            Console.WriteLine(answerType);
+            switch (answerType)
+            {
+                case AnswerType.Number:
+                    if (double.TryParse(givenAnswer, out double a) &&
+                        double.TryParse(possibleAnswer, out double b))
+                    {
+                        return a == b;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case AnswerType.Contains:
+                    var given = NormalizeAnswer(givenAnswer);
+                    var possible = NormalizeAnswer(possibleAnswer);
+                    Console.WriteLine("{0}, {1}", given, possible);
+                    return given.Contains(possible);
+                default:
+                    return NormalizeAnswer(givenAnswer) == NormalizeAnswer(possibleAnswer);
+            }
+        }
 
         private string NormalizeAnswer(string answer)
             => answer.Trim().ToLowerInvariant();
