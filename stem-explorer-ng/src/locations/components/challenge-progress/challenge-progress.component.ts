@@ -14,10 +14,23 @@ import { LocationLevel } from 'src/locations/models/location';
 export class ChallengeProgressComponent {
   @Input() levels: LocationLevel[] = [];
   @Input() category: Categories;
+  @Input() shownCount = 5;
 
   constructor(private stemColors: StemColorsService) {}
 
   get colorClass() {
     return this.stemColors.getColor(this.category);
+  }
+
+  get shownLevels() {
+    const firstUnfinishedIndex = this.levels.findIndex(
+      (level) => !level.complete
+    );
+    const maxStartIndex = this.levels.length - this.shownCount;
+    const startIndex = Math.min(
+      Math.max(firstUnfinishedIndex - 1, 0),
+      maxStartIndex
+    );
+    return this.levels.slice(startIndex, startIndex + this.shownCount);
   }
 }
