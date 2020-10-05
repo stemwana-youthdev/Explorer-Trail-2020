@@ -3,7 +3,8 @@
 @import 'app/styles/mixins';
 @import 'app/styles/select';
 @import 'app/styles/button';
-@import 'app/styles//input';
+@import 'app/styles/input';
+@import 'app/styles/text';
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -50,24 +51,16 @@ h3, h4, h5, h6, b, strong {
 h3 {
   margin-top: 0;
 }
+
+.challenge-view-Header{
+  margin-top: 5;
+}
+
 h4, p{
   margin-top: 0.5rem;
 }
 i, em {
   @include typeface-accent;
-}
-
-// Used for the camera pop-up
-.fullscreen-dialog {
-  max-width: none !important;
-  max-height: none;
-  width: 100vw;
-  height: 100vh;
-
-  mat-dialog-container {
-    border-radius: 0;
-    padding: 0;
-  }
 }
 
 .mat-select-value,
@@ -84,16 +77,26 @@ i, em {
   padding-top: 0;
   padding-bottom: 0;
   border-radius: 0;
+  overflow-x: hidden;
+
+  .mat-dialog-content {
+    overflow-x: hidden;
+  }
 }
 
 .app-dialog {
   position: relative;
 }
 
-.mat-toolbar {
-  background-color: white;
-  border-bottom: solid;
-  border-color: tint(20%, $primary-black);
+.mat-toolbar-single-row {
+  padding: 0 8px;
+  height: 56px;
+}
+
+@media (max-width: 599px) {
+  .mat-toolbar-single-row {
+    height: 56px;
+  }
 }
 
 .mat-drawer-container {
@@ -101,10 +104,16 @@ i, em {
   overflow: hidden !important;  
 }
 
-.mat-drawer-content {
-  overflow: hidden !important;
-}
-
 .app-dialog .mat-dialog-content {
   max-height: none;
+}
+
+.gm-style .gm-style-iw-d {
+  min-height: 110px !important;
+  padding: 5px;
+}
+button.mat-flat-button {
+  white-space: normal;
+  line-height: normal;
+  padding: 15px 5px;
 }

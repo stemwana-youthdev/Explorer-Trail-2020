@@ -3,19 +3,21 @@
     {{ challenge.challengeTitle }}
   </app-challenge-title>
 
-    <h4>{{ Categories[challenge.challengeCategory] }}</h4>
-    <h4>Duration: </h4>
     <p>{{ challenge.challengeDescription }}</p>
+
+    <app-challenge-progress [category]="challenge.challengeCategory" [levels]="challenge.challengeLevels"></app-challenge-progress>
+
     <div class=contactInfo>
       <app-contact-info
+        *ngIf="data.location?.name"
         [category]="challenge.challengeCategory"
         icon="location_on"
         [label]="data.location.name"
         (click)="viewOnMap()"
         aria-label="Location address"
       ></app-contact-info>
-      <br>
-      <app-contact-info
+      <app-contact-info *ngIf="data.location?.link"
+        class="truncate"
         [link]="data.location.link"
         [category]="challenge.challengeCategory"
         icon="launch"
@@ -23,21 +25,21 @@
         aria-label="Location website"
       ></app-contact-info>
       <app-contact-info *ngIf="data.location?.phone"
-          [link]="data.location?.phone"
+          [link]="'tel:' + data.location?.phone"
           [category]="challenge.challengeCategory"
           icon="phone"
           [label]="data.location?.phone"
           aria-label="Location Phone Number"
         ></app-contact-info>
         <app-contact-info *ngIf="data.location?.email"
-          [link]="data.location?.email"
+          class="truncate"
+          [link]="'mailto:' + data.location?.email"
           [category]="challenge.challengeCategory"
           icon="mail_outline"
           [label]="data.location?.email"
           aria-label="Location Email"
         ></app-contact-info>
       </div>
-    <br><br>
 
     <div style="display: flex;">
       <app-button
@@ -45,16 +47,16 @@
         class="challengeActions"
         [category]="challenge.challengeCategory"
         [outlined]="true"
-        (click)="mapDirections()">
-        Get Directions
+        (click)="mapDirections()"
+        [value]="'Get Directions'">
       </app-button>
       <app-button
         mat-dialog-close
         class="challengeActions"
         [category]="challenge.challengeCategory"
         (click)="cameraView()"
-        aria-label="Start challenge">
-        Scan QR Code
+        aria-label="Start challenge"
+        [value]="'Scan QR Code'">
       </app-button>
     </div>
 </app-dialog>

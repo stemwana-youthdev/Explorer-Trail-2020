@@ -39,14 +39,19 @@
 }
 
 @mixin coloured-button($color) {
-  color: white;
-  border-radius: 0;
-  width: 100%;
   background-color: $color;
+  border: 3px solid $color;
+
   &.inverted {
     background-color: white;
     color: $color;
     border: none;
+  }
+
+  &.outlined {
+    border-color: 3px solid $color;
+    color: $color;
+    background: #fff;
   }
 }
 

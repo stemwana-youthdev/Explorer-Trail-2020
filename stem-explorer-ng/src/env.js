@@ -15,6 +15,7 @@
     API_ENDPOINT: '/api',
     // If you are afraid that you might accidentally commit this, run:
     // git update-index --skip-worktree src/env.js
-    AUTH_API: '<development-auth-api-key>',
+    AUTH_API: 'AIzaSyAdlcKOJpmnJlm1XAJhhhsAU2ElSJjkyYM',
+    TERMS_LINK: 'https://stemwana.nz/explorer-terms-and-conditions/'
   };
 });

@@ -1,0 +1,7 @@
+<span>
+  {{ levels?.length > 1 ? 'Levels' : 'Level' }}
+</span>
+
+<div [class]="'progress ' + colorClass">
+  <div *ngFor="let level of shownLevels" [class]="level.complete ? 'complete' : ''">{{ level.difficulty }}</div>
+</div>

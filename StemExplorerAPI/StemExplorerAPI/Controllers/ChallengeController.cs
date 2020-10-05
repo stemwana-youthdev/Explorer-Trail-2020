@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,11 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/Challenge
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int? profileId)
         {
             try
             {
-                return Ok(await _challengeService.GetChallenges());
+                return Ok(await _challengeService.GetChallenges(profileId));
             }
             catch (Exception ex)
             {
@@ -40,11 +41,11 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/Challenge/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetChallenge(int id)
+        public async Task<IActionResult> GetChallenge(int id, int? profileId)
         {
             try
             {
-                var challenge = await _challengeService.GetChallengeById(id);
+                var challenge = await _challengeService.GetChallengeById(id, profileId);
 
                 if (challenge == null)
                 {

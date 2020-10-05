@@ -2,7 +2,7 @@ export class LoadLocationsData {
   public static type = 'LoadLocationsData';
 }
 
-export class FilterLocations {
-  public static type = 'FilterLocations';
-  constructor(public filter: number[]) {}
+export class LevelCompleted {
+  public static type = 'LevelCompleted';
+  constructor(public difficulty: number, public challengeId: number) {}
 }

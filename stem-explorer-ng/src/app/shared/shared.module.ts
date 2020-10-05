@@ -1,34 +1,37 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-
-import { AuthModule } from './auth/auth.module';
-import { ApiService } from './services/api.service';
-import { MaterialModule } from './material.module';
-import { TruncatePipe } from './pipes/truncate.pipe';
-import { FilterPipe } from './pipes/filter.pipe';
-import { LargeDistancePipe } from './pipes/large-distance.pipe';
-import { FabComponent } from './components/fab/fab.component';
-import { ButtonComponent } from './components/button/button.component';
-import { ChallengeTitleComponent } from './components/challenge-title/challenge-title.component';
-import { DialogComponent } from './components/dialog/dialog.component';
-import { ContactInfoComponent } from './components/contact-info/contact-info.component';
-import { InputComponent } from './components/input/input.component';
-import { FormFieldComponent } from './components/form-field/form-field.component';
-import { StemColorsService } from './services/stem-colors.service';
-import { CardComponent } from './components/card/card.component';
-import { GeolocationService } from '../../locations/services/geolocation.service';
-import { SortByPipe } from './pipes/sort-by.pipe';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GeolocationService } from '../../locations/services/geolocation.service';
+import { ButtonComponent } from './components/button/button.component';
+import { CardComponent } from './components/card/card.component';
+import { ChallengeTitleComponent } from './components/challenge-title/challenge-title.component';
+import { ContactInfoComponent } from './components/contact-info/contact-info.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { FormFieldComponent } from './components/form-field/form-field.component';
+import { InputComponent } from './components/input/input.component';
+import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
+import { MaterialModule } from './material.module';
+import { FilterPipe } from './pipes/filter.pipe';
+import { LargeDistancePipe } from './pipes/large-distance.pipe';
+import { SortByPipe } from './pipes/sort-by.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { ApiService } from './services/api.service';
+import { StemColorsService } from './services/stem-colors.service';
+import { ImageService } from './services/image.service';
+import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { VisibleDirective } from './directives/visible.directive';
+import { ProfileReminderService } from './services/profile-reminder.service';
+import { MessageService } from './services/message.service';
+import { SortByDistancePipe } from './pipes/sort-by-distance.pipe';
 
 @NgModule({
   declarations: [
     TruncatePipe,
     FilterPipe,
     LargeDistancePipe,
-    FabComponent,
     ButtonComponent,
     CardComponent,
     ChallengeTitleComponent,
@@ -37,26 +40,31 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    SortByDistancePipe,
+    ProfilePictureComponent,
+    FilterLocationsPipe,
+    VisibleDirective,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
-    AuthModule,
     HttpClientModule,
     MaterialModule,
-    GoogleMapsModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     ApiService,
     StemColorsService,
     GeolocationService,
+    ImageService,
+    ProfileReminderService,
+    MessageService,
   ],
   exports: [
     TruncatePipe,
     FilterPipe,
     LargeDistancePipe,
-    FabComponent,
     ButtonComponent,
     CardComponent,
     ChallengeTitleComponent,
@@ -65,10 +73,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormFieldComponent,
     InputComponent,
     SortByPipe,
+    SortByDistancePipe,
     MaterialModule,
-    GoogleMapsModule,
+    ProfilePictureComponent,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FilterLocationsPipe,
+    VisibleDirective,
+    ConfirmDialogComponent,
   ],
 })
 export class SharedModule { }

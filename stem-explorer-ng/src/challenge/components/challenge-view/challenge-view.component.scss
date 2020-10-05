@@ -6,13 +6,16 @@
   max-width: 768px;
 }
 
+.category-icon {
+  float: right;
+  width: 4rem;
+  height: 4rem;
+}
+
 .challenge-header {
-  background-color: white;
-  // border-bottom: solid;
   border-color: tint(10%, $primary-black);
   margin-left: -20px;
   padding: 22px 0px 10px 20px;
-  // position: fixed;
   top: 56px;
   width: 100%;
 }
@@ -42,7 +45,7 @@ app-form-field {
   position: relative;
   float: right;
   top: -39px;
-  right: -10px;
+  right: 22px;
   font-size: 2rem;
   color: #fff;
 }
@@ -53,6 +56,51 @@ app-form-field {
   }
 }
 
-.levels-wrapper {
-  margin-right: 32px;
+.levels-wrapper mat-select {
+  border-radius: 5px;
+  padding: 0;
+
+  ::ng-deep .mat-select-trigger {
+    padding: 16px;
+    z-index: 1;
+  }
+}
+
+
+.instructions-header {
+  margin-top: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.back-container {
+  background-color: rgba(0,0,0,0.18);
+  display: block;
+  top: 56px;
+  left: 0;
+  right: 0px;
+  z-index: 10;
+  height: 45px;
+  cursor: pointer;
+
+  .back-text {
+    display: flex;
+    margin: 0 auto;
+    max-width: 768px;
+    width: 100%;
+    line-height: 45px;
+    height: 100%;
+    font-weight: 600;
+
+    @media only screen and (max-width: 768px) {
+      padding-left: 10px;
+    }
+
+    .mat-icon {
+      line-height: 46px;
+      padding-right: 5px;
+    }
+  }
 }

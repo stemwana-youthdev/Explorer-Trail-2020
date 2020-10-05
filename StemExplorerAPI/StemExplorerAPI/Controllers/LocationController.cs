@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,11 @@ namespace StemExplorerAPI.Controllers
 
         // GET: api/Location
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int? profileId)
         {
             try
             {
-                return Ok(await _locationService.GetLocations());
+                return Ok(await _locationService.GetLocations(profileId));
             }
             catch (Exception ex)
             {
@@ -52,6 +53,21 @@ namespace StemExplorerAPI.Controllers
                 }
 
                 return Ok(location);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+        // GET: api/Locations/Featured
+        [HttpGet("Featured")]
+        public async Task<IActionResult> GetFeaturedLocations()
+        {
+            try
+            {
+                return Ok(await _locationService.GetFeaturedLocations());
             }
             catch (Exception ex)
             {

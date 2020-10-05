@@ -1,4 +1,5 @@
-﻿using StemExplorerAPI.Models.Entities;
+﻿using Newtonsoft.Json;
+using StemExplorerAPI.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace StemExplorerAPI.Models.ViewModels
 {
     public class ChallengeLevelDto
     {
-        [JsonPropertyName("uid")]
+        [JsonProperty("uid")]
         public int Id { get; set; }
         public string QuestionText { get; set; }
         public Enums.ChallengeDifficulty Difficulty { get; set; }
@@ -19,5 +20,6 @@ namespace StemExplorerAPI.Models.ViewModels
         public List<string> Answers { get; set; }
         public int ChallengeId { get; set; }
         public string Hint { get; set; }
+        public bool Complete { get; set; }
     }
 }

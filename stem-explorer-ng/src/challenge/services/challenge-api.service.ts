@@ -12,8 +12,11 @@ export class ChallengeApiService {
    * Get challenge from API
    * @param id ID number for the challenge
    */
-  getChallenge(id: number): Observable<Challenge> {
-    return this.api.getEntity(`Challenges/${id}`);
+  getChallenge(id: number, token?: string, profileId?: number): Observable<Challenge> {
+    return this.api.getEntity(
+      `Challenges/${id}${profileId ? `?profileId=${profileId}` : ''}`,
+      token
+    );
   }
 
   /**
@@ -21,9 +24,11 @@ export class ChallengeApiService {
    * @param level selected level the answer is for
    * @param answer the user's answer attempt
    */
-  checkAnswer(level: ChallengeLevel, answer: string): boolean {
-    let result: boolean;
-    level.answer.forEach((a) => result = a.toLowerCase().trim() === answer.toLowerCase().trim());
-    return result;
+  checkAnswer(level: ChallengeLevel, answer: string) {
+    return this.api.validateAnswer(level.id, answer);
+  }
+
+  levelCompleted(token: string, profileId: number, levelId: number, correct: boolean) {
+    return this.api.levelCompleted(token, profileId, levelId, correct);
   }
 }

@@ -1,0 +1,53 @@
+@use 'src/app/styles/variables' as *;
+
+.email-register-fields {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 768px;
+}
+
+.error-message {
+    margin: 0;
+    position: relative;
+    top: -10px;
+    color: $secondary-red;
+}
+
+.auth-button-group {
+  display: flex;
+  justify-content:  center;
+  align-items: center;
+  margin-bottom: 20px;
+  
+  .forgot {
+    color: $secondary-pink;
+    margin-bottom: 10px;
+  }
+
+  .auth-button {
+    padding: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    font-family: $main-font;
+
+    width: 100%;
+    max-width: 450px !important;
+
+
+    &:last-of-type {
+      margin-top: 10px;
+    }
+
+    mat-icon {
+      margin-top: -3px;
+    }
+  }
+}
+
+.login-form {
+  margin-bottom: 20px;
+}
+
+.auth-title {
+    padding: 10px 0px 5px 0px;
+}

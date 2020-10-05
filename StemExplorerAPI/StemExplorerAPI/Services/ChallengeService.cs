@@ -14,17 +14,19 @@ namespace StemExplorerAPI.Services
     {
         private readonly StemExplorerContext _context;
         private readonly ILogger _logger;
-        public ChallengeService(StemExplorerContext context, ILogger<ChallengeService> logger)
+        private readonly IProgressService _progressService;
+        public ChallengeService(StemExplorerContext context, ILogger<ChallengeService> logger, IProgressService progressService)
         {
             _context = context;
             _logger = logger;
+            _progressService = progressService;
         }
 
-        public async Task<List<ChallengeDto>> GetChallenges()
+        public async Task<List<ChallengeDto>> GetChallenges(int? profileId)
         {
             try
             {
-                return await _context.Challenges
+                var challenges = await _context.Challenges
                     .AsNoTracking()
                     .Select(c => new ChallengeDto
                     {
@@ -34,6 +36,21 @@ namespace StemExplorerAPI.Services
                         Category = c.Category,
                         LocationId = c.LocationId,
                     }).ToListAsync();
+
+                if (profileId is int uid)
+                {
+                    var progress = await _progressService.GetProgress(uid);
+
+                    foreach (var challenge in challenges)
+                    {
+                        foreach (var level in challenge.ChallengeLevels)
+                        {
+                            level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                        }
+                    }
+                }
+
+                return challenges;
             }
             catch (Exception ex)
             {
@@ -42,11 +59,11 @@ namespace StemExplorerAPI.Services
             }
         }
 
-        public async Task<ChallengeDto> GetChallengeById(int challengeId)
+        public async Task<ChallengeDto> GetChallengeById(int challengeId, int? profileId)
         {
             try
             {
-                return await _context.Challenges
+                var challenge = await _context.Challenges
                     .AsNoTracking()
                     .Where(c => c.Id == challengeId)
                     .Select(challenge => new ChallengeDto
@@ -56,18 +73,30 @@ namespace StemExplorerAPI.Services
                         Description = challenge.Description,
                         Category = challenge.Category,
                         LocationId = challenge.LocationId,
-                        ChallengeLevels = challenge.ChallengeLevel.Select(cl => new LevelsForChallenge
+                        ChallengeLevels = challenge.ChallengeLevels.Select(cl => new LevelsForChallenge
                         {
                             Id = cl.Id,
                             Question = cl.QuestionText,
                             Instructions = cl.Instructions,
                             Difficulty = cl.Difficulty,
-                            Answer = new List<string>(),
+                            Answer = cl.Answers,
                             Hint = cl.Hint,
-                            PossibleAnswers = new List<string>(),
+                            PossibleAnswers = cl.PossibleAnswers,
                             QuestionType = cl.AnswerType
                         }).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
+
+                if (profileId is int uid && challenge != null)
+                {
+                    var progress = await _progressService.GetProgress(uid);
+
+                    foreach (var level in challenge.ChallengeLevels)
+                    {
+                        level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                    }
+                }
+
+                return challenge;
             }
             catch (Exception ex)
             {

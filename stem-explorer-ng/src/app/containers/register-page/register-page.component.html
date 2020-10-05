@@ -1,42 +1,49 @@
 <div class="email-register-fields">
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <input placeholder="Email" type="email" required
-      formControlName="email">
-      <p class="error-message"
-      *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched">
-      Enter a valid email address
-      </p>
-  
-      <input placeholder="First Name" type="text" required
-      formControlName="firstName">
-  
-      <input placeholder="Last Name" type="text" required
-      formControlName="lastName">
-  
-      <input placeholder="Password" type="password" required
-      formControlName="password">
-      <p class="error-message"
-      *ngIf="registerForm.get('password').hasError('pattern') && registerForm.get('password').touched">
-      Password must have a minimum of 8 characters and at least two of upper case, lower case, numbers or special characters
-      </p>
-  
-      <input placeholder="Password confirmation" type="password" required
-      formControlName="confirmPassword">
-      <p class="error-message"
-      *ngIf="registerForm.get('confirmPassword').hasError('passwordMismatch') && registerForm.get('confirmPassword').touched">
+  <div class="auth-button-group" fxLayout="column">
+    <button mat-raised-button (click)="auth.googleSignin()" class="auth-button">
+      <mat-icon svgIcon="google-login"></mat-icon>
+      &nbsp;Sign up with Google
+    </button>
+    <button mat-raised-button (click)="auth.facebookSignin()" class="auth-button">
+      <mat-icon svgIcon="facebook-login"></mat-icon>
+      &nbsp;Sign up with Facebook
+    </button>
+  </div>
+
+  <h3 class="auth-title">Create an Account</h3>
+  <p>Create an Explorer account to save your progress.</p>
+
+  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <input placeholder="Email" type="email" required formControlName="email">
+    <p class="error-message" *ngIf="emailError">
+      Please enter a valid email address
+    </p>
+
+    <input placeholder="First Name" type="text" required formControlName="firstName">
+
+    <input placeholder="Last Name" type="text" required formControlName="lastName">
+
+    <input placeholder="Password" type="password" required formControlName="password">
+    <p class="error-message" *ngIf="passwordError">
+      Password must have a minimum of 8 characters and at least three of upper case, lower case, numbers or special characters
+    </p>
+
+    <input placeholder="Password confirmation" type="password" required formControlName="confirmPassword">
+    <p class="error-message" *ngIf="passwordMatchError">
       Passwords do not match
-      </p>
-  
-      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-  
-      <app-button color="pink" type="submit" [disabled]="!registerForm.valid">Register</app-button>
+    </p>
+
+    <app-button color="pink" type="submit" [disabled]="!registerForm.valid" [value]="'REGISTER'"></app-button>
   </form>
 
-  <button mat-raised-button (click)="registerWithGoogle()" class="googleButton">Register with Google</button>
-
-  <button mat-raised-button (click)="navigateToLogin()">Return to Login</button>
-  
+  <div class="auth-button-group" fxLayout="column">
+    <button mat-raised-button class="auth-button" (click)="goToLogin()">
+      Already have an account? Login!
+    </button>
+  </div>
 </div>
 
 

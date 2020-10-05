@@ -12,14 +12,14 @@ export class GeolocationService {
    * Method for getting user's current position, for displaying the user on the map
    * and for working out distance to location.
    */
-  getPosition(): Promise<any> {
-    return new Promise((resolve, reject) => {
+  getPosition(): Promise<google.maps.LatLngLiteral> {
+    return new Promise<google.maps.LatLngLiteral>((resolve, reject) => {
       navigator.geolocation.getCurrentPosition((position) => {
         resolve({ lat: position.coords.latitude, lng: position.coords.longitude});
       }, err => {
         reject(err);
       });
-    }).catch(() => {});
+    }).catch(() => null);
   }
 
   /**
@@ -53,17 +53,12 @@ export class GeolocationService {
   getDistance(
     position: google.maps.LatLngLiteral,
     userPos: google.maps.LatLngLiteral
-  ): Observable<string> {
+  ): number {
     if (!userPos) { return; }
-    const route = {
-      origin: userPos,
-      destination: position,
-      travelMode: this.isInCBD(userPos) ?
-        google.maps.TravelMode.WALKING
-        : google.maps.TravelMode.DRIVING
-    };
-
-    return this.getRoute(route).pipe(map(res => res.routes[0].legs[0].distance.text));
+    return google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(position),
+      new google.maps.LatLng(userPos)
+    );
   }
 
   /**

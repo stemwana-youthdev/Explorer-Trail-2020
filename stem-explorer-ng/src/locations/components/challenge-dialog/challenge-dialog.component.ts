@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CameraComponent } from 'src/app/containers/camera/camera.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
+import { Router } from '@angular/router';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
@@ -23,7 +24,8 @@ export class ChallengeDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
-    private dialog: MatDialog,
+    private router: Router,
+    private gtmService: GoogleTagManagerService,
   ) {
     this.challenge = this.data.challenge;
   }
@@ -32,27 +34,31 @@ export class ChallengeDialogComponent implements OnInit {
   }
 
   cameraView(): void {
-    this.dialog.open(CameraComponent, {
-      panelClass: 'fullscreen-dialog',
-    });
+    this.router.navigate(['camera']);
   }
 
   mapDirections() {
     if (!navigator.geolocation) {
       this.viewOnMap();
     } else {
-      let currentLocation;
-      navigator.geolocation.getCurrentPosition((pos) => {
-        currentLocation = {
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude
-        };
-      });
-      (window as any).open('https://www.google.com/maps/dir/' + `${currentLocation}/` + `${this.data.location.name}`, '_blank');
+      (window as any).open('https://www.google.com/maps/dir/?api=1&destination=' + `${this.data.location.name}`, '_blank');
+      this.addGtmTag(this.data.location.name);
     }
   }
 
   viewOnMap() {
     (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
+  }
+
+  /**
+   * add tag to GTM on get directions
+   * @param location location name
+   */
+  private addGtmTag(location: string): void {
+    const gtmTag = {
+      event: 'get directions',
+      location
+    };
+    this.gtmService.pushTag(gtmTag);
   }
 }

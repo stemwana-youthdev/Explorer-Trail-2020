@@ -1,0 +1,66 @@
+@use 'src/app/styles/variables' as *;
+
+:host {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.progress {
+  position: relative;
+  display: flex;
+  margin-left: 1rem;
+
+  div {
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.3rem;
+    text-align: center;
+    box-sizing: border-box;
+    background: white;
+    z-index: 1;
+    margin-right: 1rem;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: calc(1rem - 1px);
+    left: 1rem;
+    right: 2rem;
+    height: 2px;
+  }
+}
+
+@mixin colored-progress($color) {
+  div {
+    border-color: shade(80%, $color);
+
+    &.complete {
+      background: tint(40%, $color);
+    }
+  }
+
+  &:before {
+    background: shade(80%, $color);
+  }
+}
+
+.green {
+  @include colored-progress($primary-green);
+}
+
+.blue {
+  @include colored-progress($primary-blue);
+}
+
+.orange {
+  @include colored-progress($primary-orange);
+}
+
+.purple {
+  @include colored-progress($primary-purple);
+}

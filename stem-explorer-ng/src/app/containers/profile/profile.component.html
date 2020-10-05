@@ -1,18 +1,58 @@
-<div class="image-container">
-    <!--Image will go here-->
-    <mat-icon class="profile-image">person</mat-icon>
-    <h4 class="blue">Edit Profile Image</h4>
-</div>
-<form [formGroup]='profileForm' (ngSubmit)="onSubmit()">
-    <input type="text" placeholder="First Name" name="firstName" formControlName="firstName">
-    <input type="text" placeholder="Last Name" name="lastName" formControlName="lastName">
+<div class="profile-fields">
+  <h3 class="title">Edit Your Explorer Profile</h3>
+
+  <form [formGroup]='profileForm' (ngSubmit)="onSubmit()">
+    <div class="image-container" fxLayout="row">
+      <label class="image-upload-container" for="pictureInput">
+        <span *ngIf="profilePic; else avatar">
+          <img class="profile-pic" [src]="profilePic" alt="Profile picture">
+        </span>
+        <ng-template #avatar>
+          <mat-icon>account_circle</mat-icon>
+        </ng-template>
+        <span class="blue">Edit Profile Image</span>
+      </label>
+      <input class="file-input" type="file" id="pictureInput" accept="image/*" (input)="selectFile($event)" formControlName="profilePic">
+    </div>
+
+    <input type="text" placeholder="Explorer Team Name" name="nickname" formControlName="nickname">
+    <input type="text" placeholder="First Name*" name="firstName" formControlName="firstName" required>
+    <input type="text" placeholder="Last Name*" name="lastName" formControlName="lastName" required>
     <input type="email" placeholder="Email" formControlName="email">
-    <input type="text" placeholder="Region" name="region" formControlName="region">
-    <input type="text" placeholder="Home Town" name="homeTown" formControlName="homeTown">
 
-    <h3 *ngIf="!profileForm.valid" class="error-message">Please complete all fields</h3>
+    <div class="dropdown-wrapper">
+      <mat-select
+        (selectionChange)="regionChange($event)" aria-label="Region" placeholder="Region*" formControlName="region" required>
+        <mat-option *ngFor="let option of regions" [value]="option.name">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="arrow">expand_more</mat-icon>
+    </div>
 
-    <h4 class="blue terms">Terms of Use and Privacy Policy</h4>
+    <div class="dropdown-wrapper">
+      <mat-select
+        aria-label="Home Town" placeholder="Home Town*" formControlName="homeTown" required>
+        <mat-option *ngFor="let option of cities" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="arrow">expand_more</mat-icon>
+    </div>
 
-    <app-button color="pink" type="submit" [disabled]="!profileForm.valid">Update Profile</app-button>
-</form>
+    <h3 *ngIf="errorMessage" class="error-message">*Please complete all required fields</h3>
+
+    <a class="terms" [href]="termsLink" target="_blank">Terms of Use and Privacy Policy</a>
+
+    <br><br>
+
+    <app-button color="pink" type="submit" [disabled]="profileForm.pristine || !profileForm.valid" [value]="'Update Profile'"></app-button>
+  </form>
+
+  <div class="option-group" fxLayout="column">
+    <span class="skip" (click)="toMap()">
+      Take me to the map!
+    </span>
+  </div>
+
+</div>

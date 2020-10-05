@@ -27,5 +27,6 @@ namespace StemExplorerAPI.Models.ViewModels
         public Enums.AnswerType QuestionType { get; set; }
         public List<string> PossibleAnswers { get; set; }
         public List<string> Answer { get; set; }
+        public bool Complete { get; set; }
     }
 }

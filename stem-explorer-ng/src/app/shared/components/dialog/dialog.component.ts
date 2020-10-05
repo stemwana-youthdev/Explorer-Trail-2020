@@ -10,7 +10,7 @@ import { StemColorsService } from '../../services/stem-colors.service';
 export class DialogComponent implements OnInit {
 
   @Input() inverted: any;
-  @Input() color?: 'green'|'blue'|'orange'|'purple'|'pink';
+  @Input() color?: 'green'|'blue'|'orange'|'purple'|'pink'|'red';
   @Input() category?: Categories;
 
   constructor(

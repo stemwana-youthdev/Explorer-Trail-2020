@@ -2,15 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
+import { Profile } from 'src/app/shared/models/profile';
 import { Challenge, ChallengeLevel } from 'src/challenge/models/challenge';
 import { ChallengeApiService } from 'src/challenge/services/challenge-api.service';
 import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
+import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { LevelCompleted } from 'src/locations/store/locations.actions';
 
 @Component({
   selector: 'app-challenge-view',
@@ -25,15 +31,21 @@ export class ChallengeViewComponent implements OnInit {
 
   Colour = StemColours;
   Categories = Categories;
+  CategoryIcons = LargeCategoryIcons;
   Levels = Levels;
+  profile: Profile;
 
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private api: ChallengeApiService,
     private gtmService: GoogleTagManagerService,
+    private authService: AuthService,
+    private router: Router,
+    private store: Store,
   ) {
     this.challengeId = +this.route.snapshot.params['id'];
+    this.profile = JSON.parse(localStorage.getItem('profile'));
   }
 
   get currentLevelIsCompleted(): boolean {
@@ -47,6 +59,15 @@ export class ChallengeViewComponent implements OnInit {
   trackLevel(idx, item) {
     if (!item) { return null; }
     return idx;
+  }
+
+  /**
+   * Takes user back to map/list view when Back button is pressed.
+   */
+  back(): void {
+    this.router.navigateByUrl(
+      this.store.selectSnapshot(LastHomepageState.lastHomepage)
+    );
   }
 
   /**
@@ -89,14 +110,15 @@ export class ChallengeViewComponent implements OnInit {
     });
     this.gtmTag('answer attempt');
 
-    answerDialog.afterClosed().subscribe(response => {
+    answerDialog.afterClosed().subscribe(async (response) => {
       if (response !== undefined && response.length) {
-        const result = this.api.checkAnswer(this.selectedLevel, response);
+        const result = await this.api.checkAnswer(this.selectedLevel, response).toPromise();
 
         if (result) {
           this.markLevelCompleted();
         }
 
+        this.saveResult(result);
         this.resultsDialog(result);
         this.gtmTag(result ? 'answer correct' : 'answer wrong');
       }
@@ -111,25 +133,46 @@ export class ChallengeViewComponent implements OnInit {
   private markLevelCompleted(): void {
     const completed = {
       ...this.selectedLevel,
-      isCompleted: true
+      complete: true
     };
     const idx = this.challenge.challengeLevels.indexOf(this.selectedLevel);
 
     this.challenge.challengeLevels[idx] = completed;
     this.selectedLevel = completed;
+    // check if all levels are completed and add tag to GTM
+    if (idx === this.challenge.challengeLevels.length - 1) {
+      this.gtmTagWithoutLevel('challenge complete');
+    }
+  }
+
+  private async saveResult(result: boolean) {
+    if (this.profile) {
+      const token = JSON.parse(localStorage.getItem('token'));
+      await this.api
+        .levelCompleted(token, this.profile.id, this.selectedLevel.id, result)
+        .toPromise();
+      if (result) {
+        this.store.dispatch(
+          new LevelCompleted(this.selectedLevel.difficulty, this.challenge.id)
+        );
+      }
+    } else if (result) {
+      this.authService.recordGuestCompleted(this.selectedLevel.id);
+    }
   }
 
   /**
    * Loads the challenge and sets the selected level as the lowest.
-   * @todo set the selected level as the lowest not completed
    */
-  private loadChallenge(): void {
-    this.api.getChallenge(this.challengeId).pipe(
-      map(res => {
-        this.challenge = res;
-        this.selectedLevel = this.challenge.challengeLevels[0];
-      })
-    ).subscribe();
+  private async loadChallenge() {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const challenge = await this.api
+      .getChallenge(this.challengeId, token, this.profile?.id)
+      .toPromise();
+
+    this.challenge = challenge;
+    this.selectedLevel = challenge.challengeLevels.find((level) => !level.complete) ?? challenge.challengeLevels[0];
+    this.gtmTagWithoutLevel('successful QR scan');
   }
 
   /**
@@ -145,7 +188,7 @@ export class ChallengeViewComponent implements OnInit {
         title: this.challenge.title,
         category: this.challenge.category,
         isCorrect: success,
-        hasNextLevel: this.hasNextLevel()
+        hasNext: this.hasNextLevel()
       },
       panelClass: 'app-dialog'
     });
@@ -172,7 +215,7 @@ export class ChallengeViewComponent implements OnInit {
    */
   private hasNextLevel(): boolean {
     const idx = this.challenge.challengeLevels.indexOf(this.selectedLevel);
-    return (idx + 1 > this.challenge.challengeLevels.length);
+    return (idx + 1 >= this.challenge.challengeLevels.length);
   }
 
   /**
@@ -184,6 +227,17 @@ export class ChallengeViewComponent implements OnInit {
       event,
       challengeTitle: this.challenge.title,
       level: this.selectedLevel.difficulty
+    };
+    this.gtmService.pushTag(tag);
+  }
+
+  /**
+   * add tag to GTM on challenge complete
+   */
+  private gtmTagWithoutLevel(event: string): void {
+    const tag = {
+      event,
+      challengeTitle: this.challenge.title
     };
     this.gtmService.pushTag(tag);
   }

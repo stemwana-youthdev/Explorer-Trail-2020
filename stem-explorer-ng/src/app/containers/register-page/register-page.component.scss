@@ -1,37 +1,47 @@
 @use 'src/app/styles/variables' as *;
 
 .email-register-fields {
-    padding: 20px;
-    margin: 0 auto;
-    max-width: 768px;
-}
-
-input {
-    @include typeface-body;
-    font-size: inherit;
-    line-height: 36px;
-
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0.5rem 0 1rem;
-    padding: 0.5rem;
-
-    border: 2px solid tint(10%, $primary-black);
-    background-color: tint(5%, $primary-black);
-    border-radius: 0.5rem;
-    color: tint(80%, $primary-black);
-
-    outline: none;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 768px;
 }
 
 .error-message {
-    margin: 0;
-    position: relative;
-    top: -10px;
-    left: 5px;
-    color: $secondary-red;
+  margin: 0;
+  position: relative;
+  top: -10px;
+  color: $secondary-red;
 }
 
-.googleButton {
-    margin-top: 20px;
+.auth-button-group {
+  display: flex;
+  justify-content:  center;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .auth-button {
+    padding: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    font-family: $main-font;
+
+    width: 100%;
+    max-width: 450px !important;
+
+    &:last-of-type {
+      margin-top: 10px;
+    }
+
+    mat-icon {
+      margin-top: -3px;
+    }
+  }
+}
+
+.register-form {
+  margin-bottom: 20px;
+}
+
+.auth-title {
+    padding: 10px 0px 5px 0px;
 }

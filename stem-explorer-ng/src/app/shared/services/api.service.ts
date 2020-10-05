@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ConfigService } from 'src/app/config/config.service';
-import { Challenge } from '../../../challenge/models/challenge';
 import { ExternalContent } from '../models/external-content';
 import { User } from '../models/user';
 import { Progress } from '../models/progress';
 import { Profile } from '../models/profile';
 import { Observable } from 'rxjs';
+import { ConfigService } from 'src/app/core/config/config.service';
+import { Region } from '../models/region';
+import { Messages } from '../models/messages';
+import { FeaturedLocation } from '../models/featured-location';
 
 // With the api server running, go to
 // http://localhost:5000/swagger
@@ -26,10 +28,13 @@ export class ApiService {
    * Method to get any entities.
    * @param request the API request string, i.e. 'locations'
    */
-  getEntity(request: string): Observable<any> {
-    return this.http.get(
-      `${this.apiEndpoint}/${request}`
-    );
+  getEntity(request: string, token?: string): Observable<any> {
+    const headers: any = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return this.http.get(`${this.apiEndpoint}/${request}`, { headers });
   }
 
   getExternalContent() {
@@ -38,8 +43,22 @@ export class ApiService {
     );
   }
 
+  getFeaturedLocations() {
+    return this.http.get<FeaturedLocation[]>(
+      `${this.apiEndpoint}/Locations/Featured`
+    );
+  }
+
+  getRegions() {
+    return this.http.get<Region[]>('/assets/regions.json');
+  }
+
+  getMessages(): Observable<Messages> {
+    return this.http.get<Messages>('/assets/messages.json');
+  }
+
   validateAnswer(levelUid: number, answer: string) {
-    return this.http.post(
+    return this.http.post<boolean>(
       `${this.apiEndpoint}/ChallengeLevels/${levelUid}/ValidateAnswer`,
       JSON.stringify(answer),
       {
@@ -59,13 +78,15 @@ export class ApiService {
     );
   }
 
-  registerUser(token: string, userInfo: User) {
+  registerUser(token: string, profileInfo: Profile) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
     return this.http.post<User>(
       `${this.apiEndpoint}/User/RegisterUser`,
-      userInfo,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
+      profileInfo,
+      headers
     );
   }
 
@@ -102,12 +123,40 @@ export class ApiService {
     );
   }
 
-  getProfiles(token: string) {
-    return this.http.get<Profile[]>(
-      `${this.apiEndpoint}/Profiles`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
+  /** Profile Endpoints */
+
+  getProfile(token: string, userId: string) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    return this.http.get<Profile>(
+      `${this.apiEndpoint}/Profile?userId=${userId}`,
+      headers
+    );
+  }
+
+  createProfile(profile: Profile, token?: string) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    return this.http.post<Profile>(
+      `${this.apiEndpoint}/Profile`,
+      profile,
+      headers
+    );
+  }
+
+  updateProfile(token: string, profile: Profile) {
+    const headers = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    return this.http.put<Profile>(
+      `${this.apiEndpoint}/Profile/Update`,
+      profile,
+      headers
     );
   }
 }

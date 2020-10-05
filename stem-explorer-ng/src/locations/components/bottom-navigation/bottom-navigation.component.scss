@@ -1,0 +1,17 @@
+@import './../../../app/styles/variables';
+
+button.mat-fab {
+  background: tint(80%, #000);
+
+  position: fixed;
+  bottom: 1rem;
+  z-index: 1;
+
+  &.left {
+    left: 1rem;
+  }
+
+  &.right {
+    right: 1rem;
+  }
+}

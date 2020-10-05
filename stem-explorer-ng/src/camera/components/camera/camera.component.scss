@@ -1,0 +1,45 @@
+@import './../../../app/styles/variables';
+
+.mat-icon-button.close-camera {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 4rem;
+  height: 4rem;
+}
+
+.error-message {
+  color: $secondary-pink;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 70%;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.home-button {
+  position: fixed;
+  bottom: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+:host zxing-scanner::ng-deep video {
+  height: 100%;
+}
+:host zxing-scanner::ng-deep {
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin: 20px;
+  height: 80%;
+} 
+
+.camera-container {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}

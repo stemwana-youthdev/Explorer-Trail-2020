@@ -1,15 +1,15 @@
-﻿using StemExplorerAPI.Models.Entities;
+﻿using Newtonsoft.Json;
+using StemExplorerAPI.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Models.ViewModels
 {
     public class LocationDto
     {
-        [JsonPropertyName("uid")]
+        [JsonProperty("uid")]
         public int Id { get; set; }
         public string Name { get; set; }
         public string GooglePlaceId { get; set; }
@@ -19,25 +19,29 @@ namespace StemExplorerAPI.Models.ViewModels
         public string Phone { get; set; }
         public string Email { get; set; }
         public int ChallengeCount { get; set; }
+        public bool Featured { get; set; }
     }
 
     public class LocationPositionDto
     {
-        [JsonPropertyName("lat")]
         public double? Lat { get; set; }
-        [JsonPropertyName("lng")]
         public double? Lng { get; set; }
     }
 
     public class LocationChallenge
     {
-        [JsonPropertyName("challengeId")]
         public int ChallengeId { get; set; }
-        [JsonPropertyName("title")]
         public string ChallengeTitle { get; set; }
-        [JsonPropertyName("description")]
         public string ChallengeDescription { get; set; }
-        [JsonPropertyName("category")]
         public Enums.ChallengeCategories ChallengeCategory { get; set; }
+        public IEnumerable<LocationLevelDto> ChallengeLevels { get; set; }
+    }
+
+    public class LocationLevelDto
+    {
+        [JsonIgnore]
+        public int Id { get; set; }
+        public Enums.ChallengeDifficulty Difficulty { get; set; }
+        public bool Complete { get; set; }
     }
 }

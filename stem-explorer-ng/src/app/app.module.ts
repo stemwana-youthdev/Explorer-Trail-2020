@@ -1,28 +1,27 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { NgModule, ErrorHandler, APP_INITIALIZER } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import * as Sentry from '@sentry/angular';
+
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
-import { ConfigModule } from './config/config.module';
-import { CameraButtonComponent } from './containers/camera-button/camera-button.component';
-import { CameraComponent } from './containers/camera/camera.component';
-import { DrawerComponent } from './containers/drawer/drawer.component';
+import { ForgotPasswordComponent } from './containers/forgot-password/forgot-password.component';
 import { LoginPageComponent } from './containers/login-page/login-page.component';
+import { ProfilePhotoDialogComponent } from './containers/profile-photo-dialog/profile-photo-dialog.component';
+import { ProfileComponent } from './containers/profile/profile.component';
 import { RegisterPageComponent } from './containers/register-page/register-page.component';
-import { ToolbarComponent } from './containers/toolbar/toolbar.component';
 import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
-import { LocationsModule } from 'src/locations/locations.module';
-import { ProfileComponent } from './containers/profile/profile.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
 import { ChallengeModule } from 'src/challenge/challenge.module';
+import { LocationsModule } from 'src/locations/locations.module';
+import { FeaturedLocationsComponent } from './containers/featured-locations/featured-locations.component';
 
 @NgModule({
   declarations: [
@@ -30,19 +29,16 @@ import { ChallengeModule } from 'src/challenge/challenge.module';
     LoginPageComponent,
     RegisterPageComponent,
     SplashScreenComponent,
-    ToolbarComponent,
-    CameraComponent,
-    CameraButtonComponent,
-    DrawerComponent,
     ProfileComponent,
+    ForgotPasswordComponent,
+    ProfilePhotoDialogComponent,
+    FeaturedLocationsComponent,
   ],
   imports: [
-    GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
-    ConfigModule,
+    CoreModule,
     BrowserAnimationsModule,
-    ZXingScannerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
     StoreModule,
@@ -50,12 +46,30 @@ import { ChallengeModule } from 'src/challenge/challenge.module';
     MaterialModule,
     ReactiveFormsModule,
     LocationsModule,
-    ChallengeModule
+    ChallengeModule,
   ],
   entryComponents: [
     SplashScreenComponent,
   ],
   bootstrap: [AppComponent],
-  providers: [{provide: 'googleTagManagerId', useValue: 'GTM-W79HP9V'}]
+  providers: [
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: false,
+      }),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
+    { provide: 'googleTagManagerId', useValue: 'GTM-W79HP9V' },
+  ]
 })
 export class AppModule { }
