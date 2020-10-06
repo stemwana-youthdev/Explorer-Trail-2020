@@ -37,6 +37,7 @@ namespace StemExplorerAPI.Services
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
                     Complete = false,
+                    VideoEmbedUrl = l.VideoEmbedUrl,
                 })
                 .OrderBy(l => l.Difficulty)
                 .ToListAsync();
@@ -69,6 +70,7 @@ namespace StemExplorerAPI.Services
                     Answers = l.Answers,
                     ChallengeId = l.ChallengeId,
                     Hint = l.Hint,
+                    VideoEmbedUrl = l.VideoEmbedUrl,
                 })
                 .ToListAsync();
 

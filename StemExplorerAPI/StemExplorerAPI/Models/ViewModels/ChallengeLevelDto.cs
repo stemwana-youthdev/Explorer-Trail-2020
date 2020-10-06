@@ -21,5 +21,6 @@ namespace StemExplorerAPI.Models.ViewModels
         public int ChallengeId { get; set; }
         public string Hint { get; set; }
         public bool Complete { get; set; }
+        public string VideoEmbedUrl { get; set; }
     }
 }

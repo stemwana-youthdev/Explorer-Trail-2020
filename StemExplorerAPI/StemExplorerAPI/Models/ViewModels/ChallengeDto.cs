@@ -28,5 +28,6 @@ namespace StemExplorerAPI.Models.ViewModels
         public List<string> PossibleAnswers { get; set; }
         public List<string> Answer { get; set; }
         public bool Complete { get; set; }
+        public string VideoEmbedUrl { get; set; }
     }
 }
