@@ -1,5 +1,6 @@
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { QuestionType } from 'src/app/shared/enums/answer-type.enum';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 export interface Challenge {
     id: number;
@@ -20,4 +21,5 @@ export interface ChallengeLevel {
     answer: string[];
     possibleAnswers?: string[];
     complete?: boolean;
+    videoEmbedUrl: SafeResourceUrl;
 }
