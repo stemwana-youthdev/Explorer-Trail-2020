@@ -16,13 +16,11 @@ namespace StemExplorerAPI.Services
         private readonly StemExplorerContext _context;
         private readonly ILogger _logger;
         private readonly IProgressService _progressService;
-        private readonly IChallengeLevelService _challengeLevelService;
-        public ChallengeService(StemExplorerContext context, ILogger<ChallengeService> logger, IProgressService progressService, IChallengeLevelService challengeLevelService)
+        public ChallengeService(StemExplorerContext context, ILogger<ChallengeService> logger, IProgressService progressService)
         {
             _context = context;
             _logger = logger;
             _progressService = progressService;
-            _challengeLevelService = challengeLevelService;
         }
 
         public async Task<List<ChallengeDto>> GetChallenges(int? profileId)
