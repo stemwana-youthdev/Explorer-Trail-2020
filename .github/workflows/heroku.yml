@@ -1,4 +1,4 @@
-name: Heroku deploy CI
+name: Heroku deploy CI (QA)
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
     - '*'
 
 jobs:
-  build:
+  deploy-qa:
     runs-on: ubuntu-latest
 
     steps:

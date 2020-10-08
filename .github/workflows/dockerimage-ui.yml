@@ -17,7 +17,7 @@ on:
     - '!*.md'
 
 jobs:
-  build:
+  build-docker-ui:
     runs-on: ubuntu-latest
 
     steps:
