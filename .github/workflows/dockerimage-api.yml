@@ -3,7 +3,7 @@ name: API Docker Image CI
 on:
   push:
     branches:
-    - master
+    - develop
     paths:
     - 'StemExplorerAPI/**'
     - '!*.md'
@@ -11,7 +11,7 @@ on:
     - '*'
   pull_request:
     branches:
-    - master
+    - develop
     paths:
     - 'StemExplorerAPI/**'
     - '!*.md'

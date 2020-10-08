@@ -3,7 +3,7 @@ name: UI Docker Image CI
 on:
   push:
     branches:
-    - master
+    - develop
     paths:
     - 'stem-explorer-ng/**'
     - '!*.md'
@@ -11,7 +11,7 @@ on:
     - '*'
   pull_request:
     branches:
-    - master
+    - develop
     paths:
     - 'stem-explorer-ng/**'
     - '!*.md'
