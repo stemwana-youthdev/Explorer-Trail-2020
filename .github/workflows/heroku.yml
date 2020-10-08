@@ -2,8 +2,8 @@ name: Heroku deploy CI (QA)
 
 on:
   push:
-    tags:
-    - '*'
+    # tags:
+    # - '*'
 
 jobs:
   deploy-qa:
