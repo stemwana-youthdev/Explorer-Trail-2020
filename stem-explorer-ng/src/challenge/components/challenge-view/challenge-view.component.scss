@@ -14,8 +14,8 @@
 
 .challenge-header {
   border-color: tint(10%, $primary-black);
-  margin-left: -20px;
-  padding: 22px 0px 10px 20px;
+  box-sizing: border-box;
+  padding: 22px 0px 10px;
   top: 56px;
   width: 100%;
 }
@@ -53,6 +53,9 @@ app-form-field {
 @media only screen and (min-width: 768px) {
   .challenge-header {
     text-align: center;
+
+    margin: 0;
+    padding: 22px 4rem 10px;
   }
 }
 
