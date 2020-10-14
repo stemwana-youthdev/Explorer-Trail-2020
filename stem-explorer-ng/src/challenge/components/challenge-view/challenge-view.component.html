@@ -40,7 +40,9 @@
     <h4>Question</h4>
     <p>{{ selectedLevel.question }}</p>
   </ng-container>
-  
+
+  <iframe *ngIf="selectedLevel.videoEmbedUrl" class="level-video" width="560" height="315" [src]="selectedLevel.videoEmbedUrl" allowfullscreen></iframe>
+
   <h3 [class]="Colour[challenge.category] + ' center'" *ngIf="selectedLevel.complete">Awesome work! You've completed this level!</h3>
 
   <app-button

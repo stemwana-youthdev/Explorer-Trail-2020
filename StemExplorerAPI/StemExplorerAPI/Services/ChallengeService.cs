@@ -6,6 +6,7 @@ using StemExplorerAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Services
@@ -82,7 +83,8 @@ namespace StemExplorerAPI.Services
                             Answer = cl.Answers,
                             Hint = cl.Hint,
                             PossibleAnswers = cl.PossibleAnswers,
-                            QuestionType = cl.AnswerType
+                            QuestionType = cl.AnswerType,
+                            VideoEmbedUrl = cl.VideoEmbedUrl,
                         }).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
 
@@ -96,6 +98,17 @@ namespace StemExplorerAPI.Services
                     }
                 }
 
+                if (challenge != null)
+                {
+                    foreach (var level in challenge.ChallengeLevels)
+                    {
+                        if (level.VideoEmbedUrl == null)
+                        {
+                            level.VideoEmbedUrl = InferVideo(level);
+                        }
+                    }
+                }
+
                 return challenge;
             }
             catch (Exception ex)
@@ -103,6 +116,20 @@ namespace StemExplorerAPI.Services
                 _logger.LogError(ex.Message, ex);
                 throw;
             }
+        }
+
+        private string InferVideo(LevelsForChallenge level)
+            => InferVideo(level.Instructions) ?? InferVideo(level.Hint);
+        private string InferVideo(string text)
+        {
+            var youtubeUrl = new Regex(@"(youtube.com\/watch\?v=|youtu.be\/)([^ ]{11})", RegexOptions.Compiled);
+            var match = youtubeUrl.Match(text);
+            if (!match.Success)
+            {
+                return null;
+            }
+            var videoId = match.Groups[2];
+            return $"https://www.youtube-nocookie.com/embed/{videoId}";
         }
     }
 }

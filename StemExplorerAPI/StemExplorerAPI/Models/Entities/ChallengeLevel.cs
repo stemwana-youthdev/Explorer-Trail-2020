@@ -13,6 +13,7 @@ namespace StemExplorerAPI.Models.Entities
         public string Instructions { get; set; }
         public Enums.AnswerType AnswerType { get; set; }
         public string Hint { get; set; }
+        public string VideoEmbedUrl { get; set; }
 
         public List<string> PossibleAnswers { get; set; }
         public List<string> Answers { get; set; }
