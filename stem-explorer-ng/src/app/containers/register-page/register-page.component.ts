@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidationService } from 'src/app/shared/services/custom-validation.service';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { ConfigService } from 'src/app/core/config/config.service';
 
 @Component({
   selector: 'app-register-page',
@@ -13,6 +14,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 export class RegisterPageComponent {
   errorMessage = '';
   user: User;
+  termsLink: string;
 
   registerForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -26,7 +28,10 @@ export class RegisterPageComponent {
     public auth: AuthService,
     private router: Router,
     private customValidator: CustomValidationService,
-  ) { }
+    private configService: ConfigService,
+  ) {
+    this.termsLink = this.configService.get('TERMS_LINK');
+  }
 
   get emailError(): boolean {
     return this.registerForm.controls.email.hasError('email')
