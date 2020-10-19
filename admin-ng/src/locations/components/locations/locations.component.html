@@ -1,0 +1,6 @@
+<app-header [title]="'Locations'" [topButtons]="topButtons"></app-header>
+
+<app-table [data]="locations"
+  [table]="table"
+  selectable="true"
+  (selectRow)="openLocation($event)"></app-table>

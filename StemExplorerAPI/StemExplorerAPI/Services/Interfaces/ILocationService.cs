@@ -1,4 +1,5 @@
-﻿using StemExplorerAPI.Models.ViewModels;
+﻿using StemExplorerAPI.Models.Entities;
+using StemExplorerAPI.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace StemExplorerAPI.Services.Interfaces
         Task<List<LocationDto>> GetLocations(int? profileId);
         Task<LocationDto> GetLocationById(int locationId);
         Task<List<FeaturedLocationDto>> GetFeaturedLocations();
+        Task<int> AddLocation(LocationDto location);
+		Task<LocationDto> EditLocation(LocationDto location);
     }
 }

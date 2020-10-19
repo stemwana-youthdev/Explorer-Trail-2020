@@ -4,19 +4,31 @@ import { CommonModule } from '@angular/common';
 import { ConfigService } from './services/config.service';
 import { MaterialModule } from './material.module';
 import { TableComponent } from './components/table/table.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyMaterialModule,
   ],
   declarations: [
-    TableComponent
+    TableComponent,
+    HeaderComponent
   ],
   exports: [
     MaterialModule,
-    TableComponent
+    TableComponent,
+    HeaderComponent,
+    FormlyModule,
+    FormlyMaterialModule,
+    ReactiveFormsModule
   ],
   providers: [
     ConfigService,

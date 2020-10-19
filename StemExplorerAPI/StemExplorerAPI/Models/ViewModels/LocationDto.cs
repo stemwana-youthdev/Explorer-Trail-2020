@@ -20,21 +20,22 @@ namespace StemExplorerAPI.Models.ViewModels
         public string Email { get; set; }
         public int ChallengeCount { get; set; }
         public bool Featured { get; set; }
+        public string Address { get; set; }
     }
 
     public class LocationPositionDto
     {
-        public double? Lat { get; set; }
-        public double? Lng { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
     }
 
     public class LocationChallenge
     {
-        public int ChallengeId { get; set; }
-        public string ChallengeTitle { get; set; }
-        public string ChallengeDescription { get; set; }
-        public Enums.ChallengeCategories ChallengeCategory { get; set; }
-        public IEnumerable<LocationLevelDto> ChallengeLevels { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public Enums.ChallengeCategories Category { get; set; }
+        public IEnumerable<LocationLevelDto> Levels { get; set; }
     }
 
     public class LocationLevelDto

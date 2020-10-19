@@ -1,0 +1,4 @@
+<app-header [title]="'Challenges'" [topButtons]="topButtons"></app-header>
+
+<app-table [data]="challenges" [table]="table"
+  selectable="true" (selectRow)="openChallenge($event)"></app-table>

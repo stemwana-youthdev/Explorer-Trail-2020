@@ -1,0 +1,14 @@
+<div class="header-container">
+  <div class="header-text">
+    <h1>{{ title }}</h1>
+  </div>
+  <div class="button-container" *ngIf="topButtons">
+    <button mat-raised-button
+      *ngFor="let button of topButtons"
+      class="button"
+      [ngClass]="button.colour"
+      (click)="onClick(button.link)">
+      {{ button.label | uppercase }}
+    </button>
+  </div>
+</div>

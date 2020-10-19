@@ -1,4 +1,8 @@
 
+<div *ngFor="let link of links">
+  <button mat-raised-button class="button" (click)="navLink(link.path)">{{link.label}}</button>
+</div>
+
 <mat-card>
   <router-outlet></router-outlet>
 </mat-card>

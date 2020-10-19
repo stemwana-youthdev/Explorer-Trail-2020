@@ -1,0 +1,8 @@
+@import '../../../styles/variables';
+
+.selectable .mat-row {
+  &:hover {
+    cursor: pointer;
+    background-color: $secondary-light-orange;
+  }
+}

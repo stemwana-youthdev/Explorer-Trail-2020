@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Column, Table } from '../../models/table.model';
@@ -11,22 +11,29 @@ import { Column, Table } from '../../models/table.model';
 export class TableComponent implements OnInit {
   @Input() data: any;
   @Input() table: Table;
+  @Input() selectable: boolean;
   @ViewChild(MatSort) sort: MatSort;
+  @Output() selectRow = new EventEmitter<any>();
 
-  dataSource: MatTableDataSource<any[]>;
   displayedColumns = [];
   columns: Column[];
+
+  get dataSource(): MatTableDataSource<any[]> {
+    return new MatTableDataSource(this.data);
+  }
 
   constructor() {}
 
   ngOnInit(): void {
     this.setColumns();
-    console.warn(this.data)
-    this.dataSource = new MatTableDataSource(this.data);
   }
 
   setColumns(): void {
     this.columns = this.table.columns;
     this.columns.forEach(r => this.displayedColumns.push(r.columnDef));
+  }
+
+  clickRow(event): void {
+    this.selectRow.emit(event);
   }
 }

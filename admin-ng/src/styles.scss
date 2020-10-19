@@ -1,8 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import './app/styles/variables';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: $main-font; 
+}
 
 table {
   width: 100%;
+}
+
+.button {
+  padding: 5px 20px;
+  min-width: 150px;
+  margin-left: 10px;
+
+  &.pink {
+    background-color: $secondary-pink;
+    color: #fff;
+  }
+
+  &.light-blue {
+    background-color: $secondary-light-blue;
+  }
 }

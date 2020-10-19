@@ -1,17 +1,17 @@
 import { Challenge } from './challenges.model';
 
 export interface Location {
-  uid: number;
+  id: number;
   name: string;
+  address: string;
   position: Position;
-  googlePlaceId: string;
+  googlePlaceId?: string;
   link?: string;
   phone?: string;
   email?: string;
-  address?: string;
   locationChallenges?: Challenge[];
-  challengeCount: number;
-  featured: boolean;
+  challengeCount?: number;
+  featured?: boolean;
   featuredImage?: string;
   featuredText?: string;
   offerText?: string;

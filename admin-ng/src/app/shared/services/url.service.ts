@@ -12,12 +12,15 @@ export class UrlService {
 
   constructor(private config: ConfigService) {
     this.configDetail = config.getConfig();
-    console.warn(this.configDetail)
     // this.apiUrl = `${this.configDetail.api_url}`;
     this.apiUrl = `http://localhost:5000/api`;
   }
 
-  getLocations(): string {
+  locations(): string {
     return `${this.apiUrl}/Locations`;
+  }
+
+  challenges(): string {
+    return `${this.apiUrl}/challenges`;
   }
 }

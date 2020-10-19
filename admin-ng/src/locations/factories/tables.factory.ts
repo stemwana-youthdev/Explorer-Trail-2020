@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Table } from '../models/table.model';
+import { Table } from '../../app/shared/models/table.model';
 
 @Injectable({ providedIn: 'root' })
 export class TablesFactory {
@@ -32,6 +32,33 @@ export class TablesFactory {
           columnDef: 'featured',
           header: 'Featured',
           type: 'boolean'
+        }
+      ]
+    };
+  }
+
+  locationChallenges(): Table {
+    return {
+      columns: [
+        {
+          columnDef: 'title',
+          header: 'Title',
+          type: 'text'
+        },
+        {
+          columnDef: 'category',
+          header: 'Category',
+          type: 'category'
+        },
+        {
+          columnDef: 'description',
+          header: 'Description',
+          type: 'text'
+        },
+        {
+          columnDef: 'levels',
+          header: 'Levels',
+          type: 'levels'
         }
       ]
     };

@@ -1,6 +1,6 @@
 <div>
 
-  <table mat-table matSort [dataSource]="dataSource">
+  <table mat-table matSort [dataSource]="dataSource" [ngClass]="{'selectable': selectable}">
 
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.header}}</th>
@@ -22,7 +22,8 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="clickRow(row)"></tr>
     
   </table>
 

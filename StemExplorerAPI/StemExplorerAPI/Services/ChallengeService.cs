@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models;
+using StemExplorerAPI.Models.Entities;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 using System;
@@ -96,6 +97,37 @@ namespace StemExplorerAPI.Services
                     }
                 }
 
+                return challenge;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<int> AddChallenge(ChallengeDto newChallenge)
+        {
+            var challenge = new Challenge
+            {
+                Title = newChallenge.Title,
+                Category = newChallenge.Category,
+                Description = newChallenge.Description
+            };
+            _context.Challenges.Add(challenge);
+            await _context.SaveChangesAsync();
+            return challenge.Id;
+        }
+
+        public async Task<ChallengeDto> EditChallenge(ChallengeDto challenge)
+        {
+            try
+            {
+                var entity = await _context.Challenges.SingleOrDefaultAsync(c => c.Id == challenge.Id);
+                entity.Title = challenge.Title;
+                entity.Description = challenge.Description;
+                entity.Category = challenge.Category;
+                await _context.SaveChangesAsync();
                 return challenge;
             }
             catch (Exception ex)
