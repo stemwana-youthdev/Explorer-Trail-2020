@@ -63,14 +63,54 @@ namespace StemExplorerAPI.Controllers
 
         // POST: api/Challenge
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> AddChallenge([FromBody] ChallengeDto challenge)
         {
+            try
+            {
+                var challengeId = await _challengeService.AddChallenge(challenge);
+                return CreatedAtRoute("GetChallengeById", new { id = challengeId }, challenge);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // PUT: api/Challenge/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put([FromBody] ChallengeDto challengeDto)
         {
+            try
+            {
+                var challenge = await _challengeService.GetChallengeById(challengeDto.Id, null);
+                if (challengeDto == null)
+                {
+                    return NotFound();
+                }
+                return Ok(await _challengeService.EditChallenge(challengeDto));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+
+        }
+
+        // PUT: api/Challenge/add-location
+        [HttpPut("add-location")]
+        public async Task<IActionResult> AddLocationToChallenge(int challengeId, int locationId)
+        {
+            try
+            {
+                return Ok(await _challengeService.AddLocationToChallenge(challengeId, locationId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // DELETE: api/ApiWithActions/5

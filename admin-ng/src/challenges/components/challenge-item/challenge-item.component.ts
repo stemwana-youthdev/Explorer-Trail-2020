@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { Location } from 'src/app/shared/models/locations.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Challenge } from '../../../app/shared/models/challenges.model';
+import { Dropdown } from '../../../app/shared/models/dropdown.model';
 import { NavButton } from '../../../app/shared/models/nav-button.model';
 import { ChallengeFormsFactory } from '../../factories/forms.factory';
 
@@ -15,6 +18,8 @@ import { ChallengeFormsFactory } from '../../factories/forms.factory';
 export class ChallengeItemComponent implements OnInit {
   challenge: Challenge;
   challengeId: string;
+  location: Location;
+  locations: Dropdown[];
 
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
@@ -35,7 +40,8 @@ export class ChallengeItemComponent implements OnInit {
     activatedRoute: ActivatedRoute,
     formsFactory: ChallengeFormsFactory,
     private service: ApiService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.challengeId = activatedRoute.snapshot.params['id'];
     this.fields = formsFactory.challengeForm();
@@ -44,9 +50,9 @@ export class ChallengeItemComponent implements OnInit {
   ngOnInit(): void {
     if (this.challengeId) {
       this.getChallenge();
+      this.getLocationsDropdown();
     } else {
       this.challenge = {
-        id: null,
         title: '',
         description: '',
         category: null
@@ -67,6 +73,25 @@ export class ChallengeItemComponent implements OnInit {
   private getChallenge(): void {
     this.service.getChallenge(this.challengeId).subscribe(res => {
       this.challenge = res;
+      if (res.locationId) {
+        this.getLocation(res.locationId);
+      }
     });
+  }
+
+  private getLocation(id): void {
+    this.service.getLocation(id).subscribe(res => {
+      this.location = res;
+    });
+  }
+
+  private getLocationsDropdown(): void {
+    this.service.getLocationsDropdown().subscribe(res => {
+      this.locations = res;
+    });
+  }
+
+  saveLocation(e) {
+    console.warn('save location', e)
   }
 }

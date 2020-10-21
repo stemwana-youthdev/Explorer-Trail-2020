@@ -9,3 +9,5 @@
     [disabled]="!form.valid">
   SAVE</button>
 </form>
+
+<app-challenge-location [challengeId]="challengeId" [location]="location" (saveLocation)="saveLocation($event)"></app-challenge-location>

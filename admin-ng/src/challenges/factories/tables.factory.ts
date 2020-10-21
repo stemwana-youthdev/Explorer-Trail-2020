@@ -26,4 +26,36 @@ export class ChallengesTablesFactory {
       ]
     };
   }
+
+  selectLocationTable(): Table {
+    return {
+      columns: [
+        {
+          columnDef: 'name',
+          header: 'Location Name',
+          type: 'text'
+        },
+        {
+          columnDef: 'position',
+          header: 'Will show on map',
+          type: 'boolean'
+        },
+        {
+          columnDef: 'challengeCount',
+          header: '# of challenges',
+          type: 'text'
+        },
+        {
+          columnDef: 'goToLocation',
+          header: 'View Location Detail',
+          type: 'link'
+        },
+        {
+          columnDef: 'select',
+          header: 'Select Location',
+          type: 'checkbox'
+        }
+      ]
+    };
+  }
 }

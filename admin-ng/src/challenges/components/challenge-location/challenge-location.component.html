@@ -1,0 +1,16 @@
+<div *ngIf="location; else noLocation">
+  {{location.name}}
+</div>
+<ng-template #noLocation>
+  This challenge is not assigned to a location.
+</ng-template>
+
+<form [formGroup]="form">
+  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+
+  <button type="submit" mat-raised-button
+    class="button pink"
+    (click)="onSave()"
+    [disabled]="!form.valid">
+  SAVE</button>
+</form>

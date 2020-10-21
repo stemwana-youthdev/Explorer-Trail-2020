@@ -163,6 +163,27 @@ namespace StemExplorerAPI.Services
 			}
 		}
 
+		public async Task<List<Dropdown>> GetLocationDropdown()
+		{
+			try
+			{
+				var locations = await _context.Locations
+						.AsNoTracking()
+						.Select(l => new Dropdown
+						{
+							Label = l.Name,
+							Value = l.LocationId.ToString()
+						})
+						.ToListAsync();
+				return locations;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex.Message, ex);
+				throw;
+			}
+		}
+
 		public async Task<int> AddLocation(LocationDto newLocation)
 		{
 			var location = new Location

@@ -76,6 +76,21 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
+        // GET: api/Locations/Dropdown
+        [HttpGet("dropdown")]
+        public async Task<IActionResult> GetLocationDropdown()
+        {
+            try
+            {
+                return Ok(await _locationService.GetLocationDropdown());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
         // POST: api/Location
         [HttpPost]
         public async Task<IActionResult> AddLocationAsync([FromBody] LocationDto locationDto)

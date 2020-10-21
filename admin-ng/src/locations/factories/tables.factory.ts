@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Table } from '../../app/shared/models/table.model';
 
 @Injectable({ providedIn: 'root' })
-export class TablesFactory {
+export class LocationsTablesFactory {
   constructor() {}
 
   locationsTable(): Table {

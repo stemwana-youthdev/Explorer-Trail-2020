@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { Dropdown } from 'src/app/shared/models/dropdown.model';
 
 @Injectable({ providedIn: 'root' })
 export class ChallengeFormsFactory {
@@ -13,6 +14,7 @@ export class ChallengeFormsFactory {
   constructor() {}
 
   challengeForm(): FormlyFieldConfig[] {
+    const startDate = new Date(2020, 10, 1);
     return [
       {
         key: 'title',
@@ -41,6 +43,44 @@ export class ChallengeFormsFactory {
         templateOptions: {
           label: 'Description',
           required: true
+        }
+      },
+      {
+        fieldGroupClassName: 'row',
+        fieldGroup: [
+          {
+            key: 'startDate',
+            id: 'field_startDate',
+            type: 'datepicker',
+            templateOptions: {
+              label: 'Start Date',
+              description: 'Date from when the challenge will become active in the app',
+              required: true,
+            }
+          },
+          {
+            key: 'endDate',
+            id: 'field_endDate',
+            type: 'datepicker',
+            templateOptions: {
+              label: 'End Date',
+              description: 'Date from when the challenge will cease to be active in the app'
+            }
+          }
+        ]
+      }
+    ];
+  }
+
+  addLocationForm(dropdown: Dropdown[]): FormlyFieldConfig[] {
+    return [
+      {
+        key: 'id',
+        id: 'field_location',
+        type: 'select',
+        templateOptions: {
+          options: dropdown,
+          label: 'Select Location for this Challenge'
         }
       }
     ];

@@ -34,6 +34,8 @@ namespace StemExplorerAPI.Services
                         Id = c.Id,
                         Title = c.Title,
                         Description = c.Description,
+                        StartDate = c.StartDate,
+                        EndDate = c.EndDate,
                         Category = c.Category,
                         LocationId = c.LocationId,
                     }).ToListAsync();
@@ -72,6 +74,8 @@ namespace StemExplorerAPI.Services
                         Id = challenge.Id,
                         Title = challenge.Title,
                         Description = challenge.Description,
+                        StartDate = challenge.StartDate,
+                        EndDate = challenge.EndDate,
                         Category = challenge.Category,
                         LocationId = challenge.LocationId,
                         ChallengeLevels = challenge.ChallengeLevels.Select(cl => new LevelsForChallenge
@@ -112,7 +116,9 @@ namespace StemExplorerAPI.Services
             {
                 Title = newChallenge.Title,
                 Category = newChallenge.Category,
-                Description = newChallenge.Description
+                Description = newChallenge.Description,
+                StartDate = newChallenge.StartDate,
+                EndDate = newChallenge.EndDate
             };
             _context.Challenges.Add(challenge);
             await _context.SaveChangesAsync();
@@ -126,9 +132,27 @@ namespace StemExplorerAPI.Services
                 var entity = await _context.Challenges.SingleOrDefaultAsync(c => c.Id == challenge.Id);
                 entity.Title = challenge.Title;
                 entity.Description = challenge.Description;
+                entity.StartDate = challenge.StartDate;
+                entity.EndDate = challenge.EndDate;
                 entity.Category = challenge.Category;
                 await _context.SaveChangesAsync();
                 return challenge;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<int> AddLocationToChallenge(int challengeId, int locationId)
+        {
+            try
+            {
+                var entity = await _context.Challenges.SingleOrDefaultAsync(c => c.Id == challengeId);
+                entity.LocationId = locationId;
+                await _context.SaveChangesAsync();
+                return locationId;
             }
             catch (Exception ex)
             {

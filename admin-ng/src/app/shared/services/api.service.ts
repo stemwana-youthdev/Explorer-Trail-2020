@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Challenge } from '../models/challenges.model';
+import { Dropdown } from '../models/dropdown.model';
 import { Location } from '../models/locations.model';
 import { UrlService } from './url.service';
 
@@ -33,6 +34,11 @@ export class ApiService {
     return this.http.post<Location>(url, location);
   }
 
+  getLocationsDropdown(): Observable<Dropdown[]> {
+    const url = this.url.locations();
+    return this.http.get<Dropdown[]>(`${url}/dropdown`);
+  }
+
   getChallenges(): Observable<Challenge[]> {
     const url = this.url.challenges();
     return this.http.get<Challenge[]>(url);
@@ -51,5 +57,13 @@ export class ApiService {
   createChallenge(challenge: Challenge): Observable<Challenge> {
     const url = this.url.challenges();
     return this.http.post<Challenge>(url, challenge);
+  }
+
+  addLocation(challengeId: string, locationId): Observable<number> {
+    const url = this.url.challenges();
+    let params = new HttpParams();
+    params = params.append('challengeId', challengeId);
+    params = params.append('locationId', locationId);
+    return this.http.put<number>(`${url}/add-location`, null, { params });
   }
 }

@@ -12,5 +12,6 @@ namespace StemExplorerAPI.Services.Interfaces
         Task<ChallengeDto> GetChallengeById(int challengeId, int? profileId);
         Task<int> AddChallenge(ChallengeDto challenge);
         Task<ChallengeDto> EditChallenge(ChallengeDto challenge);
+        Task<int> AddLocationToChallenge(int challengeId, int locationId);
     }
 }

@@ -1,7 +1,7 @@
 import { QuestionType } from '../enums/question-type.enum';
 
 export interface Challenge {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   category: number;
