@@ -13,13 +13,17 @@ export interface Challenge {
 
 export interface ChallengeLevel {
     id: number;
-    question: string;
+    questionText: string;
+    questionImage?: string;
+    questionImageHelperText?: string;
     instructions: string;
+    instructionsImage?: string;
+    instructionsImageHelperText?: string;
     difficulty: Levels;
     hint: string;
     questionType: QuestionType;
     answer: string[];
     possibleAnswers?: string[];
     complete?: boolean;
-    videoEmbedUrl: SafeResourceUrl;
+    videoEmbedUrl?: SafeResourceUrl;
 }

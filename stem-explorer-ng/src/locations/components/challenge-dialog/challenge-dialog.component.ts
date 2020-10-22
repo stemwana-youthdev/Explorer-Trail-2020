@@ -4,6 +4,7 @@ import { Categories } from 'src/app/shared/enums/categories.enum';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 import { Router } from '@angular/router';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
@@ -20,6 +21,7 @@ export interface ChallengeDialogData {
 })
 export class ChallengeDialogComponent implements OnInit {
   Categories: any = Categories;
+  StemColours = StemColours;
   challenge: LocationChallenge;
 
   constructor(

@@ -13,6 +13,7 @@ namespace StemExplorerAPI.Models.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string GooglePlaceId { get; set; }
+        public string Address { get; set; }
         public LocationPositionDto Position { get; set; }
         public IEnumerable<LocationChallenge> LocationChallenges { get; set; }
         public string Link { get; set; }

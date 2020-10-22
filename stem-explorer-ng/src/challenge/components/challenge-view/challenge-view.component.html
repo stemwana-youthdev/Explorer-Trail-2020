@@ -37,8 +37,16 @@
       Instructions
     </h3>
     <p>{{ selectedLevel.instructions }}</p>
+    <span *ngIf="selectedLevel.instructionsImage">
+      <img class="image" [src]="selectedLevel.instructionsImage">
+      <p class="small">{{selectedLevel.instructionsImageHelperText}}</p>
+    </span>
     <h4>Question</h4>
-    <p>{{ selectedLevel.question }}</p>
+    <p>{{ selectedLevel.questionText }}</p>
+    <span *ngIf="selectedLevel.questionImage">
+      <img class="image" [src]="selectedLevel.questionImage">
+      <p class="small">{{selectedLevel.questionImageHelperText}}</p>
+    </span>
   </ng-container>
 
   <iframe *ngIf="selectedLevel.videoEmbedUrl" class="level-video" width="560" height="315" [src]="selectedLevel.videoEmbedUrl" allowfullscreen></iframe>

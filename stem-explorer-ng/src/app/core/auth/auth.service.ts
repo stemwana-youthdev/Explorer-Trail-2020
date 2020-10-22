@@ -23,7 +23,7 @@ export class AuthService {
   guestCompleted: number[] = [];
 
   actionCodeSettings = {
-    url: 'https://explorer-trial-ui.herokuapp.com/'
+    url: 'https://stemexplorertrail.nz/'
   };
 
   constructor(

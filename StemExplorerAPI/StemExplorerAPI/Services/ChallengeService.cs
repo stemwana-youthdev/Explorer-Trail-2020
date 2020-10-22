@@ -74,16 +74,20 @@ namespace StemExplorerAPI.Services
                         Description = challenge.Description,
                         Category = challenge.Category,
                         LocationId = challenge.LocationId,
-                        ChallengeLevels = challenge.ChallengeLevels.Select(cl => new LevelsForChallenge
+                        ChallengeLevels = challenge.ChallengeLevels.Select(cl => new ChallengeLevelDto
                         {
                             Id = cl.Id,
-                            Question = cl.QuestionText,
+                            QuestionText = cl.QuestionText,
+                            QuestionImage = cl.QuestionImage,
+                            QuestionImageHelperText = cl.QuestionImageHelperText,
                             Instructions = cl.Instructions,
+                            InstructionsImage = cl.InstructionsImage,
+                            InstructionsImageHelperText = cl.InstructionsImageHelperText,
                             Difficulty = cl.Difficulty,
-                            Answer = cl.Answers,
+                            Answers = cl.Answers,
                             Hint = cl.Hint,
                             PossibleAnswers = cl.PossibleAnswers,
-                            QuestionType = cl.AnswerType,
+                            AnswerType = cl.AnswerType,
                             VideoEmbedUrl = cl.VideoEmbedUrl,
                         }).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
@@ -118,7 +122,7 @@ namespace StemExplorerAPI.Services
             }
         }
 
-        private string InferVideo(LevelsForChallenge level)
+        private string InferVideo(ChallengeLevelDto level)
             => InferVideo(level.Instructions) ?? InferVideo(level.Hint);
         private string InferVideo(string text)
         {

@@ -7,12 +7,13 @@
 
     <app-challenge-progress [category]="challenge.challengeCategory" [levels]="challenge.challengeLevels"></app-challenge-progress>
 
+    <p class="location-name" [ngClass]="StemColours[challenge.challengeCategory]">{{data.location.name}}</p>
     <div class=contactInfo>
       <app-contact-info
-        *ngIf="data.location?.name"
+        *ngIf="data.location?.address"
         [category]="challenge.challengeCategory"
         icon="location_on"
-        [label]="data.location.name"
+        [label]="data.location.address"
         (click)="viewOnMap()"
         aria-label="Location address"
       ></app-contact-info>

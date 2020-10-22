@@ -33,6 +33,7 @@ namespace StemExplorerAPI.Services
                         Id = l.LocationId,
                         Name = l.Name,
                         GooglePlaceId = l.GooglePlaceId ?? null,
+                        Address = l.Address,
                         Position = new LocationPositionDto
                         {
                             Lat = l.Latitude ?? null,
