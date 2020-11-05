@@ -40,7 +40,7 @@ export class ChallengeApiService {
    * @param answer the user's answer attempt
    */
   checkAnswer(level: ChallengeLevel, answer: string) {
-    return this.api.validateAnswer(level.id, answer);
+    return this.api.validateAnswer(level.uid, answer);
   }
 
   levelCompleted(token: string, profileId: number, levelId: number, correct: boolean) {

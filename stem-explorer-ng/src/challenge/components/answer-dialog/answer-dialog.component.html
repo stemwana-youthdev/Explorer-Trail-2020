@@ -8,13 +8,13 @@
   </p>
 
   <h3>
-    <span *ngIf="data.level.questionType === QuestionType.Multichoice">Choose your </span>
+    <span *ngIf="data.level.answerType === AnswerType.Multichoice">Choose your </span>
     Answer
   </h3>
   
-  <ng-container [ngSwitch]="data.level.questionType">
+  <ng-container [ngSwitch]="data.level.answerType">
 
-    <span *ngSwitchCase="QuestionType.Multichoice" class="answer-list">
+    <span *ngSwitchCase="AnswerType.Multichoice" class="answer-list">
       <button *ngFor="let answer of data.level.possibleAnswers"
         mat-flat-button
         [mat-dialog-close]="answer"

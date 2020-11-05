@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { QuestionType } from 'src/app/shared/enums/answer-type.enum';
+import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 
@@ -17,7 +17,7 @@ export class AnswerDialogComponent {
   answer = new FormControl('');
 
   Levels: any = Levels;
-  QuestionType: any = QuestionType;
+  AnswerType: any = AnswerType;
   Colour = StemColours;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}

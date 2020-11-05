@@ -1,5 +1,5 @@
 import { Levels } from 'src/app/shared/enums/levels.enum';
-import { QuestionType } from 'src/app/shared/enums/answer-type.enum';
+import { AnswerType } from 'src/app/shared/enums/answer-type.enum';
 import { SafeResourceUrl } from '@angular/platform-browser';
 
 export interface Challenge {
@@ -12,7 +12,7 @@ export interface Challenge {
 }
 
 export interface ChallengeLevel {
-    id: number;
+    uid: number;
     questionText: string;
     questionImage?: string;
     questionImageHelperText?: string;
@@ -21,7 +21,7 @@ export interface ChallengeLevel {
     instructionsImageHelperText?: string;
     difficulty: Levels;
     hint: string;
-    questionType: QuestionType;
+    answerType: AnswerType;
     answer: string[];
     possibleAnswers?: string[];
     complete?: boolean;

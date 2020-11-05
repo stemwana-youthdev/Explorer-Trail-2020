@@ -149,7 +149,7 @@ export class ChallengeViewComponent implements OnInit {
     if (this.profile) {
       const token = JSON.parse(localStorage.getItem('token'));
       await this.api
-        .levelCompleted(token, this.profile.id, this.selectedLevel.id, result)
+        .levelCompleted(token, this.profile.id, this.selectedLevel.uid, result)
         .toPromise();
       if (result) {
         this.store.dispatch(
@@ -157,7 +157,7 @@ export class ChallengeViewComponent implements OnInit {
         );
       }
     } else if (result) {
-      this.authService.recordGuestCompleted(this.selectedLevel.id);
+      this.authService.recordGuestCompleted(this.selectedLevel.uid);
     }
   }
 
