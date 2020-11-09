@@ -14,7 +14,7 @@ INSERT INTO "ChallengeLevels" ("Id", "QuestionText", "QuestionImage",
         "PossibleAnswers", "Answers","Instructions", "InstructionsImage",
         "InstructionsImageHelperText", "Hint", "VideoEmbedUrl")
 VALUES 
-(1,'Convert the word CODE in Binary.',NULL,NULL,1,2,1,NULL,'{01000011 010001111 01000100 01000101}',
+(1,'Convert the word CODE in Binary.',NULL,NULL,1,2,1,NULL,'{01000011 01001111 01000100 01000101}',
         'Look at the image to help convert the word to binary','/assets/images/binary.png','The alphabet in binary. Image from: https://chandra.si.edu/binary/',
         'Another word for computer language',NULL),
 (2,'Why do you think these boats float even if they are heavy?',NULL,NULL,1,0,2,
