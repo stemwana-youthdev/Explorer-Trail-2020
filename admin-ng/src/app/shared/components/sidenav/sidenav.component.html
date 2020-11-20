@@ -1,0 +1,8 @@
+<div>
+  <ul>
+    <li *ngFor="let l of links" (click)="navClick(l.link)">
+      <mat-icon class="nav-icon">{{ l.icon }}</mat-icon>
+      {{ l.label }}
+    </li>
+  </ul>
+</div>

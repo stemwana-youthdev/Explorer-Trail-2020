@@ -11,6 +11,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { NavBarComponent } from './components/navbar/navbar.component';
+import { SideNavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   imports: [
@@ -26,6 +28,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
   declarations: [
     TableComponent,
     HeaderComponent,
+    NavBarComponent,
+    SideNavComponent
     // DatePickerComponent
   ],
   exports: [
@@ -37,6 +41,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     ReactiveFormsModule,
     MatNativeDateModule,
     FormlyMatDatepickerModule,
+    NavBarComponent,
+    SideNavComponent
   ],
   providers: [
     ConfigService,
