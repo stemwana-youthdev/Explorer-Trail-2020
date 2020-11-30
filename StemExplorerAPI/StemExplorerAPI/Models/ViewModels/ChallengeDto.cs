@@ -15,7 +15,7 @@ namespace StemExplorerAPI.Models.ViewModels
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Enums.ChallengeCategories Category { get; set; }
-        public int LocationId { get; set; }
+        public int? LocationId { get; set; }
         public IEnumerable<LevelsForChallenge> ChallengeLevels { get; set; }
     }
 
