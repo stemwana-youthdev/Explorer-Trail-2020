@@ -1,0 +1,8 @@
+<mat-card>
+  <h2>Links</h2>
+  <ul>
+    <li *ngFor="let link of links">
+      <a [href]="link.href">{{ link.name }}</a>
+    </li>
+  </ul>
+</mat-card>

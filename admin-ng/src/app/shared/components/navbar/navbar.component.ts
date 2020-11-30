@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,9 +13,15 @@ export class NavBarComponent {
     name: 'Louie'
   }
 
-  constructor() {}
+  constructor(
+    private router: Router,
+  ) {}
 
   openAccountInfo(): void {
     console.warn('This is going to do something one day');
+  }
+
+  goHome(): void {
+    this.router.navigateByUrl('/');
   }
 }
