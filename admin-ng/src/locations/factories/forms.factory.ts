@@ -65,7 +65,7 @@ export class FormsFactory {
       },
       {
         className: 'field-helper',
-        template: 'Get the google place ID <a href="">here</a>'
+        template: 'Get the google place ID <a href="https://developers.google.com/places/web-service/place-id" target="_blank">here</a>'
       },
       {
         className: 'section-header',
