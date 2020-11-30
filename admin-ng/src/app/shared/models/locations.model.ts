@@ -1,7 +1,7 @@
 import { Challenge } from './challenges.model';
 
 export interface Location {
-  id: number;
+  uid: number;
   name: string;
   address: string;
   position: Position;

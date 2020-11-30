@@ -52,7 +52,7 @@ export class LocationItemComponent implements OnInit {
       this.getLocation();
     } else {
       this.location = {
-        id: null,
+        uid: undefined,
         name: '',
         address: '',
         position: { lat: null, lng: null }
@@ -76,7 +76,7 @@ export class LocationItemComponent implements OnInit {
       console.warn('new location');
       this.service.createLocation(this.location).subscribe(res => {
         this.location = res;
-        this.router.navigate([`locations/${this.location.id}`]);
+        this.router.navigate([`locations/${this.location.uid}`]);
       });
     }
   }

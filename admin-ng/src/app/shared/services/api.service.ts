@@ -26,7 +26,7 @@ export class ApiService {
 
   updateLocation(location: Location): Observable<Location> {
     const url = this.url.locations();
-    return this.http.put<Location>(`${url}/${location.id}`, location);
+    return this.http.put<Location>(`${url}/${location.uid}`, location);
   }
 
   createLocation(location: Location): Observable<Location> {

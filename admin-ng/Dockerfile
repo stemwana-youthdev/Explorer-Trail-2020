@@ -1,18 +1,37 @@
-FROM node:14.5.0 AS build-env
+FROM node:10 AS build-stage
 
 ENV TERM=xterm
 ENV ROOT /var/www/app
 
-COPY . $ROOT    
-
 WORKDIR $ROOT
-RUN npm install --loglevel=warn && export PATH=$PATH:./node_modules/@angular/cli/bin && chmod +x ./node_modules/@angular/cli/bin/ng && npm run build
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+RUN npm run build -- --prod
+
+RUN gzip -k -r ./dist
+#RUN rm ./dist/admin-ng/env.js.gz
 
 #------------------------------------------------------
 
-FROM nginx:1.19-alpine-perl
+FROM nginx:1.17-alpine as runtime-stage
 ENV ROOT /var/www/app
 
-WORKDIR /var/www/build
-COPY --from=build-env $ROOT/dist $ROOT
-COPY --from=build-env $ROOT/nginx.conf /etc/nginx/conf.d/default.conf
+RUN apk add --no-cache gettext
+
+WORKDIR /var/www/html
+COPY --from=build-stage $ROOT/dist/admin-ng .
+
+WORKDIR /etc/nginx
+COPY --from=build-stage $ROOT/nginx .
+
+WORKDIR /var/www/src
+#COPY --from=build-stage $ROOT/env.js.template ./
+COPY --from=build-stage $ROOT/run.sh ./
+RUN chmod +x ./run.sh
+
+# start sever
+CMD ./run.sh

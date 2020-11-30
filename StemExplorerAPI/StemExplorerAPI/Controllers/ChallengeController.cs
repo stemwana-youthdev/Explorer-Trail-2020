@@ -40,7 +40,7 @@ namespace StemExplorerAPI.Controllers
         }
 
         // GET: api/Challenge/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetChallengeById")]
         public async Task<IActionResult> GetChallenge(int id, int? profileId)
         {
             try
@@ -68,6 +68,7 @@ namespace StemExplorerAPI.Controllers
             try
             {
                 var challengeId = await _challengeService.AddChallenge(challenge);
+                challenge.Id = challengeId;
                 return CreatedAtRoute("GetChallengeById", new { id = challengeId }, challenge);
             }
             catch (Exception ex)
