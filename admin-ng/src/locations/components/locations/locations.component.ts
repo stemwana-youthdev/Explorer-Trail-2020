@@ -44,6 +44,6 @@ export class LocationsComponent implements OnInit {
 
   openLocation(location: Location): any {
     console.warn(location);
-    return this.router.navigate([`locations/${location.id}`]);
+    return this.router.navigate([`locations/${location.uid}`]);
   }
 }
