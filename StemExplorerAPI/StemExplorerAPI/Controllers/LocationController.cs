@@ -40,7 +40,7 @@ namespace StemExplorerAPI.Controllers
         }
 
         // GET: api/Location/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetLocationById")]
         public async Task<IActionResult> GetLocation(int id)
         {
             try
@@ -98,6 +98,7 @@ namespace StemExplorerAPI.Controllers
             try
             {
                 var locationId = await _locationService.AddLocation(locationDto);
+                locationDto.Id = locationId;
                 return CreatedAtRoute("GetLocationById", new { id = locationId }, locationDto);
             }
             catch (Exception ex)
