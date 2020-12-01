@@ -14,6 +14,9 @@
               <mat-icon>highlight_off</mat-icon>
             </span>
           </span>
+          <span *ngSwitchCase="'category'">
+            {{Categories[element[column.columnDef]] || element[column.columnDef]}}
+          </span>
           <span *ngSwitchDefault>
             {{element[column.columnDef]}}
           </span>

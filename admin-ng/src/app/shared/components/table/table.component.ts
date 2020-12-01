@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Column, Table } from '../../models/table.model';
+import { Categories } from '../../models/categories.enum';
 
 @Component({
   selector: 'app-table',
@@ -17,6 +18,7 @@ export class TableComponent implements OnInit {
 
   displayedColumns = [];
   columns: Column[];
+  Categories = Categories;
 
   get dataSource(): MatTableDataSource<any[]> {
     return new MatTableDataSource(this.data);
