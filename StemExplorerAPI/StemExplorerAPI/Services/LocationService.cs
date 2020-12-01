@@ -172,7 +172,7 @@ namespace StemExplorerAPI.Services
 						.Select(l => new Dropdown
 						{
 							Label = l.Name,
-							Value = l.LocationId.ToString()
+							Value = l.LocationId,
 						})
 						.ToListAsync();
 				return locations;

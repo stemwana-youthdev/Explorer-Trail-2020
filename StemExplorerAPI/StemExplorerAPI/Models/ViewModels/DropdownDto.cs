@@ -8,6 +8,6 @@ namespace StemExplorerAPI.Models.ViewModels
 	public class Dropdown
 	{
         public string Label { get; set; }
-        public string Value { get; set; }
+        public int Value { get; set; }
 	}
 }

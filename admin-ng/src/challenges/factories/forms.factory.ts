@@ -75,14 +75,14 @@ export class ChallengeFormsFactory {
   addLocationForm(dropdown: Dropdown[]): FormlyFieldConfig[] {
     return [
       {
-        key: 'id',
+        key: 'locationId',
         id: 'field_location',
         type: 'select',
         templateOptions: {
-          options: dropdown,
-          label: 'Select Location for this Challenge'
-        }
-      }
+          options: [{ label: 'None', value: null }, ...dropdown],
+          label: 'Select Location for this Challenge',
+        },
+      },
     ];
   }
 }

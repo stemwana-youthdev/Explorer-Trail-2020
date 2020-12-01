@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { Challenge } from 'src/app/shared/models/challenges.model';
 import { Dropdown } from 'src/app/shared/models/dropdown.model';
 import { Location } from 'src/app/shared/models/locations.model';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -12,14 +13,13 @@ import { ChallengeFormsFactory } from 'src/challenges/factories/forms.factory';
   styleUrls: ['./challenge-location.component.scss']
 })
 export class ChallengeLocationComponent implements OnInit {
-  @Input() challengeId: string;
+  @Input() challenge: Challenge;
   @Input() location?: Location;
   @Output() saveLocation = new EventEmitter<any>();
 
   // dropdown: Dropdown[];
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
-  model = {};
 
   constructor(
     private service: ApiService,
@@ -31,7 +31,7 @@ export class ChallengeLocationComponent implements OnInit {
   }
 
   onSave(): void {
-    console.warn(this.model)
+    this.saveLocation.emit();
   }
 
   private getLocations(): void {

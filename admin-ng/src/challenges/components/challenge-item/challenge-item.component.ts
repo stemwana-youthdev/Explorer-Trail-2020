@@ -43,7 +43,7 @@ export class ChallengeItemComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog
   ) {
-    this.challengeId = activatedRoute.snapshot.params['id'];
+    this.challengeId = activatedRoute.snapshot.params.id;
     this.fields = formsFactory.challengeForm();
   }
 
@@ -63,6 +63,14 @@ export class ChallengeItemComponent implements OnInit {
   saveChallenge(): void {
     if (this.challengeId) {
       this.service.updateChallenge(this.challenge).subscribe();
+
+      if (this.challenge.locationId !== this.location?.uid) {
+        if (this.challenge.locationId) {
+          this.getLocation(this.challenge.locationId);
+        } else {
+          this.location = null;
+        }
+      }
     } else {
       this.service.createChallenge(this.challenge).subscribe(res => {
         this.router.navigate([`challenges/${res.id}`]);
@@ -89,9 +97,5 @@ export class ChallengeItemComponent implements OnInit {
     this.service.getLocationsDropdown().subscribe(res => {
       this.locations = res;
     });
-  }
-
-  saveLocation(e) {
-    console.warn('save location', e)
   }
 }

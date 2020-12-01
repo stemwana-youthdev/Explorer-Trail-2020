@@ -135,6 +135,7 @@ namespace StemExplorerAPI.Services
                 entity.StartDate = challenge.StartDate;
                 entity.EndDate = challenge.EndDate;
                 entity.Category = challenge.Category;
+                entity.LocationId = challenge.LocationId;
                 await _context.SaveChangesAsync();
                 return challenge;
             }
