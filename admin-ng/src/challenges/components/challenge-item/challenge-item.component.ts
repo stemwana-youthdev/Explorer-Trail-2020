@@ -13,7 +13,7 @@ import { ChallengeFormsFactory } from '../../factories/forms.factory';
 @Component({
   selector: 'app-challenge-item',
   templateUrl: './challenge-item.component.html',
-  styleUrls: ['./challenge-item.component.scss']
+  styleUrls: ['./challenge-item.component.scss'],
 })
 export class ChallengeItemComponent implements OnInit {
   challenge: Challenge;
@@ -24,7 +24,14 @@ export class ChallengeItemComponent implements OnInit {
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
 
+  deleteButton: NavButton = {
+    label: 'Delete',
+    onClick: () => this.deleteChallenge(),
+    colour: 'pink'
+  };
+
   topButtons: NavButton[] = [
+    this.deleteButton,
     {
       label: 'Back to Challenges',
       link: 'challenges',
@@ -44,6 +51,7 @@ export class ChallengeItemComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.challengeId = activatedRoute.snapshot.params.id;
+    this.deleteButton.disabled = !this.challengeId;
     this.fields = formsFactory.challengeForm();
   }
 
@@ -96,6 +104,12 @@ export class ChallengeItemComponent implements OnInit {
   private getLocationsDropdown(): void {
     this.service.getLocationsDropdown().subscribe(res => {
       this.locations = res;
+    });
+  }
+
+  private deleteChallenge(): void {
+    this.service.deleteChallenge(this.challengeId).subscribe(() => {
+      this.router.navigate(['challenges']);
     });
   }
 }

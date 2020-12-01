@@ -6,8 +6,9 @@
     <button mat-raised-button
       *ngFor="let button of topButtons"
       class="button"
+      [disabled]="button.disabled"
       [ngClass]="button.colour"
-      (click)="onClick(button.link)">
+      (click)="onClick(button)">
       {{ button.label | uppercase }}
     </button>
   </div>

@@ -161,5 +161,20 @@ namespace StemExplorerAPI.Services
                 throw;
             }
         }
+
+        public async Task DeleteChallenge(int challengeId)
+        {
+            try
+            {
+                var entity = await _context.Challenges.SingleOrDefaultAsync(c => c.Id == challengeId);
+                _context.Challenges.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
     }
 }

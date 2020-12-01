@@ -8,7 +8,6 @@ import { UrlService } from './url.service';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-
   constructor(
     private url: UrlService,
     private http: HttpClient,
@@ -65,5 +64,10 @@ export class ApiService {
     params = params.append('challengeId', challengeId);
     params = params.append('locationId', locationId);
     return this.http.put<number>(`${url}/add-location`, null, { params });
+  }
+
+  deleteChallenge(challengeId: string): Observable<any> {
+    const url = this.url.challenges();
+    return this.http.delete(`${url}/${challengeId}`);
   }
 }

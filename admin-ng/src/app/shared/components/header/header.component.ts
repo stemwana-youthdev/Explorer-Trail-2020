@@ -9,12 +9,16 @@ import { NavButton } from '../../../shared/models/nav-button.model';
 })
 export class HeaderComponent {
   @Input() title: string;
-  @Input() topButtons?: NavButton;
+  @Input() topButtons?: NavButton[];
 
   constructor(private router: Router) {}
 
-  onClick(link: string): void {
-    console.warn(link)
-    this.router.navigate([link]);
+  onClick(button: NavButton): void {
+    if (button.onClick) {
+      button.onClick();
+    }
+    if (button.link) {
+      this.router.navigate([button.link]);
+    }
   }
 }
