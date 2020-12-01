@@ -23,7 +23,14 @@ export class LocationItemComponent implements OnInit {
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
 
+  deleteButton: NavButton = {
+    label: 'Delete',
+    onClick: () => this.deleteLocation(),
+    colour: 'pink'
+  };
+
   topButtons: NavButton[] = [
+    this.deleteButton,
     {
       label: 'Back to Locations',
       link: 'locations',
@@ -42,7 +49,7 @@ export class LocationItemComponent implements OnInit {
     private tableFactory: LocationsTablesFactory,
     private router: Router
   ) {
-    this.locationId = this.activatedRoute.snapshot.params['id'];
+    this.locationId = this.activatedRoute.snapshot.params.id;
     this.challengeTable = this.tableFactory.locationChallenges();
     this.fields = this.formFactory.locationForm();
   }
@@ -85,6 +92,12 @@ export class LocationItemComponent implements OnInit {
     this.service.getLocation(this.locationId).subscribe(res => {
       this.location = res;
       this.challenges = res.locationChallenges;
+    });
+  }
+
+  private deleteLocation(): void {
+    this.service.deleteLocation(this.locationId).subscribe(() => {
+      this.router.navigate(['locations']);
     });
   }
 }

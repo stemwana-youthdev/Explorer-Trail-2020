@@ -227,12 +227,15 @@ namespace StemExplorerAPI.Services
 				throw;
 			}
 		}
-		public async Task DeleteLocation(LocationDto locationDto)
+		public async Task DeleteLocation(int locationId)
 		{
 			//TODO - check where this method is called from within the UI to determine what kind of Dto it should receive
 			try
 			{
-				var entity = await _context.Locations.SingleOrDefaultAsync(l => l.LocationId == locationDto.Id);
+				await _context.Challenges.Where(c => c.LocationId == locationId)
+					.ForEachAsync(c => { c.LocationId = null; });
+
+				var entity = await _context.Locations.SingleOrDefaultAsync(l => l.LocationId == locationId);
 				_context.Remove(entity);
 				await _context.SaveChangesAsync();
 			}

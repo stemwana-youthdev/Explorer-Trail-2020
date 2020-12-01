@@ -130,8 +130,18 @@ namespace StemExplorerAPI.Controllers
 
         // DELETE: api/Location/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                await _locationService.DeleteLocation(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
     }
 }

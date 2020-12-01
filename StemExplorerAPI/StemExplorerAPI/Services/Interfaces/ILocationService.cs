@@ -15,5 +15,6 @@ namespace StemExplorerAPI.Services.Interfaces
         Task<List<Dropdown>> GetLocationDropdown();
         Task<int> AddLocation(LocationDto location);
 		Task<LocationDto> EditLocation(LocationDto location);
+        Task DeleteLocation(int locationId);
     }
 }

@@ -70,4 +70,9 @@ export class ApiService {
     const url = this.url.challenges();
     return this.http.delete(`${url}/${challengeId}`);
   }
+
+  deleteLocation(locationId: string): Observable<any> {
+    const url = this.url.locations();
+    return this.http.delete(`${url}/${locationId}`);
+  }
 }
