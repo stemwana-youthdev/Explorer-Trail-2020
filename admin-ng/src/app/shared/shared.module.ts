@@ -13,6 +13,7 @@ import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { SideNavComponent } from './components/sidenav/sidenav.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { SideNavComponent } from './components/sidenav/sidenav.component';
     FormlyMaterialModule,
     MatNativeDateModule,
     FormlyMatDatepickerModule,
+    RouterModule,
   ],
   declarations: [
     TableComponent,
@@ -41,6 +43,7 @@ import { SideNavComponent } from './components/sidenav/sidenav.component';
     ReactiveFormsModule,
     MatNativeDateModule,
     FormlyMatDatepickerModule,
+    RouterModule,
     NavBarComponent,
     SideNavComponent
   ],

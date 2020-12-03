@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 interface Link {
-  href: string;
+  link: string[];
   name: string;
 }
 
@@ -12,7 +12,7 @@ interface Link {
 })
 export class DashboardComponent {
   links: Link[] = [
-    { href: '/locations', name: 'Locations' },
-    { href: '/challenges', name: 'Challenges' },
+    { link: ['/locations'], name: 'Locations' },
+    { link: ['/challenges'], name: 'Challenges' },
   ];
 }

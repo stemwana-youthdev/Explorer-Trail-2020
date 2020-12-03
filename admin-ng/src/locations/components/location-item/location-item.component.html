@@ -13,7 +13,7 @@
 
 <div *ngIf="locationId">
   <app-header [title]="'Challenges at this Location'"></app-header>
-  <p>Add a new challenge through the Challenge view</p>
+  <p>Add a new challenge through the <a [routerLink]="['/challenges']">Challenges view</a></p>
   <app-table [data]="challenges" [table]="challengeTable"
     selectable="true" (selectRow)="openChallenge($event)"></app-table>
 </div>
