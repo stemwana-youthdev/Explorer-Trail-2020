@@ -11,3 +11,9 @@
 </form>
 
 <app-challenge-location [challenge]="challenge" [location]="location" (saveLocation)="saveChallenge()"></app-challenge-location>
+
+<div *ngIf="challengeId">
+  <app-header [title]="'Levels for this Challenge'" [topButtons]="levelsButtons"></app-header>
+  <app-table [data]="challenge?.challengeLevels" [table]="levelsTable"
+    selectable="true" (selectRow)="openLevel($event)"></app-table>
+</div>

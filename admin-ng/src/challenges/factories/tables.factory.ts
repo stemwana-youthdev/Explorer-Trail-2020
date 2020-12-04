@@ -58,4 +58,13 @@ export class ChallengesTablesFactory {
       ]
     };
   }
+
+  levelsTable(): Table {
+    return {
+      columns: [
+        { columnDef: 'question', header: 'Question', type: 'text' },
+        { columnDef: 'difficulty', header: 'Difficulty', type: 'number' },
+      ],
+    };
+  }
 }

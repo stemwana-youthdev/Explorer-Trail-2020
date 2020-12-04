@@ -85,4 +85,19 @@ export class ChallengeFormsFactory {
       },
     ];
   }
+
+  levelForm(): FormlyFieldConfig[] {
+    return [
+      {
+        key: 'questionText',
+        id: 'field_question',
+        type: 'input',
+        templateOptions: {
+          label: 'Question Text',
+          maxLength: 150,
+          required: true,
+        },
+      },
+    ];
+  }
 }

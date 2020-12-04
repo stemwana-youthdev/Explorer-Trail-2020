@@ -23,4 +23,8 @@ export class UrlService {
   challenges(): string {
     return `${this.apiUrl}/challenges`;
   }
+
+  challengeLevels(): string {
+    return `${this.apiUrl}/challengeLevels`;
+  }
 }

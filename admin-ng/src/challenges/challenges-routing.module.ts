@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChallengeItemComponent } from './components/challenge-item/challenge-item.component';
+import { ChallengeLevelItemComponent } from './components/challenge-level-item/challenge-level-item.component';
 import { ChallengesComponent } from './components/challenges/challenges.component';
 
 const routes = [
@@ -12,6 +13,14 @@ const routes = [
   {
     path: ':id',
     component: ChallengeItemComponent
+  },
+  {
+    path: ':id/levels/create',
+    component: ChallengeLevelItemComponent
+  },
+  {
+    path: ':id/levels/:level',
+    component: ChallengeLevelItemComponent
   }
 ];
 

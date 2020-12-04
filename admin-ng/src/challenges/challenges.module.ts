@@ -5,6 +5,7 @@ import { ChallengesRoutingModule } from './challenges-routing.module';
 import { ChallengesComponent } from './components/challenges/challenges.component';
 import { ChallengeItemComponent } from './components/challenge-item/challenge-item.component';
 import { ChallengeLocationComponent } from './components/challenge-location/challenge-location.component';
+import { ChallengeLevelItemComponent } from './components/challenge-level-item/challenge-level-item.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ChallengeLocationComponent } from './components/challenge-location/chal
   declarations: [
     ChallengesComponent,
     ChallengeItemComponent,
+    ChallengeLevelItemComponent,
     ChallengeLocationComponent
   ],
 })

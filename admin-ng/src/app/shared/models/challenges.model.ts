@@ -5,7 +5,7 @@ export interface Challenge {
   title: string;
   description: string;
   category: number;
-  levels?: ChallengeLevel[];
+  challengeLevels?: ChallengeLevel[];
   locationId?: number;
 }
 

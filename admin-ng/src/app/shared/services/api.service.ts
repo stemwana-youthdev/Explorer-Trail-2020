@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ChallengeLevel } from '../models/challenge-level.model';
 import { Challenge } from '../models/challenges.model';
 import { Dropdown } from '../models/dropdown.model';
 import { Location } from '../models/locations.model';
@@ -46,6 +48,13 @@ export class ApiService {
   getChallenge(id: string): Observable<Challenge> {
     const url = this.url.challenges();
     return this.http.get<Challenge>(`${url}/${id}`);
+  }
+
+  getLevel(id: string): Observable<ChallengeLevel> {
+    const url = this.url.challengeLevels();
+    return this.http
+      .get<ChallengeLevel[]>(`${url}`)
+      .pipe(map((levels) => levels[0]));
   }
 
   updateChallenge(challenge: Challenge): Observable<Challenge> {

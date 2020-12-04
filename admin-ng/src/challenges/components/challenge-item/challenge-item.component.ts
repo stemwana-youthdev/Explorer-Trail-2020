@@ -4,8 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Location } from 'src/app/shared/models/locations.model';
+import { Table } from 'src/app/shared/models/table.model';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { Challenge } from '../../../app/shared/models/challenges.model';
+import { ChallengesTablesFactory } from 'src/challenges/factories/tables.factory';
+import { Challenge, ChallengeLevel } from '../../../app/shared/models/challenges.model';
 import { Dropdown } from '../../../app/shared/models/dropdown.model';
 import { NavButton } from '../../../app/shared/models/nav-button.model';
 import { ChallengeFormsFactory } from '../../factories/forms.factory';
@@ -23,6 +25,7 @@ export class ChallengeItemComponent implements OnInit {
 
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
+  levelsTable: Table;
 
   deleteButton: NavButton = {
     label: 'Delete',
@@ -39,6 +42,14 @@ export class ChallengeItemComponent implements OnInit {
     }
   ];
 
+  levelsButtons: NavButton[] = [
+    {
+      label: 'Add Level',
+      onClick: () => this.addLevel(),
+      colour: 'pink'
+    }
+  ];
+
   get title(): string {
     return this.challengeId ? this.challenge?.title : 'Create New Challenge';
   }
@@ -46,6 +57,7 @@ export class ChallengeItemComponent implements OnInit {
   constructor(
     activatedRoute: ActivatedRoute,
     formsFactory: ChallengeFormsFactory,
+    tablesFactory: ChallengesTablesFactory,
     private service: ApiService,
     private router: Router,
     public dialog: MatDialog
@@ -53,6 +65,7 @@ export class ChallengeItemComponent implements OnInit {
     this.challengeId = activatedRoute.snapshot.params.id;
     this.deleteButton.disabled = !this.challengeId;
     this.fields = formsFactory.challengeForm();
+    this.levelsTable = tablesFactory.levelsTable();
   }
 
   ngOnInit(): void {
@@ -84,6 +97,14 @@ export class ChallengeItemComponent implements OnInit {
         this.router.navigate([`challenges/${res.id}`]);
       });
     }
+  }
+
+  openLevel(level: ChallengeLevel): void {
+    this.router.navigate(['challenges', this.challengeId, 'levels', level.id]);
+  }
+
+  addLevel(): void {
+    this.router.navigate(['challenges', this.challengeId, 'levels', 'create']);
   }
 
   private getChallenge(): void {

@@ -1,0 +1,11 @@
+<app-header [title]="title" [topButtons]="topButtons"></app-header>
+
+<form [formGroup]="form">
+  <formly-form [form]="form" [fields]="fields" [model]="level"></formly-form>
+
+  <button type="submit" mat-raised-button
+    class="button pink"
+    (click)="saveLevel()"
+    [disabled]="!form.valid">
+  SAVE</button>
+</form>
