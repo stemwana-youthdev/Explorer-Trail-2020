@@ -58,6 +58,56 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddLevel([FromBody] ChallengeLevelDto level)
+        {
+            try
+            {
+                var levelId = await _challengeLevelService.AddLevel(level);
+                level.Id = levelId;
+                return CreatedAtRoute("GetLevelById", new { id = levelId }, level);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put([FromBody] ChallengeLevelDto level)
+        {
+            try
+            {
+                var existingLevel = await _challengeLevelService.GetLevelById(level.Id);
+                if (existingLevel == null)
+                {
+                    return NotFound();
+                }
+                return Ok(await _challengeLevelService.EditLevel(level));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _challengeLevelService.DeleteLevel(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
         [HttpPost("{id}/ValidateAnswer")]
         public async Task<bool> ValidateAnswer(int id, [FromBody] string givenAnswer)
         {

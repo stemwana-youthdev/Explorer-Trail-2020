@@ -116,6 +116,70 @@ namespace StemExplorerAPI.Services
             }
         }
 
+        public async Task<int> AddLevel(ChallengeLevelDto level)
+        {
+            try
+            {
+                var entity = new ChallengeLevel
+                {
+                    QuestionText = level.QuestionText,
+                    Difficulty = level.Difficulty,
+                    Instructions = level.Instructions,
+                    AnswerType = level.AnswerType,
+                    Hint = level.Hint,
+                    PossibleAnswers = level.PossibleAnswers,
+                    Answers = level.Answers,
+                    ChallengeId = level.ChallengeId,
+                };
+                _context.ChallengeLevels.Add(entity);
+                await _context.SaveChangesAsync();
+                return level.Id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<ChallengeLevelDto> EditLevel(ChallengeLevelDto level)
+        {
+            try
+            {
+                var entity = await _context.ChallengeLevels.SingleOrDefaultAsync(l => l.Id == level.Id);
+                entity.QuestionText = level.QuestionText;
+                entity.Difficulty = level.Difficulty;
+                entity.Instructions = level.Instructions;
+                entity.AnswerType = level.AnswerType;
+                entity.Hint = level.Hint;
+                entity.PossibleAnswers = level.PossibleAnswers;
+                entity.Answers = level.Answers;
+                entity.ChallengeId = level.ChallengeId;
+                await _context.SaveChangesAsync();
+                return level;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task DeleteLevel(int levelId)
+        {
+            try
+            {
+                var entity = await _context.ChallengeLevels.SingleOrDefaultAsync(l => l.Id == levelId);
+                _context.ChallengeLevels.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
         public async Task<bool> ValidateAnswer(int levelId, string givenAnswer)
         {
             var level = await _context.ChallengeLevels.SingleAsync(l => l.Id == levelId);

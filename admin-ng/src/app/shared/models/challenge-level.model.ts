@@ -1,7 +1,7 @@
 import { QuestionType } from '../enums/question-type.enum';
 
 export interface ChallengeLevel {
-  id: number;
+  uid: number;
   questionText: string;
   difficulty: number;
   instructions: string;

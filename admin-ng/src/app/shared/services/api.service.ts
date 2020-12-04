@@ -65,6 +65,16 @@ export class ApiService {
     return this.http.post<Challenge>(url, challenge);
   }
 
+  updateLevel(level: ChallengeLevel): Observable<ChallengeLevel> {
+    const url = this.url.challengeLevels();
+    return this.http.put<ChallengeLevel>(`${url}/${level.uid}`, level);
+  }
+
+  createLevel(level: ChallengeLevel): Observable<ChallengeLevel> {
+    const url = this.url.challengeLevels();
+    return this.http.post<ChallengeLevel>(url, level);
+  }
+
   addLocation(challengeId: string, locationId): Observable<number> {
     const url = this.url.challenges();
     let params = new HttpParams();
@@ -81,5 +91,10 @@ export class ApiService {
   deleteLocation(locationId: string): Observable<any> {
     const url = this.url.locations();
     return this.http.delete(`${url}/${locationId}`);
+  }
+
+  deleteLevel(levelId: string): Observable<any> {
+    const url = this.url.challengeLevels();
+    return this.http.delete(`${url}/${levelId}`);
   }
 }

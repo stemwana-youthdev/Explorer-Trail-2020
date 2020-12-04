@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { QuestionType } from 'src/app/shared/enums/question-type.enum';
 import { Location } from 'src/app/shared/models/locations.model';
 import { Table } from 'src/app/shared/models/table.model';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -61,11 +62,11 @@ export class ChallengeLevelItemComponent implements OnInit {
       this.getLevel();
     } else {
       this.level = {
-        id: null,
+        uid: undefined,
         questionText: '',
         instructions: '',
-        difficulty: null,
-        answerType: null,
+        difficulty: 1,
+        answerType: QuestionType.Text,
         possibleAnswers: [],
         answers: [],
         challengeId: +this.challengeId,
@@ -75,13 +76,12 @@ export class ChallengeLevelItemComponent implements OnInit {
   }
 
   saveLevel(): void {
-    console.warn(this.level);
     if (this.levelId) {
-      // this.service.updateLevel(this.level).subscribe();
+      this.service.updateLevel(this.level).subscribe();
     } else {
-      // this.service.createLevel(this.level).subscribe(res => {
-      //   this.router.navigate([`challenges/${this.challengeId}/levels/${res.id}`]);
-      // });
+      this.service.createLevel(this.level).subscribe(res => {
+        this.router.navigate([`challenges/${this.challengeId}/levels/${res.uid}`]);
+      });
     }
   }
 
@@ -92,9 +92,8 @@ export class ChallengeLevelItemComponent implements OnInit {
   }
 
   private deleteLevel(): void {
-    console.warn('test');
-    // this.service.deleteLevel(this.levelId).subscribe(() => {
-    //   this.router.navigate(['challenges', this.challengeId]);
-    // });
+    this.service.deleteLevel(this.levelId).subscribe(() => {
+      this.router.navigate(['challenges', this.challengeId]);
+    });
   }
 }

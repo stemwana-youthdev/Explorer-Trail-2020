@@ -11,6 +11,9 @@ namespace StemExplorerAPI.Services.Interfaces
         Task<List<ChallengeLevelDto>> GetLevels(int? profileId);
         Task<List<ChallengeLevelDto>> GetLevelsForChallenge(int challengeId, int? profileId);
         Task<ChallengeLevelDto> GetLevelById(int id);
+        Task<int> AddLevel(ChallengeLevelDto level);
+        Task<ChallengeLevelDto> EditLevel(ChallengeLevelDto level);
+        Task DeleteLevel(int id);
         Task<bool> ValidateAnswer(int levelId, string givenAnswer);
     }
 }
