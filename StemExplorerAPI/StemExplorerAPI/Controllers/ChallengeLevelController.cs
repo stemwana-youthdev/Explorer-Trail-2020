@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 
@@ -15,9 +16,11 @@ namespace StemExplorerAPI.Controllers
     public class ChallengeLevelController : ControllerBase
     {
         private readonly IChallengeLevelService _challengeLevelService;
+        private readonly ILogger _logger;
 
-        public ChallengeLevelController(IChallengeLevelService challengeLevelService)
+        public ChallengeLevelController(ILogger<LocationController> logger, IChallengeLevelService challengeLevelService)
         {
+            _logger = logger;
             _challengeLevelService = challengeLevelService;
         }
 
@@ -31,6 +34,27 @@ namespace StemExplorerAPI.Controllers
             else
             {
                 return await _challengeLevelService.GetLevels(profileId);
+            }
+        }
+
+        [HttpGet("{id}", Name="GetLevelById")]
+        public async Task<IActionResult> GetLevel(int id)
+        {
+            try
+            {
+                var level = await _challengeLevelService.GetLevelById(id);
+
+                if (level == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(level);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 

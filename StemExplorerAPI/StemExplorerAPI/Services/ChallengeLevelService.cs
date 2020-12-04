@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using StemExplorerAPI.Models;
 using StemExplorerAPI.Models.Entities;
 using StemExplorerAPI.Models.ViewModels;
@@ -16,10 +17,12 @@ namespace StemExplorerAPI.Services
     {
         private readonly StemExplorerContext _context;
         private readonly IProgressService _progressService;
-        public ChallengeLevelService(StemExplorerContext context, IProgressService progressService)
+        private readonly ILogger _logger;
+        public ChallengeLevelService(StemExplorerContext context, IProgressService progressService, ILogger<ChallengeLevelService> logger)
         {
             _context = context;
             _progressService = progressService;
+            _logger = logger;
         }
 
         public async Task<List<ChallengeLevelDto>> GetLevels(int? profileId)
@@ -83,6 +86,34 @@ namespace StemExplorerAPI.Services
             }
 
             return levels;
+        }
+
+        public async Task<ChallengeLevelDto> GetLevelById(int levelId)
+        {
+            try
+            {
+                var level = await _context.ChallengeLevels
+                    .AsNoTracking()
+                    .Where(l => l.Id == levelId)
+                    .Select(l => new ChallengeLevelDto
+                    {
+                        Id = l.Id,
+                        QuestionText = l.QuestionText,
+                        Difficulty = l.Difficulty,
+                        Instructions = l.Instructions,
+                        AnswerType = l.AnswerType,
+                        PossibleAnswers = l.PossibleAnswers,
+                        Answers = l.Answers,
+                        ChallengeId = l.ChallengeId,
+                        Hint = l.Hint,
+                    }).SingleOrDefaultAsync();
+                return level;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<bool> ValidateAnswer(int levelId, string givenAnswer)

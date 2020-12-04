@@ -52,9 +52,7 @@ export class ApiService {
 
   getLevel(id: string): Observable<ChallengeLevel> {
     const url = this.url.challengeLevels();
-    return this.http
-      .get<ChallengeLevel[]>(`${url}`)
-      .pipe(map((levels) => levels[0]));
+    return this.http.get<ChallengeLevel>(`${url}/${id}`);
   }
 
   updateChallenge(challenge: Challenge): Observable<Challenge> {
