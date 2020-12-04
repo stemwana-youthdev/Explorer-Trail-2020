@@ -205,5 +205,11 @@ VALUES (11,
 (74,'Single Level,pick one',1,0,40,'{answer a,option b,or pick the last one}','{answer a,option b,or pick the last one}','We forgot the create of great instruction text for testing so heres some cupcake ipsum. Cupcake ipsum dolor sit amet marshmallow. Topping lollipop bear claw danish jelly-o cheesecake. Dessert sweet roll donut cheesecake powder lemon drops. Gingerbread sweet soufflé.','Pick any of the options,they should all be correct!'),
 (75,'Single Level,pick one',1,0,41,'{answer a,option b,or pick the last one}','{answer a,option b,or pick the last one}','We forgot the create of great instruction text for testing so heres some cupcake ipsum. Cupcake ipsum dolor sit amet marshmallow. Topping lollipop bear claw danish jelly-o cheesecake. Dessert sweet roll donut cheesecake powder lemon drops. Gingerbread sweet soufflé.','Pick any of the options,they should all be correct!');
 
+ALTER SEQUENCE "Locations_LocationId_seq" RESTART WITH 101;
+ALTER SEQUENCE "Challenges_Id_seq" RESTART WITH 101;
+ALTER SEQUENCE "ChallengeLevels_Id_seq" RESTART WITH 101;
+ALTER SEQUENCE "ExternalContent_Id_seq" RESTART WITH 101;
 
 EOF
+
+# These last four lines tell EntityFramework to start new ids at 101 so that they don't overlap with example ids.
