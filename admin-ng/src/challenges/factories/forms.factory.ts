@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { QuestionType } from 'src/app/shared/enums/question-type.enum';
 import { Dropdown } from 'src/app/shared/models/dropdown.model';
 
 @Injectable({ providedIn: 'root' })
@@ -96,6 +97,66 @@ export class ChallengeFormsFactory {
           label: 'Question Text',
           maxLength: 150,
           required: true,
+        },
+      },
+      {
+        key: 'difficulty',
+        id: 'field_difficulty',
+        type: 'input',
+        templateOptions: {
+          label: 'Difficulty',
+          type: 'number',
+          min: 0,
+          max: 20,
+          step: 1,
+          required: true,
+        },
+      },
+      {
+        key: 'instructions',
+        id: 'field_instructions',
+        type: 'textarea',
+        templateOptions: {
+          label: 'Instructions',
+          required: true,
+          autosize: false,
+          rows: 5,
+        },
+      },
+      {
+        key: 'hint',
+        id: 'field_hint',
+        type: 'input',
+        templateOptions: {
+          label: 'Hint',
+          maxLength: 150,
+        },
+      },
+      {
+        key: 'answerType',
+        id: 'field_answer_type',
+        type: 'select',
+        templateOptions: {
+          label: 'Answer Type',
+          required: true,
+          options: [
+            {
+              value: QuestionType.Multichoice,
+              label: 'Multichoice',
+            },
+            {
+              value: QuestionType.Number,
+              label: 'Number',
+            },
+            {
+              value: QuestionType.Text,
+              label: 'Text',
+            },
+            {
+              value: QuestionType.Contains,
+              label: 'Contains',
+            },
+          ],
         },
       },
     ];

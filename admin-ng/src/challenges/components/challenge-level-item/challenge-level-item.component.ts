@@ -76,6 +76,7 @@ export class ChallengeLevelItemComponent implements OnInit {
   }
 
   saveLevel(): void {
+    this.level.difficulty = Math.floor(this.level.difficulty);
     if (this.levelId) {
       this.service.updateLevel(this.level).subscribe();
     } else {
