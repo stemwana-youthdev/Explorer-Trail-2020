@@ -1,8 +1,28 @@
-<mat-card>
+<mat-card class="wide">
   <h2>Links</h2>
-  <ul>
-    <li *ngFor="let link of links">
-      <a [routerLink]="link.link">{{ link.name }}</a>
-    </li>
-  </ul>
+  <mat-list>
+    <mat-list-item *ngFor="let link of links">
+      <a mat-flat-button [routerLink]="link.link">
+        <mat-icon>{{ link.icon }}</mat-icon>
+        {{ link.name }}
+      </a>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
+
+<mat-card>
+  <h2>Stats</h2>
+  <div *ngIf="stats">
+    <p>
+      {{ stats.challengeCount }}
+      challenges across
+      {{ stats.locationCount }}
+      locations
+    </p>
+    <p>
+      {{ stats.levelCount }}
+      levels with an average difficulty of
+      {{ stats.averageDifficulty.toFixed(1) }}
+    </p>
+  </div>
 </mat-card>

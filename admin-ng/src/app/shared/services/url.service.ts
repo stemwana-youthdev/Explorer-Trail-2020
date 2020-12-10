@@ -16,6 +16,10 @@ export class UrlService {
     this.apiUrl = `http://localhost:5000/api`;
   }
 
+  home(): string {
+    return `${this.apiUrl}/Home`;
+  }
+
   locations(): string {
     return `${this.apiUrl}/Locations`;
   }

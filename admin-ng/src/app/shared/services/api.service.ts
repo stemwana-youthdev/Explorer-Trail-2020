@@ -6,6 +6,7 @@ import { ChallengeLevel } from '../models/challenge-level.model';
 import { Challenge } from '../models/challenges.model';
 import { Dropdown } from '../models/dropdown.model';
 import { Location } from '../models/locations.model';
+import { Stats } from '../models/stats.model';
 import { UrlService } from './url.service';
 
 @Injectable({ providedIn: 'root' })
@@ -14,6 +15,11 @@ export class ApiService {
     private url: UrlService,
     private http: HttpClient,
   ) {}
+
+  getStats(): Observable<Stats> {
+    const url = this.url.home();
+    return this.http.get<Stats>(`${url}/Stats`);
+  }
 
   getLocations(): Observable<Location[]> {
     const url = this.url.locations();

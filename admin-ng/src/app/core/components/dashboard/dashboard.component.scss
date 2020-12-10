@@ -1,0 +1,17 @@
+.mat-flat-button mat-icon {
+  margin-right: 5px;
+}
+
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 3fr 2fr 3fr;
+
+    mat-card.wide {
+      grid-column: span 2;
+    }
+  }
+}
