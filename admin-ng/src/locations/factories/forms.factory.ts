@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Injectable({ providedIn: 'root' })
@@ -97,11 +97,56 @@ export class FormsFactory {
         }
       },
       {
+        className: 'section-header',
+        template: '<h3>Featured Details</h3>',
+      },
+      {
         key: 'featured',
         id: 'field_featured',
         type: 'checkbox',
         templateOptions: {
           label: 'Is Featured Location',
+        }
+      },
+      {
+        key: 'featuredImage',
+        id: 'field_featured_image',
+        type: 'input',
+        hideExpression: '!model.featured',
+        templateOptions: {
+          label: 'Featured Image URL',
+          type: 'url',
+        }
+      },
+      {
+        key: 'featuredText',
+        id: 'field_featured_text',
+        type: 'textarea',
+        hideExpression: '!model.featured',
+        templateOptions: {
+          label: 'Featured Text',
+          rows: 3,
+          autosize: false,
+        }
+      },
+      {
+        key: 'offerText',
+        id: 'field_offer_text',
+        type: 'textarea',
+        hideExpression: '!model.featured',
+        templateOptions: {
+          label: 'Offer Text',
+          autosize: false,
+        }
+      },
+      {
+        key: 'order',
+        id: 'field_order',
+        type: 'input',
+        hideExpression: '!model.featured',
+        templateOptions: {
+          label: 'Order in Featured Locations list',
+          type: 'number',
         }
       }
     ];

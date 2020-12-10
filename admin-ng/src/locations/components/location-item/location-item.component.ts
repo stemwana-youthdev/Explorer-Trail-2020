@@ -72,6 +72,11 @@ export class LocationItemComponent implements OnInit {
   }
 
   saveLocation(): void {
+    if (this.location.order) {
+      // Make sure that order is an int
+      this.location.order = Math.round(this.location.order);
+    }
+
     console.warn(this.location);
     if (this.locationId) {
       console.warn('has location');

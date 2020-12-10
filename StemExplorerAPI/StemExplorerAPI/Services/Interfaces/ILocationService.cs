@@ -10,11 +10,11 @@ namespace StemExplorerAPI.Services.Interfaces
     public interface ILocationService
     {
         Task<List<LocationDto>> GetLocations(int? profileId);
-        Task<LocationDto> GetLocationById(int locationId);
+        Task<FullLocationDto> GetLocationById(int locationId);
         Task<List<FeaturedLocationDto>> GetFeaturedLocations();
         Task<List<Dropdown>> GetLocationDropdown();
-        Task<int> AddLocation(LocationDto location);
-		Task<LocationDto> EditLocation(LocationDto location);
+        Task<int> AddLocation(FullLocationDto location);
+		Task<LocationDto> EditLocation(FullLocationDto location);
         Task DeleteLocation(int locationId);
     }
 }

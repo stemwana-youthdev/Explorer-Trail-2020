@@ -23,6 +23,14 @@ namespace StemExplorerAPI.Models.ViewModels
         public string Address { get; set; }
     }
 
+    public class FullLocationDto : LocationDto
+    {
+        public string FeaturedImage { get; set; }
+        public string FeaturedText { get; set; }
+        public string OfferText { get; set; }
+        public int? Order { get; set; }
+    }
+
     public class LocationPositionDto
     {
         public double Lat { get; set; }

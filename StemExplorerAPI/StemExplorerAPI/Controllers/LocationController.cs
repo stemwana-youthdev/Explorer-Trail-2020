@@ -93,7 +93,7 @@ namespace StemExplorerAPI.Controllers
 
         // POST: api/Location
         [HttpPost]
-        public async Task<IActionResult> AddLocationAsync([FromBody] LocationDto locationDto)
+        public async Task<IActionResult> AddLocationAsync([FromBody] FullLocationDto locationDto)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace StemExplorerAPI.Controllers
 
         // PUT: api/Location/1
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromBody] LocationDto locationDto)
+        public async Task<IActionResult> Put([FromBody] FullLocationDto locationDto)
         {
             try
             {

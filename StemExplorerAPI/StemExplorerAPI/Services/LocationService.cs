@@ -88,14 +88,14 @@ namespace StemExplorerAPI.Services
 			}
 		}
 
-		public async Task<LocationDto> GetLocationById(int locationId)
+		public async Task<FullLocationDto> GetLocationById(int locationId)
 		{
 			try
 			{
 				return await _context.Locations
 					.AsNoTracking()
 					.Where(l => l.LocationId == locationId)
-					.Select(location => new LocationDto
+					.Select(location => new FullLocationDto
 					{
 						Id = location.LocationId,
 						Name = location.Name,
@@ -116,6 +116,10 @@ namespace StemExplorerAPI.Services
 						Link = location.Url,
 						ChallengeCount = location.Challenges.Count(),
 						Featured = location.Featured,
+						FeaturedImage = location.FeaturedImage,
+						FeaturedText = location.FeaturedText,
+						OfferText = location.OfferText,
+						Order = location.Order,
 					}).SingleOrDefaultAsync();
 			}
 			catch (Exception ex)
@@ -184,7 +188,7 @@ namespace StemExplorerAPI.Services
 			}
 		}
 
-		public async Task<int> AddLocation(LocationDto newLocation)
+		public async Task<int> AddLocation(FullLocationDto newLocation)
 		{
 			var location = new Location
 			{
@@ -196,14 +200,18 @@ namespace StemExplorerAPI.Services
 				Url = newLocation.Link ?? null,
 				Phone = newLocation.Phone ?? null,
 				Email = newLocation.Email ?? null,
-				Featured = newLocation.Featured
+				Featured = newLocation.Featured,
+				FeaturedImage = newLocation.FeaturedImage,
+				FeaturedText = newLocation.FeaturedText,
+				OfferText = newLocation.OfferText,
+				Order = newLocation.Order ?? 0,
 			};
 			_context.Locations.Add(location);
 			await _context.SaveChangesAsync();
 			return location.LocationId;
 		}
 
-		public async Task<LocationDto> EditLocation(LocationDto locationDto)
+		public async Task<LocationDto> EditLocation(FullLocationDto locationDto)
 		{
 			//TODO - check where this method is called from within the UI to determine what kind of Dto it should receive
 			try
@@ -218,6 +226,10 @@ namespace StemExplorerAPI.Services
 				entity.Phone = locationDto.Phone;
 				entity.Email = locationDto.Email;
 				entity.Featured = locationDto.Featured;
+				entity.FeaturedImage = locationDto.FeaturedImage;
+				entity.FeaturedText = locationDto.FeaturedText;
+				entity.OfferText = locationDto.OfferText;
+				entity.Order = locationDto.Order ?? 0;
 				await _context.SaveChangesAsync();
 				return locationDto;
 			}
