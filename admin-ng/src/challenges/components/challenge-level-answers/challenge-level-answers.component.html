@@ -1,0 +1,27 @@
+<app-header title="Edit Answers" [topButtons]="topButtons"></app-header>
+
+<ng-container [ngSwitch]="level?.answerType">
+  <p *ngSwitchCase="QuestionType.Multichoice">
+    The following answers will be shown. Select which ones are correct.
+  </p>
+  <p *ngSwitchCase="QuestionType.Contains">
+    An answer containing any of the following will be marked as correct.
+  </p>
+  <p *ngSwitchDefault>
+    Any of the following answers will be marked as correct.
+  </p>
+</ng-container>
+
+<mat-list>
+  <mat-list-item *ngFor="let answer of answers">
+    <button mat-icon-button (click)="delete(answer)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <mat-checkbox *ngIf="level?.answerType === QuestionType.Multichoice" [(ngModel)]="answer.correct"></mat-checkbox>
+    <mat-form-field>
+      <input matInput [type]="level?.answerType === QuestionType.Number ? 'number' : 'text'" [(ngModel)]="answer.answer" placeholder="Answer">
+    </mat-form-field>
+  </mat-list-item>
+</mat-list>
+
+<button mat-raised-button class="button pink" (click)="onSave()">Save</button>

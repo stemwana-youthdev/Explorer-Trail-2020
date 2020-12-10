@@ -8,7 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 // import { DatePickerComponent } from './components/datepicker/datepicker.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NavBarComponent } from './components/navbar/navbar.component';
@@ -26,6 +26,7 @@ import { RouterModule } from '@angular/router';
     MatNativeDateModule,
     FormlyMatDatepickerModule,
     RouterModule,
+    FormsModule,
   ],
   declarations: [
     TableComponent,
@@ -44,6 +45,7 @@ import { RouterModule } from '@angular/router';
     MatNativeDateModule,
     FormlyMatDatepickerModule,
     RouterModule,
+    FormsModule,
     NavBarComponent,
     SideNavComponent
   ],

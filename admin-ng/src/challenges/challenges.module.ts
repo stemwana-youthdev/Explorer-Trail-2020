@@ -6,6 +6,7 @@ import { ChallengesComponent } from './components/challenges/challenges.componen
 import { ChallengeItemComponent } from './components/challenge-item/challenge-item.component';
 import { ChallengeLocationComponent } from './components/challenge-location/challenge-location.component';
 import { ChallengeLevelItemComponent } from './components/challenge-level-item/challenge-level-item.component';
+import { ChallengeLevelAnswersComponent } from './components/challenge-level-answers/challenge-level-answers.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ChallengeLevelItemComponent } from './components/challenge-level-item/c
     ChallengesComponent,
     ChallengeItemComponent,
     ChallengeLevelItemComponent,
+    ChallengeLevelAnswersComponent,
     ChallengeLocationComponent
   ],
 })

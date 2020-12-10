@@ -9,3 +9,5 @@
     [disabled]="!form.valid">
   SAVE</button>
 </form>
+
+<app-challenge-level-answers [level]="level" (saveAnswers)="saveLevel()"></app-challenge-level-answers>
