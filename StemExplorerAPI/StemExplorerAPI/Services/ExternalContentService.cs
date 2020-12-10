@@ -29,6 +29,17 @@ namespace StemExplorerAPI.Services
             }).OrderBy(c => c.Order).ToListAsync();
         }
 
+        public async Task<ExternalContentDto> GetContent(int id)
+        {
+            return await _context.ExternalContent.Select(c => new ExternalContentDto
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Url = c.Url,
+                Order = c.Order,
+            }).Where(c => c.Id == id).FirstOrDefaultAsync();
+        }
+
         public async Task InsertContent(ExternalContentDto newContent)
         {
             _context.ExternalContent.Add(new ExternalContent

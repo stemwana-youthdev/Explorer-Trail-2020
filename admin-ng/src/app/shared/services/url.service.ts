@@ -31,4 +31,8 @@ export class UrlService {
   challengeLevels(): string {
     return `${this.apiUrl}/challengeLevels`;
   }
+
+  externalContent(): string {
+    return `${this.apiUrl}/externalContent`;
+  }
 }

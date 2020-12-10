@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ChallengeLevel } from '../models/challenge-level.model';
 import { Challenge } from '../models/challenges.model';
 import { Dropdown } from '../models/dropdown.model';
+import { ExternalContent } from '../models/external-content.model';
 import { Location } from '../models/locations.model';
 import { Stats } from '../models/stats.model';
 import { UrlService } from './url.service';
@@ -102,5 +102,30 @@ export class ApiService {
   deleteLevel(levelId: string): Observable<any> {
     const url = this.url.challengeLevels();
     return this.http.delete(`${url}/${levelId}`);
+  }
+
+  getExternalContent(): Observable<ExternalContent[]> {
+    const url = this.url.externalContent();
+    return this.http.get<ExternalContent[]>(url);
+  }
+
+  getExternalContentItem(itemId: string): Observable<ExternalContent> {
+    const url = this.url.externalContent();
+    return this.http.get<ExternalContent>(`${url}/${itemId}`);
+  }
+
+  createExternalContent(item: ExternalContent): Observable<ExternalContent> {
+    const url = this.url.externalContent();
+    return this.http.post<ExternalContent>(url, item);
+  }
+
+  updateExternalContent(item: ExternalContent): Observable<ExternalContent> {
+    const url = this.url.externalContent();
+    return this.http.put<ExternalContent>(`${url}/${item.uid}`, item);
+  }
+
+  deleteExternalContent(itemId: string): Observable<any> {
+    const url = this.url.externalContent();
+    return this.http.delete(`${url}/${itemId}`);
   }
 }

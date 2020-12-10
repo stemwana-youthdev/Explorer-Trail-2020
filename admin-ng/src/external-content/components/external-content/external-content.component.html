@@ -1,0 +1,6 @@
+<app-header [title]="'External Content'" [topButtons]="topButtons"></app-header>
+
+<app-table [data]="externalContent"
+  [table]="table"
+  selectable="true"
+  (selectRow)="openExternalContentItem($event)"></app-table>

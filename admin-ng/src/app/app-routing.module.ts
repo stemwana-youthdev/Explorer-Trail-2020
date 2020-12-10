@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'challenges',
     loadChildren: () => import('../challenges/challenges.module').then(m => m.ChallengesModule)
   },
+  {
+    path: 'external-content',
+    loadChildren: () => import('../external-content/external-content.module').then(m => m.ExternalContentModule)
+  },
 ];
 
 @NgModule({

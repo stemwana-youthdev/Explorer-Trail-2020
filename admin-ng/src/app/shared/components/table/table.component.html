@@ -17,6 +17,11 @@
           <span *ngSwitchCase="'category'">
             {{Categories[element[column.columnDef]] || element[column.columnDef]}}
           </span>
+          <span *ngSwitchCase="'url'">
+            <a [href]="element[column.columnDef]" target="_blank">
+              {{element[column.columnDef]}}
+            </a>
+          </span>
           <span *ngSwitchDefault>
             {{element[column.columnDef]}}
           </span>

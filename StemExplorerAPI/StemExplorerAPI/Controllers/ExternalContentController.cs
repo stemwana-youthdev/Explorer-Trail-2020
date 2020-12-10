@@ -26,6 +26,12 @@ namespace StemExplorerAPI.Controllers
             return await _externalContentService.GetContent();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ExternalContentDto> GetItem(int id)
+        {
+            return await _externalContentService.GetContent(id);
+        }
+
         [HttpPost]
         public async Task Post([FromBody] ExternalContentDto newContent)
         {

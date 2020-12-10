@@ -9,6 +9,7 @@ namespace StemExplorerAPI.Services.Interfaces
     public interface IExternalContentService
     {
         Task<List<ExternalContentDto>> GetContent();
+        Task<ExternalContentDto> GetContent(int id);
         Task InsertContent(ExternalContentDto newContent);
         Task UpdateContent(int id, ExternalContentDto newContent);
         Task DeleteContent(int id);
