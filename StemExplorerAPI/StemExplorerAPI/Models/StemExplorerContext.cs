@@ -25,6 +25,7 @@ namespace StemExplorerAPI.Models
         internal DbSet<User> Users { get; set; }
         internal DbSet<Progress> Progress { get; set; }
         internal DbSet<Profile> Profiles { get; set; }
+        internal DbSet<Admin> Admins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,7 +44,7 @@ namespace StemExplorerAPI.Models
             modelBuilder.Entity<Progress>()
                 .HasIndex(c => new { c.ProfileId, c.ChallengeLevelId })
                 .IsUnique();
-            
+
             base.OnModelCreating(modelBuilder);
         }
     }

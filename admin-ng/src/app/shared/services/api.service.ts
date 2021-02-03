@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { ChallengeLevel } from '../models/challenge-level.model';
 import { Challenge } from '../models/challenges.model';
 import { Dropdown } from '../models/dropdown.model';
@@ -14,7 +16,24 @@ export class ApiService {
   constructor(
     private url: UrlService,
     private http: HttpClient,
+    private auth: AuthService
   ) {}
+
+  withAuth<T>(cb: (Authorization: string) => Observable<T>): Observable<T> {
+    return this.auth.token.pipe(
+      take(1),
+      switchMap((token) => cb(`Bearer ${token}`))
+    );
+  }
+
+  getIsAdmin(): Observable<boolean> {
+    const url = this.url.admin();
+    return this.withAuth<boolean>((Authorization) => {
+      return this.http.get<boolean>(`${url}/UserIsAdmin`, {
+        headers: { Authorization },
+      });
+    });
+  }
 
   getStats(): Observable<Stats> {
     const url = this.url.home();

@@ -21,6 +21,7 @@ namespace StemExplorerAPI
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IFirebaseTokenService, FirebaseTokenService>();
             services.AddScoped<IStatsService, StatsService>();
+            services.AddScoped<IAdminService, AdminService>();
 
             return services;
         }

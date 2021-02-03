@@ -4,6 +4,7 @@ import { auth, User } from 'firebase/app';
 import { from, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
+import { state } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',

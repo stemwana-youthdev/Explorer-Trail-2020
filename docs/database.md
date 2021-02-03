@@ -31,7 +31,7 @@ If you are going to modify the database structure you will need to install the E
 To use `dotnet ef` you need to set the following environment variables. You can either run these before you use it each time or put them in `~/.bash_profile` (`~/.zprofile` if your vscode terminal says zsh).
 
 ```sh
-export PATH="$PATH:~/dotnet/tools"
+export PATH="$PATH:~/.dotnet/tools"
 export ConnectionStrings__StemExplorer='User ID=stem;\
 Password=stem2020;Server=localhost;Database=StemExplorer'
 ```

@@ -7,6 +7,7 @@ namespace StemExplorerAPI.Services.Interfaces
     }
 
     public interface IFirebaseTokenData {
+        string Name { get; }
         string UserId { get; }
     }
 }

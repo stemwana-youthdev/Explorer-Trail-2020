@@ -18,6 +18,7 @@ namespace StemExplorerAPI.Services
                 _identity = identity;
             }
 
+            public string Name => _identity.FindFirst("name")?.Value;
             public string UserId => _identity.FindFirst("user_id")?.Value;
         }
     }

@@ -1,5 +1,10 @@
-<p>
-  Use the main app to edit your profile.
-</p>
+<ng-container *ngIf="loaded; else loading">
+  <p *ngIf="isAdmin">You are an admin</p>
+  <p *ngIf="!isAdmin">Your are not an admin. In order to edit, you must be approved by an existing admin</p>
+</ng-container>
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>
+<p>Use the main app to edit your profile.</p>
 <button mat-raised-button (click)="openProfile()">Open Profile</button>
 <button mat-raised-button (click)="logOut()">Log Out</button>
