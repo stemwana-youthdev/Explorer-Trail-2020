@@ -1,7 +1,14 @@
 <mat-toolbar class="toolbar">
   <span (click)="goHome()">{{ title }}</span>
-  <button mat-raised-button (click)="openAccountInfo()">
-    Hello {{ user.name }}
-    <mat-icon>account_circle</mat-icon>
-  </button>
+  <ng-container *ngIf="user; else loginButton">
+    <button mat-raised-button (click)="openAccountInfo()">
+      Hello {{ user.displayName }}
+      <img class="photo" [src]="user.photoURL">
+    </button>
+  </ng-container>
+  <ng-template #loginButton>
+    <button mat-raised-button (click)="auth.signin()">
+      Login
+    </button>
+  </ng-template>
 </mat-toolbar>

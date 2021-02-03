@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
+import { ProfileComponent } from './core/components/profile/profile.component';
 
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, pathMatch: 'full'
+  },
+  {
+    path: 'profile', component: ProfileComponent, pathMatch: 'full'
   },
   {
     path: 'locations',

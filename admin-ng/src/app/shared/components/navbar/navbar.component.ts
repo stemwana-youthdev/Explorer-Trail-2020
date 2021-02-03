@@ -1,24 +1,30 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit, OnDestroy {
   @Input() title: string;
-  // @Input() user: any;
-  user = {
-    name: 'Louie'
+  user: firebase.User;
+  sub: Subscription;
+
+  constructor(private router: Router, public auth: AuthService) {}
+
+  ngOnInit() {
+    this.sub = this.auth.user.subscribe((val) => (this.user = val));
   }
 
-  constructor(
-    private router: Router,
-  ) {}
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
+  }
 
   openAccountInfo(): void {
-    console.warn('This is going to do something one day');
+    this.router.navigateByUrl('/profile');
   }
 
   goHome(): void {
