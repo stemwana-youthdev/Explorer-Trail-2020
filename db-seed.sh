@@ -3,6 +3,9 @@
 # By default this script wipes the database and then fills it with some example content
 # To skip wiping the DB, run `./db-seed.sh keep`
 
+# Please note that this adds Benjamin Davies (one of the devs) as an admin by default,
+# and you may wish to remove him if you don't want him having access.
+
 # Open a SQL prompt in the Docker container
 db_connection() {
   docker exec -i explorer-trail-2020_explorer_trail_db_1 \
@@ -204,6 +207,10 @@ VALUES (11,
 (73,'Single Level,pick one',1,0,39,'{answer a,option b,or pick the last one}','{answer a,option b,or pick the last one}','We forgot the create of great instruction text for testing so heres some cupcake ipsum. Cupcake ipsum dolor sit amet marshmallow. Topping lollipop bear claw danish jelly-o cheesecake. Dessert sweet roll donut cheesecake powder lemon drops. Gingerbread sweet soufflé.','Pick any of the options,they should all be correct!'),
 (74,'Single Level,pick one',1,0,40,'{answer a,option b,or pick the last one}','{answer a,option b,or pick the last one}','We forgot the create of great instruction text for testing so heres some cupcake ipsum. Cupcake ipsum dolor sit amet marshmallow. Topping lollipop bear claw danish jelly-o cheesecake. Dessert sweet roll donut cheesecake powder lemon drops. Gingerbread sweet soufflé.','Pick any of the options,they should all be correct!'),
 (75,'Single Level,pick one',1,0,41,'{answer a,option b,or pick the last one}','{answer a,option b,or pick the last one}','We forgot the create of great instruction text for testing so heres some cupcake ipsum. Cupcake ipsum dolor sit amet marshmallow. Topping lollipop bear claw danish jelly-o cheesecake. Dessert sweet roll donut cheesecake powder lemon drops. Gingerbread sweet soufflé.','Pick any of the options,they should all be correct!');
+
+DELETE FROM "Admins";
+INSERT INTO "Admins" ("Id", "Name", "Approved")
+VALUES ('6tqye0xq1lTxv30fykjyMgipeS63', 'Benjamin Davies (default)', TRUE);
 
 ALTER SEQUENCE "Locations_LocationId_seq" RESTART WITH 101;
 ALTER SEQUENCE "Challenges_Id_seq" RESTART WITH 101;

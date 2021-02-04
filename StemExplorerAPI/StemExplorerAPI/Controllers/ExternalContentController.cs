@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StemExplorerAPI.Models.ViewModels;
@@ -33,18 +34,21 @@ namespace StemExplorerAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task Post([FromBody] ExternalContentDto newContent)
         {
             await _externalContentService.InsertContent(newContent);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task Put(int id, [FromBody] ExternalContentDto newContent)
         {
             await _externalContentService.UpdateContent(id, newContent);
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task Delete(int id)
         {
             await _externalContentService.DeleteContent(id);

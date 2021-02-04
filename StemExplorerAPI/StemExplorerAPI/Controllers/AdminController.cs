@@ -27,7 +27,7 @@ namespace StemExplorerAPI.Controllers
         [Authorize]
         public async Task<ActionResult<bool>> UserIsAdmin()
         {
-            return await _adminService.UserIsAdmin(HttpContext);
+            return await _adminService.UserIsAdmin(HttpContext.User);
         }
     }
 }

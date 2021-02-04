@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using StemExplorerAPI.Services;
 using StemExplorerAPI.Services.Interfaces;
 using System;
@@ -22,6 +23,7 @@ namespace StemExplorerAPI
             services.AddScoped<IFirebaseTokenService, FirebaseTokenService>();
             services.AddScoped<IStatsService, StatsService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IAuthorizationHandler, AdminService>();
 
             return services;
         }

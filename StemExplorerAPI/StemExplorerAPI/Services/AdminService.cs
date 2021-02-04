@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using StemExplorerAPI.Models;
 using StemExplorerAPI.Models.Entities;
@@ -7,11 +9,12 @@ using StemExplorerAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Services
 {
-    public class AdminService : IAdminService
+    public class AdminService : AuthorizationHandler<RolesAuthorizationRequirement>, IAdminService
     {
         private readonly StemExplorerContext _context;
         private readonly IFirebaseTokenService _firebaseTokenService;
@@ -21,9 +24,17 @@ namespace StemExplorerAPI.Services
             _firebaseTokenService = firebaseTokenService;
         }
 
-        public async Task<bool> UserIsAdmin(HttpContext context)
+        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, RolesAuthorizationRequirement requirement)
         {
-            var data = _firebaseTokenService.GetTokenData(context);
+            if (requirement.AllowedRoles.Contains("Admin") && await UserIsAdmin(context.User))
+            {
+                context.Succeed(requirement);
+            }
+        }
+
+        public async Task<bool> UserIsAdmin(ClaimsPrincipal user)
+        {
+            var data = _firebaseTokenService.GetTokenData(user);
             var admin = await GetAdmin(data.UserId);
 
             if (admin == null)

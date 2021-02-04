@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -93,6 +94,7 @@ namespace StemExplorerAPI.Controllers
 
         // POST: api/Location
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddLocationAsync([FromBody] FullLocationDto locationDto)
         {
             try
@@ -110,6 +112,7 @@ namespace StemExplorerAPI.Controllers
 
         // PUT: api/Location/1
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put([FromBody] FullLocationDto locationDto)
         {
             try
@@ -130,6 +133,7 @@ namespace StemExplorerAPI.Controllers
 
         // DELETE: api/Location/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try

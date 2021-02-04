@@ -6,6 +6,8 @@ namespace StemExplorerAPI.Services
 {
     public class FirebaseTokenService : IFirebaseTokenService
     {
+        public IFirebaseTokenData GetTokenData(ClaimsPrincipal user)
+            => new FirebaseTokenData(user.Identity as ClaimsIdentity);
         public IFirebaseTokenData GetTokenData(HttpContext context)
             => new FirebaseTokenData(context.User.Identity as ClaimsIdentity);
 

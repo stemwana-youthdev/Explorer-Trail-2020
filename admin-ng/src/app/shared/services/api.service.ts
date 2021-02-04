@@ -19,19 +19,19 @@ export class ApiService {
     private auth: AuthService
   ) {}
 
-  withAuth<T>(cb: (Authorization: string) => Observable<T>): Observable<T> {
+  withAuth<T>(
+    cb: (headers: { Authorization: string }) => Observable<T>
+  ): Observable<T> {
     return this.auth.token.pipe(
       take(1),
-      switchMap((token) => cb(`Bearer ${token}`))
+      switchMap((token) => cb({ Authorization: `Bearer ${token}` }))
     );
   }
 
   getIsAdmin(): Observable<boolean> {
     const url = this.url.admin();
-    return this.withAuth<boolean>((Authorization) => {
-      return this.http.get<boolean>(`${url}/UserIsAdmin`, {
-        headers: { Authorization },
-      });
+    return this.withAuth((headers) => {
+      return this.http.get<boolean>(`${url}/UserIsAdmin`, { headers });
     });
   }
 
@@ -52,12 +52,18 @@ export class ApiService {
 
   updateLocation(location: Location): Observable<Location> {
     const url = this.url.locations();
-    return this.http.put<Location>(`${url}/${location.uid}`, location);
+    return this.withAuth((headers) => {
+      return this.http.put<Location>(`${url}/${location.uid}`, location, {
+        headers,
+      });
+    });
   }
 
   createLocation(location: Location): Observable<Location> {
     const url = this.url.locations();
-    return this.http.post<Location>(url, location);
+    return this.withAuth((headers) => {
+      return this.http.post<Location>(url, location, { headers });
+    });
   }
 
   getLocationsDropdown(): Observable<Dropdown[]> {
@@ -82,22 +88,34 @@ export class ApiService {
 
   updateChallenge(challenge: Challenge): Observable<Challenge> {
     const url = this.url.challenges();
-    return this.http.put<Challenge>(`${url}/${challenge.id}`, challenge);
+    return this.withAuth((headers) => {
+      return this.http.put<Challenge>(`${url}/${challenge.id}`, challenge, {
+        headers,
+      });
+    });
   }
 
   createChallenge(challenge: Challenge): Observable<Challenge> {
     const url = this.url.challenges();
-    return this.http.post<Challenge>(url, challenge);
+    return this.withAuth((headers) => {
+      return this.http.post<Challenge>(url, challenge, { headers });
+    });
   }
 
   updateLevel(level: ChallengeLevel): Observable<ChallengeLevel> {
     const url = this.url.challengeLevels();
-    return this.http.put<ChallengeLevel>(`${url}/${level.uid}`, level);
+    return this.withAuth((headers) => {
+      return this.http.put<ChallengeLevel>(`${url}/${level.uid}`, level, {
+        headers,
+      });
+    });
   }
 
   createLevel(level: ChallengeLevel): Observable<ChallengeLevel> {
     const url = this.url.challengeLevels();
-    return this.http.post<ChallengeLevel>(url, level);
+    return this.withAuth((headers) => {
+      return this.http.post<ChallengeLevel>(url, level, { headers });
+    });
   }
 
   addLocation(challengeId: string, locationId): Observable<number> {
@@ -105,22 +123,33 @@ export class ApiService {
     let params = new HttpParams();
     params = params.append('challengeId', challengeId);
     params = params.append('locationId', locationId);
-    return this.http.put<number>(`${url}/add-location`, null, { params });
+    return this.withAuth((headers) => {
+      return this.http.put<number>(`${url}/add-location`, null, {
+        params,
+        headers,
+      });
+    });
   }
 
   deleteChallenge(challengeId: string): Observable<any> {
     const url = this.url.challenges();
-    return this.http.delete(`${url}/${challengeId}`);
+    return this.withAuth((headers) => {
+      return this.http.delete(`${url}/${challengeId}`, { headers });
+    });
   }
 
   deleteLocation(locationId: string): Observable<any> {
     const url = this.url.locations();
-    return this.http.delete(`${url}/${locationId}`);
+    return this.withAuth((headers) => {
+      return this.http.delete(`${url}/${locationId}`, { headers });
+    });
   }
 
   deleteLevel(levelId: string): Observable<any> {
     const url = this.url.challengeLevels();
-    return this.http.delete(`${url}/${levelId}`);
+    return this.withAuth((headers) => {
+      return this.http.delete(`${url}/${levelId}`, { headers });
+    });
   }
 
   getExternalContent(): Observable<ExternalContent[]> {
@@ -135,16 +164,24 @@ export class ApiService {
 
   createExternalContent(item: ExternalContent): Observable<ExternalContent> {
     const url = this.url.externalContent();
-    return this.http.post<ExternalContent>(url, item);
+    return this.withAuth((headers) => {
+      return this.http.post<ExternalContent>(url, item, { headers });
+    });
   }
 
   updateExternalContent(item: ExternalContent): Observable<ExternalContent> {
     const url = this.url.externalContent();
-    return this.http.put<ExternalContent>(`${url}/${item.uid}`, item);
+    return this.withAuth((headers) => {
+      return this.http.put<ExternalContent>(`${url}/${item.uid}`, item, {
+        headers,
+      });
+    });
   }
 
   deleteExternalContent(itemId: string): Observable<any> {
     const url = this.url.externalContent();
-    return this.http.delete(`${url}/${itemId}`);
+    return this.withAuth((headers) => {
+      return this.http.delete(`${url}/${itemId}`, { headers });
+    });
   }
 }
