@@ -35,36 +35,20 @@ namespace StemExplorerAPI.Services
         public async Task<bool> UserIsAdmin(ClaimsPrincipal user)
         {
             var data = _firebaseTokenService.GetTokenData(user);
-            var admin = await GetAdmin(data.UserId);
-
-            if (admin == null)
+            if (!data.EmailVerified)
             {
-                await CreateUnapprovedAdmin(data.Name, data.UserId);
                 return false;
             }
-            else
-            {
-                return admin.Approved;
-            }
+
+            var admin = await GetAdmin(data.Email);
+            return admin != null;
         }
 
-        private async Task<Admin> GetAdmin(string id)
+        private async Task<Admin> GetAdmin(string email)
         {
             return await _context.Admins
-                    .Where(p => p.Id == id)
+                    .Where(p => p.Email == email)
                     .SingleOrDefaultAsync();
-        }
-
-        private async Task CreateUnapprovedAdmin(string name, string id)
-        {
-            var admin = new Admin
-            {
-                Name = name,
-                Id = id,
-                Approved = false,
-            };
-            _context.Admins.Add(admin);
-            await _context.SaveChangesAsync();
         }
     }
 }

@@ -209,8 +209,8 @@ VALUES (11,
 (75,'Single Level,pick one',1,0,41,'{answer a,option b,or pick the last one}','{answer a,option b,or pick the last one}','We forgot the create of great instruction text for testing so heres some cupcake ipsum. Cupcake ipsum dolor sit amet marshmallow. Topping lollipop bear claw danish jelly-o cheesecake. Dessert sweet roll donut cheesecake powder lemon drops. Gingerbread sweet soufflé.','Pick any of the options,they should all be correct!');
 
 DELETE FROM "Admins";
-INSERT INTO "Admins" ("Id", "Name", "Approved")
-VALUES ('6tqye0xq1lTxv30fykjyMgipeS63', 'Benjamin Davies (default)', TRUE);
+INSERT INTO "Admins" ("Email")
+VALUES ('bentendavies@gmail.com');
 
 ALTER SEQUENCE "Locations_LocationId_seq" RESTART WITH 101;
 ALTER SEQUENCE "Challenges_Id_seq" RESTART WITH 101;

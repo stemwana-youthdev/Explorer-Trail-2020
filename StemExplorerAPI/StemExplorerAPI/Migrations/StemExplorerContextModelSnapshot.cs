@@ -22,16 +22,10 @@ namespace StemExplorerAPI.Migrations
 
             modelBuilder.Entity("StemExplorerAPI.Models.Entities.Admin", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<bool>("Approved")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
+                    b.HasKey("Email");
 
                     b.ToTable("Admins");
                 });

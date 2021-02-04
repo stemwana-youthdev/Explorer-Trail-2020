@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using StemExplorerAPI.Models;
 
 namespace StemExplorerAPI
@@ -25,6 +26,10 @@ namespace StemExplorerAPI
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     Configuration.Bind("JwtSettings", options);
+
+                    // var config = new OpenIdConnectConfiguration();
+                    // config.ClaimActions.MapUniqueJsonKey("email_verified", "email_verified");
+                    // options.Configuration = config;
                 });
 
             var connection = Configuration.GetConnectionString("StemExplorer");

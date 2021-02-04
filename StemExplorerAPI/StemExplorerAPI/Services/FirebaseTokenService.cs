@@ -22,6 +22,9 @@ namespace StemExplorerAPI.Services
 
             public string Name => _identity.FindFirst("name")?.Value;
             public string UserId => _identity.FindFirst("user_id")?.Value;
+            // AspDotNet renames some claim types to web addresses?
+            public string Email => _identity.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
+            public bool EmailVerified => _identity.FindFirst("email_verified")?.Value == "true";
         }
     }
 }

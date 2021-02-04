@@ -11,7 +11,7 @@ using StemExplorerAPI.Models;
 namespace StemExplorerAPI.Migrations
 {
     [DbContext(typeof(StemExplorerContext))]
-    [Migration("20210203050811_AddAdmin")]
+    [Migration("20210204071158_AddAdmin")]
     partial class AddAdmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,16 +24,10 @@ namespace StemExplorerAPI.Migrations
 
             modelBuilder.Entity("StemExplorerAPI.Models.Entities.Admin", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<bool>("Approved")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
+                    b.HasKey("Email");
 
                     b.ToTable("Admins");
                 });
