@@ -5,22 +5,37 @@ import { from, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { state } from '@angular/animations';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public get isLoggedIn(): Observable<boolean> {
-    return this.user.pipe(map((state) => !!state));
-  }
-  public get token(): Observable<string> {
-    return this.user.pipe(switchMap((state) => from(state.getIdToken())));
-  }
-  public get user(): Observable<User> {
+  public get user$(): Observable<User> {
     return this.afAuth.authState;
   }
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+  get isLoggedIn() {
+    return !!this.user;
+  }
+  user: User;
+  isAdmin = false;
+  loaded = false;
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private api: ApiService
+  ) {
+    this.user$.subscribe(async (user) => {
+      this.user = user;
+      const res = await user.getIdTokenResult();
+      this.scheduleTokenRefresh(res.expirationTime);
+      this.api.token = res.token;
+      this.isAdmin = await api.getIsAdmin().toPromise();
+      this.loaded = true;
+    });
+  }
 
   async signin() {
     const provider = new auth.GoogleAuthProvider();

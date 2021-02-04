@@ -1,6 +1,6 @@
-<ng-container *ngIf="loaded; else loading">
-  <p *ngIf="isAdmin">You are an admin</p>
-  <p *ngIf="!isAdmin">Your are not an admin. In order to edit, you must be approved by an existing admin</p>
+<ng-container *ngIf="auth.loaded; else loading">
+  <p *ngIf="auth.isAdmin">You are an admin</p>
+  <p *ngIf="!auth.isAdmin">Your are not an admin. In order to edit, you must be approved by an existing admin</p>
 </ng-container>
 <ng-template #loading>
   <p>Loading...</p>

@@ -13,9 +13,6 @@ export class ProfileComponent implements OnInit {
   user: firebase.User;
   sub: Subscription;
 
-  isAdmin = false;
-  loaded = false;
-
   constructor(
     private router: Router,
     public auth: AuthService,
@@ -23,16 +20,11 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.sub = this.auth.user.subscribe((val) => {
+    this.sub = this.auth.user$.subscribe((val) => {
       if (!val) {
         this.router.navigateByUrl('/');
       }
       this.user = val;
-    });
-
-    this.api.getIsAdmin().subscribe((isAdmin) => {
-      this.isAdmin = isAdmin;
-      this.loaded = true;
     });
   }
 
