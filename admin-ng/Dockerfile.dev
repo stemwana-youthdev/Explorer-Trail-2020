@@ -8,7 +8,10 @@ WORKDIR $ROOT
 COPY package*.json ./
 RUN npm ci
 
-COPY . .
+# Only copy files in this folder with extensions
+# This excludes directories that change frequently
+# and are provided by docker volumes for development
+COPY *.* ./
 
 EXPOSE 4200
 
