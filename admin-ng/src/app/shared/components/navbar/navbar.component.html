@@ -2,7 +2,7 @@
   <span (click)="goHome()">{{ title }}</span>
   <ng-container *ngIf="auth.user; else loginButton">
     <button mat-raised-button (click)="openAccountInfo()">
-      Hello {{ auth.user.displayName }}
+      Hello, {{ auth.user.displayName }}
       <img class="photo" [src]="auth.user.photoURL">
     </button>
   </ng-container>

@@ -6,6 +6,7 @@ import { AuthService } from './auth/auth.service';
 import { FirebaseConfigService } from './auth/firebase-config.service';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire';
 import { ProfileComponent } from './components/profile/profile.component';
+import { NotAdminDialogComponent } from './components/not-admin-dialog/not-admin-dialog.component';
 
 function getFirebaseConfig(firebaseConfig: FirebaseConfigService) {
   return firebaseConfig.get();
@@ -34,7 +35,8 @@ const ConfiguredAngularFireModule: ModuleWithProviders<AngularFireModule> = {
   ],
   declarations: [
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    NotAdminDialogComponent
   ],
   exports: [
     DashboardComponent
