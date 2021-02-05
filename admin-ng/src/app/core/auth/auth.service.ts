@@ -21,20 +21,39 @@ export class AuthService {
   user: User;
   isAdmin = false;
   loaded = false;
+  scheduledTokenRefresh: number;
 
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
     private api: ApiService
   ) {
-    this.user$.subscribe(async (user) => {
+    this.user$.subscribe((user) => {
       this.user = user;
-      const res = await user.getIdTokenResult();
-      this.scheduleTokenRefresh(res.expirationTime);
-      this.api.token = res.token;
-      this.isAdmin = await api.getIsAdmin().toPromise();
-      this.loaded = true;
+      this.fetchToken();
     });
+  }
+
+  async fetchToken(forceRefresh = false) {
+    clearTimeout(this.scheduledTokenRefresh);
+    const res = await this.user.getIdTokenResult(forceRefresh);
+    this.scheduleTokenRefresh(res.expirationTime);
+
+    this.api.token = res.token;
+    this.isAdmin = await this.api.getIsAdmin().toPromise();
+    this.loaded = true;
+  }
+
+  scheduleTokenRefresh(expirationTime: string) {
+    const exp = new Date(expirationTime);
+    const now = new Date();
+    const msTillExpiry = exp.getTime() - now.getTime();
+    const msIn30Minutes = 30 * 60 * 1000;
+    const msTill30MinutesBeforeExpiry = msTillExpiry - msIn30Minutes;
+    console.log(msTill30MinutesBeforeExpiry);
+    this.scheduledTokenRefresh = setTimeout(() => {
+      this.fetchToken();
+    }, msTill30MinutesBeforeExpiry);
   }
 
   async signin() {
