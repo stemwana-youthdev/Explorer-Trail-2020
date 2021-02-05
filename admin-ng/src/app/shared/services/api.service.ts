@@ -27,6 +27,33 @@ export class ApiService {
     return this.http.get<boolean>(`${url}/UserIsAdmin`, { headers });
   }
 
+  getAdmins(): Observable<string[]> {
+    const url = this.url.admin();
+    return this.http.get<string[]>(`${url}/AllAdmins`);
+  }
+
+  deleteAdmin(email: string) {
+    const url = this.url.admin();
+    const headers = this.authHeaders();
+    let params = new HttpParams();
+    params = params.append('email', email);
+    return this.http.delete<string[]>(`${url}`, {
+      headers,
+      params,
+    });
+  }
+
+  createAdmin(email: string) {
+    const url = this.url.admin();
+    const headers = this.authHeaders();
+    let params = new HttpParams();
+    params = params.append('email', email);
+    return this.http.post<string[]>(`${url}`, null, {
+      headers,
+      params,
+    });
+  }
+
   getStats(): Observable<Stats> {
     const url = this.url.home();
     return this.http.get<Stats>(`${url}/Stats`);

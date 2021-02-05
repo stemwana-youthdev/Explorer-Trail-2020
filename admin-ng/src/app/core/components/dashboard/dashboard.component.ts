@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
     { link: ['/locations'], name: 'Locations', icon: 'explore' },
     { link: ['/challenges'], name: 'Challenges', icon: 'assignment_turned_in' },
     { link: ['/external-content'], name: 'External Content', icon: 'description' },
+    { link: ['/admins'], name: 'Admins', icon: 'verified_user' },
   ];
   stats: Stats;
 

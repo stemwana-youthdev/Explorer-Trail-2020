@@ -22,6 +22,11 @@
               {{element[column.columnDef]}}
             </a>
           </span>
+          <span *ngSwitchCase="'icon-button'">
+            <button mat-icon-button (click)="column.onClick && column.onClick(element)">
+              <mat-icon>{{ column.icon }}</mat-icon>
+            </button>
+          </span>
           <span *ngSwitchDefault>
             {{element[column.columnDef]}}
           </span>

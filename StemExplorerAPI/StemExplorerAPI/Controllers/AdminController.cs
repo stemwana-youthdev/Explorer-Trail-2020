@@ -29,5 +29,23 @@ namespace StemExplorerAPI.Controllers
         {
             return await _adminService.UserIsAdmin(HttpContext.User);
         }
+
+        [HttpGet("AllAdmins")]
+        public async Task<ActionResult<List<string>>> GetAllAdmins()
+        {
+            return await _adminService.GetAllAdmins();
+        }
+
+        [HttpDelete("")]
+        public async Task DeleteAdmin(string email)
+        {
+            await _adminService.DeleteAdmin(email);
+        }
+
+        [HttpPost("")]
+        public async Task CreateAdmin(string email)
+        {
+            await _adminService.CreateAdmin(email);
+        }
     }
 }

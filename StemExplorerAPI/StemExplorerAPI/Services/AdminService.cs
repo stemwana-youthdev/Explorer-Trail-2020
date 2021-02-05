@@ -47,8 +47,32 @@ namespace StemExplorerAPI.Services
         private async Task<Admin> GetAdmin(string email)
         {
             return await _context.Admins
-                    .Where(p => p.Email == email)
+                    .Where(a => a.Email == email)
                     .SingleOrDefaultAsync();
+        }
+
+        public async Task<List<string>> GetAllAdmins()
+        {
+            return await _context.Admins
+                    .Select(a => a.Email)
+                    .ToListAsync();
+        }
+
+        public async Task DeleteAdmin(string email)
+        {
+            var admin = await GetAdmin(email);
+            _context.Admins.Remove(admin);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CreateAdmin(string email)
+        {
+            var admin = new Admin
+            {
+                Email = email,
+            };
+            _context.Admins.Add(admin);
+            await _context.SaveChangesAsync();
         }
     }
 }

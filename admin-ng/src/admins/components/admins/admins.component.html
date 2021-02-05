@@ -1,0 +1,16 @@
+<app-header [title]="'Admins'" [topButtons]="topButtons"></app-header>
+
+<app-table [data]="admins" [table]="table"></app-table>
+
+<app-header [title]="'Add Admin'"></app-header>
+
+<form [formGroup]="form">
+  <formly-form [form]="form" [fields]="fields" [model]="newAdmin"></formly-form>
+
+  <button type="submit" mat-raised-button
+    class="button pink"
+    (click)="addAdmin(newAdmin)"
+    [disabled]="!form.valid">
+    SAVE
+  </button>
+</form>

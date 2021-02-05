@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'external-content',
     loadChildren: () => import('../external-content/external-content.module').then(m => m.ExternalContentModule)
   },
+  {
+    path: 'admins',
+    loadChildren: () => import('../admins/admins.module').then(m => m.AdminsModule)
+  },
 ];
 
 @NgModule({
