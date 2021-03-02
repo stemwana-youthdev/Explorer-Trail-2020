@@ -15,7 +15,7 @@ export class AuthService {
     return this.afAuth.authState;
   }
 
-  get isLoggedIn() {
+  get isLoggedIn(): boolean {
     return !!this.user;
   }
   user: User;
@@ -33,7 +33,7 @@ export class AuthService {
     });
   }
 
-  async fetchToken(forceRefresh = false) {
+  async fetchToken(forceRefresh = false): Promise<boolean> {
     clearTimeout(this.scheduledTokenRefresh);
     if (!this.user) {
       return false;
@@ -59,7 +59,7 @@ export class AuthService {
     }
   }
 
-  scheduleTokenRefresh(expirationTime: string) {
+  scheduleTokenRefresh(expirationTime: string): void {
     const exp = new Date(expirationTime);
     const now = new Date();
 
@@ -72,14 +72,13 @@ export class AuthService {
     }, msTill30MinutesBeforeExpiry);
   }
 
-  async signin() {
+  async signin(): Promise<void> {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.signInWithPopup(provider);
     this.router.navigate(['/profile']);
-    return credential;
   }
 
-  async signOut() {
+  async signOut(): Promise<void> {
     await this.afAuth.signOut();
     this.router.navigate(['/']);
   }
