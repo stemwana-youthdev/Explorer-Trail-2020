@@ -37,12 +37,14 @@ namespace StemExplorerAPI.Controllers
         }
 
         [HttpDelete("")]
+        [Authorize(Roles = "Admin")]
         public async Task DeleteAdmin(string email)
         {
             await _adminService.DeleteAdmin(email);
         }
 
         [HttpPost("")]
+        [Authorize(Roles = "Admin")]
         public async Task CreateAdmin(string email)
         {
             await _adminService.CreateAdmin(email);
