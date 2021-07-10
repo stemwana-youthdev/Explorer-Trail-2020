@@ -10,50 +10,50 @@ using StemExplorerData.Models.Entities;
 
 namespace StemExplorerAdminAPI.Controllers
 {
-    [Route("api/Admin/Challenges")]
+    [Route("api/Admin/Locations")]
     [ApiController]
-    public class ChallengesController : ControllerBase
+    public class LocationsController : ControllerBase
     {
         private readonly StemExplorerContext _context;
 
-        public ChallengesController(StemExplorerContext context)
+        public LocationsController(StemExplorerContext context)
         {
             _context = context;
         }
 
-        // GET: api/Challenges
+        // GET: api/Locations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Challenge>>> GetChallenges()
+        public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
         {
-            return await _context.Challenges.ToListAsync();
+            return await _context.Locations.ToListAsync();
         }
 
-        // GET: api/Challenges/5
+        // GET: api/Locations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Challenge>> GetChallenge(int id)
+        public async Task<ActionResult<Location>> GetLocation(int id)
         {
-            var challenge = await _context.Challenges.FindAsync(id);
+            var location = await _context.Locations.FindAsync(id);
 
-            if (challenge == null)
+            if (location == null)
             {
                 return NotFound();
             }
 
-            return challenge;
+            return location;
         }
 
-        // PUT: api/Challenges/5
+        // PUT: api/Locations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutChallenge(int id, Challenge challenge)
+        public async Task<IActionResult> PutLocation(int id, Location location)
         {
-            if (id != challenge.Id)
+            if (id != location.LocationId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(challenge).State = EntityState.Modified;
+            _context.Entry(location).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace StemExplorerAdminAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ChallengeExists(id))
+                if (!LocationExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace StemExplorerAdminAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Challenges
+        // POST: api/Locations
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Challenge>> PostChallenge(Challenge challenge)
+        public async Task<ActionResult<Location>> PostLocation(Location location)
         {
-            _context.Challenges.Add(challenge);
+            _context.Locations.Add(location);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetChallenge", new { id = challenge.Id }, challenge);
+            return CreatedAtAction("GetLocation", new { id = location.LocationId }, location);
         }
 
-        // DELETE: api/Challenges/5
+        // DELETE: api/Locations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Challenge>> DeleteChallenge(int id)
+        public async Task<ActionResult<Location>> DeleteLocation(int id)
         {
-            var challenge = await _context.Challenges.FindAsync(id);
-            if (challenge == null)
+            var location = await _context.Locations.FindAsync(id);
+            if (location == null)
             {
                 return NotFound();
             }
 
-            _context.Challenges.Remove(challenge);
+            _context.Locations.Remove(location);
             await _context.SaveChangesAsync();
 
-            return challenge;
+            return location;
         }
 
-        private bool ChallengeExists(int id)
+        private bool LocationExists(int id)
         {
-            return _context.Challenges.Any(e => e.Id == id);
+            return _context.Locations.Any(e => e.LocationId == id);
         }
     }
 }

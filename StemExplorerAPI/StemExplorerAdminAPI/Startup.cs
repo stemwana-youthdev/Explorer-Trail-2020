@@ -33,6 +33,16 @@ namespace StemExplorerAdminAPI
                 opt.UseNpgsql(connection));
 
             services.AddControllers();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Stem Explorer Admin",
+                    Version = "v2",
+                    Description = "Documentation for the Stem Explorer Admin project"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +52,12 @@ namespace StemExplorerAdminAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v2/swagger.json", "STEM Explorer Admin");
+            });
 
             app.UseHttpsRedirection();
 
