@@ -1,7 +1,7 @@
 // using Microsoft.EntityFrameworkCore;
-// using StemExplorerAPI.Models;
-// using StemExplorerAPI.Models.Entities;
-// using StemExplorerAPI.Models.ViewModels;
+// using StemExplorerData.Models;
+// using StemExplorerData.Models.Entities;
+// using StemExplorerData.Models.ViewModels;
 // using StemExplorerAPI.Services.Interfaces;
 // using System;
 // using System.Collections.Generic;

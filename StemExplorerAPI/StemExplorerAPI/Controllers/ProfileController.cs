@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
-using StemExplorerAPI.Models.ViewModels;
-using StemExplorerAPI.Models.ViewModels.Requests;
+using StemExplorerData.Models.ViewModels;
+using StemExplorerData.Models.ViewModels.Requests;
 using StemExplorerAPI.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers

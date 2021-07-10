@@ -1,5 +1,5 @@
-using StemExplorerAPI.Models.ViewModels;
-using StemExplorerAPI.Models.ViewModels.Requests;
+using StemExplorerData.Models.ViewModels;
+using StemExplorerData.Models.ViewModels.Requests;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

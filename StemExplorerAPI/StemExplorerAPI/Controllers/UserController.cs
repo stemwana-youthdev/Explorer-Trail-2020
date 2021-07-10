@@ -1,4 +1,4 @@
-using StemExplorerAPI.Models.ViewModels;
+using StemExplorerData.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;

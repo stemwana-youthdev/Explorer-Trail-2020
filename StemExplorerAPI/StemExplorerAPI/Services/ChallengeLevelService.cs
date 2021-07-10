@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StemExplorerAPI.Models;
-using StemExplorerAPI.Models.Entities;
-using StemExplorerAPI.Models.ViewModels;
+using StemExplorerData.Models;
+using StemExplorerData.Models.Entities;
+using StemExplorerData.Models.ViewModels;
 using StemExplorerAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using static StemExplorerAPI.Models.Enums;
+using static StemExplorerData.Models.Enums;
 
 namespace StemExplorerAPI.Services
 {

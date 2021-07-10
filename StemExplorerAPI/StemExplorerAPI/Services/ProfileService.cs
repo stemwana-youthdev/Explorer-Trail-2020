@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using StemExplorerAPI.Models;
-using StemExplorerAPI.Models.Entities;
-using StemExplorerAPI.Models.ViewModels;
-using StemExplorerAPI.Models.ViewModels.Requests;
+using StemExplorerData.Models;
+using StemExplorerData.Models.Entities;
+using StemExplorerData.Models.ViewModels;
+using StemExplorerData.Models.ViewModels.Requests;
 using StemExplorerAPI.Services.Interfaces;
 using System;
 using System.Linq;

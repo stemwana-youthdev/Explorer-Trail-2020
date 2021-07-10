@@ -1,4 +1,4 @@
-using StemExplorerAPI.Models.ViewModels;
+using StemExplorerData.Models.ViewModels;
 using System.Threading.Tasks;
 
 namespace StemExplorerAPI.Services.Interfaces
