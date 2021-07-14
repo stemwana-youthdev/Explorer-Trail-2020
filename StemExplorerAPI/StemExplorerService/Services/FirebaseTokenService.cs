@@ -1,8 +1,8 @@
-﻿using StemExplorerAPI.Services.Interfaces;
+﻿using StemExplorerService.Services.Interfaces;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace StemExplorerAPI.Services
+namespace StemExplorerService.Services
 {
     public class FirebaseTokenService : IFirebaseTokenService
     {

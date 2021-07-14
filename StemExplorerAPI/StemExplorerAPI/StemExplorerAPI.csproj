@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StemExplorerData\StemExplorerData.csproj" />
+    <ProjectReference Include="..\StemExplorerService\StemExplorerService.csproj" />
   </ItemGroup>
 
 

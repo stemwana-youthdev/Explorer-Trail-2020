@@ -1,5 +1,5 @@
 using StemExplorerData.Models.ViewModels;
-using StemExplorerAPI.Services.Interfaces;
+using StemExplorerService.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

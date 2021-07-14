@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StemExplorerData.Models.ViewModels;
-using StemExplorerAPI.Services.Interfaces;
+using StemExplorerService.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {

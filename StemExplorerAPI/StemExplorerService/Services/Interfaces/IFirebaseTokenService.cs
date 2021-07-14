@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace StemExplorerAPI.Services.Interfaces
+namespace StemExplorerService.Services.Interfaces
 {
     public interface IFirebaseTokenService {
         IFirebaseTokenData GetTokenData(HttpContext context);

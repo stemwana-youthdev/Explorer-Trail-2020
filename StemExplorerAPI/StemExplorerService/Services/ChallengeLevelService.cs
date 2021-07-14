@@ -2,7 +2,7 @@
 using StemExplorerData.Models;
 using StemExplorerData.Models.Entities;
 using StemExplorerData.Models.ViewModels;
-using StemExplorerAPI.Services.Interfaces;
+using StemExplorerService.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 using static StemExplorerData.Models.Enums;
 
-namespace StemExplorerAPI.Services
+namespace StemExplorerService.Services
 {
     public class ChallengeLevelService : IChallengeLevelService
     {

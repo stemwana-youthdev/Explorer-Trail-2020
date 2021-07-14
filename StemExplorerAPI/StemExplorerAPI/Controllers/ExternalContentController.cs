@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StemExplorerData.Models.ViewModels;
-using StemExplorerAPI.Services.Interfaces;
+using StemExplorerService.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {

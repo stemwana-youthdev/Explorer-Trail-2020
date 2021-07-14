@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using StemExplorerService.Services.Interfaces;
 using StemExplorerData.Models.ViewModels;
-using StemExplorerAPI.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {

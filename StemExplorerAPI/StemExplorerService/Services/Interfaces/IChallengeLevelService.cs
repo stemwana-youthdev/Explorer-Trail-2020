@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StemExplorerAPI.Services.Interfaces
+namespace StemExplorerService.Services.Interfaces
 {
     public interface IChallengeLevelService
     {

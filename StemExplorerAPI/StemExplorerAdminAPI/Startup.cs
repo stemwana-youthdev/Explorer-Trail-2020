@@ -32,8 +32,9 @@ namespace StemExplorerAdminAPI
             services.AddDbContext<StemExplorerContext>(opt =>
                 opt.UseNpgsql(connection));
 
-            services.AddControllers();
-
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -43,10 +44,12 @@ namespace StemExplorerAdminAPI
                     Description = "Documentation for the Stem Explorer Admin project"
                 });
             });
+
+            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, StemExplorerContext dataContext)
         {
             if (env.IsDevelopment())
             {
@@ -69,6 +72,8 @@ namespace StemExplorerAdminAPI
             {
                 endpoints.MapControllers();
             });
+
+            dataContext.Database.Migrate();
         }
     }
 }

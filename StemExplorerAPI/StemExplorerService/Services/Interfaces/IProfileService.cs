@@ -3,7 +3,7 @@ using StemExplorerData.Models.ViewModels.Requests;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace StemExplorerAPI.Services.Interfaces
+namespace StemExplorerService.Services.Interfaces
 {
     public interface IProfileService
     {

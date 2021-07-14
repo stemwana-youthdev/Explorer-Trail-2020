@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using StemExplorerData.Models.ViewModels;
 using StemExplorerData.Models.ViewModels.Requests;
-using StemExplorerAPI.Services.Interfaces;
+using StemExplorerService.Services.Interfaces;
 
 namespace StemExplorerAPI.Controllers
 {
